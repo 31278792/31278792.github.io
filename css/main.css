@@ -1699,7 +1699,7 @@ pre .javascript .function {
   border: 0;
 }
 #QR img {
-  width: 180px;
+  width: 50px;
   max-width: 100%;
   display: inline-block;
   margin: 0.8em 2em 0 2em;
@@ -1959,7 +1959,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #476683;
+  background: #62d16c;
 }
 .links-of-blogroll {
   font-size: 13px;
