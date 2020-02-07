@@ -204,11 +204,11 @@ avatar:
   # You can also use other linking images.
   url: /images/touxiang.gif
   # If true, the avatar would be dispalyed in circle.
-  rounded: ture
+  rounded: true
   # The value of opacity should be choose from 0 to 1 to set the opacity of the avatar.
   opacity: 1
   # If true, the avatar would be rotated with the cursor.
-  rotated: ture
+  rotated: true
 
 # Table Of Contents in the Sidebar
 toc:
