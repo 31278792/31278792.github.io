@@ -836,7 +836,7 @@ pace: true
 #pace-theme-minimal
 # For example
 # pace_theme: pace-theme-center-simple
-pace_theme: pace-theme-corner-indicator
+pace_theme: pace-theme-loading-bar
 
 # Canvas-nest
 # Dependencies: https://github.com/theme-next/theme-next-canvas-nest
