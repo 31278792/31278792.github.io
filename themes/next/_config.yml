@@ -530,10 +530,10 @@ gitment:
   lazy: false # Comments lazy loading with a button
   cleanly: false # Hide 'Powered by ...' on footer, and more
   language: # Force language, or auto switch by theme
-  github_user: 31278792 # MUST HAVE, Your Github Username
-  github_repo: categories # MUST HAVE, The name of the repo you use to store Gitment comments
-  client_id: b2b7ec2f3335b3fb71ed # MUST HAVE, Github client id for the Gitment
-  client_secret: 107349ab319a4cb1b2a5f784c14fbb3925e025cd # EITHER this or proxy_gateway, Github access secret token for the Gitment
+# github_user: 31278792 # MUST HAVE, Your Github Username
+# github_repo: categories # MUST HAVE, The name of the repo you use to store Gitment comments
+# client_id: b2b7ec2f3335b3fb71ed # MUST HAVE, Github client id for the Gitment
+# client_secret: 107349ab319a4cb1b2a5f784c14fbb3925e025cd # EITHER this or proxy_gateway, Github access secret token for the Gitment
   proxy_gateway: # Address of api proxy, See: https://github.com/aimingoo/intersect
   redirect_protocol: # Protocol of redirect_uri with force_redirect_protocol when mint enabled
 
@@ -836,7 +836,7 @@ pace: true
 #pace-theme-minimal
 # For example
 # pace_theme: pace-theme-center-simple
-pace_theme: pace-theme-mac-osx
+pace_theme: pace-theme-corner-indicator
 
 # Canvas-nest
 # Dependencies: https://github.com/theme-next/theme-next-canvas-nest
