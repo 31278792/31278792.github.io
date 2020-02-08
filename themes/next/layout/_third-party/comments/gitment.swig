@@ -6,7 +6,7 @@
         <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
     {% else %}
         {% set CommentsClass = "Gitment" %}
-		<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+		<link rel="stylesheet" href="https://www.wenjunjiang.win/css/gitment.css">
         <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
     {% endif %}
 <!-- END LOCAL -->
