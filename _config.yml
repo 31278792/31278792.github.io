@@ -107,3 +107,9 @@ deploy:
   type: git
   repo: https://github.com/31278792/31278792.github.io.git
   branch: master
+
+symbols_count_time:
+  symbols: true
+  time: true
+  total_symbols: true
+  total_time: true
