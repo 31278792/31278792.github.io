@@ -2088,7 +2088,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff9dff;
+  background: #61795e;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3358,8 +3358,8 @@ ul.breadcrumb li+li:last-child {
   }
 }
 * {
-  cursor: url("/images/qian"), auto !important;
+  cursor: url("/images/qian.ico"), auto !important;
 }
 :active {
-  cursor: url("/images/hou"), auto !important;
+  cursor: url("/images/hou.ico"), auto !important;
 }
