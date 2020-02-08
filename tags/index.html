@@ -365,14 +365,6 @@
           
 
   
-    <div class="comments" id="comments">
-      
-        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
-        <div id="gitment-container" style="display:none"></div>
-      
-    </div>
-
-  
 
 
 
@@ -652,50 +644,6 @@
 
 
 
-
-
-<!-- LOCAL: You can save these files to your site and update links -->
-    
-        
-		<link rel="stylesheet" href="https://www.wenjunjiang.win/css/gitment.css">
-        <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
-    
-<!-- END LOCAL -->
-
-    
-      <style>
-        a.gitment-editor-footer-tip { display: none; }
-        .gitment-container.gitment-footer-container { display: none; }
-      </style>
-    
-
-    
-      <script type="text/javascript">
-      function renderGitment(){
-        var gitment = new Gitment({
-            id: window.location.pathname,
-            owner: '31278792',
-            repo: 'categories',
-            
-            oauth: {
-            
-            
-                client_secret: '107349ab319a4cb1b2a5f784c14fbb3925e025cd',
-            
-                client_id: 'b2b7ec2f3335b3fb71ed'
-            }});
-        gitment.render('gitment-container');
-      }
-
-      
-      function showGitment(){
-        document.getElementById("gitment-display-button").style.display = "none";
-        document.getElementById("gitment-container").style.display = "block";
-        renderGitment();
-      }
-      
-      </script>
-    
 
 
 
