@@ -183,6 +183,17 @@ th {
   background: #262a30;
   color: #fff;
 }
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.23);
+}
 body {
   position: relative;
   font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
@@ -2088,7 +2099,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #b8ffc7;
+  background: #edff05;
 }
 .links-of-blogroll {
   font-size: 13px;
