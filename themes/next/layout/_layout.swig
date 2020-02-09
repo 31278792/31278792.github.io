@@ -129,5 +129,16 @@
     <script type="text/javascript" src="/js/src/love.js"></script>
   {% endif %}
 
+  <script>
+	(function(){
+		if('{{ page.password }}'){
+			if(prompt('该文章已加密，请输入密码进行访问') !== '{{ page.password }}'){
+				alert('密码错误!返回上一页');
+				history.back();
+			}
+		}
+	})();
+  </script>
+
 </body>
 </html>
