@@ -4,6 +4,21 @@
   color: $selection-color;
 }
 
+/*滚动条样式*/
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.23);
+}
+
 body {
   position: relative; // Required by scrollspy
   font-family: $font-family-base;
