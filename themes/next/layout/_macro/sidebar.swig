@@ -178,7 +178,7 @@
       <!--/noindex-->
       {% endif %}
 	  
-		<iframe allowtransparency="true" frameborder="0" width="197" height="98" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=1&z=1&t=0&v=0&d=1&bd=1&k=000000&f=&ltf=009944&htf=cc0000&q=1&e=1&a=1&c=54511&w=197&h=98&align=center"></iframe>
+		<iframe allowtransparency="true" frameborder="0" width="195" height="96" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=1&t=0&v=0&d=1&bd=0&k=&f=000000&ltf=009944&htf=cc0000&q=1&e=1&a=1&c=54511&w=195&h=96&align=center"></iframe>
 		<object  width=220  data="/music/modai.mp3"></object>
 	  
       {% if theme.sidebar.b2t %}
