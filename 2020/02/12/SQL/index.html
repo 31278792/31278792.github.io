@@ -114,17 +114,18 @@
 
 
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+  <meta name="description" content="SQL语言的概述SQL SQL全称structured Query Language，即结构化程序语言 SQL的作用：客服端使用SQL来操作服务器 启动mysql.exe,连接服务器后，就可以用sql来操纵服务器了将来会使用Java程序连接服务器，然后使用sql来操纵服务器   SQL标准：由国际化标准组织(ISO)制定的，对DBMS(即数据库管理系统)的统一操作方式 目的是减少学习成本，不同数据">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2020/02/06/hello-world/index.html">
+<meta property="og:title" content="SQL">
+<meta property="og:url" content="http://yoursite.com/2020/02/12/SQL/index.html">
 <meta property="og:site_name" content="Yangzw">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+<meta property="og:description" content="SQL语言的概述SQL SQL全称structured Query Language，即结构化程序语言 SQL的作用：客服端使用SQL来操作服务器 启动mysql.exe,连接服务器后，就可以用sql来操纵服务器了将来会使用Java程序连接服务器，然后使用sql来操纵服务器   SQL标准：由国际化标准组织(ISO)制定的，对DBMS(即数据库管理系统)的统一操作方式 目的是减少学习成本，不同数据">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-02-06T08:53:38.869Z">
-<meta property="article:modified_time" content="2020-02-09T05:53:56.196Z">
+<meta property="article:published_time" content="2020-02-12T07:03:10.000Z">
+<meta property="article:modified_time" content="2020-02-14T07:47:40.048Z">
 <meta property="article:author" content="黄粱一梦">
-<meta property="article:tag" content="奥利给">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
 
 
@@ -132,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/02/06/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/02/12/SQL/"/>
 
 
 
@@ -142,7 +143,7 @@
   };
 </script>
 
-  <title>Hello World | Yangzw</title>
+  <title>SQL | Yangzw</title>
   
 
 
@@ -350,7 +351,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/06/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/12/SQL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="黄粱一梦">
@@ -367,7 +368,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World
+          <h1 class="post-title" itemprop="name headline">SQL
               
             
           </h1>
@@ -392,7 +393,7 @@
                 
               
 
-              <time title="创建时间：2020-02-06 16:53:38" itemprop="dateCreated datePublished" datetime="2020-02-06T16:53:38+08:00">2020-02-06</time>
+              <time title="创建时间：2020-02-12 15:03:10" itemprop="dateCreated datePublished" datetime="2020-02-12T15:03:10+08:00">2020-02-12</time>
             
 
             
@@ -409,11 +410,29 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-09 13:53:56" itemprop="dateModified" datetime="2020-02-09T13:53:56+08:00">2020-02-09</time>
+                <time title="修改时间：2020-02-14 15:47:40" itemprop="dateModified" datetime="2020-02-14T15:47:40+08:00">2020-02-14</time>
               
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -444,7 +463,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.5k</span>
+                <span title="本文字数">17k</span>
               
 
               
@@ -458,7 +477,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">15 分钟</span>
               
             </div>
           
@@ -478,21 +497,153 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<a id="more"></a>
+        <h2 id="SQL语言的概述"><a href="#SQL语言的概述" class="headerlink" title="SQL语言的概述"></a>SQL语言的概述</h2><h3 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h3><ul>
+<li><strong>SQL全称structured Query Language，即结构化程序语言</strong></li>
+<li><strong>SQL的作用：客服端使用SQL来操作服务器</strong><blockquote>
+<p>启动mysql.exe,连接服务器后，就可以用sql来操纵服务器了<br>将来会使用Java程序连接服务器，然后使用sql来操纵服务器</p>
+</blockquote>
+</li>
+<li><strong>SQL标准：由国际化标准组织(ISO)制定的，对DBMS(即数据库管理系统)的统一操作方式</strong><blockquote>
+<p>目的是减少学习成本，不同数据库管理系统，相同语句进行操作<br>不过，每个数据库管理系统仍有一些差异，即使遵循国际化标准，但都预留了自己独有的方言</p>
+</blockquote>
+</li>
+<li><strong>SQL方言：某种DBMS不只会支持SQL标准，而且还会有一些自己独有的语法，这就称之为方言</strong><a id="more"></a>
 
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="SQL的用法"><a href="#SQL的用法" class="headerlink" title="SQL的用法"></a>SQL的用法</h3><ul>
+<li><strong>sql语句可以在单行或多行结尾书写，以分号结尾,但不是所有地方都需要分号结尾</strong></li>
+<li><strong>可以使用空格和缩进来增强语句的可读性</strong></li>
+<li><strong>MySQL不区别大小写，建议使用大写</strong></li>
+</ul>
+<h3 id="SQL语句的分类"><a href="#SQL语句的分类" class="headerlink" title="SQL语句的分类"></a>SQL语句的分类</h3><ul>
+<li><strong>DDL(Date Definition Language)：数据定义语言，用来定义数据库对象：库、表、列等</strong>（<em>重点</em>）<blockquote>
+<p>创建、删除、修改：库、表结构，即数据库或表的结果操作</p>
+</blockquote>
+</li>
+<li><strong>DML(Date Manipulation Language)：数据操作语言，用来定义数据库记录(数据)</strong>（<em>重点</em>）<blockquote>
+<p>增、删、改：表记录，即对表的记录进行更新(增、删、改)</p>
+</blockquote>
+</li>
+<li><strong>DQL(Date Query Language)：数据查询语言，用来查询记录(数据)</strong>（<em>重点+难点</em>）<blockquote>
+<p>对表记录的查询</p>
+</blockquote>
+</li>
+<li><strong>DCL(Date Control Language)：数据库控制语言，用来定义访问权限和安全级别</strong><blockquote>
+<p>对用户的创建及授权</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h2 id="DDL"><a href="#DDL" class="headerlink" title="DDL"></a>DDL</h2><h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><ul>
+<li><strong>查看所有数据库：SHOW DATEBASES</strong></li>
+<li><strong>切换（选择要操作的数据库）：USE 数据库名</strong></li>
+<li><strong>创建数据库：CREATE DATEBASES [IF NOT EXISTS] XXX [CHARSET=utf8]</strong>（记住MySQL里utf没有‘-’）</li>
+<li><strong>删除数据库：DROP DATEBASES [IF EXISTS] XXX</strong></li>
+<li><strong>修改数据库编码：ALTER DATEBASES XXX CHARACTER SET utf8</strong></li>
+</ul>
+<h3 id="数据类型-列类型"><a href="#数据类型-列类型" class="headerlink" title="数据类型(列类型)"></a>数据类型(列类型)</h3><ul>
+<li><strong>int:整型</strong></li>
+<li><strong>double:浮点型，示例double(6,2)表示最多6位，其中必须有2位小数，即最大值为9999.99</strong></li>
+<li><strong>decimal:浮点型，在表单关于钱方面使用该类型，因为不会出现精度缺失问题</strong></li>
+<li><strong>char:固定长度字符串类型：char(255)，数据长度不足指定长度，会补足指定长度</strong></li>
+<li><strong>varchar:可变长度字符串类型：varchar(65535),数据不足指定长度，不会补足指定长度，但需要消耗字节记录长度</strong></li>
+<li><strong>text(clob):字符串类型</strong><br>  a 很小<br>  b 小<br>  c 中<br>  d 大</li>
+<li><strong>blob:</strong><br>  a 很小<br>  b 小<br>  c 中<br>  d 大</li>
+<li><strong>date:日期类型，格式为：yyyy-MM-dd</strong></li>
+<li><strong>time:时间类型，格式为：hh:mm:ss</strong></li>
+<li><strong>timestamp:时间戳类型：既有时间又有年月日</strong></li>
+</ul>
+<h3 id="表"><a href="#表" class="headerlink" title="表"></a>表</h3><p><strong>创建表</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE [IF NOT EXISTS] 表名(</span><br><span class="line">	列名 列类型,</span><br><span class="line">	列名 列类型,</span><br><span class="line">	...</span><br><span class="line">	列名 列类型,</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p><strong>查看当前数据库中表名称</strong><br><code>SHOW TABLES;</code></p>
+<p><strong>查看指定表的创建语句：SHOW CREATE TABLE 表名</strong>（<em>了解</em>）</p>
+<p><strong>查看表结构</strong><br><code>DESC 表名;</code></p>
+<p><strong>删除表</strong><br><code>DROP TABLE 表名;</code></p>
+<p>修改表：前缀：ALTER TABLE 表名<br>a 修改之添加列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE 表名 ADD(</span><br><span class="line">	列名 列类型,</span><br><span class="line">	列名 列类型,</span><br><span class="line">	...</span><br><span class="line">	列名 列类型,</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>b 修改之修改列类型：(如果被修改的列已存在数据,那么新的类型可能会影响到已存在的数据)<br><code>ALTER TABLE 表名 MODIFY 列名 列类型;</code></p>
+<p>c 修改之修改列名：<br><code>ALTER TABLE 表名 CHANGE 原列名 新列名 列类型;</code></p>
+<p>d 修改之删除列：<br><code>ALTER TABLE 表名 DROP 列名;</code></p>
+<p>e 修改表名称：<br><code>ALTER TABLE 原表名 RENAME TO 新表名;</code></p>
+<hr>
+<h2 id="DML-数据操作语言，对表记录的增、删、改"><a href="#DML-数据操作语言，对表记录的增、删、改" class="headerlink" title="DML(数据操作语言，对表记录的增、删、改)"></a>DML(数据操作语言，对表记录的增、删、改)</h2><h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">INTSERT INTO 表名(</span><br><span class="line">	列名1,</span><br><span class="line">	列名2,</span><br><span class="line">	...</span><br><span class="line">)VALUES(</span><br><span class="line">列名 列类型,</span><br><span class="line">	列值1,</span><br><span class="line">	列值2,</span><br><span class="line">	...</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p><strong>示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">INTSERT INTO stu(</span><br><span class="line">	id, name, age</span><br><span class="line">)VAUES(</span><br><span class="line">	‘01’, &#39;zhangsan&#39;, 18</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>a 上面示例为指定列名插入所有值；<br>b 若指定部分列名插入部分值，则剩余未指定值的列，默认值为null；<br>c 若未指定列名，只给出值，则表示插入全部列，顺序按照建表时列名顺序插入值</p>
+<h3 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE 表名 SET 列名1&#x3D;列值1,列名2&#x3D;列值2,...[WHERE 条件];</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>条件</strong><blockquote>
+<p>条件必须满足是一个boolean类型的值或表达式，通常修改都需要写条件<br>涉及运算符：!=、=、&lt;&gt;、&lt;、&gt;、&lt;=、&gt;=、BETWEEN…AND、IN(…)、IS NULL、IS NOT NULL、NOT、OR、AND<br>这些运算符需要关注的是&lt;&gt;与!=都表示不等于的意思，而当=与SET一起使用是表示赋值<br>条件不能用XXX=null,只能用XXX IS NULL替代，用前一个条件永远为false</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE FROM 表名 (WHERE 条件);</span><br></pre></td></tr></table></figure>
+
+<p>TRUNCATE TABLE 表名：TRUNCATE是DDL语句，它是先删除drop该表，再create该表，而且无法回滚！！！</p>
+<hr>
+<h2 id="DQL-数据查询语言"><a href="#DQL-数据查询语言" class="headerlink" title="DQL(数据查询语言)"></a>DQL(数据查询语言)</h2><h3 id="基本查询-即单表查询"><a href="#基本查询-即单表查询" class="headerlink" title="基本查询(即单表查询)"></a>基本查询(即单表查询)</h3><p><strong>一.字段(即列、属性，都行)</strong><br>1)查询所有列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM 表名;</span><br><span class="line">&#x2F;&#x2F;这里&quot;*&quot;表示查询所有列</span><br></pre></td></tr></table></figure>
+
+<p>2)查询指定列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 列1, 列2, 列3,... 列n FROM 表名;</span><br></pre></td></tr></table></figure>
+
+<p>3)完全重复的记录只一次（即完全相同的记录只显示一个）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*当查询结果中多行记录一模一样时，只显示一行，一般查询所有列时很少会有这种情况，但只查询一列（或几</span><br><span class="line">列）时，这种可能就很大*&#x2F;</span><br><span class="line">SELECT DISTINCT * | 列1, 列2, 列3,...列n FROM 表名;</span><br></pre></td></tr></table></figure>
+
+<p>4)列运算<br>1.数量类型的列可以做加减乘除运算(切记查询不会对表进行修改，数据库不会发生变化，查询的结果只是临时视图)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT 列名 * 1.4 FROM 表名;</span><br><span class="line">SELECT 列名1 + 列名2 FROM 表名; &#x2F;&#x2F;注意倘若其中一个列名中的列值为NULL做运算,结果为NULL</span><br><span class="line">SELECT *,列名3 FROM 表名; &#x2F;&#x2F;这个语句查询所有列且列名3将多出现1次</span><br></pre></td></tr></table></figure>
+
+<p>2.字符串类型的连接(但切记MySQL中不能用”+”连接字符串，不过下面的CONCAT可以实现字符串的连接)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT CONCAT(列名1,列名2,...列名n) FROM 表名;</span><br><span class="line">SELECT CONCAT(&#39;$&#39;,列名) FROM 表名;</span><br></pre></td></tr></table></figure>
+
+<p>3.转换NULL值<br>下面这句就解决了1.的列名中列值为NULL的运算问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT 列名1 + IFNULL(列名2,0) FROM 表名; &#x2F;*这句意思是如果列名2中含有为NULL的列值，该值用0代</span><br><span class="line">替，再进行运算*&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>4.给列起列名<br>当我们在进行列运算后，查询出的结果集中的列名称不好看，这时我们需要为列名取别名，查询的结果集中列名就显示别名了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT IFNULL(列名3,0)+1000 AS 别名 FROM 表名; &#x2F;&#x2F;其中AS可以省略</span><br><span class="line">SELECT 列名1 AS 别名1,列名2 AS 别名2 FROM 表名;</span><br><span class="line">SELECT 列名1 别名1, 列名2 别名2 FROM 表名;&#x2F;&#x2F;给列起别名，列名与别名中间没有逗号</span><br></pre></td></tr></table></figure>
+
+<p><strong>二.条件控制</strong><br>1)条件查询(与update、delete语句一样也可以使用where语句设限)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 列名1, 列名2, 列名3,...列名n FROM 表名 WHERE语句;</span><br></pre></td></tr></table></figure>
+
+<p>2)模糊查询<br>示例：<br>当你想查询姓张，并且姓名一共两个字的员工时，这时可以使用模糊查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM 表名 WHERE 列名 LIKE &#39;张_&#39;;</span><br><span class="line">&#x2F;*</span><br><span class="line">  上面语句查询的是姓张，名字由两个字组成的员工</span><br><span class="line">  模糊查询需要使用运算符：LIKE，其中_匹配一个任意字符，注意：只匹配一个而不是多个  </span><br><span class="line">*&#x2F;</span><br><span class="line">SELECT * FROM 表名 WHERE 列名 LIKE &#39;___&#39;;&#x2F;&#x2F;姓名由三个字组成的员工</span><br></pre></td></tr></table></figure>
+
+<p>如果我们想查询姓张，名字几个字都可以的员工时需使用’%’了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM 表名 WHERE 列名 LIKE &#39;张%&#39;;&#x2F;&#x2F;其中%匹配0~n个任意字符，所以该句是查询姓张的所有员工</span><br><span class="line">SELECT * FROM 表名 WHERE 列名 LIKE &#39;%张%&#39;;&#x2F;*特别注意这里不止代表查询名字中间含张字的员工，因为%</span><br><span class="line">可以取0,所以以张字开头或结尾的也能查到*&#x2F;</span><br><span class="line">SELECT * FROM 表名 WHERE 列名 LIKE &#39;%&#39;;&#x2F;&#x2F;该条件等同于不存在，不过姓名为NULL的查询不出来</span><br></pre></td></tr></table></figure>
+
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>1.升序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM WHERE 表名 ORDER BY 列名 ASE;&#x2F;&#x2F;排序升序是默认的，所以ASE可以省略</span><br></pre></td></tr></table></figure>
+
+<p>2.降序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM WHERE 表名 ORDER BY 列名 DESC;&#x2F;&#x2F;DESC不能省略</span><br></pre></td></tr></table></figure>
+
+<p>3.使用多列作为排序条件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM WHERE 表名 ORDER BY 列名1 ASE, 列名2 DESC,...;</span><br><span class="line">&#x2F;&#x2F;该句意思是若升序排序后有相等情况，才执行相等的记录按降序排序</span><br></pre></td></tr></table></figure>
+
+<h3 id="聚合函数（用来做某列的纵向查询）"><a href="#聚合函数（用来做某列的纵向查询）" class="headerlink" title="聚合函数（用来做某列的纵向查询）"></a>聚合函数（用来做某列的纵向查询）</h3><h4 id="COUNT"><a href="#COUNT" class="headerlink" title="COUNT"></a>COUNT</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(*) FROM 表名;&#x2F;&#x2F;所有行中，若有一行记录全为null不计数，也可以用任意数字替代</span><br><span class="line">SELECT COUNT(列名) FROM　表名;&#x2F;&#x2F;该列中没有null的行数</span><br></pre></td></tr></table></figure>
+
+<h4 id="MAX"><a href="#MAX" class="headerlink" title="MAX"></a>MAX</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT MIN(列名) FROM 表名;&#x2F;&#x2F;该列中最大的列值</span><br></pre></td></tr></table></figure>
+
+<h4 id="MIN"><a href="#MIN" class="headerlink" title="MIN"></a>MIN</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT SUN(列名) FROM 表名;&#x2F;&#x2F;该列中最小的列值</span><br></pre></td></tr></table></figure>
+
+<h4 id="SUM"><a href="#SUM" class="headerlink" title="SUM"></a>SUM</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT SUN(列名) FROM 表名;&#x2F;&#x2F;该列中所有列值求和，字符串和NULL会被当0来参与运算</span><br></pre></td></tr></table></figure>
+
+<h4 id="AVG"><a href="#AVG" class="headerlink" title="AVG"></a>AVG</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT SUN(列名) FROM 表名;&#x2F;&#x2F;该列中所有列值求平均值</span><br></pre></td></tr></table></figure>
+
+<h4 id="聚合函数综合示例"><a href="#聚合函数综合示例" class="headerlink" title="聚合函数综合示例"></a>聚合函数综合示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(*) AS 人数, SUN(xxx) 总和, MIN(xxx) 最小, MAX(xxx) 最大, AVG(xxx) 平均 FROM yzw;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分组查询-查询都是组信息"><a href="#分组查询-查询都是组信息" class="headerlink" title="分组查询(查询都是组信息)"></a>分组查询(查询都是组信息)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SELECT 分组列, 聚合函数1,... FROM 表名 GROUP BY 分组列;</span><br><span class="line"></span><br><span class="line">SELECT job, COUNT(*), MAX(money) FROM yzw GROUP BY job;</span><br><span class="line">&#x2F;&#x2F;示例，意思是当前各职务(各组)人数,当前各职务中最大工资</span><br><span class="line"></span><br><span class="line">SELECT 分组列, 聚合函数1,... FROM 表名 WHERE条件 GROUP BY 分组列 HAVING条件;</span><br><span class="line">&#x2F;&#x2F;where是分组前的条件，having是分组后的条件，不过分组后条件需用聚合函数作条件，参考下面示例</span><br><span class="line">SELECT job, COUNT(*), MAX(money) FROM yzw WHERE num&gt;10000 GROUP BY job HAVING COUNT(*) &gt;&#x3D; 2;</span><br></pre></td></tr></table></figure>
+
+<p>上面关键字的语句顺序或执行顺序：select、from、where、group by、having、order by </p>
+<h3 id="limit子句（方言）"><a href="#limit子句（方言）" class="headerlink" title="limit子句（方言）"></a>limit子句（方言）</h3><p>LIMIT用来限定查询结果的起始行，以及总行数。<br>例如：查询起始行第五行，一共查询三行记录<br><code>SELECT * FROM yzw LIMIT 4, 3;</code><br>其中4表示从第五行开始，3表示一共查询三行，即第5、6、7行记录</p>
+<hr>
+<h2 id="DCL-理解即可，不进行描述"><a href="#DCL-理解即可，不进行描述" class="headerlink" title="DCL(理解即可，不进行描述)"></a>DCL(理解即可，不进行描述)</h2><hr>
 
       
     </div>
@@ -561,7 +712,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/%E5%A5%A5%E5%88%A9%E7%BB%99/" rel="tag"><i class="fa fa-google"></i> 奥利给</a>
+            <a href="/tags/SQL/" rel="tag"><i class="fa fa-google"></i> SQL</a>
+          
+            <a href="/tags/MySQL/" rel="tag"><i class="fa fa-google"></i> MySQL</a>
           
         </div>
       
@@ -574,15 +727,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2020/02/06/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/02/12/SQL/" rel="prev" title="SQL">
-                SQL <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -765,7 +918,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL语言的概述"><span class="nav-number">1.</span> <span class="nav-text">SQL语言的概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL"><span class="nav-number">1.1.</span> <span class="nav-text">SQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL的用法"><span class="nav-number">1.2.</span> <span class="nav-text">SQL的用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL语句的分类"><span class="nav-number">1.3.</span> <span class="nav-text">SQL语句的分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DDL"><span class="nav-number">2.</span> <span class="nav-text">DDL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库"><span class="nav-number">2.1.</span> <span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型-列类型"><span class="nav-number">2.2.</span> <span class="nav-text">数据类型(列类型)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表"><span class="nav-number">2.3.</span> <span class="nav-text">表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DML-数据操作语言，对表记录的增、删、改"><span class="nav-number">3.</span> <span class="nav-text">DML(数据操作语言，对表记录的增、删、改)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#插入数据"><span class="nav-number">3.1.</span> <span class="nav-text">插入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改数据"><span class="nav-number">3.2.</span> <span class="nav-text">修改数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除数据"><span class="nav-number">3.3.</span> <span class="nav-text">删除数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DQL-数据查询语言"><span class="nav-number">4.</span> <span class="nav-text">DQL(数据查询语言)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本查询-即单表查询"><span class="nav-number">4.1.</span> <span class="nav-text">基本查询(即单表查询)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序"><span class="nav-number">4.2.</span> <span class="nav-text">排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚合函数（用来做某列的纵向查询）"><span class="nav-number">4.3.</span> <span class="nav-text">聚合函数（用来做某列的纵向查询）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#COUNT"><span class="nav-number">4.3.1.</span> <span class="nav-text">COUNT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MAX"><span class="nav-number">4.3.2.</span> <span class="nav-text">MAX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MIN"><span class="nav-number">4.3.3.</span> <span class="nav-text">MIN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SUM"><span class="nav-number">4.3.4.</span> <span class="nav-text">SUM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AVG"><span class="nav-number">4.3.5.</span> <span class="nav-text">AVG</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#聚合函数综合示例"><span class="nav-number">4.3.6.</span> <span class="nav-text">聚合函数综合示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分组查询-查询都是组信息"><span class="nav-number">4.4.</span> <span class="nav-text">分组查询(查询都是组信息)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#limit子句（方言）"><span class="nav-number">4.5.</span> <span class="nav-text">limit子句（方言）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCL-理解即可，不进行描述"><span class="nav-number">5.</span> <span class="nav-text">DCL(理解即可，不进行描述)</span></a></li></ol></div>
             
 
           </div>
@@ -964,7 +1117,7 @@
   
     <script type="text/javascript">
       window.livereOptions = {
-        refer: '2020/02/06/hello-world/'
+        refer: '2020/02/12/SQL/'
       };
       (function(d, s) {
         var j, e = d.getElementsByTagName(s)[0];
