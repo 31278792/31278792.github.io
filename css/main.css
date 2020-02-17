@@ -184,15 +184,25 @@ th {
   color: #fff;
 }
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 10px;
 }
 ::-webkit-scrollbar-button {
   width: 0px;
   height: 0px;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(0,0,0,0.23);
+  background-color: #da596c;
+  background-image: -webkit-linear-gradient(45deg, rgba(255,255,255,0.4) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.4) 75%, transparent 75%, transparent);
+  -webkit-border-radius: 5em;
+  -moz-border-radius: 5em;
+  border-radius: 5em;
+}
+::-webkit-scrollbar-track {
+  background-color: #fff;
+  -webkit-border-radius: 5em;
+  -moz-border-radius: 5em;
+  border-radius: 5em;
+  border: 1px solid #ccc;
 }
 body {
   position: relative;
@@ -2099,7 +2109,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #6f39ff;
+  background: #ff1d9c;
 }
 .links-of-blogroll {
   font-size: 13px;
