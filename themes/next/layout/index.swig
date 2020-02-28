@@ -21,3 +21,5 @@
 {% block sidebar %}
   {{ sidebar_template.render(false) }}
 {% endblock %}
+<%- partial('head',{},{cache: true});
+<%- partial('footer',{},{cache: true});
