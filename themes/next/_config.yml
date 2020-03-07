@@ -692,8 +692,8 @@ baidu_push: false
 # Create & manage a public Google calendar: https://support.google.com/calendar/answer/37083?hl=en
 calendar:
   enable: false
-  calendar_id: yzw1473931956@gmail.com # Your Google account E-Mail
-  api_key: AIzaSyCjEXEiIrCPQONWPp4O8uEkdE0xI7d8_oc
+  calendar_id: # yzw1473931956@gmail.com # Your Google account E-Mail
+  api_key: # AIzaSyCjEXEiIrCPQONWPp4O8uEkdE0xI7d8_oc
   orderBy: startTime
   offsetMax: 24 # Time Range
   offsetMin: 4 # Time Range

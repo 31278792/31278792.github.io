@@ -129,7 +129,7 @@ live2d:
     position: left
     width: 150
     height: 300
-    hoffset: 0
+    hOffset: 0
     vOffset: -20
   mobile:
     show: true
