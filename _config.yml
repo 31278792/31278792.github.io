@@ -8,10 +8,7 @@ subtitle: '|Hello World|'
 description: '已识乾坤大，犹怜草木青'
 keywords:
 author: 黄粱一梦
-language:
-- zh-CN
-- en
-- zh-HK
+language: zh-CN
 timezone: ''
 
 # URL
@@ -116,3 +113,25 @@ symbols_count_time:
   time: true
   total_symbols: true
   total_time: true
+  
+#cat model
+live2d:
+  enable: true
+  scriptFrom: local
+  pluginRootPath: live2dw/
+  pluginJsPath: lib/
+  pluginModelPath: assets/
+  tagMode: false
+  log: false
+  model:
+    use: hijiki
+  display:
+    position: left
+    width: 150
+    height: 300
+    hoffset: 0
+    vOffset: -20
+  mobile:
+    show: true
+  react:
+    opacity: 0.8
