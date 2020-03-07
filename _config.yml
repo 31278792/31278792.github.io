@@ -8,7 +8,10 @@ subtitle: '|Hello World|'
 description: '已识乾坤大，犹怜草木青'
 keywords:
 author: 黄粱一梦
-language: zh-CN
+language:
+- zh-CN
+- en
+- zh-HK
 timezone: ''
 
 # URL
