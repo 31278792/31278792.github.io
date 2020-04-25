@@ -4,6 +4,8 @@
     <title>dom4j</title>
     <url>/2020/04/21/dom4j/</url>
     <content><![CDATA[<h3 id="dom4j"><a href="#dom4j" class="headerlink" title="dom4j"></a>dom4j</h3><p><strong>dom4j组织提供了针对xml解析的解析器dom4j,其是由jdom组织分裂出来后出现的,其优于jdom。dom4j不是javase的一部分</strong></p>
+<a id="more"></a>
+
 <h4 id="dom4j使用"><a href="#dom4j使用" class="headerlink" title="dom4j使用"></a>dom4j使用</h4><p><em>使用前需要在项目中导入dom4j的jar包</em><br>xml文件如下:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1 id1&#x3D;&quot;01&quot;&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
 
