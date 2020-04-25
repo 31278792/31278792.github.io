@@ -43,9 +43,7 @@
   <entry>
     <title>JAXP</title>
     <url>/2020/04/17/JAXP/</url>
-    <content><![CDATA[<hr>
-<p>title: JAXP<br>date: 2020-04-17 22:19:32<br>tags:<br>    - XML<br>    - 标记语言<br>    - XML解析<br>categories: JavaWeb<br>password: 31278792</p>
-<h3 id="JAXP"><a href="#JAXP" class="headerlink" title="JAXP"></a>JAXP</h3><h4 id="xml的解析-将用到JAVA代码-重点内容"><a href="#xml的解析-将用到JAVA代码-重点内容" class="headerlink" title="xml的解析(将用到JAVA代码)重点内容"></a>xml的解析(<em>将用到JAVA代码</em>)<strong><em>重点内容</em></strong></h4><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>xml为标记下语言，JS使用dom解析标记型文档，根据html的层级结构，在内存中分配一个树型结构，把html中的标签、属性、对象都封装成对象，例如：document对象、element对象、属性对象、文本对象、Node节点对象</p>
+    <content><![CDATA[<h3 id="JAXP"><a href="#JAXP" class="headerlink" title="JAXP"></a>JAXP</h3><h4 id="xml的解析-将用到JAVA代码-重点内容"><a href="#xml的解析-将用到JAVA代码-重点内容" class="headerlink" title="xml的解析(将用到JAVA代码)重点内容"></a>xml的解析(<em>将用到JAVA代码</em>)<strong><em>重点内容</em></strong></h4><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>xml为标记下语言，JS使用dom解析标记型文档，根据html的层级结构，在内存中分配一个树型结构，把html中的标签、属性、对象都封装成对象，例如：document对象、element对象、属性对象、文本对象、Node节点对象</p>
 <p><strong>xml的解析方式有两种：dom和sax</strong></p>
 <a id="more"></a>
 <p><img src="/images/xml_pic.png" alt="解析图" title="xml的解析"><br><em>上图是dom的解析过程，该方式好处是很方便实现数据的增删改操作，但是如果文件过大，容易造成内存溢出。至于sax解析采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回，不会造成内存溢出，查询操作方便，但不能实现增删改操作</em><br>*<em>总结：<br>   -dom方式解析：根据xml的层级结构在内存中分配一个树状结构，把xml标签，属性和文本都封装成对象<br>   -使用dom弊端：如果文件过大，容易造成溢出<br>   -sax方式解析：采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回<br>   -使用sax弊端：不能实现增删改操作<br>*</em></p>
@@ -80,6 +78,14 @@
 
 
 ]]></content>
+      <categories>
+        <category>JavaWeb</category>
+      </categories>
+      <tags>
+        <tag>标记语言</tag>
+        <tag>XML</tag>
+        <tag>XML解析</tag>
+      </tags>
   </entry>
   <entry>
     <title>dynasties</title>
