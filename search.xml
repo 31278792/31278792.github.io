@@ -1,6 +1,434 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>dom4j</title>
+    <url>/2020/04/21/dom4j/</url>
+    <content><![CDATA[<h3 id="dom4j"><a href="#dom4j" class="headerlink" title="dom4j"></a>dom4j</h3><p><strong>dom4j组织提供了针对xml解析的解析器dom4j,其是由jdom组织分裂出来后出现的,其优于jdom。dom4j不是javase的一部分</strong></p>
+<h4 id="dom4j使用"><a href="#dom4j使用" class="headerlink" title="dom4j使用"></a>dom4j使用</h4><p><em>使用前需要在项目中导入dom4j的jar包</em><br>xml文件如下:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1 id1&#x3D;&quot;01&quot;&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现查询xml中元素操作"><a href="#dom4j实现查询xml中元素操作" class="headerlink" title="dom4j实现查询xml中元素操作"></a>dom4j实现查询xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查询所有name元素里的值</span><br><span class="line">	public static void selectName() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到p1</span><br><span class="line">		List&lt;Element&gt; list &#x3D; root.elements(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.遍历List</span><br><span class="line">		for(Element temp:list)&#123;</span><br><span class="line">			&#x2F;&#x2F;这里temp得到每一个p1元素</span><br><span class="line">			Element name1 &#x3D; temp.element(&quot;name&quot;);&#x2F;&#x2F;得到p1下面的name元素</span><br><span class="line">			&#x2F;&#x2F;得到name里面的值</span><br><span class="line">			String s &#x3D; name1.getText();</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;查询第一个name元素的值</span><br><span class="line">	public static void selectSin() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到p1下第一个name</span><br><span class="line">		Element name1 &#x3D; p1.element(&quot;name&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.得到name的值</span><br><span class="line">		String s1 &#x3D; name1.getText();</span><br><span class="line">		System.out.println(s1);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#x2F;&#x2F;查询第二个name元素的值	</span><br><span class="line">	public static void selectSecond() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到所有p1</span><br><span class="line">		List&lt;Element&gt; list &#x3D; root.elements(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到第二个p1</span><br><span class="line">		Element p2 &#x3D; list.get(1);</span><br><span class="line">		&#x2F;&#x2F;6.得到p1下面name</span><br><span class="line">		Element name2 &#x3D; p2.element(&quot;name&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.得到name的值</span><br><span class="line">		String s2 &#x3D; name2.getText();</span><br><span class="line">		System.out.println(s2);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现添加xml中元素操作"><a href="#dom4j实现添加xml中元素操作" class="headerlink" title="dom4j实现添加xml中元素操作"></a>dom4j实现添加xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;在第一个p1标签末尾添加一个sex标签</span><br><span class="line">	public static addSex() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.获取第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.p1下面添加sex元素</span><br><span class="line">		Element sex1 &#x3D; p1.addElement(&quot;sex&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.在sex里添加内容</span><br><span class="line">		sex1.setText(&quot;男&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="在特定位置实现元素添加"><a href="#在特定位置实现元素添加" class="headerlink" title="在特定位置实现元素添加"></a>在特定位置实现元素添加</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;在第一个p1标签中age标签前添加一个&lt;school&gt;cqgcxy.edu.cn&lt;&#x2F;school&gt;</span><br><span class="line">	public static void addAgeBefore() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();		</span><br><span class="line">		&#x2F;&#x2F;4.获取第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.获取p1下面的所有元素</span><br><span class="line">		List&lt;Element&gt; list &#x3D; p1.elements();</span><br><span class="line">		&#x2F;&#x2F;6.创建要添加元素</span><br><span class="line">		Element school &#x3D; DocumentHelper.createElement(&quot;school&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.给标签添加内容</span><br><span class="line">		school.setText(&quot;eqgcxy.edu.cn&quot;);</span><br><span class="line">		&#x2F;&#x2F;8.在特定位置添加元素</span><br><span class="line">		list.add(1,school);</span><br><span class="line">		&#x2F;&#x2F;9.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现修改xml中元素操作"><a href="#dom4j实现修改xml中元素操作" class="headerlink" title="dom4j实现修改xml中元素操作"></a>dom4j实现修改xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;修改第一个p1中age元素内容</span><br><span class="line">	public static void fixAge() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();	</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到age</span><br><span class="line">		Element age &#x3D; p1.element(&quot;age&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.修改age的值</span><br><span class="line">		age.setText(&quot;250&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现删除xml中元素操作"><a href="#dom4j实现删除xml中元素操作" class="headerlink" title="dom4j实现删除xml中元素操作"></a>dom4j实现删除xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;删除第一个p1下school节点</span><br><span class="line">	public static void deleteSchool() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;*使用工具类替换1、2步</span><br><span class="line">		Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);*&#x2F;</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();	</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到school</span><br><span class="line">		Element school &#x3D; p1.element(&quot;school&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.删除school(通过父节点实现删除)</span><br><span class="line">		p1.remove(school);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">		&#x2F;*使用工具类替换回写操作</span><br><span class="line">		Dom4jUtils.xmlWriter(PATH,document)*&#x2F;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现获取xml中元素属性值操作"><a href="#dom4j实现获取xml中元素属性值操作" class="headerlink" title="dom4j实现获取xml中元素属性值操作"></a>dom4j实现获取xml中元素属性值操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取第一个p1属性id1的值</span><br><span class="line">	public static void getValue() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.获取p1的属性id1值</span><br><span class="line">		String value &#x3D; p1.attributeValue(&quot;id1&quot;);</span><br><span class="line">		System.out.println(value);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j工具类"><a href="#dom4j工具类" class="headerlink" title="dom4j工具类"></a>dom4j工具类</h5><p><strong>由于什么的CRUD代码中存在大量重复使用的代码，因此我们可以建立一个工具类来封装这些重复代码，实现调用工具类，来减少代码冗余</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Dom4jUtils&#123;</span><br><span class="line">	public state final String PATH &#x3D; &quot;src&#x2F;person.xml&quot;;</span><br><span class="line">	&#x2F;&#x2F;返回document</span><br><span class="line">	public static Document getDocument(String path)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			&#x2F;&#x2F;1.创建解析器</span><br><span class="line">			SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">			&#x2F;&#x2F;2.得到document</span><br><span class="line">			Document document &#x3D; saxReader.read(path);</span><br><span class="line">			return document;</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		return null;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;回写xml</span><br><span class="line">	public static void xmlWriter(String path,Document document)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">			XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">			writer.write(document);</span><br><span class="line">			writer.close();</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="dom4j支持XPATH操作"><a href="#dom4j支持XPATH操作" class="headerlink" title="dom4j支持XPATH操作"></a>dom4j支持XPATH操作</h4><p><strong>可以直接获取某一个元素，不必按照一层一层解析的方式</strong></p>
+<h5 id="语法形式"><a href="#语法形式" class="headerlink" title="语法形式"></a>语法形式</h5><p>第一种形式：/a/b/c来表示a里面的b里面的c<br>第二种形式：//A表示选择所有A元素<br>第三种形式：/AAA/CCC/DDD/<em>表示/AAA/CCC/DDD/里面的所有元素<br>第四种形式；/</em>/<em>/</em>/DDD表示选择所有第四层所有DDD元素<br>第五种形式；//<em>所有元素<br>第六种形式：/a/b[1]选择a标签中第一个b标签，/a/b[last()]选择a标签中最后一个b标签<br>第七种形式：//@id表示选择所有id属性，//BBB[@id]表示选择所有含id属性的BBB元素<br>第八种形式；//BBB[@id=’b1’]选择含Id属性且值为b1的所有BBB标签*b1如果左右有空格将不会被选取</em></p>
+<h5 id="如何在dom4j中使用XPATH"><a href="#如何在dom4j中使用XPATH" class="headerlink" title="如何在dom4j中使用XPATH"></a>如何在dom4j中使用XPATH</h5><p><strong>默认的情况下，dom4j不支持XPATH，如果想使用，需要引入XPATH的jar包，在文件中找到jaxen-1.1-beta-6.jar，将其复制进eclipse构建的项目中lib下，右击项目Build Path选择Add to Build Path</strong><br><strong>在dom4j中提供了两个方法支持XPATH,它们分别是：selectNodes(“XPATH表达式”)和selectSingleNode(“XPATH表达式”)，第一个方法获取多个节点，第二个则获取单一节点</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查询xml中所有name元素的值</span><br><span class="line">public static void getValue()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到所有name</span><br><span class="line">	List&lt;Node&gt; list&#x3D;document.selectNodes(&quot;&#x2F;&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.遍历集合</span><br><span class="line">	for(Node note:list)&#123;&#x2F;&#x2F;node是每一个name元素</span><br><span class="line">		&#x2F;&#x2F;获取name元素里面的值</span><br><span class="line">		String s &#x3D; node.getText();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取第一个p1下面name的值</span><br><span class="line">public static void getValue1()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到name元素</span><br><span class="line">	Node name1&#x3D;document.和selectSingleNode(&quot;&#x2F;&#x2F;p1[@id1&#x3D;&quot;01&quot;]&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.得到name里面内容</span><br><span class="line">	String s1 &#x3D; name1.getText();</span><br><span class="line">	System.out.println(s1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>JavaWeb</category>
+      </categories>
+      <tags>
+        <tag>标记语言</tag>
+        <tag>XML</tag>
+        <tag>XML解析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JAXP</title>
+    <url>/2020/04/17/JAXP/</url>
+    <content><![CDATA[<hr>
+<p>title: JAXP<br>date: 2020-04-17 22:19:32<br>tags:<br>    - XML<br>    - 标记语言<br>    - XML解析<br>categories: JavaWeb<br>password: 31278792</p>
+<h3 id="JAXP"><a href="#JAXP" class="headerlink" title="JAXP"></a>JAXP</h3><h4 id="xml的解析-将用到JAVA代码-重点内容"><a href="#xml的解析-将用到JAVA代码-重点内容" class="headerlink" title="xml的解析(将用到JAVA代码)重点内容"></a>xml的解析(<em>将用到JAVA代码</em>)<strong><em>重点内容</em></strong></h4><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>xml为标记下语言，JS使用dom解析标记型文档，根据html的层级结构，在内存中分配一个树型结构，把html中的标签、属性、对象都封装成对象，例如：document对象、element对象、属性对象、文本对象、Node节点对象</p>
+<p><strong>xml的解析方式有两种：dom和sax</strong></p>
+<a id="more"></a>
+<p><img src="/images/xml_pic.png" alt="解析图" title="xml的解析"><br><em>上图是dom的解析过程，该方式好处是很方便实现数据的增删改操作，但是如果文件过大，容易造成内存溢出。至于sax解析采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回，不会造成内存溢出，查询操作方便，但不能实现增删改操作</em><br>*<em>总结：<br>   -dom方式解析：根据xml的层级结构在内存中分配一个树状结构，把xml标签，属性和文本都封装成对象<br>   -使用dom弊端：如果文件过大，容易造成溢出<br>   -sax方式解析：采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回<br>   -使用sax弊端：不能实现增删改操作<br>*</em></p>
+<h5 id="解析器"><a href="#解析器" class="headerlink" title="解析器"></a>解析器</h5><p><strong>不同的公司和组织提供了针对dom和sax方式的解析器，通过api方式提供，sun公司提供了针对dom和sax的解析器jaxp，dom4j组织提供的解析器就叫dom4j，同样还有jdom组织的解析器jdom</strong></p>
+<h5 id="JAXP的API"><a href="#JAXP的API" class="headerlink" title="JAXP的API"></a>JAXP的API</h5><p><strong>jaxp解析器在jdk的javax.xml.parsers包里面，包里四个类主要针对dom和sax解析使用，针对dom有DocumentBuilder（解析器类）和DocumentBuilderFactory（解析器工厂）两个类，而sax有SAXParser和SAXParserFactory</strong></p>
+<h4 id="jaxp使用"><a href="#jaxp使用" class="headerlink" title="jaxp使用"></a>jaxp使用</h4><p>xml文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void selectAll() throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;1.创建解析器工厂</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.根据工厂创建解析器</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.解析xml返回的document</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);&#x2F;&#x2F;括号内填写你xml文件所在位置</span><br><span class="line">&#x2F;&#x2F;4.得到所有元素</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;name&quot;);&#x2F;&#x2F;这里得到的是上面xml中name标签</span><br><span class="line">&#x2F;&#x2F;5.遍历集合</span><br><span class="line">	for(int i &#x3D; 0; i&lt;list.getLength();i++)&#123;</span><br><span class="line">		Node name &#x3D; list.item(i);&#x2F;&#x2F;得到每一个name元素</span><br><span class="line">		&#x2F;&#x2F;得到name元素里面的值</span><br><span class="line">		String s &#x3D; name1.getTextContent();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public void selectSin() throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.同上</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;name&quot;);</span><br><span class="line">&#x2F;&#x2F;5.得到第一个name元素</span><br><span class="line">	Node name1 &#x3D; list.item(0);</span><br><span class="line">&#x2F;&#x2F;6.得到name里面的值</span><br><span class="line">	String s &#x3D; name1.getTextContent();</span><br><span class="line">	System.out.println(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="增加操作"><a href="#增加操作" class="headerlink" title="增加操作"></a>增加操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void add() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.同上</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;p1&quot;);</span><br><span class="line">&#x2F;&#x2F;5.得到第一个p1</span><br><span class="line">	Node p1 &#x3D; list.item(0);</span><br><span class="line">&#x2F;&#x2F;6.创建标签</span><br><span class="line">	Element sex1 &#x3D; document.createElement(&quot;sex&quot;);</span><br><span class="line">&#x2F;&#x2F;7.创建文本</span><br><span class="line">	Text text1 &#x3D; document.createTextNode(&quot;男&quot;);</span><br><span class="line">&#x2F;&#x2F;8.把文本添加到sex1下面</span><br><span class="line">	sex1.appendChild(text1);</span><br><span class="line">&#x2F;&#x2F;9.把sex1添加到p1下面</span><br><span class="line">	p1.appendChild(sex1);</span><br><span class="line">&#x2F;&#x2F;10.回写xml</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="修改操作"><a href="#修改操作" class="headerlink" title="修改操作"></a>修改操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void fix() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.得到sex元素</span><br><span class="line">	Node sex1 &#x3D; document.getElementsByTagName(&quot;sex&quot;).item(0);</span><br><span class="line">&#x2F;&#x2F;5.修改sex的内容</span><br><span class="line">	sex1.setTextContent(&quot;man&quot;);</span><br><span class="line">&#x2F;&#x2F;6.回写</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void delete() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.得到sex元素</span><br><span class="line">	Node sex1 &#x3D; NodeList list&#x3D;document.getElementsByTagName(&quot;sex&quot;).item(0);</span><br><span class="line">&#x2F;&#x2F;5.得到它的父节点p1</span><br><span class="line">	Node p1 &#x3D; sex1.getParentNode();</span><br><span class="line">&#x2F;&#x2F;6.删除sex</span><br><span class="line">	p1.removeChild(sex1);</span><br><span class="line">&#x2F;&#x2F;7.回写	</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
+
+<h5 id="遍历节点-把所有元素名称打印出来"><a href="#遍历节点-把所有元素名称打印出来" class="headerlink" title="遍历节点(把所有元素名称打印出来)"></a>遍历节点(<em>把所有元素名称打印出来</em>)</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void listElement() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;5.调用递归方法</span><br><span class="line">	list1(document);</span><br><span class="line">&#125;</span><br><span class="line">4.编写一个递归方法实现遍历</span><br><span class="line">public static void list1(Node node)&#123;</span><br><span class="line">	if(node.getNodeType &#x3D;&#x3D; Node.ELEMENT_NODE)&#123;&#x2F;&#x2F;避免将标签内容中不必要的空格和tab打印出来</span><br><span class="line">		System.out.println(node.getNodeName());&#x2F;&#x2F;获取节点名称</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;得到一层子节点</span><br><span class="line">	NodeList list &#x3D; node.getChildNodes();</span><br><span class="line">	for(int i&#x3D;0;i&lt;list.getLength();i++)&#123;</span><br><span class="line">		Node temp &#x3D; list.item(i);</span><br><span class="line">		&#x2F;&#x2F;继续得到temp的子节点</span><br><span class="line">		list1.(temp);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="JAXP实现sax操作"><a href="#JAXP实现sax操作" class="headerlink" title="JAXP实现sax操作"></a>JAXP实现sax操作</h4><p><strong>由于sax不能执行增删改操作，所以以下是实现它的查询操作</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class MyDefault1 extends DefaultHandler&#123;&#x2F;&#x2F;以下三个方法自动执行</span><br><span class="line">	@Override</span><br><span class="line">	public void startElement(String uri,String localName,String qName,Attributes attributes)throws SAXException&#123;</span><br><span class="line">		super.startElement(uri,localName,qName,attributes);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void characters(char[] ch,int start,int length)throws SAXException&#123;</span><br><span class="line">		super.characters(ch,start,length);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void endElement(String uri,String localName,String qName)throws SAXException&#123;</span><br><span class="line">		super.endElement(uri,localName,qName);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MyDefault2 extends DefaultHandler&#123;&#x2F;&#x2F;获取所有name元素的值</span><br><span class="line">	boolean flag &#x3D; false;</span><br><span class="line">	@Override</span><br><span class="line">	public void startElement(String uri,String localName,String qName,Attributes attributes)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;判断qName是否是name元素</span><br><span class="line">		if(&quot;name&quot;.equals(qName))&#123;</span><br><span class="line">			flag &#x3D; true;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void characters(char[] ch,int start,int length)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;当flag值是true时表示解析到name元素</span><br><span class="line">		if(flag &#x3D;&#x3D; true)&#123;</span><br><span class="line">			System.out.println(new String(ch,start,length));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void endElement(String uri,String localName,String qName)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;将flag设置为false,表示name元素结束</span><br><span class="line">		if(&quot;name&quot;.equals(qName))&#123;</span><br><span class="line">			flag &#x3D; false;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void main (String[] args)&#123;</span><br><span class="line">&#x2F;&#x2F;1.创建解析器工厂</span><br><span class="line">	SAXParserFactory saxParserFactory &#x3D; SAXParserFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.创建解析器</span><br><span class="line">	SAXParser saxParser &#x3D; SAXParserFactory.newSAXParser();</span><br><span class="line">&#x2F;&#x2F;3.执行parse方法</span><br><span class="line">	saxParser.parse(&quot;src&#x2F;p1.xml&quot;,new MyDefault2());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+]]></content>
+  </entry>
+  <entry>
+    <title>dynasties</title>
+    <url>/2020/04/01/dynasties/</url>
+    <content><![CDATA[<a id="more"></a>
+<p><img src="http://img.xixik.net/cimg/083/xixik_c53006a681fc4200.jpeg" alt="尧舜禹→夏" title="尧舜禹→夏"><br><img src="http://img.xixik.net/cimg/083/xixik_87512603bf7f461e.jpeg" alt="商" title="商"><br><img src="http://img.xixik.net/cimg/083/xixik_a1523ca6228beae4.jpeg" alt="周" title="周"><br><img src="http://img.xixik.net/cimg/083/xixik_87c9e06af0d51132.jpeg" alt="秦" title="秦"><br><img src="http://img.xixik.net/cimg/083/xixik_01848d23bc3c0496.jpeg" alt="汉" title="汉"><br><img src="http://img.xixik.net/cimg/083/xixik_2a93308ddfd78f78.jpeg" alt="魏" title="魏"><br><img src="http://img.xixik.net/cimg/083/xixik_34ae3a4f7693d9ea.jpeg" alt="蜀" title="蜀"><br><img src="http://img.xixik.net/cimg/083/xixik_bafe42d5cde82df4.jpeg" alt="吴" title="吴"><br><img src="http://img.xixik.net/cimg/083/xixik_20b47e2887f23ecf.jpeg" alt="晋" title="晋"><br><img src="http://img.xixik.net/cimg/083/xixik_57f8d17ebfdb1a85.jpeg" alt="隋" title="隋"><br><img src="http://img.xixik.net/cimg/083/xixik_04c8ec9fff83c2f9.jpeg" alt="唐" title="唐"><br><img src="http://img.xixik.net/cimg/083/xixik_6bc06e9bb6ef708c.jpeg" alt="辽" title="辽"><br><img src="http://img.xixik.net/cimg/083/xixik_6e40141c5eb849ea.jpeg" alt="宋" title="宋"><br><img src="http://img.xixik.net/cimg/083/xixik_74a385004d03fc0a.jpeg" alt="西夏" title="西夏"><br><img src="http://img.xixik.net/cimg/083/xixik_d209b6d3983aaf85.jpeg" alt="金" title="金"><br><img src="http://img.xixik.net/cimg/083/xixik_1f2382bcdab86fe9.jpeg" alt="元" title="元"><br><img src="http://img.xixik.net/cimg/083/xixik_a160592906ace6ec.jpeg" alt="明" title="明"><br><img src="http://img.xixik.net/cimg/083/xixik_633a17f15265a0ef.jpeg" alt="清" title="清"><br><strong><em>注意：转载自嘻嘻网图片，切勿商用</em></strong></p>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>历史</tag>
+        <tag>纯图片</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>XML入门</title>
+    <url>/2020/03/30/XML%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<h2 id="XML-eXtensible-Markup-Language"><a href="#XML-eXtensible-Markup-Language" class="headerlink" title="XML(eXtensible Markup Language)"></a>XML(eXtensible Markup Language)</h2><h3 id="XML是什么"><a href="#XML是什么" class="headerlink" title="XML是什么"></a>XML是什么</h3><p><strong>XML是W3C组织发布的技术，XML类似于HTML，大家知道HTML是一种超文本标记语言，其实XML也是一种标记语言，根据全称翻译它是可扩展标记语言。这里的可扩展是它的特性，HTML的标签是固定的，而XML可以自己定义标签，可以定义中文标签。</strong></p>
+<h3 id="XML版本"><a href="#XML版本" class="headerlink" title="XML版本"></a>XML版本</h3><p>目前有两个版本一个1.0，一个1.1，一般使用1.0，因为1.1无法向下兼容。</p>
+<h3 id="XML做什么"><a href="#XML做什么" class="headerlink" title="XML做什么"></a>XML做什么</h3><p><strong>HTML是用于显示数据，XML也可以显示数据，但它的主要功能并不是显示数据，设计它的初衷是为了存储数据，类似于一个小型数据库</strong></p>
+<h3 id="XML怎么用"><a href="#XML怎么用" class="headerlink" title="XML怎么用"></a>XML怎么用</h3><h4 id="1-不同系统之间传输数据，利于系统的维护"><a href="#1-不同系统之间传输数据，利于系统的维护" class="headerlink" title="1.不同系统之间传输数据，利于系统的维护"></a>1.不同系统之间传输数据，利于系统的维护</h4><a id="more"></a>
+
+<h4 id="2-用来表示生活中有关系的数据"><a href="#2-用来表示生活中有关系的数据" class="headerlink" title="2.用来表示生活中有关系的数据"></a>2.用来表示生活中有关系的数据</h4><p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;中国&gt;</span><br><span class="line">	&lt;帝都&gt;</span><br><span class="line">		&lt;朝阳区&gt;&lt;&#x2F;朝阳区&gt;</span><br><span class="line">		&lt;海淀区&gt;&lt;&#x2F;海淀区&gt;</span><br><span class="line">	&lt;&#x2F;帝都&gt;</span><br><span class="line">	&lt;四川&gt;</span><br><span class="line">		&lt;成都&gt;&lt;&#x2F;成都&gt;</span><br><span class="line">		&lt;绵阳&gt;&lt;&#x2F;绵阳&gt;</span><br><span class="line">	&lt;&#x2F;四川&gt;</span><br><span class="line">	&lt;湖北&gt;</span><br><span class="line">		&lt;武汉&gt;&lt;&#x2F;武汉&gt;</span><br><span class="line">		&lt;荆州&gt;&lt;&#x2F;荆州&gt;</span><br><span class="line">	&lt;&#x2F;湖北&gt;</span><br><span class="line">&lt;&#x2F;中国&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="3-经常用在配置文件中"><a href="#3-经常用在配置文件中" class="headerlink" title="3.经常用在配置文件中"></a>3.经常用在配置文件中</h4><p>比如：存储你的数据库用户名和密码，如果要修改数据库信息就不用该源代码，直接对配置文件进行修改，这样增加了可扩展性和可维护性</p>
+<h3 id="XML的语法"><a href="#XML的语法" class="headerlink" title="XML的语法"></a>XML的语法</h3><p>####　xml的文档声明<br>1)创建一个后缀名为.xml文件<br>2)文件头部(第一行第一列)必须有文档声明<br><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;gbk&quot;?&gt;</code><br>3)属性：</p>
+<blockquote>
+<p>version:xml的版本 1.0/1.1<br>encoding:xml的编码 gbk、utf-8、iso8859-1<br>standalone:是否需要依赖其他文件 yes/no<br>4)中文乱码问题<br>保存文件编码格式与自身设置编码一致，可以解决乱码问题</p>
+</blockquote>
+<h4 id="定义元素（标签）"><a href="#定义元素（标签）" class="headerlink" title="定义元素（标签）"></a>定义元素（标签）</h4><h5 id="1-有开始必须要有结束-lt-aa-gt-lt-aa-gt-，如果标签之间没有内容可以只写-lt-aa-gt"><a href="#1-有开始必须要有结束-lt-aa-gt-lt-aa-gt-，如果标签之间没有内容可以只写-lt-aa-gt" class="headerlink" title="1)有开始必须要有结束&lt;aa&gt;&lt;/aa&gt;，如果标签之间没有内容可以只写&lt;/aa&gt;"></a>1)有开始必须要有结束<code>&lt;aa&gt;&lt;/aa&gt;</code>，如果标签之间没有内容可以只写<code>&lt;/aa&gt;</code></h5><h5 id="2-标签可以嵌套"><a href="#2-标签可以嵌套" class="headerlink" title="2)标签可以嵌套"></a>2)标签可以嵌套</h5><h5 id="3-一个xml中有且只有一个根标签"><a href="#3-一个xml中有且只有一个根标签" class="headerlink" title="3)一个xml中有且只有一个根标签"></a>3)一个xml中有且只有一个根标签</h5><p><strong>注意：xml中空格和换行都会被当成内容来解析，譬如两个代码表示内容是不同的</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;网址&gt;crazyyzw.top&lt;&#x2F;网址&gt;</span><br><span class="line"></span><br><span class="line">&lt;网址&gt;</span><br><span class="line">	crazyyzw.top</span><br><span class="line">&lt;&#x2F;网址&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="4-XML命名规则"><a href="#4-XML命名规则" class="headerlink" title="4)XML命名规则"></a>4)XML命名规则</h5><blockquote>
+<p>XML区分大小写<br>不能以数字和_开头<br>不能以XML自身开头，反例:<del><xmla></xmal></del><br>标签名字之间不能包含空格<br>标签名字之间不能包含冒号</p>
+</blockquote>
+<h4 id="定义属性"><a href="#定义属性" class="headerlink" title="定义属性"></a>定义属性</h4><blockquote>
+<p>一个标签可以有多个属性<br>属性不允许重复 反例：<del><dog name="wangwang" name='aoaoao'></dog></del><br>属性值可以用单引号，也可以用双引号<br>属性命名规范与标签一致</p>
+</blockquote>
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>写法：<code>&lt;!--这是一个注释--&gt;</code><br><strong>注释不能嵌套</strong></p>
+<h4 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h4><p>XML内容中用到的字符转义：</p>
+<blockquote>
+<p>小于号转义字符为<code>&amp;lt;</code><br>大于号转义字符为<code>&amp;gt;</code><br>‘&amp;’转义字符为<code>&amp;amp;</code><br>双引号转义字符为<code>&amp;quot;</code><br>单引号转义字符为<code>&amp;apos;</code></p>
+</blockquote>
+<h4 id="CDATA区"><a href="#CDATA区" class="headerlink" title="CDATA区"></a>CDATA区</h4><p>如果多个字符需要转义，只有放在CDATA区就不需要转义老<br>写法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;![CDATA[所加内容]]&gt;</span><br><span class="line">&lt;![CDATA[&lt;B&gt;if(a&lt;b &amp;&amp; a&gt;c &amp;&amp; c&gt;f)&#123;&#125;&lt;&#x2F;B&gt;]]&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="PI指令-处理指令"><a href="#PI指令-处理指令" class="headerlink" title="PI指令(处理指令)"></a>PI指令(处理指令)</h4><p>可以在xml中设置样式<br>引入方式：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml-stylesheet type&#x3D;&quot;text&#x2F;css&quot; href&#x3D;&quot;reset.css&quot;?&gt;&#x2F;&#x2F;对中文标签不起作用</span><br></pre></td></tr></table></figure>
+
+<h4 id="XML的约束"><a href="#XML的约束" class="headerlink" title="XML的约束"></a>XML的约束</h4><p>目的使标签内元素更加规范<br>xml常见两种约束技术：dtd约束和schema约束</p>
+<h3 id="DTD"><a href="#DTD" class="headerlink" title="DTD"></a>DTD</h3><h4 id="DTD文件创建"><a href="#DTD文件创建" class="headerlink" title="DTD文件创建"></a>DTD文件创建</h4><blockquote>
+<p>1.创建一个文件后缀名为.dtd<br>2.看xml文件中有几个元素，然后在dtd中写几个&lt;!ELEMENT&gt;<br>3.判断元素是简单元素还是复杂元素，(<em>简单元素就是元素没有嵌套子元素</em>)</p>
+<blockquote>
+<p>简单元素:<!ELEMENT 简单元素名称 (#PCDATA)><br>复杂元素：<!ELEMENT 复杂元素名称 (子元素名称1,...)>,<em>注意：它的孙子元素不包括在内</em><br>4.在xml文件中引入dtd文件<br>引入外部dtd文件： <code>&lt;!DOCTYPE 根元素名称 SYSTEM &quot;dtd文件的路径&quot;&gt;&lt;!--引入方式1--&gt;</code><br>使用内部dtd文件： <code>&lt;!DOCTYPE 根元素名称 [dtd文件内容]&gt;&lt;!--引入方式2--&gt;</code><br>使用网络上的dtd文件： <code>&lt;!DOCTYPE 根元素名称 PUBLIC &quot;DTD名称&quot; &quot;DTD文档的URL&quot;&gt;&lt;!--引入方式3--&gt;</code><br><strong>xml文件在浏览器中运行不受dtd约束，因为浏览器只会校验xml语法，不会通过dtd文件进行校验，我们需要专门工具实现校验xml的约束</strong></p>
+</blockquote>
+</blockquote>
+<h4 id="使用DTD定义元素"><a href="#使用DTD定义元素" class="headerlink" title="使用DTD定义元素"></a>使用DTD定义元素</h4><h5 id="简单元素语法"><a href="#简单元素语法" class="headerlink" title="简单元素语法"></a>简单元素语法</h5><p><code>&lt;!ELEMENT 元素名称 约束&gt;</code><br>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT name (#PCDATA)&gt;&#x2F;&#x2F;这里的(#PCDATA)是一种约束，约束name中内容为字符串类型，其他约束：EMPTY:元素为空（没有内容）,ANY：表示任意</span><br></pre></td></tr></table></figure>
+<h5 id="复杂元素语法"><a href="#复杂元素语法" class="headerlink" title="复杂元素语法"></a>复杂元素语法</h5><p><code>&lt;!ELEMENT 复杂元素名称 (子元素名称1,...)&gt;</code><br><em>表示子元素出现次数：</em><br>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT person (name+,age,sex)&gt;&#x2F;&#x2F;name后+表示person里可以嵌套一个或多个name元素</span><br><span class="line">&lt;!ELEMENT person (name,age?,sex)&gt;&#x2F;&#x2F;age后?表示person里可以嵌套0个或多个age元素</span><br><span class="line">&lt;!ELEMENT person (name+,age*,sex)&gt;&#x2F;&#x2F;age后*表示person里可以嵌套任意个数age且可以为0</span><br></pre></td></tr></table></figure>
+<p>复杂元素定义中()里逗号隔开，xml中需按()内顺序定义元素，如果将逗号换为|表示子元素只能有一个定义出来</p>
+<h4 id="使用dtd定义属性"><a href="#使用dtd定义属性" class="headerlink" title="使用dtd定义属性"></a>使用dtd定义属性</h4><h5 id="定义属性语法"><a href="#定义属性语法" class="headerlink" title="定义属性语法"></a>定义属性语法</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!ATTLIST 元素名称 </span><br><span class="line">属性名称 属性的类型 属性的约束</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="属性的类型"><a href="#属性的类型" class="headerlink" title="属性的类型"></a>属性的类型</h5><p><strong>CDATA:表示xml属性的取值为普通文本字符串</strong><br><strong>枚举(AA|BB|CC):xml属性值只能取其中一个</strong><br><strong>ID:xml属性的值只能有字母和_开头</strong></p>
+<h5 id="属性的约束"><a href="#属性的约束" class="headerlink" title="属性的约束"></a>属性的约束</h5><p><strong>#REQUIRED:属性必须存在</strong><br><strong>#MPLED:属性可有可无</strong><br><strong>#FIXED:表示一个固定的值，示例：</strong><code>#FIXED: &quot;ABC&quot;</code><br><strong>直接值：直接在属性的约束定义属性值，如果属性定义，默认使用直接值</strong></p>
+<h5 id="定义实体"><a href="#定义实体" class="headerlink" title="定义实体"></a>定义实体</h5><p><strong>DTD中定义，在xml中使用</strong><br>语法：<code>&lt;!ENTITY 实体名称 实体内容&gt;</code><br><strong>xml中引用：</strong><br><code>&amp;实体名称;</code><br><em>注意：最好在内部dtd中定义实体，在外部定义，有些浏览器下，内容可能获取不到</em></p>
+<h3 id="Schema"><a href="#Schema" class="headerlink" title="Schema"></a>Schema</h3><p><strong>schema符合xml语法，与dtd不同的是一个xml中允许有多个个schema(通过名称空间进行区分)，schema支持除字符串更多数据类型(包括用户自定义数据类型)，schema约束更加严格，比dtd复杂</strong></p>
+<h4 id="创建Schema文件"><a href="#创建Schema文件" class="headerlink" title="创建Schema文件"></a>创建Schema文件</h4><blockquote>
+<p>1.创建后缀名为.xsd的XML Schema文件（schema与xml一样必须有一个根节点，而它的根节点就是<code>&lt;schema&gt;&lt;/schema&gt;</code>）<br>2.设置schema的属性，xmlns属性表示当前文件是一个约束文件，targetNamespace属性提供引用该schema约束文件的自定义地址，<br>3.看xml文件中有几个元素，写几个<code>&lt;element&gt;&lt;/element&gt;</code><br>4.判断xml中元素是简单元素还是复杂元素</p>
+<blockquote>
+<p>简单元素：<code>&lt;element name=&quot;简单元素名&quot; type=&quot;数据类型&quot;&gt;&lt;/element&gt;</code><br>复杂元素：<code>&lt;element name=&quot;复杂元素名&quot;&gt;&lt;complexType&gt;子元素&lt;/complexType&gt;&lt;/element&gt;</code></p>
+</blockquote>
+</blockquote>
+<h4 id="引入Schema文件"><a href="#引入Schema文件" class="headerlink" title="引入Schema文件"></a>引入Schema文件</h4><p><strong>在xml文件的根节点中属性xmlns第一个内容同schema文件后追加<code>-instance</code>，第二个是targetNamespace中地址（由于xmlns重名，需要未其中一个设置别名，格式为<code>:别名</code>），最后配置targetNamespace中地址 schema的路径</strong><br>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;person xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3c.org&#x2F;2001&#x2F;XMlSchema-instance&quot; xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.zidingyi.cn&#x2F;20200330 one.xsd&quot;&gt;</span><br><span class="line">	&lt;name&gt;二狗&lt;&#x2F;name&gt;</span><br><span class="line">	&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Schema使用"><a href="#Schema使用" class="headerlink" title="Schema使用"></a>Schema使用</h4><blockquote>
+<ol>
+<li><sequence></sequence>:表示元素出现顺序</li>
+<li><all></all>:表示元素只能出现一次</li>
+<li><choice></choice>:表示只能出现里面元素中任意一个</li>
+<li>maxOccurs=”unbounded”:表示元素出现的次数</li>
+<li><any></any>:表示任意元素</li>
+</ol>
+</blockquote>
+]]></content>
+      <categories>
+        <category>JavaWeb</category>
+      </categories>
+      <tags>
+        <tag>标记语言</tag>
+        <tag>XML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>道德经原文</title>
+    <url>/2020/03/28/%E9%81%93%E5%BE%B7%E7%BB%8F%E5%8E%9F%E6%96%87/</url>
+    <content><![CDATA[<h3 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h3><blockquote>
+<p>道，可道，非常道；名，可名，非常名。无名，天地始；有名，万物母。常无，欲观其妙；常有，欲观其徼。此两者同出而异名，同谓之玄，玄之又玄，众妙之门。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h3><blockquote>
+<p>天下皆知美之为美，斯恶已；皆知善之为善，斯不善已。故有无相生，难易相成，长短相形，高下相倾，音声相和，前后相随。是以圣人处无为之事，行不言之教。万物作而不辞，生而不有，为而不恃，成功不居。夫唯不居，是以不去。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h3><blockquote>
+<p>不上贤，使民不争；不贵难得之货，使民不盗；不见可欲，使心不乱。圣人治：虚其心，实其腹，弱其志，强其骨。常使民无知无欲，使知者不敢为，则无不治。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第四章"><a href="#第四章" class="headerlink" title="第四章"></a>第四章</h3><blockquote>
+<p>道冲，而用之久不盈。深乎!万物宗。挫其锐，解其忿，和其光，同其尘。湛常存。吾不知谁子?象帝之先。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a>第五章</h3><blockquote>
+<p>天地不仁，以万物为刍狗；圣人不仁，以百姓为刍狗。天地之间，其犹橐蘥。虚而不屈，动而俞出。多言数穷，不如守中。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h3><blockquote>
+<p>谷神不死，是谓玄牝。玄牝门，天地根。绵绵若存，用之不勤。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h3><blockquote>
+<p>天长地久。天地所以能长久者，以其不自生，故能长久。是以圣人后其身而身先，外其身而身存。以其无私，故能成其私。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第八章"><a href="#第八章" class="headerlink" title="第八章"></a>第八章</h3><blockquote>
+<p>上善若水。水善利万物，又不争，处众人之所恶，故几于道。居善地，心善渊，与善人，言善信，政善治，事善能，动善时。夫唯不争，故无尤。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第九章"><a href="#第九章" class="headerlink" title="第九章"></a>第九章</h3><blockquote>
+<p>持而盈之，不若其以。揣而锐之，不可长保。金玉满堂，莫之能守。富贵而骄，自遗其咎。功成、名遂、身退、天之道。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第十章"><a href="#第十章" class="headerlink" title="第十章"></a>第十章</h3><blockquote>
+<p>载营魄抱一，能无离?专气致柔，能婴儿?涤除玄览，能无疵?爱人治国，能无为?天门开阖，能为雌?明白四达，能无知?<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第十一章"><a href="#第十一章" class="headerlink" title="第十一章"></a>第十一章</h3><blockquote>
+<p>三十辐共一毂，当其无有，车之用。埏埴以为器，当其无有，器之用。凿户牖以为室，当其无有，室之用。有之以为利，无之以为用。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第十二章"><a href="#第十二章" class="headerlink" title="第十二章"></a>第十二章</h3><blockquote>
+<p>五色令人目盲；五音令人耳聋；五味令人口爽；驰骋田猎，令人心发狂；难得之货，令人行妨。是以圣人为腹不为目。故去彼取此。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第十三章"><a href="#第十三章" class="headerlink" title="第十三章"></a>第十三章</h3><blockquote>
+<p>宠辱若惊，贵大患若身。何谓宠辱?辱为下。得之若惊，失之若惊，是谓宠辱若惊。何谓贵大患若身?吾所以有大患，为我有身。及我无身，吾有何患!故贵身于天下，若可托天下；爱以身为天下者，若可寄天下。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第十四章"><a href="#第十四章" class="headerlink" title="第十四章"></a>第十四章</h3><blockquote>
+<p>视之不见，名曰夷；听之不闻，名曰希；搏之不得，名曰微。此三者不可致诘，故混而为一。其上不曒，在下不昧。绳绳兮不可名，复归于无物。是谓无状之状，无物之象，是谓忽恍。迎不见其首，随不见其后。执古之道，以语今之有。以知古始，是谓道已。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第十五章"><a href="#第十五章" class="headerlink" title="第十五章"></a>第十五章</h3><blockquote>
+<p>古之善为士者，微妙玄通，深不可识。夫唯不可识，故强为之容：豫若冬涉川，犹若畏四邻，俨若客，涣若水将释，敦若朴，混若浊，旷若谷，孰能浊以静之?徐清。安以动之?徐生。保此道者，不欲盈。夫唯不盈，能弊复成。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第十六章"><a href="#第十六章" class="headerlink" title="第十六章"></a>第十六章</h3><blockquote>
+<p>致虚极，守静笃。万物并作，吾以观其复。夫物云云，各归其根。归根曰静，静曰复命，复命曰常，知常曰明。不知常，忘作，凶。知常容，容能公，公能王，王能天，天能道，道能久，没身不殆。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第十七章"><a href="#第十七章" class="headerlink" title="第十七章"></a>第十七章</h3><blockquote>
+<p>太上，下知有之；其次，亲之豫之；其次，畏之侮之。信不足，有不信!由其贵言。成功事遂，百姓谓我自然。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第十八章"><a href="#第十八章" class="headerlink" title="第十八章"></a>第十八章</h3><blockquote>
+<p>大道废，有人义。智慧出，有大伪。六亲不和，有孝慈。国家昏乱，有忠臣。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第十九章"><a href="#第十九章" class="headerlink" title="第十九章"></a>第十九章</h3><blockquote>
+<p>绝圣弃智，民利百倍；绝民弃义，民复孝慈；绝巧弃利，盗贼无有。此三者，为文不足，故令有所属：见素抱朴，少私寡欲。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第二十章"><a href="#第二十章" class="headerlink" title="第二十章"></a>第二十章</h3><blockquote>
+<p>绝学无忧。唯之与阿，相去几何?善之与恶，相去何若?人之所畏，不可不畏。忙兮其未央!众人熙熙，若享太牢，若春登台。我魄未兆，若婴儿未孩。乘乘无所归!众人皆有馀，我独若遗。我愚人之心，纯纯。俗人昭昭，我独若昏。俗人察察，我独闷闷。淡若海，漂无所止。众人皆有已，我独顽似鄙。我独异于人，而贵食母。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第二十一章"><a href="#第二十一章" class="headerlink" title="第二十一章"></a>第二十一章</h3><blockquote>
+<p>孔得之容，唯道是从。道之为物，唯恍唯忽。忽恍中有象，恍忽中有物。窈冥中有精，其精甚真，其中有信。自古及今，其名不去，以阅众甫。吾何以知众甫之然?以此。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第二十二章"><a href="#第二十二章" class="headerlink" title="第二十二章"></a>第二十二章</h3><blockquote>
+<p>曲则全，枉则正；洼则盈，敝则新；少则得，多则或。是以圣人抱一为天下式。不自见，故明；不自是，故彰；不自伐，故有功；不自矜，故长。夫惟不争，故天下莫能与之争。古之所谓“曲则全”，岂虚语?故成全而归之。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第二十三章"><a href="#第二十三章" class="headerlink" title="第二十三章"></a>第二十三章</h3><blockquote>
+<p>希言自然。飘风不终朝，骤雨不终日。孰为此?天地。天地上不能久，而况于人?故从事而道者，道德之；同于德者，德德之；同于失者，道失之。信不足，有不信。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第二十四章"><a href="#第二十四章" class="headerlink" title="第二十四章"></a>第二十四章</h3><blockquote>
+<p>企者不久，跨者不行，自见不明，自是不彰，自伐无功，自矜不长。其在道，日馀食赘行。物或有恶之，故有道不处。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第二十五章"><a href="#第二十五章" class="headerlink" title="第二十五章"></a>第二十五章</h3><blockquote>
+<p>有物混成，先天地生。寂漠!独立不改，周行不殆，可以为天下母。吾不知其名，字之曰道，吾强为之名曰大。大曰逝，逝曰远，远曰返。道大，天大，地大，王大。域中有四大，而王处一。人法地，地法天，天法道，道法自然。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第二十六章"><a href="#第二十六章" class="headerlink" title="第二十六章"></a>第二十六章</h3><blockquote>
+<p>重为轻根，静为躁君。是以君子终日行，不离辎重，虽有荣观，燕处超然。如何万乘之主，以身轻天下?轻则失臣，躁则失君。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第二十七章"><a href="#第二十七章" class="headerlink" title="第二十七章"></a>第二十七章</h3><blockquote>
+<p>善行，无辙迹；善言，无瑕谪；善计，不用筹策；善闭，无关键不可开；善结，无绳约不可解。是以圣人常善救人，而无弃人；常善救物，而无弃物。是谓袭明。善人，不善人之师；不善人，善人之资。不贵其师，不爱其资，虽知大迷，是谓要妙。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第二十八章"><a href="#第二十八章" class="headerlink" title="第二十八章"></a>第二十八章</h3><blockquote>
+<p>知其雄，守其雌，为天下溪。为天下溪，常德不离，复归于婴儿。知其白，守其黑，为天下式。常得不忒，复归于无极。知其荣，守其辱，为天下谷。为天下谷，常得乃足，复归于朴。朴散则为器，圣人用为官长，是以大制无割。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第二十九章"><a href="#第二十九章" class="headerlink" title="第二十九章"></a>第二十九章</h3><blockquote>
+<p>将欲取天下而为之，吾见其不得已。天下神器，不可为。为者败之，执者失之。夫物或行或随，或嘘或吹，或强或赢，或接或隳。是以圣人去甚，去奢，去泰。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第三十章"><a href="#第三十章" class="headerlink" title="第三十章"></a>第三十章</h3><blockquote>
+<p>以道作人主者，不以兵强天下，其事好远：师之所处，荆棘生。故善者果而已，不以取强。果而勿骄，果而勿矜，果而勿伐，果而不得以，是果而勿强。物壮则老，谓之非道，非道早已。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第三十一章"><a href="#第三十一章" class="headerlink" title="第三十一章"></a>第三十一章</h3><blockquote>
+<p>夫佳兵者，不祥之器，物或恶之，故有道不处。君子居则贵左，用兵则贵右。兵者不祥之器，非君子之器，不得已而用之，恬惔为上，故不美，若美之，是乐煞人。夫乐煞者，不可得意于天下。故吉事尚左，凶事尚右。是以偏将军居左，上将军居右。煞人众多，以悲哀泣之；战胜，以哀礼处之。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第三十二章"><a href="#第三十二章" class="headerlink" title="第三十二章"></a>第三十二章</h3><blockquote>
+<p>道常无名。朴虽小，天下不敢臣。王侯若能守，万物将自宾。天地相合，以降甘露，人莫之令而自均。始制有名。名亦既有，天将知止。知止不殆。譬道在天下，犹川谷与江海。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第三十三章"><a href="#第三十三章" class="headerlink" title="第三十三章"></a>第三十三章</h3><blockquote>
+<p>知人者智，自知者明。胜人有力，自胜者强。知足者富，强行有志。不失其所者久，死而不亡者寿。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第三十四章"><a href="#第三十四章" class="headerlink" title="第三十四章"></a>第三十四章</h3><blockquote>
+<p>大道汜，其可左右。万物恃之以生而不辞，成功不名有。爱养万物不为主，可名于大。是以圣人终不为大，故能成其大。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第三十五章"><a href="#第三十五章" class="headerlink" title="第三十五章"></a>第三十五章</h3><blockquote>
+<p>执大象，天下往。往而不害，安平太。乐与饵，过客止。道出言，淡无味，视不足见，听不足闻，用不可既。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第三十六章"><a href="#第三十六章" class="headerlink" title="第三十六章"></a>第三十六章</h3><blockquote>
+<p>将欲翕之，必故张之；将欲弱之，必故强之；将欲废之，必故兴之；将欲夺之，必故与之。是谓微明。柔胜刚，弱胜强。鱼不可脱于渊，国有利器，不可示人。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第三十七章"><a href="#第三十七章" class="headerlink" title="第三十七章"></a>第三十七章</h3><blockquote>
+<p>道常无为而无不为。侯王若能守，万物将自化。化而欲作，吾将镇之以无名之朴。无名之朴，亦将不欲。不欲以静，天下将自正。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第三十八章"><a href="#第三十八章" class="headerlink" title="第三十八章"></a>第三十八章</h3><blockquote>
+<p>上德不德，是以有德。下德不失德，是以无德。上德无为而无以为，下德无为而有以为。上仁为之而无以为，上义为之而有以为。上礼为之而莫之应，则攘臂而仍之。故失道而后德，失德而后仁，失仁而后义，失义而后礼。夫礼者，忠信之薄，而乱之首。前识者，道之华，而愚之始。是以大丈夫处其厚不处其薄，居其实不居其华。故去彼取此。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第三十九章"><a href="#第三十九章" class="headerlink" title="第三十九章"></a>第三十九章</h3><blockquote>
+<p>昔之得一者：天得一以清，地得一以宁，神得一以灵，谷得一以盈，万物得一以生，侯王得一以为天下正。天无以清，将恐裂；地无以宁，将恐废；神无以灵，将恐歇；谷无以盈，将恐竭；万物无以生，将恐灭；侯王无以贵高，将恐蹶。故贵以贱为本，高以下为基。是以侯王自谓孤、寡、不谷。此其以贱为本耶非?故致数车无车。不欲琭琭如玉，落落如石。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第四十章"><a href="#第四十章" class="headerlink" title="第四十章"></a>第四十章</h3><blockquote>
+<p>反者道之动，弱者道之用。天下万物生于有，有生于无。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第四十一章"><a href="#第四十一章" class="headerlink" title="第四十一章"></a>第四十一章</h3><blockquote>
+<p>上士闻道，勤而行之；中士闻道，若存若亡；下士闻道，大咲之。不咲不足以为道。故建言有之：明道若昧，进道若退，夷道若类，上德若谷，大白若辱，广德若不足，建德若偷，质真若渝，大方无隅，大器晚成，大音希声，大象无形。道隐无名。夫唯道，善贷且善。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第四十二章"><a href="#第四十二章" class="headerlink" title="第四十二章"></a>第四十二章</h3><blockquote>
+<p>道生一，一生二，二生三，三生万物。万物负阴而抱阳，冲气以为和。人之所恶，唯孤、寡、不谷，而王公以为称。故物或损之而益，或益之而损。人之所教，我亦教之：强梁者不得其死，吾将以为教父。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第四十三章"><a href="#第四十三章" class="headerlink" title="第四十三章"></a>第四十三章</h3><blockquote>
+<p>天下之至柔，驰骋天下之至坚。无有入于无闻。是以知无为有益。不言之教，无为之益，天下希及之。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第四十四章"><a href="#第四十四章" class="headerlink" title="第四十四章"></a>第四十四章</h3><blockquote>
+<p>名与身熟亲?身与货熟多?得与亡熟病?是故甚爱必大费，多藏必厚亡。故知足不辱，知止不殆，可以长久。</p>
+</blockquote>
+<h3 id="第四十五章"><a href="#第四十五章" class="headerlink" title="第四十五章"></a>第四十五章</h3><blockquote>
+<p>大成若缺，其用不弊。大盈若冲，其用不穷。大直若屈，大巧若拙，大辩若讷。躁胜塞，静胜热，清静以为天下正。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第四十六章"><a href="#第四十六章" class="headerlink" title="第四十六章"></a>第四十六章</h3><blockquote>
+<p>天下有道，却走马以粪；天下无道，戎马生于郊。罪莫大于可欲，祸莫大于不知足，咎莫大于欲得。故知足之足，常足。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第四十七章"><a href="#第四十七章" class="headerlink" title="第四十七章"></a>第四十七章</h3><blockquote>
+<p>不出户，知天下；不窥牖，见天道。其出弥远，其知弥近。是以圣人不行而知，不见而名，不为而成。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第四十八章"><a href="#第四十八章" class="headerlink" title="第四十八章"></a>第四十八章</h3><blockquote>
+<p>为学日益，为道日损，损之又损之，以至于无为。无为无不为。取天下常以无事，及其有事，不足以取天下。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第四十九章"><a href="#第四十九章" class="headerlink" title="第四十九章"></a>第四十九章</h3><blockquote>
+<p>圣人无心，以百姓心为心。善者吾善之，不善者吾亦善之，得善。信者吾信之，不信者吾亦信之，得信。圣人在天下，怵怵；为天下，浑其心。百姓皆注其耳目，圣人皆孩之。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第五十章"><a href="#第五十章" class="headerlink" title="第五十章"></a>第五十章</h3><blockquote>
+<p>出生入死。生之徒十有三，死之徒十有三，人之生，动之死地，十有三。夫何故?以其生生之厚。盖闻善摄生者，路行不遇兕虎，入军不被甲兵。兕无所投其角，虎无所揩其爪，兵无所容其刃。夫何故?以其无死地。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第五十一章"><a href="#第五十一章" class="headerlink" title="第五十一章"></a>第五十一章</h3><blockquote>
+<p>道生之，德畜之，物形之，势成之。是以万物莫不尊道而贵德。道之尊，德之贵，夫莫之命而常自然。故道生之，德畜之，长之育之，成之熟之，养之覆之。生而不有，为而不恃，长而不宰，是谓玄德。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第五十二章"><a href="#第五十二章" class="headerlink" title="第五十二章"></a>第五十二章</h3><blockquote>
+<p>天下有始，以为天下母。既知其母，又知其子。既知其子，复守其母。没身不殆。塞其兑，闭其门。终身不勤。开其兑，济其事，终身不救。见小曰明，守柔曰强。用其光，复归其明，无遗身殃，是谓习常。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第五十三章"><a href="#第五十三章" class="headerlink" title="第五十三章"></a>第五十三章</h3><blockquote>
+<p>使我介然有知，行于大道，唯施是畏。大道甚夷，而人好径。朝甚除，田甚芜，仓甚虚，服文彩，带利剑，厌饮食，财货有馀，是谓盗夸。非道也哉!<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第五十四章"><a href="#第五十四章" class="headerlink" title="第五十四章"></a>第五十四章</h3><blockquote>
+<p>善建者不拔，善抱者不脱，子孙祭祀不辍。修之身，其德乃真；修之家，其德有馀；修之乡，其德乃长；修之于国，其德乃丰；修之于天下，其德乃普。故以身观身，以家观家，以乡观乡，以国观国，以天下观天下。吾何以知天下之然?以此。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第五十五章"><a href="#第五十五章" class="headerlink" title="第五十五章"></a>第五十五章</h3><blockquote>
+<p>含德之厚，比于赤子。毒虫不螫，猛兽不据，玃鸟不搏。骨弱筋柔而握固。未知牝牡之合而脧作，精之至。终日号而不嗄，和之至。知和曰常，知常曰明，益生曰祥，心使气曰强。物壮则老，谓之不道，不道早已。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第五十六章"><a href="#第五十六章" class="headerlink" title="第五十六章"></a>第五十六章</h3><blockquote>
+<p>知者不言，言者不知。塞其兑，闭其门，挫其锐，解其忿，和其光，同其尘，是谓玄同。故不可得而亲，不可得而疏；不可得而利，不可得而害；不可得而贵，亦不可得而贱。故为天下贵。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第五十七章"><a href="#第五十七章" class="headerlink" title="第五十七章"></a>第五十七章</h3><blockquote>
+<p>以正治国，以奇用兵，以无事取天下。吾何以知其然?以此。天下多忌讳，而人弥贫；人多利器，国家滋昏；人多伎巧，奇物滋起；法物滋彰，盗贼多有。故圣人云：“我无为，人自化；我好静，人自正；我无事，人自富；我无欲，人自朴。”</p>
+</blockquote>
+<h3 id="第五十八章"><a href="#第五十八章" class="headerlink" title="第五十八章"></a>第五十八章</h3><blockquote>
+<p>其政闷闷，其人醇醇；其政察察，其人缺缺。祸，福之所倚；福，祸之所伏。熟知其极?其无正。政复为奇，善复为妖。人之迷，其日固久。是以圣人方而不割，廉而不害，直而不肆，光而不曜。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第五十九章"><a href="#第五十九章" class="headerlink" title="第五十九章"></a>第五十九章</h3><blockquote>
+<p>治人事天，莫若啬。夫唯啬，是谓早服。早服谓之重积德。重积德则无不克，无不克则莫知其极。莫知其极，可以有国。有国之母，可以长久。是谓深根、固蒂、长生、久视之道。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第六十章"><a href="#第六十章" class="headerlink" title="第六十章"></a>第六十章</h3><blockquote>
+<p>治大国若亨小鲜。以道莅天下，其鬼不神。非其鬼不神，其神不伤人。非其神不伤人，圣人亦不伤人。夫两不相伤，故得交归。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第六十一章"><a href="#第六十一章" class="headerlink" title="第六十一章"></a>第六十一章</h3><blockquote>
+<p>大国者下流，天下之交，天下之牝。牡常以静胜牝，以静为下。故大国以下小国，则取小国；小国以下大国，则取大国。故或下以取，或下如取。大国不过欲兼畜人，小国不过欲入事人。此两者各得其所欲，大者宜为下。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第六十二章"><a href="#第六十二章" class="headerlink" title="第六十二章"></a>第六十二章</h3><blockquote>
+<p>道者，万物之奥。善，人之宝；不善，人之所不保。美言可以市尊，行可以加人。人之不善，何弃之有?故立天子，置三公，虽有拱璧以先驷马，不如坐进此道。古之所以贵此道者何?不曰求以得，有罪以勉，故为天下贵。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第六十三章"><a href="#第六十三章" class="headerlink" title="第六十三章"></a>第六十三章</h3><blockquote>
+<p>为无为，事无事，味无味。大小多少，报怨以德。图难于易，为大于细。天下难事，必作于易；天下大事，必作于细。是以圣人终不为大，故能成其大。夫轻诺必寡信，多易必多难，是以圣人犹难之，故终无难。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第六十四章"><a href="#第六十四章" class="headerlink" title="第六十四章"></a>第六十四章</h3><blockquote>
+<p>其安易持，其未兆易谋，其脆易破，其微易散。为之于未有，治之于未乱。合抱之木，生于毫末；九层之台，起于累土；千里之行，始于足下。为者败之，执者失之。是以圣人无为，故无败；无执，故无失。民之从事，常于几成而败之。慎终如始，则无败事。是以圣人欲不欲，不贵难得之货；学不学，复众人之所过。以辅万物之自然而不敢为。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第六十五章"><a href="#第六十五章" class="headerlink" title="第六十五章"></a>第六十五章</h3><blockquote>
+<p>古之善为道者，非以明人，将以愚之。民之难治，以其多智。以智治国，国之贼；不以智治国，国之福。知此两者，亦揩式。常知揩式，是谓玄德。玄德深远，与物反，然后乃至大顺。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第六十六章"><a href="#第六十六章" class="headerlink" title="第六十六章"></a>第六十六章</h3><blockquote>
+<p>江海所以能为百谷王，以其善下之，故能为百谷王。是以圣人欲上人，必以言下之；欲先人，必以身后之。是以圣人处上而人不重，处前而人不害，是以天下乐推而不厌。以其不争，故天下莫与之争。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第六十七章"><a href="#第六十七章" class="headerlink" title="第六十七章"></a>第六十七章</h3><blockquote>
+<p>天下皆谓我大，不肖。夫唯大，故不肖。若肖，久矣其细!我有三宝，持而保之：一曰慈，二曰俭，三曰不敢为天下先。夫慈，故能勇；俭，故能广；不敢为天下先，故能成器长。今舍慈且勇，舍俭且广，舍后且先，死矣。夫慈，以战则胜，以守则固。天将救之，以慈卫之。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第六十八章"><a href="#第六十八章" class="headerlink" title="第六十八章"></a>第六十八章</h3><blockquote>
+<p>古之善为士者不武，善战者不怒，善胜敌者不争，善用仁者为下。是谓不争之德，是以用人之力，是谓配天古之极。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第六十九章"><a href="#第六十九章" class="headerlink" title="第六十九章"></a>第六十九章</h3><blockquote>
+<p>用兵有言：“吾不敢为主而为客，不敢进寸而退尺。”是谓行无行，攘无臂，仍无敌，执无兵。祸莫大于轻敌，轻敌几丧吾宝。故抗兵相加，则哀者胜。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第七十章"><a href="#第七十章" class="headerlink" title="第七十章"></a>第七十章</h3><blockquote>
+<p>吾言甚易知，甚易行。天下莫能知，莫能行。言有宗，事有君。夫唯无知，是以不我知。知我者希，则我者贵。是以圣人被褐怀玉。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第七十一章"><a href="#第七十一章" class="headerlink" title="第七十一章"></a>第七十一章</h3><blockquote>
+<p>知不知上，不知知，病。是以圣人不病。以其病病，是以不病。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第七十二章"><a href="#第七十二章" class="headerlink" title="第七十二章"></a>第七十二章</h3><blockquote>
+<p>民不畏威，大威至。无狭其所居，无厌其所生。夫唯不厌，是以不厌。是以圣人自知不自见，自爱不自贵。故去彼取此。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第七十三章"><a href="#第七十三章" class="headerlink" title="第七十三章"></a>第七十三章</h3><blockquote>
+<p>勇于敢则杀，勇于不敢则活，知此两者或利或害。天之所恶，孰知其故?天之道，不争而善胜，不言而善应，不召而自来，坦然而善谋。天网恢恢，疏而不漏。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第七十四章"><a href="#第七十四章" class="headerlink" title="第七十四章"></a>第七十四章</h3><blockquote>
+<p>民不畏死，奈何以死惧之?若使常畏死，而为奇者，吾执得而煞之，熟敢?常有司煞者煞。夫代司煞者，是谓代大匠斲，夫代大匠斲，希有不伤其手。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第七十五章"><a href="#第七十五章" class="headerlink" title="第七十五章"></a>第七十五章</h3><blockquote>
+<p>民之饥，以其上食税之多，是以饥。民之难治，以其上有为，是以难治。人之轻死，以其生生之厚，是以轻死。夫唯无以生为者，是贤于贵生。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第七十六章"><a href="#第七十六章" class="headerlink" title="第七十六章"></a>第七十六章</h3><blockquote>
+<p>人生之柔弱，其死坚强。万物草木生之柔脆，其死枯槁。故坚强者死之徒，柔弱者生之徒。是以兵强则不胜，木强则共。故坚强处下，柔弱处上。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第七十七章"><a href="#第七十七章" class="headerlink" title="第七十七章"></a>第七十七章</h3><blockquote>
+<p>天之道，其犹张弓!高者抑之，下者举之，有馀者损之，不足者与之。天之道，损有馀而补不足；人道则不然，损不足，奉有馀。熟能有馀以奉天下?其唯有道者。是以圣人为而不恃，功成不处，斯不见贤。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第七十八章"><a href="#第七十八章" class="headerlink" title="第七十八章"></a>第七十八章</h3><blockquote>
+<p>天下柔弱莫过于水，而攻坚；强莫之能先。其无以易之。故弱胜强，柔胜刚，天下莫能知，莫能行。故圣人云：“受国之垢，是谓社稷主；受国不祥，是谓天下王。”正言若反。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第七十九章"><a href="#第七十九章" class="headerlink" title="第七十九章"></a>第七十九章</h3><blockquote>
+<p>和大怨，必有馀怨，安可以为善?是以圣人执左契，不责于人。故有德司契，无德司彻。天道无亲，常与善人。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第八十章"><a href="#第八十章" class="headerlink" title="第八十章"></a>第八十章</h3><blockquote>
+<p>小国寡人，使有什佰之器而不用，使人重死而不远徙。虽有舟舆，无所乘之；虽有甲兵，无所陈之。使民复结绳而用之。甘其食，美其服，安其居，乐其俗，邻国相望，鸡狗之声相闻，民至老死，不相往来。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+<h3 id="第八十一章"><a href="#第八十一章" class="headerlink" title="第八十一章"></a>第八十一章</h3><blockquote>
+<p>信言不美，美言不信。善者不辩，辩者不善。知者不博，博者不知。圣人不积，既以为人己愈有，既以与人己愈多。天之道，利而不害。圣人之道，为而不争。<br><strong><em>批注：</em></strong></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>哲学</category>
+      </categories>
+      <tags>
+        <tag>老子</tag>
+        <tag>道家</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>git的使用</title>
     <url>/2020/03/18/git%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h2 id="git的使用"><a href="#git的使用" class="headerlink" title="git的使用"></a>git的使用</h2><p><strong>可以说是一个很牛×的开发工具，是Linux之父开发出来的，据说只花了一周时间，打扰了。git是一个开源的分布式版本控制系统，当时开发目的是为了管理Linux内核开发，毕竟开源项目管理，懒人都会用聪明的方法方便自身偷懒，也体现林纳斯·托瓦兹觉得当时版本控制工具不能满足自身需求而得以git的问世。git的竞争力主要在于它拥有分布式，以及自己的暂存区，可支持离线操作</strong></p>
@@ -167,7 +595,7 @@
   <entry>
     <title>病毒浅谈</title>
     <url>/2020/02/17/%E7%97%85%E6%AF%92%E6%B5%85%E8%B0%88/</url>
-    <content><![CDATA[<p><strong>病毒在生物上的危害就不多说，最近的武汉病毒就知道其可怕。本篇主要来谈谈计算机的病毒</strong></p>
+    <content><![CDATA[<p><strong>病毒在生物上的危害就不多说，最近的COVID-19病毒就知道其可怕。本篇主要来谈谈计算机的病毒</strong></p>
 <h2 id="计算机病毒"><a href="#计算机病毒" class="headerlink" title="计算机病毒"></a>计算机病毒</h2><h3 id="什么是计算机病毒？"><a href="#什么是计算机病毒？" class="headerlink" title="什么是计算机病毒？"></a>什么是计算机病毒？</h3><p><strong>计算机病毒简单来讲，是一种人为制造，在计算机运行中对其信息或系统起破坏作用的程序</strong></p>
 <a id="more"></a>
 
