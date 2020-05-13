@@ -122,7 +122,7 @@
 <meta property="og:description" content="XML(eXtensible Markup Language)XML是什么XML是W3C组织发布的技术，XML类似于HTML，大家知道HTML是一种超文本标记语言，其实XML也是一种标记语言，根据全称翻译它是可扩展标记语言。这里的可扩展是它的特性，HTML的标签是固定的，而XML可以自己定义标签，可以定义中文标签。 XML版本目前有两个版本一个1.0，一个1.1，一般使用1.0，因为1.1无法向下">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-30T12:53:48.000Z">
-<meta property="article:modified_time" content="2020-04-25T02:24:34.588Z">
+<meta property="article:modified_time" content="2020-04-26T07:59:26.190Z">
 <meta property="article:author" content="黄粱一梦">
 <meta property="article:tag" content="标记语言">
 <meta property="article:tag" content="XML">
@@ -410,7 +410,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-04-25 10:24:34" itemprop="dateModified" datetime="2020-04-25T10:24:34+08:00">2020-04-25</time>
+                <time title="修改时间：2020-04-26 15:59:26" itemprop="dateModified" datetime="2020-04-26T15:59:26+08:00">2020-04-26</time>
               
             
           </span>
@@ -532,7 +532,13 @@
 <h3 id="DTD"><a href="#DTD" class="headerlink" title="DTD"></a>DTD</h3><h4 id="DTD文件创建"><a href="#DTD文件创建" class="headerlink" title="DTD文件创建"></a>DTD文件创建</h4><blockquote>
 <p>1.创建一个文件后缀名为.dtd<br>2.看xml文件中有几个元素，然后在dtd中写几个&lt;!ELEMENT&gt;<br>3.判断元素是简单元素还是复杂元素，(<em>简单元素就是元素没有嵌套子元素</em>)</p>
 <blockquote>
-<p>简单元素:<!ELEMENT 简单元素名称 (#PCDATA)><br>复杂元素：<!ELEMENT 复杂元素名称 (子元素名称1,...)>,<em>注意：它的孙子元素不包括在内</em><br>4.在xml文件中引入dtd文件<br>引入外部dtd文件： <code>&lt;!DOCTYPE 根元素名称 SYSTEM &quot;dtd文件的路径&quot;&gt;&lt;!--引入方式1--&gt;</code><br>使用内部dtd文件： <code>&lt;!DOCTYPE 根元素名称 [dtd文件内容]&gt;&lt;!--引入方式2--&gt;</code><br>使用网络上的dtd文件： <code>&lt;!DOCTYPE 根元素名称 PUBLIC &quot;DTD名称&quot; &quot;DTD文档的URL&quot;&gt;&lt;!--引入方式3--&gt;</code><br><strong>xml文件在浏览器中运行不受dtd约束，因为浏览器只会校验xml语法，不会通过dtd文件进行校验，我们需要专门工具实现校验xml的约束</strong></p>
+<p>简单元素:<!ELEMENT 简单元素名称 (#PCDATA)><br>复杂元素：<!ELEMENT 复杂元素名称 (子元素名称1,...)>,<em>注意：它的孙子元素不包括在内</em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>4.在xml文件中引入dtd文件</p>
+<blockquote>
+<p>引入外部dtd文件： <code>&lt;!DOCTYPE 根元素名称 SYSTEM &quot;dtd文件的路径&quot;&gt;&lt;!--引入方式1--&gt;</code><br>使用内部dtd文件： <code>&lt;!DOCTYPE 根元素名称 [dtd文件内容]&gt;&lt;!--引入方式2--&gt;</code><br>使用网络上的dtd文件： <code>&lt;!DOCTYPE 根元素名称 PUBLIC &quot;DTD名称&quot; &quot;DTD文档的URL&quot;&gt;&lt;!--引入方式3--&gt;</code><br><strong>xml文件在浏览器中运行不受dtd约束，因为浏览器只会校验xml语法，不会通过dtd文件进行校验，我们需要专门工具实现校验xml的约束</strong></p>
 </blockquote>
 </blockquote>
 <h4 id="使用DTD定义元素"><a href="#使用DTD定义元素" class="headerlink" title="使用DTD定义元素"></a>使用DTD定义元素</h4><h5 id="简单元素语法"><a href="#简单元素语法" class="headerlink" title="简单元素语法"></a>简单元素语法</h5><p><code>&lt;!ELEMENT 元素名称 约束&gt;</code><br>示例：</p>
@@ -737,7 +743,7 @@
                 
                   <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -813,7 +819,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">18</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -928,7 +938,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">43k</span>
+    <span title="站点总字数">54k</span>
   
 
   
@@ -937,7 +947,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">39 分钟</span>
+    <span title="站点阅读时长">49 分钟</span>
   
 </div>
 

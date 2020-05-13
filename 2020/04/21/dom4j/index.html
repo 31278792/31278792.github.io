@@ -122,7 +122,7 @@
 <meta property="og:description" content="dom4jdom4j组织提供了针对xml解析的解析器dom4j,其是由jdom组织分裂出来后出现的,其优于jdom。dom4j不是javase的一部分">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-21T13:34:01.000Z">
-<meta property="article:modified_time" content="2020-04-25T02:19:13.737Z">
+<meta property="article:modified_time" content="2020-04-26T08:04:58.141Z">
 <meta property="article:author" content="黄粱一梦">
 <meta property="article:tag" content="标记语言">
 <meta property="article:tag" content="XML">
@@ -411,7 +411,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-04-25 10:19:13" itemprop="dateModified" datetime="2020-04-25T10:19:13+08:00">2020-04-25</time>
+                <time title="修改时间：2020-04-26 16:04:58" itemprop="dateModified" datetime="2020-04-26T16:04:58+08:00">2020-04-26</time>
               
             
           </span>
@@ -520,7 +520,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public class Dom4jUtils&#123;</span><br><span class="line">	public state final String PATH &#x3D; &quot;src&#x2F;person.xml&quot;;</span><br><span class="line">	&#x2F;&#x2F;返回document</span><br><span class="line">	public static Document getDocument(String path)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			&#x2F;&#x2F;1.创建解析器</span><br><span class="line">			SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">			&#x2F;&#x2F;2.得到document</span><br><span class="line">			Document document &#x3D; saxReader.read(path);</span><br><span class="line">			return document;</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		return null;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;回写xml</span><br><span class="line">	public static void xmlWriter(String path,Document document)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">			XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">			writer.write(document);</span><br><span class="line">			writer.close();</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="dom4j支持XPATH操作"><a href="#dom4j支持XPATH操作" class="headerlink" title="dom4j支持XPATH操作"></a>dom4j支持XPATH操作</h4><p><strong>可以直接获取某一个元素，不必按照一层一层解析的方式</strong></p>
-<h5 id="语法形式"><a href="#语法形式" class="headerlink" title="语法形式"></a>语法形式</h5><p>第一种形式：/a/b/c来表示a里面的b里面的c<br>第二种形式：//A表示选择所有A元素<br>第三种形式：/AAA/CCC/DDD/<em>表示/AAA/CCC/DDD/里面的所有元素<br>第四种形式；/</em>/<em>/</em>/DDD表示选择所有第四层所有DDD元素<br>第五种形式；//<em>所有元素<br>第六种形式：/a/b[1]选择a标签中第一个b标签，/a/b[last()]选择a标签中最后一个b标签<br>第七种形式：//@id表示选择所有id属性，//BBB[@id]表示选择所有含id属性的BBB元素<br>第八种形式；//BBB[@id=’b1’]选择含Id属性且值为b1的所有BBB标签*b1如果左右有空格将不会被选取</em></p>
+<h5 id="语法形式"><a href="#语法形式" class="headerlink" title="语法形式"></a>语法形式</h5><p>第一种形式：<code>/a/b/c</code>来表示a里面的b里面的c<br>第二种形式：<code>//A</code>表示选择所有A元素<br>第三种形式：<code>/AAA/CCC/DDD/*</code>表示/AAA/CCC/DDD/里面的所有元素<br>第四种形式：<code>/*/*/*/</code>DDD表示选择所有第四层所有DDD元素<br>第五种形式；<code>//*</code>所有元素<br>第六种形式：<code>/a/b[1]</code>选择a标签中第一个b标签，/a/b[last()]选择a标签中最后一个b标签<br>第七种形式：<code>//@id</code>表示选择所有id属性，//BBB[@id]表示选择所有含id属性的BBB元素<br>第八种形式；<code>//BBB[@id=&#39;b1&#39;]</code>选择含Id属性且值为b1的所有BBB标签,b1如果左右有空格将不会被选取*</p>
 <h5 id="如何在dom4j中使用XPATH"><a href="#如何在dom4j中使用XPATH" class="headerlink" title="如何在dom4j中使用XPATH"></a>如何在dom4j中使用XPATH</h5><p><strong>默认的情况下，dom4j不支持XPATH，如果想使用，需要引入XPATH的jar包，在文件中找到jaxen-1.1-beta-6.jar，将其复制进eclipse构建的项目中lib下，右击项目Build Path选择Add to Build Path</strong><br><strong>在dom4j中提供了两个方法支持XPATH,它们分别是：selectNodes(“XPATH表达式”)和selectSingleNode(“XPATH表达式”)，第一个方法获取多个节点，第二个则获取单一节点</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;查询xml中所有name元素的值</span><br><span class="line">public static void getValue()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到所有name</span><br><span class="line">	List&lt;Node&gt; list&#x3D;document.selectNodes(&quot;&#x2F;&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.遍历集合</span><br><span class="line">	for(Node note:list)&#123;&#x2F;&#x2F;node是每一个name元素</span><br><span class="line">		&#x2F;&#x2F;获取name元素里面的值</span><br><span class="line">		String s &#x3D; node.getText();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -620,6 +620,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/04/25/Ajax/" rel="prev" title="Ajax">
+                Ajax <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -697,7 +701,7 @@
                 
                   <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -773,7 +777,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">18</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -888,7 +896,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">43k</span>
+    <span title="站点总字数">54k</span>
   
 
   
@@ -897,7 +905,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">39 分钟</span>
+    <span title="站点阅读时长">49 分钟</span>
   
 </div>
 
