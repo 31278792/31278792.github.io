@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="一天天宅着蛮枯燥的，HTML5地学习或许能打破这乏味的时光。以前,刚开始学习 HTML ，才明白前端界面是如何实现的，当然也少不了CSS、JavaScript。像我们这博客完全是通过这3样语言实现的静态网页，瞬间感觉前端是不是比后端的东西，更直观地看得出成果。你光使用后端语言是无法完成Web网页开发，当然，如果有后端语言与数据库实现的自然是动态网页。话不多说，言归正传，开始我们今天HTML5的学习">
+<meta name="keywords" content="HTML,标记语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML5序章">
+<meta property="og:url" content="http://yoursite.com/2020/02/18/HTML5%E5%BA%8F%E7%AB%A0/index.html">
+<meta property="og:site_name" content="Yangzw">
+<meta property="og:description" content="一天天宅着蛮枯燥的，HTML5地学习或许能打破这乏味的时光。以前,刚开始学习 HTML ，才明白前端界面是如何实现的，当然也少不了CSS、JavaScript。像我们这博客完全是通过这3样语言实现的静态网页，瞬间感觉前端是不是比后端的东西，更直观地看得出成果。你光使用后端语言是无法完成Web网页开发，当然，如果有后端语言与数据库实现的自然是动态网页。话不多说，言归正传，开始我们今天HTML5的学习">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-05-17T09:40:14.149Z">
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/02/18/HTML5序章/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>HTML5序章 | Yangzw</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Yangzw</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">|Hello World|</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" target="_blank" rel="noopener" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+    
+      
+    
+    <a href="https://github.com/31278792" class="github-corner" target="_blank" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg>
+    
+      </a>
+    
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/18/HTML5%E5%BA%8F%E7%AB%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄粱一梦">
+      <meta itemprop="description" content="已识乾坤大，犹怜草木青">
+      <meta itemprop="image" content="/images/touxiang.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yangzw">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HTML5序章
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-18 10:02:16" itemprop="dateCreated datePublished" datetime="2020-02-18T10:02:16+08:00">2020-02-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-05-17 17:40:14" itemprop="dateModified" datetime="2020-05-17T17:40:14+08:00">2020-05-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">15k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">14 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>一天天宅着蛮枯燥的，HTML5地学习或许能打破这乏味的时光。以前,刚开始学习 HTML ，才明白前端界面是如何实现的，当然也少不了CSS、JavaScript。像我们这博客完全是通过这3样语言实现的静态网页，瞬间感觉前端是不是比后端的东西，更直观地看得出成果。你光使用后端语言是无法完成Web网页开发，当然，如果有后端语言与数据库实现的自然是动态网页。话不多说，言归正传，开始我们今天HTML5的学习！</strong></p>
+<h2 id="HTML5概述"><a href="#HTML5概述" class="headerlink" title="HTML5概述"></a>HTML5概述</h2><h3 id="HTML-HyperText-Markup-Language"><a href="#HTML-HyperText-Markup-Language" class="headerlink" title="HTML(HyperText Markup Language)"></a>HTML(HyperText Markup Language)</h3><p>  <strong>HTML全称翻译而来是一款超文本标记语言，经过多过版本的更新，最后到现在HTML5，其实目的就是升级优化添加新功能，目前主要优势表现在终端上，跨平台、跨分辨率、版本控制简单</strong><br>  <strong>HTML5 实际上指的是包括HTML、CSS和JS在内的一套技术组合，能够减少浏览器对于需要插件(这也是显著功能)的丰富性网络应用服务</strong></p>
+<a id="more"></a>
+
+<h3 id="标记语言与编程语言区别"><a href="#标记语言与编程语言区别" class="headerlink" title="标记语言与编程语言区别"></a>标记语言与编程语言区别</h3><p>  <em><strong>觉得这个有必要记录下，标记语言强调属性，没有逻辑结构；而编程语言有逻辑和行为能力</strong></em></p>
+<h3 id="HTML5的八大特性"><a href="#HTML5的八大特性" class="headerlink" title="HTML5的八大特性"></a>HTML5的八大特性</h3><p><strong>1)语义特性</strong><br><strong>2)离线存储特性</strong><br><strong>3)设备访问特性</strong><br><strong>4)通讯特性</strong><br><strong>5)多媒体特性</strong><br><strong>6)三维及图形特性</strong><br><strong>7)性能及基础特性</strong><br><strong>8)CSS3特性</strong></p>
+<h3 id="HTML5的优点"><a href="#HTML5的优点" class="headerlink" title="HTML5的优点"></a>HTML5的优点</h3><h4 id="标签丰富、功能强大"><a href="#标签丰富、功能强大" class="headerlink" title="标签丰富、功能强大"></a>标签丰富、功能强大</h4><p>通过HTML5可以轻松实现页面中的音频、视频、动画等效果。</p>
+<h4 id="支持移动互联网的Web应用需求"><a href="#支持移动互联网的Web应用需求" class="headerlink" title="支持移动互联网的Web应用需求"></a>支持移动互联网的Web应用需求</h4><p>HTML5开发应用，可以轻松运行于手机、平板电脑等移动设备。</p>
+<h4 id="适应当前Web应用发展潮流"><a href="#适应当前Web应用发展潮流" class="headerlink" title="适应当前Web应用发展潮流"></a>适应当前Web应用发展潮流</h4><p>HTML5应用界面友好，功能强大，是今后Web发展的主流方向。</p>
+<h4 id="解决了跨浏览器问题"><a href="#解决了跨浏览器问题" class="headerlink" title="解决了跨浏览器问题"></a>解决了跨浏览器问题</h4><p>HTML5之前各大浏览器的竞争，在各自浏览器增加各种各样的功能，且不具有统一的标准。用不同浏览器看到不同页面效果。在HTML5中，纳入了所有合理的扩展功能，具备良好的跨平台性能。针对不支持新标签的老式IE浏览器，只需简单地添加JavaScript代码就可以使用新的元素</p>
+<h4 id="新增了多个新特性"><a href="#新增了多个新特性" class="headerlink" title="新增了多个新特性"></a>新增了多个新特性</h4><h5 id="良好的语义特性"><a href="#良好的语义特性" class="headerlink" title="良好的语义特性"></a>良好的语义特性</h5><p>HTML5支持数据与微格式，增加的新元素赋予网页更好的意义和结构。增加了很多新的结构元素，从而使文档结构更加清晰明确，新增的结构元素包括section元素、article元素、nav元素以及aside元素等</p>
+<h5 id="强大的绘图功能"><a href="#强大的绘图功能" class="headerlink" title="强大的绘图功能"></a>强大的绘图功能</h5><p>既可以通过Canvas API动态地绘制各种效果精美的图形，也可以通过SVG绘制各种伸缩矢量图形</p>
+<h5 id="增强的音频视频播放和控制功能"><a href="#增强的音频视频播放和控制功能" class="headerlink" title="增强的音频视频播放和控制功能"></a>增强的音频视频播放和控制功能</h5><p>HTML5新增了audio和video元素，可以不依赖任何插件而播放音频和视频</p>
+<h5 id="HTML5的数据存储和数据处理的功能"><a href="#HTML5的数据存储和数据处理的功能" class="headerlink" title="HTML5的数据存储和数据处理的功能"></a>HTML5的数据存储和数据处理的功能</h5><p>(1)离线应用 (2)Web通信 (3)本地存储</p>
+<h5 id="获取地理位置信息"><a href="#获取地理位置信息" class="headerlink" title="获取地理位置信息"></a>获取地理位置信息</h5><p>HTML5新增了Geolocation API规范，可以通过浏览器获取用户的地理位置信息</p>
+<h5 id="提高页面相应的多线程"><a href="#提高页面相应的多线程" class="headerlink" title="提高页面相应的多线程"></a>提高页面相应的多线程</h5><p>HTML5新增Web Workers来实现多线程功能。通过Web Workers将耗时长的处理交给后台线程，降低Web服务的响应时间，有利于增强用户体验</p>
+<h5 id="文件-API"><a href="#文件-API" class="headerlink" title="文件 API"></a>文件 API</h5><p>FileReader API：简化用户访问本地/服务器端文件系统的相关处理<br>FileSystem API：给文件系统添加浏览器保护，使得文件系统数据可以永久本地保存</p>
+<h4 id="用户优先的原则"><a href="#用户优先的原则" class="headerlink" title="用户优先的原则"></a>用户优先的原则</h4><h5 id="安全机制的设计"><a href="#安全机制的设计" class="headerlink" title="安全机制的设计"></a>安全机制的设计</h5><h5 id="表现和内容分离"><a href="#表现和内容分离" class="headerlink" title="表现和内容分离"></a>表现和内容分离</h5><h4 id="化繁为简的优势"><a href="#化繁为简的优势" class="headerlink" title="化繁为简的优势"></a>化繁为简的优势</h4><p>新的简化的字符集声明、新的简化的DOCTYPE、简单而强大的HTML5 API及以浏览器原生能力替换复杂的JavaScript代码。为了避免造成误解，HTML5对每一个细节都有着非常明确的规范说明，不允许有任何的歧义和模糊出现</p>
+<h3 id="HTML5支持情况"><a href="#HTML5支持情况" class="headerlink" title="HTML5支持情况"></a>HTML5支持情况</h3><p>  就目前Chrome52(谷歌)与FireFox48(火狐)两个浏览器支持项数最多，当然这毕竟程序员受欢迎程度高的两个浏览器。</p>
+<h4 id="检测指定元素的DOM对象是否被浏览器支持"><a href="#检测指定元素的DOM对象是否被浏览器支持" class="headerlink" title="检测指定元素的DOM对象是否被浏览器支持"></a>检测指定元素的DOM对象是否被浏览器支持</h4><p>如：canvas、video、audio等</p>
+<h4 id="检测浏览器是否支持指定元素的对象的方法"><a href="#检测浏览器是否支持指定元素的对象的方法" class="headerlink" title="检测浏览器是否支持指定元素的对象的方法"></a>检测浏览器是否支持指定元素的对象的方法</h4><p>如：canvas.getContext (canvas这个元素对图像操作功能是真的强大，就这博客动态背景粒子效果也是通过它实现的)</p>
+<h4 id="检测全局对象是否拥有特定属性"><a href="#检测全局对象是否拥有特定属性" class="headerlink" title="检测全局对象是否拥有特定属性"></a>检测全局对象是否拥有特定属性</h4><p>如：navigator.geolocation()</p>
+<h4 id="使用HTML特性检测工具-Modernizr"><a href="#使用HTML特性检测工具-Modernizr" class="headerlink" title="使用HTML特性检测工具(Modernizr)"></a>使用HTML特性检测工具(Modernizr)</h4><h5 id="检测浏览器对HTML5元素的支持情况"><a href="#检测浏览器对HTML5元素的支持情况" class="headerlink" title="检测浏览器对HTML5元素的支持情况"></a>检测浏览器对HTML5元素的支持情况</h5><p><a href="http://caniuse.com/" target="_blank" rel="noopener">Can I use</a></p>
+<h5 id="检测浏览器对HTML5的支持情况"><a href="#检测浏览器对HTML5的支持情况" class="headerlink" title="检测浏览器对HTML5的支持情况"></a>检测浏览器对HTML5的支持情况</h5><p><a href="http://html5test.com/" target="_blank" rel="noopener">HTML5TEST</a></p>
+<h5 id="检查HTML5内容是否完全符合规范"><a href="#检查HTML5内容是否完全符合规范" class="headerlink" title="检查HTML5内容是否完全符合规范"></a>检查HTML5内容是否完全符合规范</h5><p><a href="http://validator.w3.org/" target="_blank" rel="noopener">The W3C Markup Validation Service</a></p>
+<h3 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h3><p>开发工具这就很多了，对于前端学习小白当然是用Dreamweaver甚好，当然WebStorm、VSCode、VS2019(微软的东西，值得一试)等开发工具也可以尝试</p>
+<h3 id="帮助文档"><a href="#帮助文档" class="headerlink" title="帮助文档"></a>帮助文档</h3><p><a href="http://www.w3school.com.cn/" target="_blank" rel="noopener">W3C</a><br><a href="http://developer.mozilla.org/" target="_blank" rel="noopener">Mozilla</a></p>
+<h2 id="HTML5的变化"><a href="#HTML5的变化" class="headerlink" title="HTML5的变化"></a>HTML5的变化</h2><h3 id="标记的改进"><a href="#标记的改进" class="headerlink" title="标记的改进"></a>标记的改进</h3><h4 id="DOCTYPE声明"><a href="#DOCTYPE声明" class="headerlink" title="DOCTYPE声明"></a>DOCTYPE声明</h4><p><code>&lt;!DOCTYPE html&gt;</code></p>
+<h4 id="指定字符编码"><a href="#指定字符编码" class="headerlink" title="指定字符编码"></a>指定字符编码</h4><p><code>&lt;meta charset=utf-8&gt;</code></p>
+<h4 id="标签不需要区分大小写"><a href="#标签不需要区分大小写" class="headerlink" title="标签不需要区分大小写"></a>标签不需要区分大小写</h4><h4 id="可以省略的标签"><a href="#可以省略的标签" class="headerlink" title="可以省略的标签"></a>可以省略的标签</h4><h5 id="不允许写结束标签"><a href="#不允许写结束标签" class="headerlink" title="不允许写结束标签"></a>不允许写结束标签</h5><p>area、base、br、col、hr、img、input、meta、link、param、embed、keygen、track、source等</p>
+<h5 id="可以省略的结束标签"><a href="#可以省略的结束标签" class="headerlink" title="可以省略的结束标签"></a>可以省略的结束标签</h5><p>dt、dd、li、p、rt、rp、option、optiongroup、colgroup、thread、tbody、tfoot、tr、td、th等</p>
+<h5 id="开始标签和结束标签均可省略"><a href="#开始标签和结束标签均可省略" class="headerlink" title="开始标签和结束标签均可省略"></a>开始标签和结束标签均可省略</h5><p>html、head、body、tbody、thead、colgroup等</p>
+<h4 id="Boolean属性设置"><a href="#Boolean属性设置" class="headerlink" title="Boolean属性设置"></a>Boolean属性设置</h4><p>checked、selected、multiple、readonly、和disable等</p>
+<h5 id="当只写属性而不指定属性值时，表示属性值为true"><a href="#当只写属性而不指定属性值时，表示属性值为true" class="headerlink" title="当只写属性而不指定属性值时，表示属性值为true"></a>当只写属性而不指定属性值时，表示属性值为true</h5><h5 id="如果想要将属性值设为false，可以不使用该属性"><a href="#如果想要将属性值设为false，可以不使用该属性" class="headerlink" title="如果想要将属性值设为false，可以不使用该属性"></a>如果想要将属性值设为false，可以不使用该属性</h5><h5 id="若属性值为true时，也可以将属性名设定为属性值，或空字符串"><a href="#若属性值为true时，也可以将属性名设定为属性值，或空字符串" class="headerlink" title="若属性值为true时，也可以将属性名设定为属性值，或空字符串"></a>若属性值为true时，也可以将属性名设定为属性值，或空字符串</h5><h4 id="属性引号"><a href="#属性引号" class="headerlink" title="属性引号"></a>属性引号</h4><p>  当属性不包含一些特殊字符(空字符串、&lt;、&gt;、=、单引号、双引号)，引号可以省略。示例：<meta charset="utf-8"></p>
+<h4 id="废弃的元素"><a href="#废弃的元素" class="headerlink" title="废弃的元素"></a>废弃的元素</h4><h5 id="使用CSS替换的元素"><a href="#使用CSS替换的元素" class="headerlink" title="使用CSS替换的元素"></a>使用CSS替换的元素</h5><p>basefont、big、center、font、strike、s、tt、u等</p>
+<h5 id="停用frame框架"><a href="#停用frame框架" class="headerlink" title="停用frame框架"></a>停用frame框架</h5><p>frame主要对页面进行分割，但由于frame不便于搜索引擎的抓取和优化，故不再支持</p>
+<h5 id="只有部分浏览器支持的元素"><a href="#只有部分浏览器支持的元素" class="headerlink" title="只有部分浏览器支持的元素"></a>只有部分浏览器支持的元素</h5><p>bgsound、marquee、applet等</p>
+<h4 id="新增的元素（功能都很强大）"><a href="#新增的元素（功能都很强大）" class="headerlink" title="新增的元素（功能都很强大）"></a>新增的元素（<em>功能都很强大</em>）</h4><h5 id="结构元素"><a href="#结构元素" class="headerlink" title="结构元素"></a>结构元素</h5><p>section、article、aside等</p>
+<h5 id="多媒体元素"><a href="#多媒体元素" class="headerlink" title="多媒体元素"></a>多媒体元素</h5><p>video、audio、embed等</p>
+<h5 id="表单标签"><a href="#表单标签" class="headerlink" title="表单标签"></a>表单标签</h5><p>input</p>
+<h5 id="扩展HTML功能的元素"><a href="#扩展HTML功能的元素" class="headerlink" title="扩展HTML功能的元素"></a>扩展HTML功能的元素</h5><p>canvas等</p>
+<h4 id="全局属性"><a href="#全局属性" class="headerlink" title="全局属性"></a>全局属性</h4><p>1)contenteditable属性<br>2)contextmenu属性<br>3)data-*属性<br>4)spellcheck属性<br>5)draggable属性<br>6)hidden属性</p>
+<h2 id="HTML5文档结构"><a href="#HTML5文档结构" class="headerlink" title="HTML5文档结构"></a>HTML5文档结构</h2><p><strong>HTML文档中元素：从开始标记到结束标记的所有代码</strong><br><strong>元素的内容：开始标记与结束标记之间的内容</strong><br><strong>元素属性：用来说明元素的特征，每个属性总是对应一个属性值，称为”属性/值”</strong></p>
+<h3 id="head标签"><a href="#head标签" class="headerlink" title="head标签"></a>head标签</h3><p>文档头部信息，标签内容包含字符编码设置、标题、关键字与网页描述等</p>
+<h3 id="body标签"><a href="#body标签" class="headerlink" title="body标签"></a>body标签</h3><p>网页主体信息（我们上网所见所听所感信息都来源于body里）<br>其中<code>&lt;header&gt;&lt;/header&gt;、&lt;main&gt;&lt;/main&gt;、&lt;footer&gt;&lt;/footer&gt;</code>等新增标签语义清晰，利于SEO，利于盲人阅读，无法用这些新增标签表达的结构还是用<div></p>
+<h4 id="lt-header-gt-lt-header-gt-标签"><a href="#lt-header-gt-lt-header-gt-标签" class="headerlink" title="&lt;header&gt;&lt;/header&gt;标签"></a><code>&lt;header&gt;&lt;/header&gt;</code>标签</h4><p>可以是整个页面或者页面区域的一个头部信息（标题）<br>可以包含：logo、标题、搜索、导航、通知、帐号等<br>至少包含一个标题(h1~h6)，还可以包含hgroup、nav等<br><em>注意：跟 <code>&lt;head&gt;&lt;/head&gt;</code> 标签的区别</em></p>
+<h4 id="lt-main-gt-lt-main-gt-标签"><a href="#lt-main-gt-lt-main-gt-标签" class="headerlink" title="&lt;main&gt;&lt;/main&gt;标签"></a><code>&lt;main&gt;&lt;/main&gt;</code>标签</h4><p>页面中的主体部分。不能包含公共导航、logo、版权信息等公共内容<br><em>注意：一个页面只能有一个main标签。<code>&lt;main&gt;</code>元素不能是以下元素的后代：<code>&lt;article&gt;、&lt;aside&gt;、&lt;footer&gt;、&lt;header&gt;或&lt;nav&gt;</code></em></p>
+<h4 id="lt-footer-gt-lt-footer-gt-标签"><a href="#lt-footer-gt-lt-footer-gt-标签" class="headerlink" title="&lt;footer&gt;&lt;/footer&gt;标签"></a><code>&lt;footer&gt;&lt;/footer&gt;</code>标签</h4><p>页面或页面某个板块的底部部分<br>通常包含文档的作者、版权信息、使用条款链接、联系信息等等<br><em>可以在一个文档中使用多个 <code>&lt;footer&gt;</code>元素</em></p>
+<h4 id="lt-nav-gt-lt-nav-gt-标签"><a href="#lt-nav-gt-lt-nav-gt-标签" class="headerlink" title="&lt;nav&gt;&lt;/nav&gt;标签"></a><code>&lt;nav&gt;&lt;/nav&gt;</code>标签</h4><p>导航(navigation)的简写<br>专门用来包裹导航的内容。包括顶部导航、底部导航、侧边栏导航、翻页导航等</p>
+<h4 id="lt-article-gt-lt-article-gt-标签"><a href="#lt-article-gt-lt-article-gt-标签" class="headerlink" title="&lt;article&gt;&lt;/article&gt;标签"></a><code>&lt;article&gt;&lt;/article&gt;</code>标签</h4><p>文档、页面或者是应用程序当中的独立完整可以被外部引用的内容<br>它可以是一篇文章、一篇帖子、一段评论或者是独立的插件形式出现<br><em><code>&lt;article&gt;&lt;article&gt;</code>里面也可以使用 <code>&lt;header&gt;、&lt;footer&gt;以及&lt;article&gt;</code>标签</em></p>
+<h4 id="lt-section-gt-lt-section-gt-标签"><a href="#lt-section-gt-lt-section-gt-标签" class="headerlink" title="&lt;section&gt;&lt;/section&gt;标签"></a><code>&lt;section&gt;&lt;/section&gt;</code>标签</h4><p>定义了文档的某个区域。比如章节、头部、底部或者文档的其他区域（即整体中的某部分）<br><em><code>&lt;section&gt;&lt;/section&gt;</code>里也可以有 <code>&lt;article&gt;&lt;/article&gt;</code>标签</em></p>
+<h4 id="lt-aside-gt-lt-aside-gt-标签"><a href="#lt-aside-gt-lt-aside-gt-标签" class="headerlink" title="&lt;aside&gt;&lt;/aside&gt;标签"></a><code>&lt;aside&gt;&lt;/aside&gt;</code>标签</h4><p>定义<code>&lt;article&gt;</code>标签外的内容。广告，侧边栏等</p>
+<h4 id="lt-hgroup-gt-lt-hgroup-gt-标题组"><a href="#lt-hgroup-gt-lt-hgroup-gt-标题组" class="headerlink" title="&lt;hgroup&gt;&lt;/hgroup&gt;标题组"></a><code>&lt;hgroup&gt;&lt;/hgroup&gt;</code>标题组</h4><p>对网页或区段(section)的标题进行组合。一个区域中包括了主标题和至少一个子标题的时候才用<br><em>注意：单独一个标题的时候，不用 <code>&lt;hgroup&gt;&lt;/hgroup&gt;</code></em></p>
+<h4 id="lt-time-gt-lt-time-gt-时间"><a href="#lt-time-gt-lt-time-gt-时间" class="headerlink" title="&lt;time&gt;&lt;/time&gt;时间"></a><code>&lt;time&gt;&lt;/time&gt;</code>时间</h4><p>主要是使页面语义描述更清晰，便于网络搜索引擎更好的理解网页页面<br>time可以为内容添加如发布时间，事件发生时间等信息。<br>拥有datetime和pubdate两个属性</p>
+<h4 id="lt-address-gt-lt-address-gt-联系信息"><a href="#lt-address-gt-lt-address-gt-联系信息" class="headerlink" title="&lt;address&gt;&lt;/address&gt;联系信息"></a><code>&lt;address&gt;&lt;/address&gt;</code>联系信息</h4><p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;address&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li&gt;网站：http:&#x2F;&#x2F;www.w3school.com.cn&#x2F;&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;GitHub:XXXXXXXX&lt;&#x2F;li&gt;</span><br><span class="line">	&lt;li&gt;E-mail:xxxxxxx@qq.com&lt;&#x2F;li&gt;</span><br><span class="line">  &lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;address&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="其他元素"><a href="#其他元素" class="headerlink" title="其他元素"></a>其他元素</h4><h5 id="bdi-双向隔离，将指定文本脱离父元素的文本方向"><a href="#bdi-双向隔离，将指定文本脱离父元素的文本方向" class="headerlink" title="bdi:双向隔离，将指定文本脱离父元素的文本方向"></a>bdi:双向隔离，将指定文本脱离父元素的文本方向</h5><h5 id="details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性"><a href="#details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性" class="headerlink" title="details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性"></a>details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性</h5><h5 id="figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分"><a href="#figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分" class="headerlink" title="figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分"></a>figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分</h5><h5 id="ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容"><a href="#ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容" class="headerlink" title="ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容"></a>ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容</h5><h5 id="progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量"><a href="#progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量" class="headerlink" title="progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量"></a>progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量</h5><h5 id="dialog：定义一个对话框，只有open属性"><a href="#dialog：定义一个对话框，只有open属性" class="headerlink" title="dialog：定义一个对话框，只有open属性"></a>dialog：定义一个对话框，只有open属性</h5><h5 id="mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行"><a href="#mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行" class="headerlink" title="mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行"></a>mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行</h5>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/erweima.png" alt="黄粱一梦 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>求关注哦</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>有钱捧个钱场，没钱捧个人场!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="黄粱一梦 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.png" alt="黄粱一梦 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+	<div>
+		
+		<div>
+	
+		<div style="text-align:center;color: #ccc;font-size:14px;">------文章已经到底了<i class="fa fa-spinner fa-pulse"></i>感谢您的阅读------</div>
+		<div style="text-align:center;color: #ccc;font-size:14px;">------<i class="fa fa-eercast"></i>下方可以进行留言哦！------</div>
+	
+</div>
+		
+	</div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTML/" rel="tag"><i class="fa fa-google"></i> HTML</a>
+          
+            <a href="/tags/%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80/" rel="tag"><i class="fa fa-google"></i> 标记语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/17/%E7%97%85%E6%AF%92%E6%B5%85%E8%B0%88/" rel="next" title="病毒浅谈">
+                <i class="fa fa-chevron-left"></i> 病毒浅谈
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/20/SQL%E8%BF%9B%E9%98%B6/" rel="prev" title="SQL进阶">
+                SQL进阶 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80ODU1MC8yNTA0NA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.gif"
+                alt="黄粱一梦" />
+            
+              <p class="site-author-name" itemprop="name">黄粱一梦</p>
+              <p class="site-description motion-element" itemprop="description">已识乾坤大，犹怜草木青</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/%20%7C%7C%20archive">
+                
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/31278792" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:1039805245@qq.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/" target="_blank" title="Weibo"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://plus.google.com/" target="_blank" title="Google"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://stackoverflow.com/" target="_blank" title="StackOverflow"><i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://youtube.com/" target="_blank" title="YouTube"><i class="fa fa-fw fa-youtube"></i>YouTube</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5概述"><span class="nav-number">1.</span> <span class="nav-text">HTML5概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-HyperText-Markup-Language"><span class="nav-number">1.1.</span> <span class="nav-text">HTML(HyperText Markup Language)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标记语言与编程语言区别"><span class="nav-number">1.2.</span> <span class="nav-text">标记语言与编程语言区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML5的八大特性"><span class="nav-number">1.3.</span> <span class="nav-text">HTML5的八大特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML5的优点"><span class="nav-number">1.4.</span> <span class="nav-text">HTML5的优点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#标签丰富、功能强大"><span class="nav-number">1.4.1.</span> <span class="nav-text">标签丰富、功能强大</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#支持移动互联网的Web应用需求"><span class="nav-number">1.4.2.</span> <span class="nav-text">支持移动互联网的Web应用需求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#适应当前Web应用发展潮流"><span class="nav-number">1.4.3.</span> <span class="nav-text">适应当前Web应用发展潮流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决了跨浏览器问题"><span class="nav-number">1.4.4.</span> <span class="nav-text">解决了跨浏览器问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#新增了多个新特性"><span class="nav-number">1.4.5.</span> <span class="nav-text">新增了多个新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#良好的语义特性"><span class="nav-number">1.4.5.1.</span> <span class="nav-text">良好的语义特性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#强大的绘图功能"><span class="nav-number">1.4.5.2.</span> <span class="nav-text">强大的绘图功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#增强的音频视频播放和控制功能"><span class="nav-number">1.4.5.3.</span> <span class="nav-text">增强的音频视频播放和控制功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HTML5的数据存储和数据处理的功能"><span class="nav-number">1.4.5.4.</span> <span class="nav-text">HTML5的数据存储和数据处理的功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取地理位置信息"><span class="nav-number">1.4.5.5.</span> <span class="nav-text">获取地理位置信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#提高页面相应的多线程"><span class="nav-number">1.4.5.6.</span> <span class="nav-text">提高页面相应的多线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件-API"><span class="nav-number">1.4.5.7.</span> <span class="nav-text">文件 API</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用户优先的原则"><span class="nav-number">1.4.6.</span> <span class="nav-text">用户优先的原则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安全机制的设计"><span class="nav-number">1.4.6.1.</span> <span class="nav-text">安全机制的设计</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#表现和内容分离"><span class="nav-number">1.4.6.2.</span> <span class="nav-text">表现和内容分离</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#化繁为简的优势"><span class="nav-number">1.4.7.</span> <span class="nav-text">化繁为简的优势</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML5支持情况"><span class="nav-number">1.5.</span> <span class="nav-text">HTML5支持情况</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#检测指定元素的DOM对象是否被浏览器支持"><span class="nav-number">1.5.1.</span> <span class="nav-text">检测指定元素的DOM对象是否被浏览器支持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检测浏览器是否支持指定元素的对象的方法"><span class="nav-number">1.5.2.</span> <span class="nav-text">检测浏览器是否支持指定元素的对象的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检测全局对象是否拥有特定属性"><span class="nav-number">1.5.3.</span> <span class="nav-text">检测全局对象是否拥有特定属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用HTML特性检测工具-Modernizr"><span class="nav-number">1.5.4.</span> <span class="nav-text">使用HTML特性检测工具(Modernizr)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#检测浏览器对HTML5元素的支持情况"><span class="nav-number">1.5.4.1.</span> <span class="nav-text">检测浏览器对HTML5元素的支持情况</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#检测浏览器对HTML5的支持情况"><span class="nav-number">1.5.4.2.</span> <span class="nav-text">检测浏览器对HTML5的支持情况</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#检查HTML5内容是否完全符合规范"><span class="nav-number">1.5.4.3.</span> <span class="nav-text">检查HTML5内容是否完全符合规范</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发工具"><span class="nav-number">1.6.</span> <span class="nav-text">开发工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#帮助文档"><span class="nav-number">1.7.</span> <span class="nav-text">帮助文档</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5的变化"><span class="nav-number">2.</span> <span class="nav-text">HTML5的变化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标记的改进"><span class="nav-number">2.1.</span> <span class="nav-text">标记的改进</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DOCTYPE声明"><span class="nav-number">2.1.1.</span> <span class="nav-text">DOCTYPE声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指定字符编码"><span class="nav-number">2.1.2.</span> <span class="nav-text">指定字符编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标签不需要区分大小写"><span class="nav-number">2.1.3.</span> <span class="nav-text">标签不需要区分大小写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可以省略的标签"><span class="nav-number">2.1.4.</span> <span class="nav-text">可以省略的标签</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#不允许写结束标签"><span class="nav-number">2.1.4.1.</span> <span class="nav-text">不允许写结束标签</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#可以省略的结束标签"><span class="nav-number">2.1.4.2.</span> <span class="nav-text">可以省略的结束标签</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#开始标签和结束标签均可省略"><span class="nav-number">2.1.4.3.</span> <span class="nav-text">开始标签和结束标签均可省略</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Boolean属性设置"><span class="nav-number">2.1.5.</span> <span class="nav-text">Boolean属性设置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#当只写属性而不指定属性值时，表示属性值为true"><span class="nav-number">2.1.5.1.</span> <span class="nav-text">当只写属性而不指定属性值时，表示属性值为true</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如果想要将属性值设为false，可以不使用该属性"><span class="nav-number">2.1.5.2.</span> <span class="nav-text">如果想要将属性值设为false，可以不使用该属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#若属性值为true时，也可以将属性名设定为属性值，或空字符串"><span class="nav-number">2.1.5.3.</span> <span class="nav-text">若属性值为true时，也可以将属性名设定为属性值，或空字符串</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#属性引号"><span class="nav-number">2.1.6.</span> <span class="nav-text">属性引号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#废弃的元素"><span class="nav-number">2.1.7.</span> <span class="nav-text">废弃的元素</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用CSS替换的元素"><span class="nav-number">2.1.7.1.</span> <span class="nav-text">使用CSS替换的元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#停用frame框架"><span class="nav-number">2.1.7.2.</span> <span class="nav-text">停用frame框架</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#只有部分浏览器支持的元素"><span class="nav-number">2.1.7.3.</span> <span class="nav-text">只有部分浏览器支持的元素</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#新增的元素（功能都很强大）"><span class="nav-number">2.1.8.</span> <span class="nav-text">新增的元素（功能都很强大）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#结构元素"><span class="nav-number">2.1.8.1.</span> <span class="nav-text">结构元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多媒体元素"><span class="nav-number">2.1.8.2.</span> <span class="nav-text">多媒体元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#表单标签"><span class="nav-number">2.1.8.3.</span> <span class="nav-text">表单标签</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#扩展HTML功能的元素"><span class="nav-number">2.1.8.4.</span> <span class="nav-text">扩展HTML功能的元素</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全局属性"><span class="nav-number">2.1.9.</span> <span class="nav-text">全局属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5文档结构"><span class="nav-number">3.</span> <span class="nav-text">HTML5文档结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#head标签"><span class="nav-number">3.1.</span> <span class="nav-text">head标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#body标签"><span class="nav-number">3.2.</span> <span class="nav-text">body标签</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-header-gt-lt-header-gt-标签"><span class="nav-number">3.2.1.</span> <span class="nav-text">&lt;header&gt;&lt;/header&gt;标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-main-gt-lt-main-gt-标签"><span class="nav-number">3.2.2.</span> <span class="nav-text">&lt;main&gt;&lt;/main&gt;标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-footer-gt-lt-footer-gt-标签"><span class="nav-number">3.2.3.</span> <span class="nav-text">&lt;footer&gt;&lt;/footer&gt;标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-nav-gt-lt-nav-gt-标签"><span class="nav-number">3.2.4.</span> <span class="nav-text">&lt;nav&gt;&lt;/nav&gt;标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-article-gt-lt-article-gt-标签"><span class="nav-number">3.2.5.</span> <span class="nav-text">&lt;article&gt;&lt;/article&gt;标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-section-gt-lt-section-gt-标签"><span class="nav-number">3.2.6.</span> <span class="nav-text">&lt;section&gt;&lt;/section&gt;标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-aside-gt-lt-aside-gt-标签"><span class="nav-number">3.2.7.</span> <span class="nav-text">&lt;aside&gt;&lt;/aside&gt;标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-hgroup-gt-lt-hgroup-gt-标题组"><span class="nav-number">3.2.8.</span> <span class="nav-text">&lt;hgroup&gt;&lt;/hgroup&gt;标题组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-time-gt-lt-time-gt-时间"><span class="nav-number">3.2.9.</span> <span class="nav-text">&lt;time&gt;&lt;/time&gt;时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-address-gt-lt-address-gt-联系信息"><span class="nav-number">3.2.10.</span> <span class="nav-text">&lt;address&gt;&lt;/address&gt;联系信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他元素"><span class="nav-number">3.2.11.</span> <span class="nav-text">其他元素</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#bdi-双向隔离，将指定文本脱离父元素的文本方向"><span class="nav-number">3.2.11.1.</span> <span class="nav-text">bdi:双向隔离，将指定文本脱离父元素的文本方向</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性"><span class="nav-number">3.2.11.2.</span> <span class="nav-text">details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分"><span class="nav-number">3.2.11.3.</span> <span class="nav-text">figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容"><span class="nav-number">3.2.11.4.</span> <span class="nav-text">ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量"><span class="nav-number">3.2.11.5.</span> <span class="nav-text">progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dialog：定义一个对话框，只有open属性"><span class="nav-number">3.2.11.6.</span> <span class="nav-text">dialog：定义一个对话框，只有open属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行"><span class="nav-number">3.2.11.7.</span> <span class="nav-text">mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+	  
+	<iframe allowtransparency="true" frameborder="0" width="195" height="96" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=1&t=0&v=0&d=1&bd=0&k=&f=000000&ltf=009944&htf=cc0000&q=1&e=1&a=1&c=54511&w=195&h=96&align=center"></iframe>
+	<!--<object  width=220  data="/music/modai.mp3"></object>-->	
+	<audio style="width:13.75rem;" controls autoplay="" loop="">
+		<source src="/music/modai.mp3" type="audio/mp3"></source>
+		当前浏览器不支持audio
+	</audio>	
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">黄粱一梦</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">59k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">54 分钟</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+      
+  
+  <script type="text/javascript" color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2020/02/18/HTML5序章/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
+
+  
+
+  <script>
+	(function(){
+		if('31278792'){
+			if(prompt('该文章已加密，请输入密码进行访问') !== '31278792'){
+				alert('密码错误!返回上一页');
+				history.back();
+			}
+		}
+	})();
+  </script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/live2d-widget-model-hijiki/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":0,"vOffset":-20},"mobile":{"show":true},"react":{"opacity":0.8}});</script></body>
+</html>
