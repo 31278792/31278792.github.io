@@ -1,150 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Ajax</title>
-    <url>/2020/04/25/Ajax/</url>
-    <content><![CDATA[<h3 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h3><p><strong>Ajax全称：Asynchronous Javascript And XML(异步 JS和XML)，它能使用JS实现异步访问服务器。众所周知，服务器给客户端传过去的是整个html完整页面，而Ajax局部刷新，服务器不再响应整个页面，只是传递数据，数据交换可以是txt、xml、json</strong></p>
-<a id="more"></a>
-
-<h4 id="异步交互与同步交互"><a href="#异步交互与同步交互" class="headerlink" title="异步交互与同步交互"></a>异步交互与同步交互</h4><blockquote>
-<p>同步：</p>
-<blockquote>
-<p>例如发送一个请求，需要等待伺服器响应结束，才能发送第二个请求，等待时间给用户的直观感受就是”卡”<br>刷新是刷新整个页面<br>异步：<br>例如同上发一个请求后，无需等待伺服器的响应，就能开始发送第二个请求<br>可以使用js结束伺服器的响应，然后使用js的局部刷新</p>
-</blockquote>
-</blockquote>
-<p><img src="/images/ajax_pic.png" alt="同步与异步" title="同步交互与异步交互"></p>
-<h4 id="Ajax优缺点"><a href="#Ajax优缺点" class="headerlink" title="Ajax优缺点"></a>Ajax优缺点</h4><blockquote>
-<p>优点：</p>
-<blockquote>
-<p>异步交互：增强用户体验<br>性能：因为伺服器无需重复加载整个页面，只需要响应部分内容，减轻伺服器压力<br>缺点；<br>场景：局限性，不是所有场景适用<br>无端增多了对伺服器的访问次数，给伺服器带来了压力</p>
-</blockquote>
-</blockquote>
-<h4 id="Ajax使用"><a href="#Ajax使用" class="headerlink" title="Ajax使用"></a>Ajax使用</h4><h5 id="Ajax发送异步请求"><a href="#Ajax发送异步请求" class="headerlink" title="Ajax发送异步请求"></a>Ajax发送异步请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;四步操作</span><br><span class="line">	&#x2F;&#x2F;第一步（得到XMLHttpRequest）</span><br><span class="line">	&#x2F;&#x2F;创建XMLHttpRequest对象函数</span><br><span class="line">	function createXMLHttpRequest()&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			return new XMLHttpRequest();&#x2F;&#x2F;大多数浏览器支持它创建XMLHttpRequest对象</span><br><span class="line">		&#125;catch(e)&#123;</span><br><span class="line">			try&#123;</span><br><span class="line">				return new ActiveXObject(&quot;Msxml2.XMLHTTP&quot;);&#x2F;&#x2F;IE6.0使用其创建XMLHttpRequest对象</span><br><span class="line">			&#125;catch(e)&#123;</span><br><span class="line">				try&#123;</span><br><span class="line">					return new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);&#x2F;&#x2F;IE5.5及更早版本使用其创建XMLHttpRequest对象</span><br><span class="line">				&#125;catch(e)&#123;</span><br><span class="line">					alert(&quot;您这浏览器是自制的吧，这都无法满足您&quot;);</span><br><span class="line">					throw e;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;第二步（打开与服务器的连接）</span><br><span class="line">	&#x2F;&#x2F;使用xmlHttp.open(请求方式,请求URL,请求是否为异步);打开连接</span><br><span class="line">	&#x2F;&#x2F;请求方式:可以使用GET或POST</span><br><span class="line">	&#x2F;&#x2F;请求URL:指定服务器端资源，例如：&#x2F;cn&#x2F;com&#x2F;resource</span><br><span class="line">	&#x2F;&#x2F;请求是否为异步:为true发送异步请求，否则为同步请求</span><br><span class="line">	xmlHttp.open(&quot;POST&quot;,&quot;&#x2F;cn&#x2F;com&#x2F;resource&quot;,true);</span><br><span class="line">	xmlHttp.setRequestHeader(&quot;Content-Type&quot;,&quot;application&#x2F;x-www-form-urlencoded&quot;);&#x2F;*这是设置Content-Type请求头，POST需要这一步，GET不用*&#x2F;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;第三步（发送请求）</span><br><span class="line">	xmlHttp.send(null);&#x2F;&#x2F;如果不给参数null可能造成部分浏览器不能发送，如果是GET请求，则必须给出参数null</span><br><span class="line">	xmlHttp.send(&quot;username&#x3D;zhangsan&amp;password&#x3D;123&quot;);&#x2F;&#x2F;发送请求是指定请求体，发送请求需要带有参数一般使用POST</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;第四步（）</span><br><span class="line">	&#x2F;&#x2F;在xmlHttp对象的一个事件上注册监听器：onreadystatechange</span><br><span class="line">	&#x2F;&#x2F;xmlHttp一共有5个状态：</span><br><span class="line">	&#x2F;&#x2F;0状态：刚创建,还没有调用open方法;</span><br><span class="line">	&#x2F;&#x2F;1状态：请求开始，调用open方法，但还没有调用send方法</span><br><span class="line">	&#x2F;&#x2F;2状态：调用完了send方法</span><br><span class="line">	&#x2F;&#x2F;3状态：服务器已经开始响应，但不表示响应结束了</span><br><span class="line">	&#x2F;&#x2F;4状态；服务器响应结束！（这是我们最关心的状态）</span><br><span class="line">	&#x2F;&#x2F;得到xmlHttp的状态:</span><br><span class="line">	var state &#x3D; xmlHttp.readyState;</span><br><span class="line">	&#x2F;&#x2F;得到服务器响应的状态码：</span><br><span class="line">	var status &#x3D; xmlHttp.status;&#x2F;&#x2F;例如为404，500</span><br><span class="line">	&#x2F;&#x2F;得到服务器响应内容：</span><br><span class="line">	var content &#x3D; xmlHttp.responseText;&#x2F;&#x2F;得到文本式内容</span><br><span class="line">	var content &#x3D; xmlHttp.responseXML;&#x2F;&#x2F;得到xml格式内容（即Document对象）</span><br><span class="line">	</span><br><span class="line">	xmlHttp.onreadystatechange &#x3D; function()&#123;&#x2F;&#x2F;xmlHttp的五种状态都会调用该方法</span><br><span class="line">		if(xmlHttp.readyState&#x3D;&#x3D;4&amp;&amp;xmlHttp.status&#x3D;&#x3D;200)&#123;&#x2F;&#x2F;双重判断，是否为4状态，状态码是否为200</span><br><span class="line">			&#x2F;&#x2F;获取响应内容</span><br><span class="line">			var text &#x3D; xmlHttp.responseText;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br></pre></td></tr></table></figure>
-
-<h4 id="XStream"><a href="#XStream" class="headerlink" title="XStream"></a>XStream</h4><h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><p><strong>可以把javaBean序列化（即转化）为xml</strong></p>
-<h5 id="XStream的jar包"><a href="#XStream的jar包" class="headerlink" title="XStream的jar包"></a>XStream的jar包</h5><blockquote>
-<p>核心JAR包：XStream-1.4.7.jar<br>必须依赖包：xpp3_min-1.1.4c(XML Pull Parser,一款速度很快的xml解析器)</p>
-</blockquote>
-<h5 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">XStream xstream &#x3D; new XStream();</span><br><span class="line">String xmlStr &#x3D; xstream.toXML(javabean);</span><br></pre></td></tr></table></figure>
-
-<h4 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h4><h5 id="JSON是什么"><a href="#JSON是什么" class="headerlink" title="JSON是什么"></a>JSON是什么</h5><p><strong>JS提供的一种数据交换格式！</strong></p>
-<h5 id="JSON的语法"><a href="#JSON的语法" class="headerlink" title="JSON的语法"></a>JSON的语法</h5><p>示例；<br><code>var person = {&quot;name&quot;: &quot;zhangsan&quot;, &quot;age&quot;: 18, &quot;sex&quot;: &quot;male&quot;};</code><br>这JSON对象就跟JS字面式定义对象没什么区别，{}表示对象，里面属性值可以是null、数值、字符串、数组(用[]括起来)、布尔值<br><em>属性名这里必须用双引号括起来，单引号不行</em><br>上例JSON对象如果用双引号括起来成字符串，也可以通过eval函数实现转换</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var str &#x3D; &quot;&#123;\&quot;name\&quot;: \&quot;zhangsan\&quot;, \&quot;age\&quot;: 18, \&quot;sex\&quot;: \&quot;male\&quot;&#125;&quot;;&#x2F;&#x2F;双引号里面的双引号需要使用转义字符</span><br><span class="line">var person &#x3D; ever(&quot;(&quot; + str + &quot;)&quot;);</span><br></pre></td></tr></table></figure>
-
-<h5 id="JSON与XML比较"><a href="#JSON与XML比较" class="headerlink" title="JSON与XML比较"></a>JSON与XML比较</h5><p><strong>可读性：XML胜出</strong><br><strong>解析难度：JSON简单很多</strong><br><strong>流行度：XML已经流行很多年，但在AJAX领域，JSON更受欢迎</strong></p>
-<h5 id="json-lib小工具"><a href="#json-lib小工具" class="headerlink" title="json-lib小工具"></a>json-lib小工具</h5><h6 id="是什么"><a href="#是什么" class="headerlink" title="是什么?"></a>是什么?</h6><p><strong>它可以把javabean转换为json串</strong></p>
-<h6 id="核心类"><a href="#核心类" class="headerlink" title="核心类"></a>核心类</h6><p>JSONObject –父类Map<br>JSONArray –父类List</p>
-<h6 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;方式一</span><br><span class="line">JSONObject map &#x3D; new JSONObject();</span><br><span class="line">map.put(&quot;name&quot;,&quot;zhangsan&quot;);</span><br><span class="line">map.put(&quot;age&quot;,18);</span><br><span class="line">map.put(&quot;sex&quot;,&quot;male&quot;);</span><br><span class="line">String s &#x3D; map.toString();</span><br><span class="line">System.out.println(s);&#x2F;&#x2F;打印出一个JSON字符串</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;方式二，将Person对象转换为JSON对象</span><br><span class="line">Person p &#x3D; new Person(&quot;lisi&quot;,21,&quot;male&quot;);</span><br><span class="line">JSONObject map &#x3D; JSONObject.fromObject(p);</span><br><span class="line">System.out.println(map.toString());</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;JSONArray同上类似</span><br><span class="line">Person p1 &#x3D; new Person(&quot;zhangsan&quot;,50,&quot;famale&quot;);</span><br><span class="line">Person p2 &#x3D; new Person(&quot;wangwu&quot;,46,&quot;male&quot;);</span><br><span class="line">JSONArray list &#x3D; new JSONArray();</span><br><span class="line">list.add(p1);</span><br><span class="line">list.add(p2);</span><br><span class="line">System.out.println(list.toString());</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;若原先有一个List，我们可以把List转化为JSON对象</span><br><span class="line">Person p1 &#x3D; new Person(&quot;zhangsan&quot;,50,&quot;famale&quot;);</span><br><span class="line">Person p2 &#x3D; new Person(&quot;wangwu&quot;,46,&quot;male&quot;);</span><br><span class="line">List&lt;Person&gt; list &#x3D; new ArrayList&lt;Person&gt;();</span><br><span class="line">list.add(p1);</span><br><span class="line">list.add(p2);</span><br><span class="line"></span><br><span class="line">System.out.println(JSONArray.fromObject(list).toString());</span><br></pre></td></tr></table></figure>
-
-<h4 id="打包AJAX工具类"><a href="#打包AJAX工具类" class="headerlink" title="打包AJAX工具类"></a>打包AJAX工具类</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">	&#x2F;&#x2F;创建XMLHttpRequest对象函数</span><br><span class="line">	function createXMLHttpRequest()&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			return new XMLHttpRequest();&#x2F;&#x2F;大多数浏览器支持它创建XMLHttpRequest对象</span><br><span class="line">		&#125;catch(e)&#123;</span><br><span class="line">			try&#123;</span><br><span class="line">				return new ActiveXObject(&quot;Msxml2.XMLHTTP&quot;);&#x2F;&#x2F;IE6.0使用其创建XMLHttpRequest对象</span><br><span class="line">			&#125;catch(e)&#123;</span><br><span class="line">				try&#123;</span><br><span class="line">					return new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);&#x2F;&#x2F;IE5.5及更早版本使用其创建XMLHttpRequest对象</span><br><span class="line">				&#125;catch(e)&#123;</span><br><span class="line">					alert(&quot;您这浏览器是自制的吧，这都无法满足您&quot;);</span><br><span class="line">					throw e;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">var ajax &#x3D; function(option)&#123;</span><br><span class="line">	&#x2F;*传递对象参数，该对象包括以下属性，</span><br><span class="line">	请求方式：method,</span><br><span class="line">	请求的url：url,</span><br><span class="line">	是否异步：asyn,</span><br><span class="line">	请求体：params,</span><br><span class="line">	回调方法：callback,</span><br><span class="line">	服务器响应数据转换成什么类型：type*&#x2F;</span><br><span class="line">	</span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *1.得到xmlHttp</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	var xmlHttp &#x3D; createXMLHttpRequest();</span><br><span class="line">	</span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *2.打开连接</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	if(!option.method)&#123;&#x2F;&#x2F;默认为GET请求</span><br><span class="line">		option.method &#x3D; GET;</span><br><span class="line">	&#125;</span><br><span class="line">	if(option.asyn &#x3D;&#x3D; undefined)&#123;&#x2F;&#x2F;默认为异步处理</span><br><span class="line">		option.asyn &#x3D; true;</span><br><span class="line">	&#125;</span><br><span class="line">	xmlHttp.open(option.method,url,option.asyn);</span><br><span class="line">	</span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *3.判断是否为POST</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	if(&quot;POST&quot;&#x3D;&#x3D;option.method)&#123;</span><br><span class="line">		xmlHttp.setRequestHeader(&quot;Content-Type&quot;,&quot;application&#x2F;x-www-form-urlencoded&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *4.发送请求</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	xmlHttp.send(option.params);</span><br><span class="line">	</span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *5.注册监听</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	xmlHttp.onreadystatechange &#x3D; funcion()&#123;</span><br><span class="line">		if(xmlHttp.readyState&#x3D;&#x3D;4&amp;&amp;xmlHttp.status&#x3D;&#x3D;200)&#123;&#x2F;&#x2F;双重判断</span><br><span class="line">			var data;</span><br><span class="line">			if(!option.type)&#123;&#x2F;&#x2F;如果type没有给值默认为文本类型</span><br><span class="line">				data &#x3D; xmlHttp.responseText;</span><br><span class="line">			&#125;else if(option.type &#x3D;&#x3D; &quot;xml&quot;)&#123;</span><br><span class="line">				data &#x3D; xmlHttp.responseXML;</span><br><span class="line">			&#125;else if(option.type &#x3D;&#x3D; &quot;json&quot;)&#123;</span><br><span class="line">				var text &#x3D; xmlHttp.responseText;</span><br><span class="line">				data &#x3D; eval(&quot;(&quot; + text + &quot;)&quot;);</span><br><span class="line">			&#125;else if(option.type &#x3D;&#x3D; &quot;text&quot;)&#123;</span><br><span class="line">				data &#x3D; xmlHttp.responseText;</span><br><span class="line">			&#125;</span><br><span class="line">			&#x2F;&#x2F;调用回调方法</span><br><span class="line">			option.callback(data);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;  </span><br><span class="line">&#125;</span><br><span class="line">export(ajax);</span><br></pre></td></tr></table></figure>
-
-
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>Ajax</tag>
-        <tag>异步操作</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL进阶</title>
-    <url>/2020/02/20/SQL%E8%BF%9B%E9%98%B6/</url>
-    <content><![CDATA[<h2 id="SQL进阶"><a href="#SQL进阶" class="headerlink" title="SQL进阶"></a>SQL进阶</h2><h3 id="SQL编码问题"><a href="#SQL编码问题" class="headerlink" title="SQL编码问题"></a>SQL编码问题</h3><p>使用<code>SHOW VARIABLES LIKE &#39;char%&#39;;</code>可以查看当前窗口sql相关编码,在dos窗口内使用<code>set 你想修改的选项=gbk;</code>，这种修改在窗口关闭后将失效，也就是一次性修改。每次修改或许会很繁琐，所以也可以找到my.ini文件在里面进行修改，重启数据库系统，使修改配置生效   </p>
-<a id="more"></a>
-
-<h3 id="mysql备份与恢复命令-即导入和导出"><a href="#mysql备份与恢复命令-即导入和导出" class="headerlink" title="mysql备份与恢复命令(即导入和导出)"></a>mysql备份与恢复命令(即导入和导出)</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysqldump -uroot -proot mydb&gt;d:&#x2F;yzw.sql&#x2F;&#x2F;备份</span><br><span class="line">mysql -uroot -proot mydb&lt;d:&#x2F;yzw.sql&#x2F;&#x2F;恢复</span><br><span class="line">source d:&#x2F;yzw.sql&#x2F;&#x2F;在当前数据库恢复</span><br></pre></td></tr></table></figure>
-
-<h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h3><h4 id="主键约束-唯一标识"><a href="#主键约束-唯一标识" class="headerlink" title="主键约束(唯一标识)"></a>主键约束(唯一标识)</h4><p><strong>主键特点：非空、唯一、被引用(外键体现这一点)</strong><br>当表的某一列被指定为主键后，该列就不能为空，不能出现重复值</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;当创建表时指定主键的两种方式</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid		CHAR(6) PRIMARY KEY,</span><br><span class="line">	sname   VARCHAR(20),</span><br><span class="line">	sage    INT</span><br><span class="line">&#125;;</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid		CHAR(6),</span><br><span class="line">	sname   VARCHAR(20),</span><br><span class="line">	sage    INT,</span><br><span class="line">	PRIMARY KEY(sid)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;修改表时指定主键</span><br><span class="line">ALTER TABLE stu ADD PRIMARY KEY(sid);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;删除主键</span><br><span class="line">ALTER TABLE stu DROP PRIMARY KEY;</span><br></pre></td></tr></table></figure>
-
-<h4 id="主键自增长"><a href="#主键自增长" class="headerlink" title="主键自增长"></a>主键自增长</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;创建表时指定主键自增长</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid     INT PRIMARY KEY AUTO_INCREMENT,&#x2F;&#x2F;自增长，数据类型必须是int</span><br><span class="line">	sname   VARCHAR(20),</span><br><span class="line">	age     INT</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h4 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;sname设置非空约束</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid     INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	sname   VARCHAR(20) NOT NULL,</span><br><span class="line">	age     INT</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h4 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;sname设置唯一约束</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid     INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	sname   VARCHAR(20) UNIQUE,</span><br><span class="line">	age     INT</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h4 id="外键约束"><a href="#外键约束" class="headerlink" title="外键约束"></a>外键约束</h4><p><strong>外键必须引用主键，外键可以重复且可以为空，一张表中可以有多个外键</strong><br>对象模型：可以双向关联，而且引用的是对象，而不是一个主键<br>关系模型：只能多方引用一方，而且引用的只是主键，而不是一整行记录</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE dept&#123;</span><br><span class="line">	id		INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	dname 	VARCHAR(20)</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;设置外键两种方式</span><br><span class="line">&#x2F;&#x2F;创建表时设置外键</span><br><span class="line">CREATE TABLE emp&#123;</span><br><span class="line">	empno   INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	ename   VARCHAR(50),</span><br><span class="line">	dno		INT,</span><br><span class="line">	CONSTRAINT fk_emp_dept FOREIGN KEY(dno) REFERENCES dept(id)</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;修改表设置外键</span><br><span class="line">ALTER TABLE emp ADD CONSTRAINT fk_emp_dept FOREIGN KEY(dno) REFERENCES dept(id)</span><br></pre></td></tr></table></figure>
-
-<h3 id="三种关联关系"><a href="#三种关联关系" class="headerlink" title="三种关联关系"></a>三种关联关系</h3><h4 id="一对一"><a href="#一对一" class="headerlink" title="一对一"></a>一对一</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE hasband&#123;</span><br><span class="line">	hid 	INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	hname 	VARCHAR(25)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">CREATE TABLE wife&#123;</span><br><span class="line">	wid 	INT PRIMARY KEY AUTO_INCREMENT,&#x2F;&#x2F;wid即作主键又作外键，非空，唯一，引用hid</span><br><span class="line">	wname 	VARCHAR(25),</span><br><span class="line">	hid		INT,</span><br><span class="line">	CONSTRAINT fk_wife_hasband FOREIGN KEY(wid) REFERENCES hasband(hid)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="一对多"><a href="#一对多" class="headerlink" title="一对多"></a>一对多</h4><p>上面写外键约束用过，略</p>
-<h4 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE student&#123;</span><br><span class="line">	sid 	INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	sname 	VARCHAR(25),</span><br><span class="line">&#125;;</span><br><span class="line">CREATE TABLE teacher&#123;</span><br><span class="line">	tid 	INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	tname 	VARCHAR(25),</span><br><span class="line">&#125;;</span><br><span class="line">CREATE TABLE stu_tea&#123;</span><br><span class="line">	sid		INT,</span><br><span class="line">	tid		INT,</span><br><span class="line">	CONSTRAINT fk_sutdent FOREIGN KEY(sid) REFERENCES subject(sid),</span><br><span class="line">	CONSTRAINT fk_teacher FOREIGN KEY(tid) REFERENCES teacher(tid)</span><br><span class="line">&#125;;</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;刘德华&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;张学友&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;郭富城&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;黎明&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;梁朝伟&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;梁家辉&quot;);</span><br><span class="line"></span><br><span class="line">INSERT INTO teacher VALUES(NULL,&quot;崔老师&quot;);</span><br><span class="line">INSERT INTO teacher VALUES(NULL,&quot;史老师&quot;);</span><br><span class="line">INSERT INTO teacher VALUES(NULL,&quot;王老师&quot;);</span><br><span class="line"></span><br><span class="line">INSERT INTO stu_tea VALUES(1,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(2,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(3,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(4,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(5,1);</span><br><span class="line"></span><br><span class="line">INSERT INTO stu_tea VALUES(1,2);</span><br><span class="line">INSERT INTO stu_tea VALUES(2,2);</span><br><span class="line">INSERT INTO stu_tea VALUES(3,2);</span><br><span class="line"></span><br><span class="line">INSERT INTO stu_tea VALUES(3,3);</span><br><span class="line">INSERT INTO stu_tea VALUES(4,3);</span><br><span class="line">INSERT INTO stu_tea VALUES(6,3);</span><br></pre></td></tr></table></figure>
-
-<h3 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h3><h4 id="合并结果集-合并两张表格"><a href="#合并结果集-合并两张表格" class="headerlink" title="合并结果集(合并两张表格)"></a>合并结果集(合并两张表格)</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE ab&#123;a INT,b VARCHAR(11)&#125;;</span><br><span class="line">INSERT INTO ab VALUES(1,&quot;1&quot;);</span><br><span class="line">INSERT INTO ab VALUES(2,&quot;2&quot;);</span><br><span class="line">INSERT INTO ab VALUES(3,&quot;3&quot;);</span><br><span class="line"></span><br><span class="line">CREATE TABLE ab2&#123;c INT,d VARCHAR(11)&#125;;</span><br><span class="line">INSERT INTO ab2 VALUES(3,&quot;3&quot;);</span><br><span class="line">INSERT INTO ab2 VALUES(4,&quot;4&quot;);</span><br><span class="line">INSERT INTO ab2 VALUES(5,&quot;5&quot;);</span><br><span class="line"></span><br><span class="line">SELECT * FROM ab </span><br><span class="line">UNION ALL 		  &#x2F;&#x2F;ALL去掉的话，完全相同的行将保留1个</span><br><span class="line">SELECT * FROM ab2;&#x2F;&#x2F;要求两张表结果集完全相同（即要查询的列类型相同）</span><br></pre></td></tr></table></figure>
-
-<h4 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h4><h5 id="连接查询之内连接"><a href="#连接查询之内连接" class="headerlink" title="连接查询之内连接"></a>连接查询之内连接</h5><p>方言：<code>SELECT * FROM 表1 别名1,表2 别名2 WHERE 别名1.xx=别名2.xx</code><br>标准：<code>SELECT * FROM 表1 别名1 INNER JOIN 表2 别名2 ON 别名1.xx=别名2.xx</code><br>自然：<code>SELECT * FROM 表1 别名1 NATURAL JOIN 表2 别名2</code></p>
-<h5 id="连接查询之外连接"><a href="#连接查询之外连接" class="headerlink" title="连接查询之外连接"></a>连接查询之外连接</h5><p>左外连接：外连接一主一次，左外部左表为主，主表所有记录无论满足条件与否，都打印出来，不满足字段内容为null</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM 表1 别名1 LEFT OUTER JOIN 表2 别名2 ON 别名1.xx&#x3D;别名2.xx</span><br><span class="line">&#x2F;&#x2F;示例：</span><br><span class="line">SELECT e.ename,e.sal,IFNULL(d.dname,&quot;无内容&quot;) AS dname</span><br><span class="line">FROM emp e LEFT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br></pre></td></tr></table></figure>
-
-<p>右外连接：与左连接理解类似</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM 表1 别名1 RIGHT OUTER JOIN 表2 别名2 ON 别名1.xx&#x3D;别名2.xx</span><br><span class="line">&#x2F;&#x2F;示例：</span><br><span class="line">SELECT e.ename,e.sal,d.dname</span><br><span class="line">FROM emp e RIGHT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br></pre></td></tr></table></figure>
-
-<p>全外连接：<code>SELECT * FROM 表1 别名1 FULL OUTER JOIN 表2 别名2 ON 别名1.xx=别名2.xx</code><em>mysql不支持</em></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">解决方式：</span><br><span class="line">SELECT e.ename,e.sal,IFNULL(d.dname,&quot;无内容&quot;) AS dname</span><br><span class="line">FROM emp e LEFT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br><span class="line">UNION &#x2F;&#x2F;去除结果集实现全连接 </span><br><span class="line">SELECT e.ename,e.sal,d.dname</span><br><span class="line">FROM emp e RIGHT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br></pre></td></tr></table></figure>
-
-<h4 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h4><p>子查询就是查询中有查询（即出现多个select关键字）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;示例1：</span><br><span class="line">SELECT * FROM emp WHERE sal&#x3D;(SELECT MAX(sal) FROM emp);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例2：</span><br><span class="line">SELECT e.empno,e.ename </span><br><span class="line">FROM (SELECT * FROM emp WHERE deptno&#x3D;30) e</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例3：</span><br><span class="line">SELECT * FROM emp WHERE sal &gt; ALL (SELECT sal FROM emp WHERE deptno&#x3D;30)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例4：</span><br><span class="line">SELECT * FROM emp WHERE sal &gt; ANY (SELECT sal FROM emp WHERE deptno&#x3D;20)</span><br></pre></td></tr></table></figure>
-
-<p>总结：<br>1.单行单列：<code>SELECT * FROM 表1 别名1 WHERE 列1 [=、&gt;、&lt;、&lt;=、&gt;=、!=] (SELECT 列 FROM 表2 别名2 WHERE 条件)</code><br>2.多行单列：<code>SELECT * FROM 表1 别名1 WHERE 列1 [IN、ALL、ANY] (SELECT 列 FROM 表2 别名2 WHERE 条件)</code><br>3.单行多列：<code>SELECT * FROM 表1 别名1 WHERE (列1,列2) IN (SELECT 列1 列2 FROM 表2 别名2 WHERE 条件)</code><br>4.多行多列；<code>SELECT * FROM 表1 别名1 , (SELECT ...) 别名2 WHERE 条件</code></p>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>SQL</tag>
-        <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JAXP</title>
-    <url>/2020/04/17/JAXP/</url>
-    <content><![CDATA[<h3 id="JAXP"><a href="#JAXP" class="headerlink" title="JAXP"></a>JAXP</h3><h4 id="xml的解析-将用到JAVA代码-重点内容"><a href="#xml的解析-将用到JAVA代码-重点内容" class="headerlink" title="xml的解析(将用到JAVA代码)重点内容"></a>xml的解析(<em>将用到JAVA代码</em>)<em><strong>重点内容</strong></em></h4><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>xml为标记下语言，JS使用dom解析标记型文档，根据html的层级结构，在内存中分配一个树型结构，把html中的标签、属性、对象都封装成对象，例如：document对象、element对象、属性对象、文本对象、Node节点对象</p>
-<p><strong>xml的解析方式有两种：dom和sax</strong></p>
-<a id="more"></a>
-<p><img src="/images/xml_pic.png" alt="解析图" title="xml的解析"><br><em>上图是dom的解析过程，该方式好处是很方便实现数据的增删改操作，但是如果文件过大，容易造成内存溢出。至于sax解析采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回，不会造成内存溢出，查询操作方便，但不能实现增删改操作</em><br><strong>总结：</strong><br>   <strong>-dom方式解析：根据xml的层级结构在内存中分配一个树状结构，把xml标签，属性和文本都封装成对象</strong><br>   <strong>-使用dom弊端：如果文件过大，容易造成溢出</strong><br>   <strong>-sax方式解析：采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回</strong><br>   <strong>-使用sax弊端：不能实现增删改操作</strong></p>
-<h5 id="解析器"><a href="#解析器" class="headerlink" title="解析器"></a>解析器</h5><p><strong>不同的公司和组织提供了针对dom和sax方式的解析器，通过api方式提供，sun公司提供了针对dom和sax的解析器jaxp，dom4j组织提供的解析器就叫dom4j，同样还有jdom组织的解析器jdom</strong></p>
-<h5 id="JAXP的API"><a href="#JAXP的API" class="headerlink" title="JAXP的API"></a>JAXP的API</h5><p><strong>jaxp解析器在jdk的javax.xml.parsers包里面，包里四个类主要针对dom和sax解析使用，针对dom有DocumentBuilder（解析器类）和DocumentBuilderFactory（解析器工厂）两个类，而sax有SAXParser和SAXParserFactory</strong></p>
-<h4 id="jaxp使用"><a href="#jaxp使用" class="headerlink" title="jaxp使用"></a>jaxp使用</h4><p>xml文件内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void selectAll() throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;1.创建解析器工厂</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.根据工厂创建解析器</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.解析xml返回的document</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);&#x2F;&#x2F;括号内填写你xml文件所在位置</span><br><span class="line">&#x2F;&#x2F;4.得到所有元素</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;name&quot;);&#x2F;&#x2F;这里得到的是上面xml中name标签</span><br><span class="line">&#x2F;&#x2F;5.遍历集合</span><br><span class="line">	for(int i &#x3D; 0; i&lt;list.getLength();i++)&#123;</span><br><span class="line">		Node name &#x3D; list.item(i);&#x2F;&#x2F;得到每一个name元素</span><br><span class="line">		&#x2F;&#x2F;得到name元素里面的值</span><br><span class="line">		String s &#x3D; name1.getTextContent();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public void selectSin() throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.同上</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;name&quot;);</span><br><span class="line">&#x2F;&#x2F;5.得到第一个name元素</span><br><span class="line">	Node name1 &#x3D; list.item(0);</span><br><span class="line">&#x2F;&#x2F;6.得到name里面的值</span><br><span class="line">	String s &#x3D; name1.getTextContent();</span><br><span class="line">	System.out.println(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="增加操作"><a href="#增加操作" class="headerlink" title="增加操作"></a>增加操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void add() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.同上</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;p1&quot;);</span><br><span class="line">&#x2F;&#x2F;5.得到第一个p1</span><br><span class="line">	Node p1 &#x3D; list.item(0);</span><br><span class="line">&#x2F;&#x2F;6.创建标签</span><br><span class="line">	Element sex1 &#x3D; document.createElement(&quot;sex&quot;);</span><br><span class="line">&#x2F;&#x2F;7.创建文本</span><br><span class="line">	Text text1 &#x3D; document.createTextNode(&quot;男&quot;);</span><br><span class="line">&#x2F;&#x2F;8.把文本添加到sex1下面</span><br><span class="line">	sex1.appendChild(text1);</span><br><span class="line">&#x2F;&#x2F;9.把sex1添加到p1下面</span><br><span class="line">	p1.appendChild(sex1);</span><br><span class="line">&#x2F;&#x2F;10.回写xml</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="修改操作"><a href="#修改操作" class="headerlink" title="修改操作"></a>修改操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void fix() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.得到sex元素</span><br><span class="line">	Node sex1 &#x3D; document.getElementsByTagName(&quot;sex&quot;).item(0);</span><br><span class="line">&#x2F;&#x2F;5.修改sex的内容</span><br><span class="line">	sex1.setTextContent(&quot;man&quot;);</span><br><span class="line">&#x2F;&#x2F;6.回写</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void delete() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.得到sex元素</span><br><span class="line">	Node sex1 &#x3D; NodeList list&#x3D;document.getElementsByTagName(&quot;sex&quot;).item(0);</span><br><span class="line">&#x2F;&#x2F;5.得到它的父节点p1</span><br><span class="line">	Node p1 &#x3D; sex1.getParentNode();</span><br><span class="line">&#x2F;&#x2F;6.删除sex</span><br><span class="line">	p1.removeChild(sex1);</span><br><span class="line">&#x2F;&#x2F;7.回写	</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
-
-<h5 id="遍历节点-把所有元素名称打印出来"><a href="#遍历节点-把所有元素名称打印出来" class="headerlink" title="遍历节点(把所有元素名称打印出来)"></a>遍历节点(<em>把所有元素名称打印出来</em>)</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void listElement() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;5.调用递归方法</span><br><span class="line">	list1(document);</span><br><span class="line">&#125;</span><br><span class="line">4.编写一个递归方法实现遍历</span><br><span class="line">public static void list1(Node node)&#123;</span><br><span class="line">	if(node.getNodeType &#x3D;&#x3D; Node.ELEMENT_NODE)&#123;&#x2F;&#x2F;避免将标签内容中不必要的空格和tab打印出来</span><br><span class="line">		System.out.println(node.getNodeName());&#x2F;&#x2F;获取节点名称</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;得到一层子节点</span><br><span class="line">	NodeList list &#x3D; node.getChildNodes();</span><br><span class="line">	for(int i&#x3D;0;i&lt;list.getLength();i++)&#123;</span><br><span class="line">		Node temp &#x3D; list.item(i);</span><br><span class="line">		&#x2F;&#x2F;继续得到temp的子节点</span><br><span class="line">		list1.(temp);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="JAXP实现sax操作"><a href="#JAXP实现sax操作" class="headerlink" title="JAXP实现sax操作"></a>JAXP实现sax操作</h4><p><strong>由于sax不能执行增删改操作，所以以下是实现它的查询操作</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class MyDefault1 extends DefaultHandler&#123;&#x2F;&#x2F;以下三个方法自动执行</span><br><span class="line">	@Override</span><br><span class="line">	public void startElement(String uri,String localName,String qName,Attributes attributes)throws SAXException&#123;</span><br><span class="line">		super.startElement(uri,localName,qName,attributes);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void characters(char[] ch,int start,int length)throws SAXException&#123;</span><br><span class="line">		super.characters(ch,start,length);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void endElement(String uri,String localName,String qName)throws SAXException&#123;</span><br><span class="line">		super.endElement(uri,localName,qName);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MyDefault2 extends DefaultHandler&#123;&#x2F;&#x2F;获取所有name元素的值</span><br><span class="line">	boolean flag &#x3D; false;</span><br><span class="line">	@Override</span><br><span class="line">	public void startElement(String uri,String localName,String qName,Attributes attributes)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;判断qName是否是name元素</span><br><span class="line">		if(&quot;name&quot;.equals(qName))&#123;</span><br><span class="line">			flag &#x3D; true;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void characters(char[] ch,int start,int length)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;当flag值是true时表示解析到name元素</span><br><span class="line">		if(flag &#x3D;&#x3D; true)&#123;</span><br><span class="line">			System.out.println(new String(ch,start,length));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void endElement(String uri,String localName,String qName)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;将flag设置为false,表示name元素结束</span><br><span class="line">		if(&quot;name&quot;.equals(qName))&#123;</span><br><span class="line">			flag &#x3D; false;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void main (String[] args)&#123;</span><br><span class="line">&#x2F;&#x2F;1.创建解析器工厂</span><br><span class="line">	SAXParserFactory saxParserFactory &#x3D; SAXParserFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.创建解析器</span><br><span class="line">	SAXParser saxParser &#x3D; SAXParserFactory.newSAXParser();</span><br><span class="line">&#x2F;&#x2F;3.执行parse方法</span><br><span class="line">	saxParser.parse(&quot;src&#x2F;p1.xml&quot;,new MyDefault2());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-]]></content>
-      <categories>
-        <category>JavaWeb</category>
-      </categories>
-      <tags>
-        <tag>XML</tag>
-        <tag>标记语言</tag>
-        <tag>XML解析</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SQL</title>
     <url>/2020/02/12/SQL/</url>
     <content><![CDATA[<h2 id="SQL语言的概述"><a href="#SQL语言的概述" class="headerlink" title="SQL语言的概述"></a>SQL语言的概述</h2><h3 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h3><ul>
@@ -303,80 +159,42 @@
       </tags>
   </entry>
   <entry>
-    <title>XML入门</title>
-    <url>/2020/03/30/XML%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<h2 id="XML-Extensible-Markup-Language"><a href="#XML-Extensible-Markup-Language" class="headerlink" title="XML(Extensible Markup Language)"></a>XML(Extensible Markup Language)</h2><h3 id="XML是什么"><a href="#XML是什么" class="headerlink" title="XML是什么"></a>XML是什么</h3><p><strong>XML是W3C组织发布的技术，XML类似于HTML，大家知道HTML是一种超文本标记语言，其实XML也是一种标记语言，根据全称翻译它是可扩展标记语言。这里的可扩展是它的特性，HTML的标签是固定的，而XML可以自己定义标签，可以定义中文标签。</strong></p>
-<h3 id="XML版本"><a href="#XML版本" class="headerlink" title="XML版本"></a>XML版本</h3><p>目前有两个版本一个1.0，一个1.1，一般使用1.0，因为1.1无法向下兼容。</p>
-<h3 id="XML做什么"><a href="#XML做什么" class="headerlink" title="XML做什么"></a>XML做什么</h3><p><strong>HTML是用于显示数据，XML也可以显示数据，但它的主要功能并不是显示数据，设计它的初衷是为了存储数据，类似于一个小型数据库</strong></p>
-<h3 id="XML怎么用"><a href="#XML怎么用" class="headerlink" title="XML怎么用"></a>XML怎么用</h3><h4 id="1-不同系统之间传输数据，利于系统的维护"><a href="#1-不同系统之间传输数据，利于系统的维护" class="headerlink" title="1.不同系统之间传输数据，利于系统的维护"></a>1.不同系统之间传输数据，利于系统的维护</h4><a id="more"></a>
+    <title>JAXP</title>
+    <url>/2020/04/17/JAXP/</url>
+    <content><![CDATA[<h3 id="JAXP"><a href="#JAXP" class="headerlink" title="JAXP"></a>JAXP</h3><h4 id="xml的解析-将用到JAVA代码-重点内容"><a href="#xml的解析-将用到JAVA代码-重点内容" class="headerlink" title="xml的解析(将用到JAVA代码)重点内容"></a>xml的解析(<em>将用到JAVA代码</em>)<em><strong>重点内容</strong></em></h4><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>xml为标记下语言，JS使用dom解析标记型文档，根据html的层级结构，在内存中分配一个树型结构，把html中的标签、属性、对象都封装成对象，例如：document对象、element对象、属性对象、文本对象、Node节点对象</p>
+<p><strong>xml的解析方式有两种：dom和sax</strong></p>
+<a id="more"></a>
+<p><img src="/images/xml_pic.png" alt="解析图" title="xml的解析"><br><em>上图是dom的解析过程，该方式好处是很方便实现数据的增删改操作，但是如果文件过大，容易造成内存溢出。至于sax解析采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回，不会造成内存溢出，查询操作方便，但不能实现增删改操作</em><br><strong>总结：</strong><br>   <strong>-dom方式解析：根据xml的层级结构在内存中分配一个树状结构，把xml标签，属性和文本都封装成对象</strong><br>   <strong>-使用dom弊端：如果文件过大，容易造成溢出</strong><br>   <strong>-sax方式解析：采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回</strong><br>   <strong>-使用sax弊端：不能实现增删改操作</strong></p>
+<h5 id="解析器"><a href="#解析器" class="headerlink" title="解析器"></a>解析器</h5><p><strong>不同的公司和组织提供了针对dom和sax方式的解析器，通过api方式提供，sun公司提供了针对dom和sax的解析器jaxp，dom4j组织提供的解析器就叫dom4j，同样还有jdom组织的解析器jdom</strong></p>
+<h5 id="JAXP的API"><a href="#JAXP的API" class="headerlink" title="JAXP的API"></a>JAXP的API</h5><p><strong>jaxp解析器在jdk的javax.xml.parsers包里面，包里四个类主要针对dom和sax解析使用，针对dom有DocumentBuilder（解析器类）和DocumentBuilderFactory（解析器工厂）两个类，而sax有SAXParser和SAXParserFactory</strong></p>
+<h4 id="jaxp使用"><a href="#jaxp使用" class="headerlink" title="jaxp使用"></a>jaxp使用</h4><p>xml文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
 
-<h4 id="2-用来表示生活中有关系的数据"><a href="#2-用来表示生活中有关系的数据" class="headerlink" title="2.用来表示生活中有关系的数据"></a>2.用来表示生活中有关系的数据</h4><p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;中国&gt;</span><br><span class="line">	&lt;帝都&gt;</span><br><span class="line">		&lt;朝阳区&gt;&lt;&#x2F;朝阳区&gt;</span><br><span class="line">		&lt;海淀区&gt;&lt;&#x2F;海淀区&gt;</span><br><span class="line">	&lt;&#x2F;帝都&gt;</span><br><span class="line">	&lt;四川&gt;</span><br><span class="line">		&lt;成都&gt;&lt;&#x2F;成都&gt;</span><br><span class="line">		&lt;绵阳&gt;&lt;&#x2F;绵阳&gt;</span><br><span class="line">	&lt;&#x2F;四川&gt;</span><br><span class="line">	&lt;湖北&gt;</span><br><span class="line">		&lt;武汉&gt;&lt;&#x2F;武汉&gt;</span><br><span class="line">		&lt;荆州&gt;&lt;&#x2F;荆州&gt;</span><br><span class="line">	&lt;&#x2F;湖北&gt;</span><br><span class="line">&lt;&#x2F;中国&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="3-经常用在配置文件中"><a href="#3-经常用在配置文件中" class="headerlink" title="3.经常用在配置文件中"></a>3.经常用在配置文件中</h4><p>比如：存储你的数据库用户名和密码，如果要修改数据库信息就不用该源代码，直接对配置文件进行修改，这样增加了可扩展性和可维护性</p>
-<h3 id="XML的语法"><a href="#XML的语法" class="headerlink" title="XML的语法"></a>XML的语法</h3><h4 id="xml的文档声明"><a href="#xml的文档声明" class="headerlink" title="xml的文档声明"></a>xml的文档声明</h4><p>1)创建一个后缀名为.xml文件<br>2)文件头部(第一行第一列)必须有文档声明<br><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;gbk&quot;?&gt;</code><br>3)属性：</p>
-<blockquote>
-<p>version:xml的版本 1.0/1.1<br>encoding:xml的编码 gbk、utf-8、iso8859-1<br>standalone:是否需要依赖其他文件 yes/no<br>4)中文乱码问题<br>保存文件编码格式与自身设置编码一致，可以解决乱码问题</p>
-</blockquote>
-<h4 id="定义元素（标签）"><a href="#定义元素（标签）" class="headerlink" title="定义元素（标签）"></a>定义元素（标签）</h4><h5 id="1-有开始必须要有结束-lt-aa-gt-lt-aa-gt-，如果标签之间没有内容可以只写-lt-aa-gt"><a href="#1-有开始必须要有结束-lt-aa-gt-lt-aa-gt-，如果标签之间没有内容可以只写-lt-aa-gt" class="headerlink" title="1)有开始必须要有结束&lt;aa&gt;&lt;/aa&gt;，如果标签之间没有内容可以只写&lt;/aa&gt;"></a>1)有开始必须要有结束<code>&lt;aa&gt;&lt;/aa&gt;</code>，如果标签之间没有内容可以只写<code>&lt;/aa&gt;</code></h5><h5 id="2-标签可以嵌套"><a href="#2-标签可以嵌套" class="headerlink" title="2)标签可以嵌套"></a>2)标签可以嵌套</h5><h5 id="3-一个xml中有且只有一个根标签"><a href="#3-一个xml中有且只有一个根标签" class="headerlink" title="3)一个xml中有且只有一个根标签"></a>3)一个xml中有且只有一个根标签</h5><p><strong>注意：xml中空格和换行都会被当成内容来解析，譬如两个代码表示内容是不同的</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;网址&gt;crazyyzw.top&lt;&#x2F;网址&gt;</span><br><span class="line"></span><br><span class="line">&lt;网址&gt;</span><br><span class="line">	crazyyzw.top</span><br><span class="line">&lt;&#x2F;网址&gt;</span><br></pre></td></tr></table></figure>
-<h5 id="4-XML命名规则"><a href="#4-XML命名规则" class="headerlink" title="4)XML命名规则"></a>4)XML命名规则</h5><blockquote>
-<p>XML区分大小写<br>不能以数字和_开头<br>不能以XML自身开头，反例:<del><xmla></xmal></del><br>标签名字之间不能包含空格<br>标签名字之间不能包含冒号</p>
-</blockquote>
-<h4 id="定义属性"><a href="#定义属性" class="headerlink" title="定义属性"></a>定义属性</h4><blockquote>
-<p>一个标签可以有多个属性<br>属性不允许重复 反例：<del><dog name="wangwang" name='aoaoao'></dog></del><br>属性值可以用单引号，也可以用双引号<br>属性命名规范与标签一致</p>
-</blockquote>
-<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>写法：<code>&lt;!--这是一个注释--&gt;</code><br><strong>注释不能嵌套</strong></p>
-<h4 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h4><p>XML内容中用到的字符转义：</p>
-<blockquote>
-<p>小于号转义字符为<code>&amp;lt;</code><br>大于号转义字符为<code>&amp;gt;</code><br>‘&amp;’转义字符为<code>&amp;amp;</code><br>双引号转义字符为<code>&amp;quot;</code><br>单引号转义字符为<code>&amp;apos;</code></p>
-</blockquote>
-<h4 id="CDATA区"><a href="#CDATA区" class="headerlink" title="CDATA区"></a>CDATA区</h4><p>如果多个字符需要转义，只有放在CDATA区就不需要转义老<br>写法：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;![CDATA[所加内容]]&gt;</span><br><span class="line">&lt;![CDATA[&lt;B&gt;if(a&lt;b &amp;&amp; a&gt;c &amp;&amp; c&gt;f)&#123;&#125;&lt;&#x2F;B&gt;]]&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void selectAll() throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;1.创建解析器工厂</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.根据工厂创建解析器</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.解析xml返回的document</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);&#x2F;&#x2F;括号内填写你xml文件所在位置</span><br><span class="line">&#x2F;&#x2F;4.得到所有元素</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;name&quot;);&#x2F;&#x2F;这里得到的是上面xml中name标签</span><br><span class="line">&#x2F;&#x2F;5.遍历集合</span><br><span class="line">	for(int i &#x3D; 0; i&lt;list.getLength();i++)&#123;</span><br><span class="line">		Node name &#x3D; list.item(i);&#x2F;&#x2F;得到每一个name元素</span><br><span class="line">		&#x2F;&#x2F;得到name元素里面的值</span><br><span class="line">		String s &#x3D; name1.getTextContent();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public void selectSin() throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.同上</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;name&quot;);</span><br><span class="line">&#x2F;&#x2F;5.得到第一个name元素</span><br><span class="line">	Node name1 &#x3D; list.item(0);</span><br><span class="line">&#x2F;&#x2F;6.得到name里面的值</span><br><span class="line">	String s &#x3D; name1.getTextContent();</span><br><span class="line">	System.out.println(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="PI指令-处理指令"><a href="#PI指令-处理指令" class="headerlink" title="PI指令(处理指令)"></a>PI指令(处理指令)</h4><p>可以在xml中设置样式<br>引入方式：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml-stylesheet type&#x3D;&quot;text&#x2F;css&quot; href&#x3D;&quot;reset.css&quot;?&gt;&#x2F;&#x2F;对中文标签不起作用</span><br></pre></td></tr></table></figure>
+<h5 id="增加操作"><a href="#增加操作" class="headerlink" title="增加操作"></a>增加操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void add() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.同上</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;p1&quot;);</span><br><span class="line">&#x2F;&#x2F;5.得到第一个p1</span><br><span class="line">	Node p1 &#x3D; list.item(0);</span><br><span class="line">&#x2F;&#x2F;6.创建标签</span><br><span class="line">	Element sex1 &#x3D; document.createElement(&quot;sex&quot;);</span><br><span class="line">&#x2F;&#x2F;7.创建文本</span><br><span class="line">	Text text1 &#x3D; document.createTextNode(&quot;男&quot;);</span><br><span class="line">&#x2F;&#x2F;8.把文本添加到sex1下面</span><br><span class="line">	sex1.appendChild(text1);</span><br><span class="line">&#x2F;&#x2F;9.把sex1添加到p1下面</span><br><span class="line">	p1.appendChild(sex1);</span><br><span class="line">&#x2F;&#x2F;10.回写xml</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="XML的约束"><a href="#XML的约束" class="headerlink" title="XML的约束"></a>XML的约束</h4><p>目的使标签内元素更加规范<br>xml常见两种约束技术：dtd约束和schema约束</p>
-<h3 id="DTD"><a href="#DTD" class="headerlink" title="DTD"></a>DTD</h3><h4 id="DTD文件创建"><a href="#DTD文件创建" class="headerlink" title="DTD文件创建"></a>DTD文件创建</h4><blockquote>
-<p>1.创建一个文件后缀名为.dtd<br>2.看xml文件中有几个元素，然后在dtd中写几个&lt;!ELEMENT&gt;<br>3.判断元素是简单元素还是复杂元素，(<em>简单元素就是元素没有嵌套子元素</em>)</p>
-<blockquote>
-<p>简单元素:<!ELEMENT 简单元素名称 (#PCDATA)><br>复杂元素：<!ELEMENT 复杂元素名称 (子元素名称1,...)>,<em>注意：它的孙子元素不包括在内</em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>4.在xml文件中引入dtd文件</p>
-<blockquote>
-<p>引入外部dtd文件： <code>&lt;!DOCTYPE 根元素名称 SYSTEM &quot;dtd文件的路径&quot;&gt;&lt;!--引入方式1--&gt;</code><br>使用内部dtd文件： <code>&lt;!DOCTYPE 根元素名称 [dtd文件内容]&gt;&lt;!--引入方式2--&gt;</code><br>使用网络上的dtd文件： <code>&lt;!DOCTYPE 根元素名称 PUBLIC &quot;DTD名称&quot; &quot;DTD文档的URL&quot;&gt;&lt;!--引入方式3--&gt;</code><br><strong>xml文件在浏览器中运行不受dtd约束，因为浏览器只会校验xml语法，不会通过dtd文件进行校验，我们需要专门工具实现校验xml的约束</strong></p>
-</blockquote>
-</blockquote>
-<h4 id="使用DTD定义元素"><a href="#使用DTD定义元素" class="headerlink" title="使用DTD定义元素"></a>使用DTD定义元素</h4><h5 id="简单元素语法"><a href="#简单元素语法" class="headerlink" title="简单元素语法"></a>简单元素语法</h5><p><code>&lt;!ELEMENT 元素名称 约束&gt;</code><br>示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT name (#PCDATA)&gt;&#x2F;&#x2F;这里的(#PCDATA)是一种约束，约束name中内容为字符串类型，其他约束：EMPTY:元素为空（没有内容）,ANY：表示任意</span><br></pre></td></tr></table></figure>
-<h5 id="复杂元素语法"><a href="#复杂元素语法" class="headerlink" title="复杂元素语法"></a>复杂元素语法</h5><p><code>&lt;!ELEMENT 复杂元素名称 (子元素名称1,...)&gt;</code><br><em>表示子元素出现次数：</em><br>示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT person (name+,age,sex)&gt;&#x2F;&#x2F;name后+表示person里可以嵌套一个或多个name元素</span><br><span class="line">&lt;!ELEMENT person (name,age?,sex)&gt;&#x2F;&#x2F;age后?表示person里可以嵌套0个或多个age元素</span><br><span class="line">&lt;!ELEMENT person (name+,age*,sex)&gt;&#x2F;&#x2F;age后*表示person里可以嵌套任意个数age且可以为0</span><br></pre></td></tr></table></figure>
-<p>复杂元素定义中()里逗号隔开，xml中需按()内顺序定义元素，如果将逗号换为|表示子元素只能有一个定义出来</p>
-<h4 id="使用dtd定义属性"><a href="#使用dtd定义属性" class="headerlink" title="使用dtd定义属性"></a>使用dtd定义属性</h4><h5 id="定义属性语法"><a href="#定义属性语法" class="headerlink" title="定义属性语法"></a>定义属性语法</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!ATTLIST 元素名称 </span><br><span class="line">属性名称 属性的类型 属性的约束</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-<h5 id="属性的类型"><a href="#属性的类型" class="headerlink" title="属性的类型"></a>属性的类型</h5><p><strong>CDATA:表示xml属性的取值为普通文本字符串</strong><br><strong>枚举(AA|BB|CC):xml属性值只能取其中一个</strong><br><strong>ID:xml属性的值只能有字母和_开头</strong></p>
-<h5 id="属性的约束"><a href="#属性的约束" class="headerlink" title="属性的约束"></a>属性的约束</h5><p><strong>#REQUIRED:属性必须存在</strong><br><strong>#MPLED:属性可有可无</strong><br><strong>#FIXED:表示一个固定的值，示例：</strong><code>#FIXED: &quot;ABC&quot;</code><br><strong>直接值：直接在属性的约束定义属性值，如果属性定义，默认使用直接值</strong></p>
-<h5 id="定义实体"><a href="#定义实体" class="headerlink" title="定义实体"></a>定义实体</h5><p><strong>DTD中定义，在xml中使用</strong><br>语法：<code>&lt;!ENTITY 实体名称 实体内容&gt;</code><br><strong>xml中引用：</strong><br><code>&amp;实体名称;</code><br><em>注意：最好在内部dtd中定义实体，在外部定义，有些浏览器下，内容可能获取不到</em></p>
-<h3 id="Schema"><a href="#Schema" class="headerlink" title="Schema"></a>Schema</h3><p><strong>schema符合xml语法，与dtd不同的是一个xml中允许有多个个schema(通过名称空间进行区分)，schema支持除字符串更多数据类型(包括用户自定义数据类型)，schema约束更加严格，比dtd复杂</strong></p>
-<h4 id="创建Schema文件"><a href="#创建Schema文件" class="headerlink" title="创建Schema文件"></a>创建Schema文件</h4><blockquote>
-<p>1.创建后缀名为.xsd的XML Schema文件（schema与xml一样必须有一个根节点，而它的根节点就是<code>&lt;schema&gt;&lt;/schema&gt;</code>）<br>2.设置schema的属性，xmlns属性表示当前文件是一个约束文件，targetNamespace属性提供引用该schema约束文件的自定义地址，<br>3.看xml文件中有几个元素，写几个<code>&lt;element&gt;&lt;/element&gt;</code><br>4.判断xml中元素是简单元素还是复杂元素</p>
-<blockquote>
-<p>简单元素：<code>&lt;element name=&quot;简单元素名&quot; type=&quot;数据类型&quot;&gt;&lt;/element&gt;</code><br>复杂元素：<code>&lt;element name=&quot;复杂元素名&quot;&gt;&lt;complexType&gt;子元素&lt;/complexType&gt;&lt;/element&gt;</code></p>
-</blockquote>
-</blockquote>
-<h4 id="引入Schema文件"><a href="#引入Schema文件" class="headerlink" title="引入Schema文件"></a>引入Schema文件</h4><p><strong>在xml文件的根节点中属性xmlns第一个内容同schema文件后追加<code>-instance</code>，第二个是targetNamespace中地址（由于xmlns重名，需要未其中一个设置别名，格式为<code>:别名</code>），最后配置targetNamespace中地址 schema的路径</strong><br>示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;person xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3c.org&#x2F;2001&#x2F;XMlSchema-instance&quot; xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.zidingyi.cn&#x2F;20200330 one.xsd&quot;&gt;</span><br><span class="line">	&lt;name&gt;二狗&lt;&#x2F;name&gt;</span><br><span class="line">	&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="修改操作"><a href="#修改操作" class="headerlink" title="修改操作"></a>修改操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void fix() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.得到sex元素</span><br><span class="line">	Node sex1 &#x3D; document.getElementsByTagName(&quot;sex&quot;).item(0);</span><br><span class="line">&#x2F;&#x2F;5.修改sex的内容</span><br><span class="line">	sex1.setTextContent(&quot;man&quot;);</span><br><span class="line">&#x2F;&#x2F;6.回写</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="Schema使用"><a href="#Schema使用" class="headerlink" title="Schema使用"></a>Schema使用</h4><blockquote>
-<ol>
-<li><sequence></sequence>:表示元素出现顺序</li>
-<li><all></all>:表示元素只能出现一次</li>
-<li><choice></choice>:表示只能出现里面元素中任意一个</li>
-<li>maxOccurs=”unbounded”:表示元素出现的次数</li>
-<li><any></any>:表示任意元素</li>
-</ol>
-</blockquote>
+<h5 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void delete() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.得到sex元素</span><br><span class="line">	Node sex1 &#x3D; NodeList list&#x3D;document.getElementsByTagName(&quot;sex&quot;).item(0);</span><br><span class="line">&#x2F;&#x2F;5.得到它的父节点p1</span><br><span class="line">	Node p1 &#x3D; sex1.getParentNode();</span><br><span class="line">&#x2F;&#x2F;6.删除sex</span><br><span class="line">	p1.removeChild(sex1);</span><br><span class="line">&#x2F;&#x2F;7.回写	</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
+
+<h5 id="遍历节点-把所有元素名称打印出来"><a href="#遍历节点-把所有元素名称打印出来" class="headerlink" title="遍历节点(把所有元素名称打印出来)"></a>遍历节点(<em>把所有元素名称打印出来</em>)</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void listElement() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;5.调用递归方法</span><br><span class="line">	list1(document);</span><br><span class="line">&#125;</span><br><span class="line">4.编写一个递归方法实现遍历</span><br><span class="line">public static void list1(Node node)&#123;</span><br><span class="line">	if(node.getNodeType &#x3D;&#x3D; Node.ELEMENT_NODE)&#123;&#x2F;&#x2F;避免将标签内容中不必要的空格和tab打印出来</span><br><span class="line">		System.out.println(node.getNodeName());&#x2F;&#x2F;获取节点名称</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;得到一层子节点</span><br><span class="line">	NodeList list &#x3D; node.getChildNodes();</span><br><span class="line">	for(int i&#x3D;0;i&lt;list.getLength();i++)&#123;</span><br><span class="line">		Node temp &#x3D; list.item(i);</span><br><span class="line">		&#x2F;&#x2F;继续得到temp的子节点</span><br><span class="line">		list1.(temp);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="JAXP实现sax操作"><a href="#JAXP实现sax操作" class="headerlink" title="JAXP实现sax操作"></a>JAXP实现sax操作</h4><p><strong>由于sax不能执行增删改操作，所以以下是实现它的查询操作</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class MyDefault1 extends DefaultHandler&#123;&#x2F;&#x2F;以下三个方法自动执行</span><br><span class="line">	@Override</span><br><span class="line">	public void startElement(String uri,String localName,String qName,Attributes attributes)throws SAXException&#123;</span><br><span class="line">		super.startElement(uri,localName,qName,attributes);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void characters(char[] ch,int start,int length)throws SAXException&#123;</span><br><span class="line">		super.characters(ch,start,length);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void endElement(String uri,String localName,String qName)throws SAXException&#123;</span><br><span class="line">		super.endElement(uri,localName,qName);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MyDefault2 extends DefaultHandler&#123;&#x2F;&#x2F;获取所有name元素的值</span><br><span class="line">	boolean flag &#x3D; false;</span><br><span class="line">	@Override</span><br><span class="line">	public void startElement(String uri,String localName,String qName,Attributes attributes)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;判断qName是否是name元素</span><br><span class="line">		if(&quot;name&quot;.equals(qName))&#123;</span><br><span class="line">			flag &#x3D; true;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void characters(char[] ch,int start,int length)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;当flag值是true时表示解析到name元素</span><br><span class="line">		if(flag &#x3D;&#x3D; true)&#123;</span><br><span class="line">			System.out.println(new String(ch,start,length));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void endElement(String uri,String localName,String qName)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;将flag设置为false,表示name元素结束</span><br><span class="line">		if(&quot;name&quot;.equals(qName))&#123;</span><br><span class="line">			flag &#x3D; false;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void main (String[] args)&#123;</span><br><span class="line">&#x2F;&#x2F;1.创建解析器工厂</span><br><span class="line">	SAXParserFactory saxParserFactory &#x3D; SAXParserFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.创建解析器</span><br><span class="line">	SAXParser saxParser &#x3D; SAXParserFactory.newSAXParser();</span><br><span class="line">&#x2F;&#x2F;3.执行parse方法</span><br><span class="line">	saxParser.parse(&quot;src&#x2F;p1.xml&quot;,new MyDefault2());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
 ]]></content>
       <categories>
         <category>JavaWeb</category>
@@ -384,6 +202,7 @@
       <tags>
         <tag>XML</tag>
         <tag>标记语言</tag>
+        <tag>XML解析</tag>
       </tags>
   </entry>
   <entry>
@@ -453,6 +272,103 @@
       <tags>
         <tag>标记语言</tag>
         <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ajax</title>
+    <url>/2020/04/25/Ajax/</url>
+    <content><![CDATA[<h3 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h3><p><strong>Ajax全称：Asynchronous Javascript And XML(异步 JS和XML)，它能使用JS实现异步访问服务器。众所周知，服务器给客户端传过去的是整个html完整页面，而Ajax局部刷新，服务器不再响应整个页面，只是传递数据，数据交换可以是txt、xml、json</strong></p>
+<a id="more"></a>
+
+<h4 id="异步交互与同步交互"><a href="#异步交互与同步交互" class="headerlink" title="异步交互与同步交互"></a>异步交互与同步交互</h4><blockquote>
+<p>同步：</p>
+<blockquote>
+<p>例如发送一个请求，需要等待伺服器响应结束，才能发送第二个请求，等待时间给用户的直观感受就是”卡”<br>刷新是刷新整个页面<br>异步：<br>例如同上发一个请求后，无需等待伺服器的响应，就能开始发送第二个请求<br>可以使用js结束伺服器的响应，然后使用js的局部刷新</p>
+</blockquote>
+</blockquote>
+<p><img src="/images/ajax_pic.png" alt="同步与异步" title="同步交互与异步交互"></p>
+<h4 id="Ajax优缺点"><a href="#Ajax优缺点" class="headerlink" title="Ajax优缺点"></a>Ajax优缺点</h4><blockquote>
+<p>优点：</p>
+<blockquote>
+<p>异步交互：增强用户体验<br>性能：因为伺服器无需重复加载整个页面，只需要响应部分内容，减轻伺服器压力<br>缺点；<br>场景：局限性，不是所有场景适用<br>无端增多了对伺服器的访问次数，给伺服器带来了压力</p>
+</blockquote>
+</blockquote>
+<h4 id="Ajax使用"><a href="#Ajax使用" class="headerlink" title="Ajax使用"></a>Ajax使用</h4><h5 id="Ajax发送异步请求"><a href="#Ajax发送异步请求" class="headerlink" title="Ajax发送异步请求"></a>Ajax发送异步请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;四步操作</span><br><span class="line">	&#x2F;&#x2F;第一步（得到XMLHttpRequest）</span><br><span class="line">	&#x2F;&#x2F;创建XMLHttpRequest对象函数</span><br><span class="line">	function createXMLHttpRequest()&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			return new XMLHttpRequest();&#x2F;&#x2F;大多数浏览器支持它创建XMLHttpRequest对象</span><br><span class="line">		&#125;catch(e)&#123;</span><br><span class="line">			try&#123;</span><br><span class="line">				return new ActiveXObject(&quot;Msxml2.XMLHTTP&quot;);&#x2F;&#x2F;IE6.0使用其创建XMLHttpRequest对象</span><br><span class="line">			&#125;catch(e)&#123;</span><br><span class="line">				try&#123;</span><br><span class="line">					return new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);&#x2F;&#x2F;IE5.5及更早版本使用其创建XMLHttpRequest对象</span><br><span class="line">				&#125;catch(e)&#123;</span><br><span class="line">					alert(&quot;您这浏览器是自制的吧，这都无法满足您&quot;);</span><br><span class="line">					throw e;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;第二步（打开与服务器的连接）</span><br><span class="line">	&#x2F;&#x2F;使用xmlHttp.open(请求方式,请求URL,请求是否为异步);打开连接</span><br><span class="line">	&#x2F;&#x2F;请求方式:可以使用GET或POST</span><br><span class="line">	&#x2F;&#x2F;请求URL:指定服务器端资源，例如：&#x2F;cn&#x2F;com&#x2F;resource</span><br><span class="line">	&#x2F;&#x2F;请求是否为异步:为true发送异步请求，否则为同步请求</span><br><span class="line">	xmlHttp.open(&quot;POST&quot;,&quot;&#x2F;cn&#x2F;com&#x2F;resource&quot;,true);</span><br><span class="line">	xmlHttp.setRequestHeader(&quot;Content-Type&quot;,&quot;application&#x2F;x-www-form-urlencoded&quot;);&#x2F;*这是设置Content-Type请求头，POST需要这一步，GET不用*&#x2F;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;第三步（发送请求）</span><br><span class="line">	xmlHttp.send(null);&#x2F;&#x2F;如果不给参数null可能造成部分浏览器不能发送，如果是GET请求，则必须给出参数null</span><br><span class="line">	xmlHttp.send(&quot;username&#x3D;zhangsan&amp;password&#x3D;123&quot;);&#x2F;&#x2F;发送请求是指定请求体，发送请求需要带有参数一般使用POST</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;第四步（）</span><br><span class="line">	&#x2F;&#x2F;在xmlHttp对象的一个事件上注册监听器：onreadystatechange</span><br><span class="line">	&#x2F;&#x2F;xmlHttp一共有5个状态：</span><br><span class="line">	&#x2F;&#x2F;0状态：刚创建,还没有调用open方法;</span><br><span class="line">	&#x2F;&#x2F;1状态：请求开始，调用open方法，但还没有调用send方法</span><br><span class="line">	&#x2F;&#x2F;2状态：调用完了send方法</span><br><span class="line">	&#x2F;&#x2F;3状态：服务器已经开始响应，但不表示响应结束了</span><br><span class="line">	&#x2F;&#x2F;4状态；服务器响应结束！（这是我们最关心的状态）</span><br><span class="line">	&#x2F;&#x2F;得到xmlHttp的状态:</span><br><span class="line">	var state &#x3D; xmlHttp.readyState;</span><br><span class="line">	&#x2F;&#x2F;得到服务器响应的状态码：</span><br><span class="line">	var status &#x3D; xmlHttp.status;&#x2F;&#x2F;例如为404，500</span><br><span class="line">	&#x2F;&#x2F;得到服务器响应内容：</span><br><span class="line">	var content &#x3D; xmlHttp.responseText;&#x2F;&#x2F;得到文本式内容</span><br><span class="line">	var content &#x3D; xmlHttp.responseXML;&#x2F;&#x2F;得到xml格式内容（即Document对象）</span><br><span class="line">	</span><br><span class="line">	xmlHttp.onreadystatechange &#x3D; function()&#123;&#x2F;&#x2F;xmlHttp的五种状态都会调用该方法</span><br><span class="line">		if(xmlHttp.readyState&#x3D;&#x3D;4&amp;&amp;xmlHttp.status&#x3D;&#x3D;200)&#123;&#x2F;&#x2F;双重判断，是否为4状态，状态码是否为200</span><br><span class="line">			&#x2F;&#x2F;获取响应内容</span><br><span class="line">			var text &#x3D; xmlHttp.responseText;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="XStream"><a href="#XStream" class="headerlink" title="XStream"></a>XStream</h4><h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><p><strong>可以把javaBean序列化（即转化）为xml</strong></p>
+<h5 id="XStream的jar包"><a href="#XStream的jar包" class="headerlink" title="XStream的jar包"></a>XStream的jar包</h5><blockquote>
+<p>核心JAR包：XStream-1.4.7.jar<br>必须依赖包：xpp3_min-1.1.4c(XML Pull Parser,一款速度很快的xml解析器)</p>
+</blockquote>
+<h5 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">XStream xstream &#x3D; new XStream();</span><br><span class="line">String xmlStr &#x3D; xstream.toXML(javabean);</span><br></pre></td></tr></table></figure>
+
+<h4 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h4><h5 id="JSON是什么"><a href="#JSON是什么" class="headerlink" title="JSON是什么"></a>JSON是什么</h5><p><strong>JS提供的一种数据交换格式！</strong></p>
+<h5 id="JSON的语法"><a href="#JSON的语法" class="headerlink" title="JSON的语法"></a>JSON的语法</h5><p>示例；<br><code>var person = {&quot;name&quot;: &quot;zhangsan&quot;, &quot;age&quot;: 18, &quot;sex&quot;: &quot;male&quot;};</code><br>这JSON对象就跟JS字面式定义对象没什么区别，{}表示对象，里面属性值可以是null、数值、字符串、数组(用[]括起来)、布尔值<br><em>属性名这里必须用双引号括起来，单引号不行</em><br>上例JSON对象如果用双引号括起来成字符串，也可以通过eval函数实现转换</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var str &#x3D; &quot;&#123;\&quot;name\&quot;: \&quot;zhangsan\&quot;, \&quot;age\&quot;: 18, \&quot;sex\&quot;: \&quot;male\&quot;&#125;&quot;;&#x2F;&#x2F;双引号里面的双引号需要使用转义字符</span><br><span class="line">var person &#x3D; ever(&quot;(&quot; + str + &quot;)&quot;);</span><br></pre></td></tr></table></figure>
+
+<h5 id="JSON与XML比较"><a href="#JSON与XML比较" class="headerlink" title="JSON与XML比较"></a>JSON与XML比较</h5><p><strong>可读性：XML胜出</strong><br><strong>解析难度：JSON简单很多</strong><br><strong>流行度：XML已经流行很多年，但在AJAX领域，JSON更受欢迎</strong></p>
+<h5 id="json-lib小工具"><a href="#json-lib小工具" class="headerlink" title="json-lib小工具"></a>json-lib小工具</h5><h6 id="是什么"><a href="#是什么" class="headerlink" title="是什么?"></a>是什么?</h6><p><strong>它可以把javabean转换为json串</strong></p>
+<h6 id="核心类"><a href="#核心类" class="headerlink" title="核心类"></a>核心类</h6><p>JSONObject –父类Map<br>JSONArray –父类List</p>
+<h6 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;方式一</span><br><span class="line">JSONObject map &#x3D; new JSONObject();</span><br><span class="line">map.put(&quot;name&quot;,&quot;zhangsan&quot;);</span><br><span class="line">map.put(&quot;age&quot;,18);</span><br><span class="line">map.put(&quot;sex&quot;,&quot;male&quot;);</span><br><span class="line">String s &#x3D; map.toString();</span><br><span class="line">System.out.println(s);&#x2F;&#x2F;打印出一个JSON字符串</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;方式二，将Person对象转换为JSON对象</span><br><span class="line">Person p &#x3D; new Person(&quot;lisi&quot;,21,&quot;male&quot;);</span><br><span class="line">JSONObject map &#x3D; JSONObject.fromObject(p);</span><br><span class="line">System.out.println(map.toString());</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;JSONArray同上类似</span><br><span class="line">Person p1 &#x3D; new Person(&quot;zhangsan&quot;,50,&quot;famale&quot;);</span><br><span class="line">Person p2 &#x3D; new Person(&quot;wangwu&quot;,46,&quot;male&quot;);</span><br><span class="line">JSONArray list &#x3D; new JSONArray();</span><br><span class="line">list.add(p1);</span><br><span class="line">list.add(p2);</span><br><span class="line">System.out.println(list.toString());</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;若原先有一个List，我们可以把List转化为JSON对象</span><br><span class="line">Person p1 &#x3D; new Person(&quot;zhangsan&quot;,50,&quot;famale&quot;);</span><br><span class="line">Person p2 &#x3D; new Person(&quot;wangwu&quot;,46,&quot;male&quot;);</span><br><span class="line">List&lt;Person&gt; list &#x3D; new ArrayList&lt;Person&gt;();</span><br><span class="line">list.add(p1);</span><br><span class="line">list.add(p2);</span><br><span class="line"></span><br><span class="line">System.out.println(JSONArray.fromObject(list).toString());</span><br></pre></td></tr></table></figure>
+
+<h4 id="打包AJAX工具类"><a href="#打包AJAX工具类" class="headerlink" title="打包AJAX工具类"></a>打包AJAX工具类</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">	&#x2F;&#x2F;创建XMLHttpRequest对象函数</span><br><span class="line">	function createXMLHttpRequest()&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			return new XMLHttpRequest();&#x2F;&#x2F;大多数浏览器支持它创建XMLHttpRequest对象</span><br><span class="line">		&#125;catch(e)&#123;</span><br><span class="line">			try&#123;</span><br><span class="line">				return new ActiveXObject(&quot;Msxml2.XMLHTTP&quot;);&#x2F;&#x2F;IE6.0使用其创建XMLHttpRequest对象</span><br><span class="line">			&#125;catch(e)&#123;</span><br><span class="line">				try&#123;</span><br><span class="line">					return new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);&#x2F;&#x2F;IE5.5及更早版本使用其创建XMLHttpRequest对象</span><br><span class="line">				&#125;catch(e)&#123;</span><br><span class="line">					alert(&quot;您这浏览器是自制的吧，这都无法满足您&quot;);</span><br><span class="line">					throw e;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">var ajax &#x3D; function(option)&#123;</span><br><span class="line">	&#x2F;*传递对象参数，该对象包括以下属性，</span><br><span class="line">	请求方式：method,</span><br><span class="line">	请求的url：url,</span><br><span class="line">	是否异步：asyn,</span><br><span class="line">	请求体：params,</span><br><span class="line">	回调方法：callback,</span><br><span class="line">	服务器响应数据转换成什么类型：type*&#x2F;</span><br><span class="line">	</span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *1.得到xmlHttp</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	var xmlHttp &#x3D; createXMLHttpRequest();</span><br><span class="line">	</span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *2.打开连接</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	if(!option.method)&#123;&#x2F;&#x2F;默认为GET请求</span><br><span class="line">		option.method &#x3D; GET;</span><br><span class="line">	&#125;</span><br><span class="line">	if(option.asyn &#x3D;&#x3D; undefined)&#123;&#x2F;&#x2F;默认为异步处理</span><br><span class="line">		option.asyn &#x3D; true;</span><br><span class="line">	&#125;</span><br><span class="line">	xmlHttp.open(option.method,url,option.asyn);</span><br><span class="line">	</span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *3.判断是否为POST</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	if(&quot;POST&quot;&#x3D;&#x3D;option.method)&#123;</span><br><span class="line">		xmlHttp.setRequestHeader(&quot;Content-Type&quot;,&quot;application&#x2F;x-www-form-urlencoded&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *4.发送请求</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	xmlHttp.send(option.params);</span><br><span class="line">	</span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *5.注册监听</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	xmlHttp.onreadystatechange &#x3D; funcion()&#123;</span><br><span class="line">		if(xmlHttp.readyState&#x3D;&#x3D;4&amp;&amp;xmlHttp.status&#x3D;&#x3D;200)&#123;&#x2F;&#x2F;双重判断</span><br><span class="line">			var data;</span><br><span class="line">			if(!option.type)&#123;&#x2F;&#x2F;如果type没有给值默认为文本类型</span><br><span class="line">				data &#x3D; xmlHttp.responseText;</span><br><span class="line">			&#125;else if(option.type &#x3D;&#x3D; &quot;xml&quot;)&#123;</span><br><span class="line">				data &#x3D; xmlHttp.responseXML;</span><br><span class="line">			&#125;else if(option.type &#x3D;&#x3D; &quot;json&quot;)&#123;</span><br><span class="line">				var text &#x3D; xmlHttp.responseText;</span><br><span class="line">				data &#x3D; eval(&quot;(&quot; + text + &quot;)&quot;);</span><br><span class="line">			&#125;else if(option.type &#x3D;&#x3D; &quot;text&quot;)&#123;</span><br><span class="line">				data &#x3D; xmlHttp.responseText;</span><br><span class="line">			&#125;</span><br><span class="line">			&#x2F;&#x2F;调用回调方法</span><br><span class="line">			option.callback(data);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;  </span><br><span class="line">&#125;</span><br><span class="line">export(ajax);</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>Ajax</tag>
+        <tag>异步操作</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL进阶</title>
+    <url>/2020/02/20/SQL%E8%BF%9B%E9%98%B6/</url>
+    <content><![CDATA[<h2 id="SQL进阶"><a href="#SQL进阶" class="headerlink" title="SQL进阶"></a>SQL进阶</h2><h3 id="SQL编码问题"><a href="#SQL编码问题" class="headerlink" title="SQL编码问题"></a>SQL编码问题</h3><p>使用<code>SHOW VARIABLES LIKE &#39;char%&#39;;</code>可以查看当前窗口sql相关编码,在dos窗口内使用<code>set 你想修改的选项=gbk;</code>，这种修改在窗口关闭后将失效，也就是一次性修改。每次修改或许会很繁琐，所以也可以找到my.ini文件在里面进行修改，重启数据库系统，使修改配置生效   </p>
+<a id="more"></a>
+
+<h3 id="mysql备份与恢复命令-即导入和导出"><a href="#mysql备份与恢复命令-即导入和导出" class="headerlink" title="mysql备份与恢复命令(即导入和导出)"></a>mysql备份与恢复命令(即导入和导出)</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysqldump -uroot -proot mydb&gt;d:&#x2F;yzw.sql&#x2F;&#x2F;备份</span><br><span class="line">mysql -uroot -proot mydb&lt;d:&#x2F;yzw.sql&#x2F;&#x2F;恢复</span><br><span class="line">source d:&#x2F;yzw.sql&#x2F;&#x2F;在当前数据库恢复</span><br></pre></td></tr></table></figure>
+
+<h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h3><h4 id="主键约束-唯一标识"><a href="#主键约束-唯一标识" class="headerlink" title="主键约束(唯一标识)"></a>主键约束(唯一标识)</h4><p><strong>主键特点：非空、唯一、被引用(外键体现这一点)</strong><br>当表的某一列被指定为主键后，该列就不能为空，不能出现重复值</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;当创建表时指定主键的两种方式</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid		CHAR(6) PRIMARY KEY,</span><br><span class="line">	sname   VARCHAR(20),</span><br><span class="line">	sage    INT</span><br><span class="line">&#125;;</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid		CHAR(6),</span><br><span class="line">	sname   VARCHAR(20),</span><br><span class="line">	sage    INT,</span><br><span class="line">	PRIMARY KEY(sid)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;修改表时指定主键</span><br><span class="line">ALTER TABLE stu ADD PRIMARY KEY(sid);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;删除主键</span><br><span class="line">ALTER TABLE stu DROP PRIMARY KEY;</span><br></pre></td></tr></table></figure>
+
+<h4 id="主键自增长"><a href="#主键自增长" class="headerlink" title="主键自增长"></a>主键自增长</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;创建表时指定主键自增长</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid     INT PRIMARY KEY AUTO_INCREMENT,&#x2F;&#x2F;自增长，数据类型必须是int</span><br><span class="line">	sname   VARCHAR(20),</span><br><span class="line">	age     INT</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;sname设置非空约束</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid     INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	sname   VARCHAR(20) NOT NULL,</span><br><span class="line">	age     INT</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;sname设置唯一约束</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid     INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	sname   VARCHAR(20) UNIQUE,</span><br><span class="line">	age     INT</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="外键约束"><a href="#外键约束" class="headerlink" title="外键约束"></a>外键约束</h4><p><strong>外键必须引用主键，外键可以重复且可以为空，一张表中可以有多个外键</strong><br>对象模型：可以双向关联，而且引用的是对象，而不是一个主键<br>关系模型：只能多方引用一方，而且引用的只是主键，而不是一整行记录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE dept&#123;</span><br><span class="line">	id		INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	dname 	VARCHAR(20)</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;设置外键两种方式</span><br><span class="line">&#x2F;&#x2F;创建表时设置外键</span><br><span class="line">CREATE TABLE emp&#123;</span><br><span class="line">	empno   INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	ename   VARCHAR(50),</span><br><span class="line">	dno		INT,</span><br><span class="line">	CONSTRAINT fk_emp_dept FOREIGN KEY(dno) REFERENCES dept(id)</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;修改表设置外键</span><br><span class="line">ALTER TABLE emp ADD CONSTRAINT fk_emp_dept FOREIGN KEY(dno) REFERENCES dept(id)</span><br></pre></td></tr></table></figure>
+
+<h3 id="三种关联关系"><a href="#三种关联关系" class="headerlink" title="三种关联关系"></a>三种关联关系</h3><h4 id="一对一"><a href="#一对一" class="headerlink" title="一对一"></a>一对一</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE hasband&#123;</span><br><span class="line">	hid 	INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	hname 	VARCHAR(25)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">CREATE TABLE wife&#123;</span><br><span class="line">	wid 	INT PRIMARY KEY AUTO_INCREMENT,&#x2F;&#x2F;wid即作主键又作外键，非空，唯一，引用hid</span><br><span class="line">	wname 	VARCHAR(25),</span><br><span class="line">	hid		INT,</span><br><span class="line">	CONSTRAINT fk_wife_hasband FOREIGN KEY(wid) REFERENCES hasband(hid)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="一对多"><a href="#一对多" class="headerlink" title="一对多"></a>一对多</h4><p>上面写外键约束用过，略</p>
+<h4 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE student&#123;</span><br><span class="line">	sid 	INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	sname 	VARCHAR(25),</span><br><span class="line">&#125;;</span><br><span class="line">CREATE TABLE teacher&#123;</span><br><span class="line">	tid 	INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	tname 	VARCHAR(25),</span><br><span class="line">&#125;;</span><br><span class="line">CREATE TABLE stu_tea&#123;</span><br><span class="line">	sid		INT,</span><br><span class="line">	tid		INT,</span><br><span class="line">	CONSTRAINT fk_sutdent FOREIGN KEY(sid) REFERENCES subject(sid),</span><br><span class="line">	CONSTRAINT fk_teacher FOREIGN KEY(tid) REFERENCES teacher(tid)</span><br><span class="line">&#125;;</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;刘德华&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;张学友&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;郭富城&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;黎明&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;梁朝伟&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;梁家辉&quot;);</span><br><span class="line"></span><br><span class="line">INSERT INTO teacher VALUES(NULL,&quot;崔老师&quot;);</span><br><span class="line">INSERT INTO teacher VALUES(NULL,&quot;史老师&quot;);</span><br><span class="line">INSERT INTO teacher VALUES(NULL,&quot;王老师&quot;);</span><br><span class="line"></span><br><span class="line">INSERT INTO stu_tea VALUES(1,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(2,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(3,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(4,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(5,1);</span><br><span class="line"></span><br><span class="line">INSERT INTO stu_tea VALUES(1,2);</span><br><span class="line">INSERT INTO stu_tea VALUES(2,2);</span><br><span class="line">INSERT INTO stu_tea VALUES(3,2);</span><br><span class="line"></span><br><span class="line">INSERT INTO stu_tea VALUES(3,3);</span><br><span class="line">INSERT INTO stu_tea VALUES(4,3);</span><br><span class="line">INSERT INTO stu_tea VALUES(6,3);</span><br></pre></td></tr></table></figure>
+
+<h3 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h3><h4 id="合并结果集-合并两张表格"><a href="#合并结果集-合并两张表格" class="headerlink" title="合并结果集(合并两张表格)"></a>合并结果集(合并两张表格)</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE ab&#123;a INT,b VARCHAR(11)&#125;;</span><br><span class="line">INSERT INTO ab VALUES(1,&quot;1&quot;);</span><br><span class="line">INSERT INTO ab VALUES(2,&quot;2&quot;);</span><br><span class="line">INSERT INTO ab VALUES(3,&quot;3&quot;);</span><br><span class="line"></span><br><span class="line">CREATE TABLE ab2&#123;c INT,d VARCHAR(11)&#125;;</span><br><span class="line">INSERT INTO ab2 VALUES(3,&quot;3&quot;);</span><br><span class="line">INSERT INTO ab2 VALUES(4,&quot;4&quot;);</span><br><span class="line">INSERT INTO ab2 VALUES(5,&quot;5&quot;);</span><br><span class="line"></span><br><span class="line">SELECT * FROM ab </span><br><span class="line">UNION ALL 		  &#x2F;&#x2F;ALL去掉的话，完全相同的行将保留1个</span><br><span class="line">SELECT * FROM ab2;&#x2F;&#x2F;要求两张表结果集完全相同（即要查询的列类型相同）</span><br></pre></td></tr></table></figure>
+
+<h4 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h4><h5 id="连接查询之内连接"><a href="#连接查询之内连接" class="headerlink" title="连接查询之内连接"></a>连接查询之内连接</h5><p>方言：<code>SELECT * FROM 表1 别名1,表2 别名2 WHERE 别名1.xx=别名2.xx</code><br>标准：<code>SELECT * FROM 表1 别名1 INNER JOIN 表2 别名2 ON 别名1.xx=别名2.xx</code><br>自然：<code>SELECT * FROM 表1 别名1 NATURAL JOIN 表2 别名2</code></p>
+<h5 id="连接查询之外连接"><a href="#连接查询之外连接" class="headerlink" title="连接查询之外连接"></a>连接查询之外连接</h5><p>左外连接：外连接一主一次，左外部左表为主，主表所有记录无论满足条件与否，都打印出来，不满足字段内容为null</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM 表1 别名1 LEFT OUTER JOIN 表2 别名2 ON 别名1.xx&#x3D;别名2.xx</span><br><span class="line">&#x2F;&#x2F;示例：</span><br><span class="line">SELECT e.ename,e.sal,IFNULL(d.dname,&quot;无内容&quot;) AS dname</span><br><span class="line">FROM emp e LEFT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br></pre></td></tr></table></figure>
+
+<p>右外连接：与左连接理解类似</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM 表1 别名1 RIGHT OUTER JOIN 表2 别名2 ON 别名1.xx&#x3D;别名2.xx</span><br><span class="line">&#x2F;&#x2F;示例：</span><br><span class="line">SELECT e.ename,e.sal,d.dname</span><br><span class="line">FROM emp e RIGHT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br></pre></td></tr></table></figure>
+
+<p>全外连接：<code>SELECT * FROM 表1 别名1 FULL OUTER JOIN 表2 别名2 ON 别名1.xx=别名2.xx</code><em>mysql不支持</em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">解决方式：</span><br><span class="line">SELECT e.ename,e.sal,IFNULL(d.dname,&quot;无内容&quot;) AS dname</span><br><span class="line">FROM emp e LEFT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br><span class="line">UNION &#x2F;&#x2F;去除结果集实现全连接 </span><br><span class="line">SELECT e.ename,e.sal,d.dname</span><br><span class="line">FROM emp e RIGHT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br></pre></td></tr></table></figure>
+
+<h4 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h4><p>子查询就是查询中有查询（即出现多个select关键字）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;示例1：</span><br><span class="line">SELECT * FROM emp WHERE sal&#x3D;(SELECT MAX(sal) FROM emp);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例2：</span><br><span class="line">SELECT e.empno,e.ename </span><br><span class="line">FROM (SELECT * FROM emp WHERE deptno&#x3D;30) e</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例3：</span><br><span class="line">SELECT * FROM emp WHERE sal &gt; ALL (SELECT sal FROM emp WHERE deptno&#x3D;30)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例4：</span><br><span class="line">SELECT * FROM emp WHERE sal &gt; ANY (SELECT sal FROM emp WHERE deptno&#x3D;20)</span><br></pre></td></tr></table></figure>
+
+<p>总结：<br>1.单行单列：<code>SELECT * FROM 表1 别名1 WHERE 列1 [=、&gt;、&lt;、&lt;=、&gt;=、!=] (SELECT 列 FROM 表2 别名2 WHERE 条件)</code><br>2.多行单列：<code>SELECT * FROM 表1 别名1 WHERE 列1 [IN、ALL、ANY] (SELECT 列 FROM 表2 别名2 WHERE 条件)</code><br>3.单行多列：<code>SELECT * FROM 表1 别名1 WHERE (列1,列2) IN (SELECT 列1 列2 FROM 表2 别名2 WHERE 条件)</code><br>4.多行多列；<code>SELECT * FROM 表1 别名1 , (SELECT ...) 别名2 WHERE 条件</code></p>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>SQL</tag>
+        <tag>MySQL</tag>
       </tags>
   </entry>
   <entry>
@@ -558,6 +474,90 @@
       </tags>
   </entry>
   <entry>
+    <title>XML入门</title>
+    <url>/2020/03/30/XML%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<h2 id="XML-Extensible-Markup-Language"><a href="#XML-Extensible-Markup-Language" class="headerlink" title="XML(Extensible Markup Language)"></a>XML(Extensible Markup Language)</h2><h3 id="XML是什么"><a href="#XML是什么" class="headerlink" title="XML是什么"></a>XML是什么</h3><p><strong>XML是W3C组织发布的技术，XML类似于HTML，大家知道HTML是一种超文本标记语言，其实XML也是一种标记语言，根据全称翻译它是可扩展标记语言。这里的可扩展是它的特性，HTML的标签是固定的，而XML可以自己定义标签，可以定义中文标签。</strong></p>
+<h3 id="XML版本"><a href="#XML版本" class="headerlink" title="XML版本"></a>XML版本</h3><p>目前有两个版本一个1.0，一个1.1，一般使用1.0，因为1.1无法向下兼容。</p>
+<h3 id="XML做什么"><a href="#XML做什么" class="headerlink" title="XML做什么"></a>XML做什么</h3><p><strong>HTML是用于显示数据，XML也可以显示数据，但它的主要功能并不是显示数据，设计它的初衷是为了存储数据，类似于一个小型数据库</strong></p>
+<h3 id="XML怎么用"><a href="#XML怎么用" class="headerlink" title="XML怎么用"></a>XML怎么用</h3><h4 id="1-不同系统之间传输数据，利于系统的维护"><a href="#1-不同系统之间传输数据，利于系统的维护" class="headerlink" title="1.不同系统之间传输数据，利于系统的维护"></a>1.不同系统之间传输数据，利于系统的维护</h4><a id="more"></a>
+
+<h4 id="2-用来表示生活中有关系的数据"><a href="#2-用来表示生活中有关系的数据" class="headerlink" title="2.用来表示生活中有关系的数据"></a>2.用来表示生活中有关系的数据</h4><p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;中国&gt;</span><br><span class="line">	&lt;帝都&gt;</span><br><span class="line">		&lt;朝阳区&gt;&lt;&#x2F;朝阳区&gt;</span><br><span class="line">		&lt;海淀区&gt;&lt;&#x2F;海淀区&gt;</span><br><span class="line">	&lt;&#x2F;帝都&gt;</span><br><span class="line">	&lt;四川&gt;</span><br><span class="line">		&lt;成都&gt;&lt;&#x2F;成都&gt;</span><br><span class="line">		&lt;绵阳&gt;&lt;&#x2F;绵阳&gt;</span><br><span class="line">	&lt;&#x2F;四川&gt;</span><br><span class="line">	&lt;湖北&gt;</span><br><span class="line">		&lt;武汉&gt;&lt;&#x2F;武汉&gt;</span><br><span class="line">		&lt;荆州&gt;&lt;&#x2F;荆州&gt;</span><br><span class="line">	&lt;&#x2F;湖北&gt;</span><br><span class="line">&lt;&#x2F;中国&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="3-经常用在配置文件中"><a href="#3-经常用在配置文件中" class="headerlink" title="3.经常用在配置文件中"></a>3.经常用在配置文件中</h4><p>比如：存储你的数据库用户名和密码，如果要修改数据库信息就不用该源代码，直接对配置文件进行修改，这样增加了可扩展性和可维护性</p>
+<h3 id="XML的语法"><a href="#XML的语法" class="headerlink" title="XML的语法"></a>XML的语法</h3><h4 id="xml的文档声明"><a href="#xml的文档声明" class="headerlink" title="xml的文档声明"></a>xml的文档声明</h4><p>1)创建一个后缀名为.xml文件<br>2)文件头部(第一行第一列)必须有文档声明<br><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;gbk&quot;?&gt;</code><br>3)属性：</p>
+<blockquote>
+<p>version:xml的版本 1.0/1.1<br>encoding:xml的编码 gbk、utf-8、iso8859-1<br>standalone:是否需要依赖其他文件 yes/no<br>4)中文乱码问题<br>保存文件编码格式与自身设置编码一致，可以解决乱码问题</p>
+</blockquote>
+<h4 id="定义元素（标签）"><a href="#定义元素（标签）" class="headerlink" title="定义元素（标签）"></a>定义元素（标签）</h4><h5 id="1-有开始必须要有结束-lt-aa-gt-lt-aa-gt-，如果标签之间没有内容可以只写-lt-aa-gt"><a href="#1-有开始必须要有结束-lt-aa-gt-lt-aa-gt-，如果标签之间没有内容可以只写-lt-aa-gt" class="headerlink" title="1)有开始必须要有结束&lt;aa&gt;&lt;/aa&gt;，如果标签之间没有内容可以只写&lt;/aa&gt;"></a>1)有开始必须要有结束<code>&lt;aa&gt;&lt;/aa&gt;</code>，如果标签之间没有内容可以只写<code>&lt;/aa&gt;</code></h5><h5 id="2-标签可以嵌套"><a href="#2-标签可以嵌套" class="headerlink" title="2)标签可以嵌套"></a>2)标签可以嵌套</h5><h5 id="3-一个xml中有且只有一个根标签"><a href="#3-一个xml中有且只有一个根标签" class="headerlink" title="3)一个xml中有且只有一个根标签"></a>3)一个xml中有且只有一个根标签</h5><p><strong>注意：xml中空格和换行都会被当成内容来解析，譬如两个代码表示内容是不同的</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;网址&gt;crazyyzw.top&lt;&#x2F;网址&gt;</span><br><span class="line"></span><br><span class="line">&lt;网址&gt;</span><br><span class="line">	crazyyzw.top</span><br><span class="line">&lt;&#x2F;网址&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="4-XML命名规则"><a href="#4-XML命名规则" class="headerlink" title="4)XML命名规则"></a>4)XML命名规则</h5><blockquote>
+<p>XML区分大小写<br>不能以数字和_开头<br>不能以XML自身开头，反例:<del><xmla></xmal></del><br>标签名字之间不能包含空格<br>标签名字之间不能包含冒号</p>
+</blockquote>
+<h4 id="定义属性"><a href="#定义属性" class="headerlink" title="定义属性"></a>定义属性</h4><blockquote>
+<p>一个标签可以有多个属性<br>属性不允许重复 反例：<del><dog name="wangwang" name='aoaoao'></dog></del><br>属性值可以用单引号，也可以用双引号<br>属性命名规范与标签一致</p>
+</blockquote>
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>写法：<code>&lt;!--这是一个注释--&gt;</code><br><strong>注释不能嵌套</strong></p>
+<h4 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h4><p>XML内容中用到的字符转义：</p>
+<blockquote>
+<p>小于号转义字符为<code>&amp;lt;</code><br>大于号转义字符为<code>&amp;gt;</code><br>‘&amp;’转义字符为<code>&amp;amp;</code><br>双引号转义字符为<code>&amp;quot;</code><br>单引号转义字符为<code>&amp;apos;</code></p>
+</blockquote>
+<h4 id="CDATA区"><a href="#CDATA区" class="headerlink" title="CDATA区"></a>CDATA区</h4><p>如果多个字符需要转义，只有放在CDATA区就不需要转义老<br>写法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;![CDATA[所加内容]]&gt;</span><br><span class="line">&lt;![CDATA[&lt;B&gt;if(a&lt;b &amp;&amp; a&gt;c &amp;&amp; c&gt;f)&#123;&#125;&lt;&#x2F;B&gt;]]&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="PI指令-处理指令"><a href="#PI指令-处理指令" class="headerlink" title="PI指令(处理指令)"></a>PI指令(处理指令)</h4><p>可以在xml中设置样式<br>引入方式：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml-stylesheet type&#x3D;&quot;text&#x2F;css&quot; href&#x3D;&quot;reset.css&quot;?&gt;&#x2F;&#x2F;对中文标签不起作用</span><br></pre></td></tr></table></figure>
+
+<h4 id="XML的约束"><a href="#XML的约束" class="headerlink" title="XML的约束"></a>XML的约束</h4><p>目的使标签内元素更加规范<br>xml常见两种约束技术：dtd约束和schema约束</p>
+<h3 id="DTD"><a href="#DTD" class="headerlink" title="DTD"></a>DTD</h3><h4 id="DTD文件创建"><a href="#DTD文件创建" class="headerlink" title="DTD文件创建"></a>DTD文件创建</h4><blockquote>
+<p>1.创建一个文件后缀名为.dtd<br>2.看xml文件中有几个元素，然后在dtd中写几个&lt;!ELEMENT&gt;<br>3.判断元素是简单元素还是复杂元素，(<em>简单元素就是元素没有嵌套子元素</em>)</p>
+<blockquote>
+<p>简单元素:<!ELEMENT 简单元素名称 (#PCDATA)><br>复杂元素：<!ELEMENT 复杂元素名称 (子元素名称1,...)>,<em>注意：它的孙子元素不包括在内</em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>4.在xml文件中引入dtd文件</p>
+<blockquote>
+<p>引入外部dtd文件： <code>&lt;!DOCTYPE 根元素名称 SYSTEM &quot;dtd文件的路径&quot;&gt;&lt;!--引入方式1--&gt;</code><br>使用内部dtd文件： <code>&lt;!DOCTYPE 根元素名称 [dtd文件内容]&gt;&lt;!--引入方式2--&gt;</code><br>使用网络上的dtd文件： <code>&lt;!DOCTYPE 根元素名称 PUBLIC &quot;DTD名称&quot; &quot;DTD文档的URL&quot;&gt;&lt;!--引入方式3--&gt;</code><br><strong>xml文件在浏览器中运行不受dtd约束，因为浏览器只会校验xml语法，不会通过dtd文件进行校验，我们需要专门工具实现校验xml的约束</strong></p>
+</blockquote>
+</blockquote>
+<h4 id="使用DTD定义元素"><a href="#使用DTD定义元素" class="headerlink" title="使用DTD定义元素"></a>使用DTD定义元素</h4><h5 id="简单元素语法"><a href="#简单元素语法" class="headerlink" title="简单元素语法"></a>简单元素语法</h5><p><code>&lt;!ELEMENT 元素名称 约束&gt;</code><br>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT name (#PCDATA)&gt;&#x2F;&#x2F;这里的(#PCDATA)是一种约束，约束name中内容为字符串类型，其他约束：EMPTY:元素为空（没有内容）,ANY：表示任意</span><br></pre></td></tr></table></figure>
+<h5 id="复杂元素语法"><a href="#复杂元素语法" class="headerlink" title="复杂元素语法"></a>复杂元素语法</h5><p><code>&lt;!ELEMENT 复杂元素名称 (子元素名称1,...)&gt;</code><br><em>表示子元素出现次数：</em><br>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT person (name+,age,sex)&gt;&#x2F;&#x2F;name后+表示person里可以嵌套一个或多个name元素</span><br><span class="line">&lt;!ELEMENT person (name,age?,sex)&gt;&#x2F;&#x2F;age后?表示person里可以嵌套0个或多个age元素</span><br><span class="line">&lt;!ELEMENT person (name+,age*,sex)&gt;&#x2F;&#x2F;age后*表示person里可以嵌套任意个数age且可以为0</span><br></pre></td></tr></table></figure>
+<p>复杂元素定义中()里逗号隔开，xml中需按()内顺序定义元素，如果将逗号换为|表示子元素只能有一个定义出来</p>
+<h4 id="使用dtd定义属性"><a href="#使用dtd定义属性" class="headerlink" title="使用dtd定义属性"></a>使用dtd定义属性</h4><h5 id="定义属性语法"><a href="#定义属性语法" class="headerlink" title="定义属性语法"></a>定义属性语法</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!ATTLIST 元素名称 </span><br><span class="line">属性名称 属性的类型 属性的约束</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="属性的类型"><a href="#属性的类型" class="headerlink" title="属性的类型"></a>属性的类型</h5><p><strong>CDATA:表示xml属性的取值为普通文本字符串</strong><br><strong>枚举(AA|BB|CC):xml属性值只能取其中一个</strong><br><strong>ID:xml属性的值只能有字母和_开头</strong></p>
+<h5 id="属性的约束"><a href="#属性的约束" class="headerlink" title="属性的约束"></a>属性的约束</h5><p><strong>#REQUIRED:属性必须存在</strong><br><strong>#MPLED:属性可有可无</strong><br><strong>#FIXED:表示一个固定的值，示例：</strong><code>#FIXED: &quot;ABC&quot;</code><br><strong>直接值：直接在属性的约束定义属性值，如果属性定义，默认使用直接值</strong></p>
+<h5 id="定义实体"><a href="#定义实体" class="headerlink" title="定义实体"></a>定义实体</h5><p><strong>DTD中定义，在xml中使用</strong><br>语法：<code>&lt;!ENTITY 实体名称 实体内容&gt;</code><br><strong>xml中引用：</strong><br><code>&amp;实体名称;</code><br><em>注意：最好在内部dtd中定义实体，在外部定义，有些浏览器下，内容可能获取不到</em></p>
+<h3 id="Schema"><a href="#Schema" class="headerlink" title="Schema"></a>Schema</h3><p><strong>schema符合xml语法，与dtd不同的是一个xml中允许有多个个schema(通过名称空间进行区分)，schema支持除字符串更多数据类型(包括用户自定义数据类型)，schema约束更加严格，比dtd复杂</strong></p>
+<h4 id="创建Schema文件"><a href="#创建Schema文件" class="headerlink" title="创建Schema文件"></a>创建Schema文件</h4><blockquote>
+<p>1.创建后缀名为.xsd的XML Schema文件（schema与xml一样必须有一个根节点，而它的根节点就是<code>&lt;schema&gt;&lt;/schema&gt;</code>）<br>2.设置schema的属性，xmlns属性表示当前文件是一个约束文件，targetNamespace属性提供引用该schema约束文件的自定义地址，<br>3.看xml文件中有几个元素，写几个<code>&lt;element&gt;&lt;/element&gt;</code><br>4.判断xml中元素是简单元素还是复杂元素</p>
+<blockquote>
+<p>简单元素：<code>&lt;element name=&quot;简单元素名&quot; type=&quot;数据类型&quot;&gt;&lt;/element&gt;</code><br>复杂元素：<code>&lt;element name=&quot;复杂元素名&quot;&gt;&lt;complexType&gt;子元素&lt;/complexType&gt;&lt;/element&gt;</code></p>
+</blockquote>
+</blockquote>
+<h4 id="引入Schema文件"><a href="#引入Schema文件" class="headerlink" title="引入Schema文件"></a>引入Schema文件</h4><p><strong>在xml文件的根节点中属性xmlns第一个内容同schema文件后追加<code>-instance</code>，第二个是targetNamespace中地址（由于xmlns重名，需要未其中一个设置别名，格式为<code>:别名</code>），最后配置targetNamespace中地址 schema的路径</strong><br>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;person xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3c.org&#x2F;2001&#x2F;XMlSchema-instance&quot; xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.zidingyi.cn&#x2F;20200330 one.xsd&quot;&gt;</span><br><span class="line">	&lt;name&gt;二狗&lt;&#x2F;name&gt;</span><br><span class="line">	&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Schema使用"><a href="#Schema使用" class="headerlink" title="Schema使用"></a>Schema使用</h4><blockquote>
+<ol>
+<li><sequence></sequence>:表示元素出现顺序</li>
+<li><all></all>:表示元素只能出现一次</li>
+<li><choice></choice>:表示只能出现里面元素中任意一个</li>
+<li>maxOccurs=”unbounded”:表示元素出现的次数</li>
+<li><any></any>:表示任意元素</li>
+</ol>
+</blockquote>
+]]></content>
+      <categories>
+        <category>JavaWeb</category>
+      </categories>
+      <tags>
+        <tag>XML</tag>
+        <tag>标记语言</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>佳句库</title>
     <url>/2021/03/25/%E4%BD%B3%E5%8F%A5%E5%BA%93/</url>
     <content><![CDATA[<p><strong>仅个人主观喜欢句子，收藏下来</strong></p>
@@ -659,6 +659,9 @@
 <p><strong>一死一生，乃知交情。一贫一富，乃知交态。一贵一贱，交情乃见。</strong></p>
 </blockquote>
 <blockquote>
+<p><strong>滴水之恩当涌泉相报。</strong></p>
+</blockquote>
+<blockquote>
 <p><strong>卿本佳人，奈何做贼。</strong></p>
 </blockquote>
 <blockquote>
@@ -714,6 +717,9 @@
 </blockquote>
 <blockquote>
 <p><strong>井蛙不可语天，拟于虚也；夏虫不可语冰，拘于时也；曲士不可语道，束于教也。</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>问君能有几多愁，恰似一江春水向东流。</strong></p>
 </blockquote>
 <blockquote>
 <p><strong>君子不立于危墙之下。</strong></p>
@@ -1094,6 +1100,9 @@
 <p><strong>言多必有数短之处。</strong></p>
 </blockquote>
 <blockquote>
+<p><strong>人不求人一般高，</strong></p>
+</blockquote>
+<blockquote>
 <p><strong>智者千虑，必有一失；愚者千虑，必有一得。</strong></p>
 </blockquote>
 <blockquote>
@@ -1272,7 +1281,7 @@
     <url>/2021/05/09/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90/</url>
     <content><![CDATA[<p><strong>作为一个阅片无数的过来人，七七八八的电影看过很多，好的不少，烂的也多。因此，想推荐一些我喜欢的电影。相比电视剧，我偏好电影，因为电影以较短时间，呈现给我们精彩的内容，节省时间同时，给我们带来不错的观影体验（仅限好电影）。电影有很多种类，喜剧、恐怖、惊悚、科幻、战争、历史等。也分地区，不同地区电影也有其不同特点。在此，我想把我看过的，自认为觉得不错的电影分享出来，当然有些好电影，我没看过的，就不会列出来。所有影片只列名字，不作影评，我觉得自己写不好或者写的很烂，反而影响推荐，我觉得不同电影，不同人有不同观感，我不能融入我的主观色彩。</strong></p>
 <p><strong>顺序无先后，想起哪部写哪部</strong></p>
-<h3 id="内地"><a href="#内地" class="headerlink" title="内地"></a>内地</h3><p><strong>《蓝风筝》、《活着》、《霸王别姬》、《茶馆》、《鬼子来了》、《阳光灿烂的日子》、《让子弹飞》、《盲山》、《盲井》、《过年》、《甲方乙方》、《大腕》、《疯狂的石头》、《疯狂的赛车》、《杀生》、《斗牛》、《Hello，树先生》、《落叶归根》、《人在囧途》、《我不是药神》、《夏洛特烦恼》、《无名之辈》、《三毛从军记》、《无人区》、《天下无贼》</strong></p>
+<h3 id="内地"><a href="#内地" class="headerlink" title="内地"></a>内地</h3><p><strong>《蓝风筝》、《活着》、《霸王别姬》、《茶馆》、《鬼子来了》、《阳光灿烂的日子》、《让子弹飞》、《盲山》、《盲井》、《过年》、《甲方乙方》、《大腕》、《疯狂的石头》、《疯狂的赛车》、《杀生》、《斗牛》、《Hello，树先生》、《落叶归根》、《人在囧途》、《我不是药神》、《夏洛特烦恼》、《无名之辈》、《三毛从军记》、《无人区》、《天下无贼》、《背靠背，脸对脸》</strong></p>
 <h3 id="港片"><a href="#港片" class="headerlink" title="港片"></a>港片</h3><p><strong>《监狱风云》、《英雄本色》、《纵情四海》、《黑社会》、《黑社会2：以和为贵》、《黑狱断肠歌之砌生猪肉》、《至尊三十六计之偷天换日》、《火烧岛》、《跛豪》、《五亿探长雷洛传》、《黑金》、《门徒》、《无间道三部曲》、《金钱帝国》、《机动战队》、《警察故事》、《A计划》、《快餐车》、《奇迹》、《城市猎人》、《杀破狼》、《东邪西毒》、《东成西就》、《新龙门客栈1992》、《赌神》、《赌神2》、《棋王》、《无双》、《黄飞鸿》、《方世玉》、《太极张三丰》、《精武英雄》、《导火线》、《笑林小子2：新乌龙院》、《新少林五祖》、《山村老尸》、《三五成群》、《人肉叉烧包黄秋生版》、《打蛇》、《狗咬狗》、《垂帘听政》、《倩女幽魂三部曲》、《半斤八两》、《摩登保镖》、《鬼马双星》、《卖身契》、《鸡同鸭讲》、《抢钱夫妻》、《钱作怪》、《福星系列》、《审死官》、《九品芝麻官》、《喜剧之王》、《大话西游周星驰版》、《功夫》、《少林足球》、《食神》、《逃学威龙》、《国产凌凌漆》、《鹿鼎记》、《家有喜事》、《回魂夜》、《情圣》、《整蛊专家》、《百变星君》、《武状元苏乞儿》</strong></p>
 <h3 id="国外"><a href="#国外" class="headerlink" title="国外"></a>国外</h3><p><strong>《肖申克的救赎》、《猫鼠游戏》、《泰坦尼克号》、《盗梦空间》、《西西里的美丽传说》、《末代皇帝》、《何以为家》、《小偷家族》、《阿甘正传》、《看不见的客人》、《我是谁：没有绝对安全的系统》、《非常嫌疑犯》、《两杆大烟枪》、《偷拐抢骗》、《闪灵》、《恐怖游轮》、《楚门的世界》、《教父》、《这个杀手不太冷》、《辛德勒的名单》、《蝙蝠侠：黑暗骑士》、《小丑》、《复仇者联盟》、《银河护卫队》、《死侍》、《X战警》、《变形金刚》、《星球大战》、《终结者》、《碟中谍》、《黑客帝国》、《谍影重重》、《生化危机》、《古墓丽影》、《木乃伊》、《加勒比海盗》、《哈利波特》、《指环王》、《霍比特人》、《阿凡达》、《死神来了》、《速度与激情》、《死亡飞车》、《电锯惊魂》、《三傻大闹宝莱坞》、《摔跤吧，爸爸》、《寄生虫》、《恶魔的艺术2：邪降》、《风雨哈佛路》、《千与千寻》、《菊次郎的夏天》、《热血高校》、《突袭》、《突袭2：暴徒》、《摩登时代》、《城市之光》、《大独裁者》、《淘金记》、《马戏团》、《憨豆的黄金周》、《死寂》、《咒怨》、《孤儿怨》</strong></p>
 ]]></content>
@@ -1281,6 +1290,68 @@
       </categories>
       <tags>
         <tag>电影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2019/04/01/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<a id="more"></a>
+
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+      <tags>
+        <tag>奥利给</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>网络安全与防火墙</title>
+    <url>/2020/02/17/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%B8%8E%E9%98%B2%E7%81%AB%E5%A2%99/</url>
+    <content><![CDATA[<p><strong>在关于防火墙的叙述前，我们需要了解什么是网络安全，网络安全的兴起以及网络不安全带来的困扰。本章将上半部分讲述网络安全，下半部分对防火墙的定义及弊端进行浅谈</strong></p>
+<a id="more"></a>
+
+<h2 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2><h3 id="究竟什么是网络安全？"><a href="#究竟什么是网络安全？" class="headerlink" title="究竟什么是网络安全？"></a>究竟什么是网络安全？</h3><blockquote>
+<p>有人曾说过:网络的神奇在于你可以使用其他任何人的资源；<strong>可怕在其他人可以用你的资源</strong>。<br>因此，网络安全则是为了对计算机软硬件及系统中的数据地保护</p>
+</blockquote>
+<h3 id="什么让网络不安全？"><a href="#什么让网络不安全？" class="headerlink" title="什么让网络不安全？"></a>什么让网络不安全？</h3><h4 id="1-网络的缺陷"><a href="#1-网络的缺陷" class="headerlink" title="1.网络的缺陷"></a>1.网络的缺陷</h4><p>  因特网在设计之初对共享性和开放性的强调，而导致其先天的安全缺陷。然而其赖以生存的TCP/IP协议族在设计理念上更多是考虑该网络不会因局部故障而影响信息的传输，基本没有考虑安全问题。因此它在控制不可信连接、分辨非法访问、辨别身份伪装等方面存在很大缺陷，从而导致网络安全隐患。</p>
+<blockquote>
+<p>多数底层协议为广播方式，多数应用层协议为明文传输，缺乏保密与认证机制，因此容易遭受欺骗和窃听</p>
+</blockquote>
+<h4 id="2-软件与系统的漏洞及后门"><a href="#2-软件与系统的漏洞及后门" class="headerlink" title="2.软件与系统的漏洞及后门"></a>2.软件与系统的漏洞及后门</h4><p>  随着软件与网络系统规模不断增大，大多数的信息系统和网络存在着先天性的安全漏洞和安全威胁。软件的后门是编程人员为了自便而设置的，一般不为人知。<br>  比如，我们常用的操作系统，无论是 Windows 还是 Linux 几乎都存在或多或少的安全漏洞，众多的服务器、浏览器、桌面软件等都被发现存在安全隐患。任何一个软件系统都可能会因为程序员的一个疏忽或设计中的一个缺陷等原因留下漏洞。 </p>
+<h4 id="3-病毒和木马"><a href="#3-病毒和木马" class="headerlink" title="3.病毒和木马"></a>3.病毒和木马</h4><p>  <strong>病毒：</strong>一种人为蓄意制造、以破坏为主的程序，其寄生于其他应用程序或系统可执行文件，通过部分修改或移动程序，通过自我复制或占据宿主查询的部分而隐藏起来(类比我们的生物病毒),是计算机系统最直接的安全威胁。而Internet是网络滋生和传播的温床。<br>  <strong>木马：</strong>与病毒不同不会传染，主要是窃取用户信息，木马入侵不会想病毒那样入侵后立马有感觉，而是通过秘密破坏，完成非授权用户无法完成的功能，施种者可以任意破坏窃取被种者的文件，甚至远程操控被种者电脑。</p>
+<h4 id="4-黑客攻击"><a href="#4-黑客攻击" class="headerlink" title="4.黑客攻击"></a>4.黑客攻击</h4><p>  黑客都是些熟练使用计算机的能人，但标题所说黑客攻击是指为得利益不择手段(通过网路非法进入他人系统、截获或篡改计算机数据、危害信息安全)的人，通常这类黑客以骇客称之，像黑客的另一分支红客与蓝客就是正义的一方，相比破坏者，这些守护者的技术水平更高，不是有那么一句”打天下容守天下难”吗。</p>
+<h4 id="5，网络安全建设滞后"><a href="#5，网络安全建设滞后" class="headerlink" title="5，网络安全建设滞后"></a>5，网络安全建设滞后</h4><p>  网络硬件建设如火如荼了，网络安全管理滞后，用户安全意识不强，即使应用了最好的安全设备也经常达不到预期效果。<br>  也就是说一个国家的百姓衣食住行都安顿下来了，可是约束百姓的法律才颁布出来，百姓法律意识薄弱，仍会出茬子。</p>
+<h3 id="网络安全工作目的"><a href="#网络安全工作目的" class="headerlink" title="网络安全工作目的"></a>网络安全工作目的</h3><p><strong>用简洁的三字词概括就是：进不来、拿不走、改不了、看不懂、跑不了、可审查</strong><br>所以，虚拟专用网、访问控制、入侵检测、防病毒软件、防火墙等就出现了</p>
+<hr>
+<h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><h3 id="防火墙是什么？"><a href="#防火墙是什么？" class="headerlink" title="防火墙是什么？"></a>防火墙是什么？</h3><blockquote>
+<p>在建筑设计专业术语，用于分隔不同区域，能将火灾有效限制在一定空间内，阻断火灾在防火墙的一侧蔓延到另一侧，对于减少火灾造成损失有着重要作用</p>
+</blockquote>
+<p><strong>而对于网络防火墙就是在两个网络之间实现访问控制的一个或一组软件或硬件系统，是实现网络和信息安全的基础设施(类似一堵城墙将外部和内部进行隔离，并在此基础上实现数据包的访问控制等功能)</strong></p>
+<h3 id="防火墙功能"><a href="#防火墙功能" class="headerlink" title="防火墙功能"></a>防火墙功能</h3><p>防火墙主要功能是对流经它的网路通信进行扫描，过滤危险的数据或访问请求，以免在目标计算机上被执行。防火墙还可以关闭不使用的端口、禁止特定端口的通信、封锁木马、禁止来自特殊站点的访问，从而防止入侵者的所有通道。<br>这里我们也可以做一个比喻，把因特网比喻成为现实生活中的大街，内网比作一所别墅，数据比喻来往与大街的人，防火墙则是将别墅围起来的高墙，房子的主人及亲朋好友（正常进出网络数据）通过防火墙大门人脸识别，允许进入。而那些企图进入的不法分子（恶意数据包），则被拒之墙外。</p>
+<h3 id="防火墙的分类"><a href="#防火墙的分类" class="headerlink" title="防火墙的分类"></a>防火墙的分类</h3><ul>
+<li><strong>防火墙可分为软件防火墙、硬件防火墙</strong></li>
+<li><strong>防火墙也可以分为个人防火墙、网路防火墙</strong></li>
+</ul>
+<p><em>一般情况下，个人防火墙是软件防火墙(比如Windows自带的防火墙)，网络防火墙有硬件防火墙，也有软件防火墙</em></p>
+<h3 id="防火墙不足之处"><a href="#防火墙不足之处" class="headerlink" title="防火墙不足之处"></a>防火墙不足之处</h3><p><strong>无法保护内部用户之间的攻击，防外不防内</strong><br><strong>无法防护基本操作系统漏洞的攻击</strong><br><strong>一般无法防护病毒的侵袭</strong><br><strong>对网络性能有影响</strong></p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>网络安全</tag>
+        <tag>防火墙</tag>
       </tags>
   </entry>
   <entry>
@@ -1342,70 +1413,8 @@
         <category>计算机网络</category>
       </categories>
       <tags>
+        <tag>网络安全</tag>
         <tag>病毒</tag>
-        <tag>网络安全</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>网络安全与防火墙</title>
-    <url>/2020/02/17/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%B8%8E%E9%98%B2%E7%81%AB%E5%A2%99/</url>
-    <content><![CDATA[<p><strong>在关于防火墙的叙述前，我们需要了解什么是网络安全，网络安全的兴起以及网络不安全带来的困扰。本章将上半部分讲述网络安全，下半部分对防火墙的定义及弊端进行浅谈</strong></p>
-<a id="more"></a>
-
-<h2 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2><h3 id="究竟什么是网络安全？"><a href="#究竟什么是网络安全？" class="headerlink" title="究竟什么是网络安全？"></a>究竟什么是网络安全？</h3><blockquote>
-<p>有人曾说过:网络的神奇在于你可以使用其他任何人的资源；<strong>可怕在其他人可以用你的资源</strong>。<br>因此，网络安全则是为了对计算机软硬件及系统中的数据地保护</p>
-</blockquote>
-<h3 id="什么让网络不安全？"><a href="#什么让网络不安全？" class="headerlink" title="什么让网络不安全？"></a>什么让网络不安全？</h3><h4 id="1-网络的缺陷"><a href="#1-网络的缺陷" class="headerlink" title="1.网络的缺陷"></a>1.网络的缺陷</h4><p>  因特网在设计之初对共享性和开放性的强调，而导致其先天的安全缺陷。然而其赖以生存的TCP/IP协议族在设计理念上更多是考虑该网络不会因局部故障而影响信息的传输，基本没有考虑安全问题。因此它在控制不可信连接、分辨非法访问、辨别身份伪装等方面存在很大缺陷，从而导致网络安全隐患。</p>
-<blockquote>
-<p>多数底层协议为广播方式，多数应用层协议为明文传输，缺乏保密与认证机制，因此容易遭受欺骗和窃听</p>
-</blockquote>
-<h4 id="2-软件与系统的漏洞及后门"><a href="#2-软件与系统的漏洞及后门" class="headerlink" title="2.软件与系统的漏洞及后门"></a>2.软件与系统的漏洞及后门</h4><p>  随着软件与网络系统规模不断增大，大多数的信息系统和网络存在着先天性的安全漏洞和安全威胁。软件的后门是编程人员为了自便而设置的，一般不为人知。<br>  比如，我们常用的操作系统，无论是 Windows 还是 Linux 几乎都存在或多或少的安全漏洞，众多的服务器、浏览器、桌面软件等都被发现存在安全隐患。任何一个软件系统都可能会因为程序员的一个疏忽或设计中的一个缺陷等原因留下漏洞。 </p>
-<h4 id="3-病毒和木马"><a href="#3-病毒和木马" class="headerlink" title="3.病毒和木马"></a>3.病毒和木马</h4><p>  <strong>病毒：</strong>一种人为蓄意制造、以破坏为主的程序，其寄生于其他应用程序或系统可执行文件，通过部分修改或移动程序，通过自我复制或占据宿主查询的部分而隐藏起来(类比我们的生物病毒),是计算机系统最直接的安全威胁。而Internet是网络滋生和传播的温床。<br>  <strong>木马：</strong>与病毒不同不会传染，主要是窃取用户信息，木马入侵不会想病毒那样入侵后立马有感觉，而是通过秘密破坏，完成非授权用户无法完成的功能，施种者可以任意破坏窃取被种者的文件，甚至远程操控被种者电脑。</p>
-<h4 id="4-黑客攻击"><a href="#4-黑客攻击" class="headerlink" title="4.黑客攻击"></a>4.黑客攻击</h4><p>  黑客都是些熟练使用计算机的能人，但标题所说黑客攻击是指为得利益不择手段(通过网路非法进入他人系统、截获或篡改计算机数据、危害信息安全)的人，通常这类黑客以骇客称之，像黑客的另一分支红客与蓝客就是正义的一方，相比破坏者，这些守护者的技术水平更高，不是有那么一句”打天下容守天下难”吗。</p>
-<h4 id="5，网络安全建设滞后"><a href="#5，网络安全建设滞后" class="headerlink" title="5，网络安全建设滞后"></a>5，网络安全建设滞后</h4><p>  网络硬件建设如火如荼了，网络安全管理滞后，用户安全意识不强，即使应用了最好的安全设备也经常达不到预期效果。<br>  也就是说一个国家的百姓衣食住行都安顿下来了，可是约束百姓的法律才颁布出来，百姓法律意识薄弱，仍会出茬子。</p>
-<h3 id="网络安全工作目的"><a href="#网络安全工作目的" class="headerlink" title="网络安全工作目的"></a>网络安全工作目的</h3><p><strong>用简洁的三字词概括就是：进不来、拿不走、改不了、看不懂、跑不了、可审查</strong><br>所以，虚拟专用网、访问控制、入侵检测、防病毒软件、防火墙等就出现了</p>
-<hr>
-<h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><h3 id="防火墙是什么？"><a href="#防火墙是什么？" class="headerlink" title="防火墙是什么？"></a>防火墙是什么？</h3><blockquote>
-<p>在建筑设计专业术语，用于分隔不同区域，能将火灾有效限制在一定空间内，阻断火灾在防火墙的一侧蔓延到另一侧，对于减少火灾造成损失有着重要作用</p>
-</blockquote>
-<p><strong>而对于网络防火墙就是在两个网络之间实现访问控制的一个或一组软件或硬件系统，是实现网络和信息安全的基础设施(类似一堵城墙将外部和内部进行隔离，并在此基础上实现数据包的访问控制等功能)</strong></p>
-<h3 id="防火墙功能"><a href="#防火墙功能" class="headerlink" title="防火墙功能"></a>防火墙功能</h3><p>防火墙主要功能是对流经它的网路通信进行扫描，过滤危险的数据或访问请求，以免在目标计算机上被执行。防火墙还可以关闭不使用的端口、禁止特定端口的通信、封锁木马、禁止来自特殊站点的访问，从而防止入侵者的所有通道。<br>这里我们也可以做一个比喻，把因特网比喻成为现实生活中的大街，内网比作一所别墅，数据比喻来往与大街的人，防火墙则是将别墅围起来的高墙，房子的主人及亲朋好友（正常进出网络数据）通过防火墙大门人脸识别，允许进入。而那些企图进入的不法分子（恶意数据包），则被拒之墙外。</p>
-<h3 id="防火墙的分类"><a href="#防火墙的分类" class="headerlink" title="防火墙的分类"></a>防火墙的分类</h3><ul>
-<li><strong>防火墙可分为软件防火墙、硬件防火墙</strong></li>
-<li><strong>防火墙也可以分为个人防火墙、网路防火墙</strong></li>
-</ul>
-<p><em>一般情况下，个人防火墙是软件防火墙(比如Windows自带的防火墙)，网络防火墙有硬件防火墙，也有软件防火墙</em></p>
-<h3 id="防火墙不足之处"><a href="#防火墙不足之处" class="headerlink" title="防火墙不足之处"></a>防火墙不足之处</h3><p><strong>无法保护内部用户之间的攻击，防外不防内</strong><br><strong>无法防护基本操作系统漏洞的攻击</strong><br><strong>一般无法防护病毒的侵袭</strong><br><strong>对网络性能有影响</strong></p>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>网络安全</tag>
-        <tag>防火墙</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2019/04/01/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<a id="more"></a>
-
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-      <tags>
-        <tag>奥利给</tag>
       </tags>
   </entry>
   <entry>
