@@ -1,6 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>HTML5序章</title>
+    <url>/2020/02/18/HTML5%E5%BA%8F%E7%AB%A0/</url>
+    <content><![CDATA[<p><strong>一天天宅着蛮枯燥的，HTML5地学习或许能打破这乏味的时光。以前,刚开始学习 HTML ，才明白前端界面是如何实现的，当然也少不了CSS、JavaScript。像我们这博客完全是通过这3样语言实现的静态网页，瞬间感觉前端是不是比后端的东西，更直观地看得出成果。你光使用后端语言是无法完成Web网页开发，当然，如果有后端语言与数据库实现的自然是动态网页。话不多说，言归正传，开始我们今天HTML5的学习！</strong></p>
+<h2 id="HTML5概述"><a href="#HTML5概述" class="headerlink" title="HTML5概述"></a>HTML5概述</h2><h3 id="HTML-HyperText-Markup-Language"><a href="#HTML-HyperText-Markup-Language" class="headerlink" title="HTML(HyperText Markup Language)"></a>HTML(HyperText Markup Language)</h3><p>  <strong>HTML全称翻译而来是一款超文本标记语言，经过多过版本的更新，最后到现在HTML5，其实目的就是升级优化添加新功能，目前主要优势表现在终端上，跨平台、跨分辨率、版本控制简单</strong><br>  <strong>HTML5 实际上指的是包括HTML、CSS和JS在内的一套技术组合，能够减少浏览器对于需要插件(这也是显著功能)的丰富性网络应用服务</strong></p>
+<a id="more"></a>
+
+<h3 id="标记语言与编程语言区别"><a href="#标记语言与编程语言区别" class="headerlink" title="标记语言与编程语言区别"></a>标记语言与编程语言区别</h3><p>  <em><strong>觉得这个有必要记录下，标记语言强调属性，没有逻辑结构；而编程语言有逻辑和行为能力</strong></em></p>
+<h3 id="HTML5的八大特性"><a href="#HTML5的八大特性" class="headerlink" title="HTML5的八大特性"></a>HTML5的八大特性</h3><p><strong>1)语义特性</strong><br><strong>2)离线存储特性</strong><br><strong>3)设备访问特性</strong><br><strong>4)通讯特性</strong><br><strong>5)多媒体特性</strong><br><strong>6)三维及图形特性</strong><br><strong>7)性能及基础特性</strong><br><strong>8)CSS3特性</strong></p>
+<h3 id="HTML5的优点"><a href="#HTML5的优点" class="headerlink" title="HTML5的优点"></a>HTML5的优点</h3><h4 id="标签丰富、功能强大"><a href="#标签丰富、功能强大" class="headerlink" title="标签丰富、功能强大"></a>标签丰富、功能强大</h4><p>通过HTML5可以轻松实现页面中的音频、视频、动画等效果。</p>
+<h4 id="支持移动互联网的Web应用需求"><a href="#支持移动互联网的Web应用需求" class="headerlink" title="支持移动互联网的Web应用需求"></a>支持移动互联网的Web应用需求</h4><p>HTML5开发应用，可以轻松运行于手机、平板电脑等移动设备。</p>
+<h4 id="适应当前Web应用发展潮流"><a href="#适应当前Web应用发展潮流" class="headerlink" title="适应当前Web应用发展潮流"></a>适应当前Web应用发展潮流</h4><p>HTML5应用界面友好，功能强大，是今后Web发展的主流方向。</p>
+<h4 id="解决了跨浏览器问题"><a href="#解决了跨浏览器问题" class="headerlink" title="解决了跨浏览器问题"></a>解决了跨浏览器问题</h4><p>HTML5之前各大浏览器的竞争，在各自浏览器增加各种各样的功能，且不具有统一的标准。用不同浏览器看到不同页面效果。在HTML5中，纳入了所有合理的扩展功能，具备良好的跨平台性能。针对不支持新标签的老式IE浏览器，只需简单地添加JavaScript代码就可以使用新的元素</p>
+<h4 id="新增了多个新特性"><a href="#新增了多个新特性" class="headerlink" title="新增了多个新特性"></a>新增了多个新特性</h4><h5 id="良好的语义特性"><a href="#良好的语义特性" class="headerlink" title="良好的语义特性"></a>良好的语义特性</h5><p>HTML5支持数据与微格式，增加的新元素赋予网页更好的意义和结构。增加了很多新的结构元素，从而使文档结构更加清晰明确，新增的结构元素包括section元素、article元素、nav元素以及aside元素等</p>
+<h5 id="强大的绘图功能"><a href="#强大的绘图功能" class="headerlink" title="强大的绘图功能"></a>强大的绘图功能</h5><p>既可以通过Canvas API动态地绘制各种效果精美的图形，也可以通过SVG绘制各种伸缩矢量图形</p>
+<h5 id="增强的音频视频播放和控制功能"><a href="#增强的音频视频播放和控制功能" class="headerlink" title="增强的音频视频播放和控制功能"></a>增强的音频视频播放和控制功能</h5><p>HTML5新增了audio和video元素，可以不依赖任何插件而播放音频和视频</p>
+<h5 id="HTML5的数据存储和数据处理的功能"><a href="#HTML5的数据存储和数据处理的功能" class="headerlink" title="HTML5的数据存储和数据处理的功能"></a>HTML5的数据存储和数据处理的功能</h5><p>(1)离线应用 (2)Web通信 (3)本地存储</p>
+<h5 id="获取地理位置信息"><a href="#获取地理位置信息" class="headerlink" title="获取地理位置信息"></a>获取地理位置信息</h5><p>HTML5新增了Geolocation API规范，可以通过浏览器获取用户的地理位置信息</p>
+<h5 id="提高页面相应的多线程"><a href="#提高页面相应的多线程" class="headerlink" title="提高页面相应的多线程"></a>提高页面相应的多线程</h5><p>HTML5新增Web Workers来实现多线程功能。通过Web Workers将耗时长的处理交给后台线程，降低Web服务的响应时间，有利于增强用户体验</p>
+<h5 id="文件-API"><a href="#文件-API" class="headerlink" title="文件 API"></a>文件 API</h5><p>FileReader API：简化用户访问本地/服务器端文件系统的相关处理<br>FileSystem API：给文件系统添加浏览器保护，使得文件系统数据可以永久本地保存</p>
+<h4 id="用户优先的原则"><a href="#用户优先的原则" class="headerlink" title="用户优先的原则"></a>用户优先的原则</h4><h5 id="安全机制的设计"><a href="#安全机制的设计" class="headerlink" title="安全机制的设计"></a>安全机制的设计</h5><h5 id="表现和内容分离"><a href="#表现和内容分离" class="headerlink" title="表现和内容分离"></a>表现和内容分离</h5><h4 id="化繁为简的优势"><a href="#化繁为简的优势" class="headerlink" title="化繁为简的优势"></a>化繁为简的优势</h4><p>新的简化的字符集声明、新的简化的DOCTYPE、简单而强大的HTML5 API及以浏览器原生能力替换复杂的JavaScript代码。为了避免造成误解，HTML5对每一个细节都有着非常明确的规范说明，不允许有任何的歧义和模糊出现</p>
+<h3 id="HTML5支持情况"><a href="#HTML5支持情况" class="headerlink" title="HTML5支持情况"></a>HTML5支持情况</h3><p>  就目前Chrome52(谷歌)与FireFox48(火狐)两个浏览器支持项数最多，当然这毕竟程序员受欢迎程度高的两个浏览器。</p>
+<h4 id="检测指定元素的DOM对象是否被浏览器支持"><a href="#检测指定元素的DOM对象是否被浏览器支持" class="headerlink" title="检测指定元素的DOM对象是否被浏览器支持"></a>检测指定元素的DOM对象是否被浏览器支持</h4><p>如：canvas、video、audio等</p>
+<h4 id="检测浏览器是否支持指定元素的对象的方法"><a href="#检测浏览器是否支持指定元素的对象的方法" class="headerlink" title="检测浏览器是否支持指定元素的对象的方法"></a>检测浏览器是否支持指定元素的对象的方法</h4><p>如：canvas.getContext (canvas这个元素对图像操作功能是真的强大，就这博客动态背景粒子效果也是通过它实现的)</p>
+<h4 id="检测全局对象是否拥有特定属性"><a href="#检测全局对象是否拥有特定属性" class="headerlink" title="检测全局对象是否拥有特定属性"></a>检测全局对象是否拥有特定属性</h4><p>如：navigator.geolocation()</p>
+<h4 id="使用HTML特性检测工具-Modernizr"><a href="#使用HTML特性检测工具-Modernizr" class="headerlink" title="使用HTML特性检测工具(Modernizr)"></a>使用HTML特性检测工具(Modernizr)</h4><h5 id="检测浏览器对HTML5元素的支持情况"><a href="#检测浏览器对HTML5元素的支持情况" class="headerlink" title="检测浏览器对HTML5元素的支持情况"></a>检测浏览器对HTML5元素的支持情况</h5><p><a href="http://caniuse.com/" target="_blank" rel="noopener">Can I use</a></p>
+<h5 id="检测浏览器对HTML5的支持情况"><a href="#检测浏览器对HTML5的支持情况" class="headerlink" title="检测浏览器对HTML5的支持情况"></a>检测浏览器对HTML5的支持情况</h5><p><a href="http://html5test.com/" target="_blank" rel="noopener">HTML5TEST</a></p>
+<h5 id="检查HTML5内容是否完全符合规范"><a href="#检查HTML5内容是否完全符合规范" class="headerlink" title="检查HTML5内容是否完全符合规范"></a>检查HTML5内容是否完全符合规范</h5><p><a href="http://validator.w3.org/" target="_blank" rel="noopener">The W3C Markup Validation Service</a></p>
+<h3 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h3><p>开发工具这就很多了，对于前端学习小白当然是用Dreamweaver甚好，当然WebStorm、VSCode、VS2019(微软的东西，值得一试)等开发工具也可以尝试</p>
+<h3 id="帮助文档"><a href="#帮助文档" class="headerlink" title="帮助文档"></a>帮助文档</h3><p><a href="http://www.w3school.com.cn/" target="_blank" rel="noopener">W3C</a><br><a href="http://developer.mozilla.org/" target="_blank" rel="noopener">Mozilla</a></p>
+<h2 id="HTML5的变化"><a href="#HTML5的变化" class="headerlink" title="HTML5的变化"></a>HTML5的变化</h2><h3 id="标记的改进"><a href="#标记的改进" class="headerlink" title="标记的改进"></a>标记的改进</h3><h4 id="DOCTYPE声明"><a href="#DOCTYPE声明" class="headerlink" title="DOCTYPE声明"></a>DOCTYPE声明</h4><p><code>&lt;!DOCTYPE html&gt;</code></p>
+<h4 id="指定字符编码"><a href="#指定字符编码" class="headerlink" title="指定字符编码"></a>指定字符编码</h4><p><code>&lt;meta charset=utf-8&gt;</code></p>
+<h4 id="标签不需要区分大小写"><a href="#标签不需要区分大小写" class="headerlink" title="标签不需要区分大小写"></a>标签不需要区分大小写</h4><h4 id="可以省略的标签"><a href="#可以省略的标签" class="headerlink" title="可以省略的标签"></a>可以省略的标签</h4><h5 id="不允许写结束标签"><a href="#不允许写结束标签" class="headerlink" title="不允许写结束标签"></a>不允许写结束标签</h5><p>area、base、br、col、hr、img、input、meta、link、param、embed、keygen、track、source等</p>
+<h5 id="可以省略的结束标签"><a href="#可以省略的结束标签" class="headerlink" title="可以省略的结束标签"></a>可以省略的结束标签</h5><p>dt、dd、li、p、rt、rp、option、optiongroup、colgroup、thread、tbody、tfoot、tr、td、th等</p>
+<h5 id="开始标签和结束标签均可省略"><a href="#开始标签和结束标签均可省略" class="headerlink" title="开始标签和结束标签均可省略"></a>开始标签和结束标签均可省略</h5><p>html、head、body、tbody、thead、colgroup等</p>
+<h4 id="Boolean属性设置"><a href="#Boolean属性设置" class="headerlink" title="Boolean属性设置"></a>Boolean属性设置</h4><p>checked、selected、multiple、readonly、和disable等</p>
+<h5 id="当只写属性而不指定属性值时，表示属性值为true"><a href="#当只写属性而不指定属性值时，表示属性值为true" class="headerlink" title="当只写属性而不指定属性值时，表示属性值为true"></a>当只写属性而不指定属性值时，表示属性值为true</h5><h5 id="如果想要将属性值设为false，可以不使用该属性"><a href="#如果想要将属性值设为false，可以不使用该属性" class="headerlink" title="如果想要将属性值设为false，可以不使用该属性"></a>如果想要将属性值设为false，可以不使用该属性</h5><h5 id="若属性值为true时，也可以将属性名设定为属性值，或空字符串"><a href="#若属性值为true时，也可以将属性名设定为属性值，或空字符串" class="headerlink" title="若属性值为true时，也可以将属性名设定为属性值，或空字符串"></a>若属性值为true时，也可以将属性名设定为属性值，或空字符串</h5><h4 id="属性引号"><a href="#属性引号" class="headerlink" title="属性引号"></a>属性引号</h4><p>  当属性不包含一些特殊字符(空字符串、&lt;、&gt;、=、单引号、双引号)，引号可以省略。示例：<meta charset="utf-8"></p>
+<h4 id="废弃的元素"><a href="#废弃的元素" class="headerlink" title="废弃的元素"></a>废弃的元素</h4><h5 id="使用CSS替换的元素"><a href="#使用CSS替换的元素" class="headerlink" title="使用CSS替换的元素"></a>使用CSS替换的元素</h5><p>basefont、big、center、font、strike、s、tt、u等</p>
+<h5 id="停用frame框架"><a href="#停用frame框架" class="headerlink" title="停用frame框架"></a>停用frame框架</h5><p>frame主要对页面进行分割，但由于frame不便于搜索引擎的抓取和优化，故不再支持</p>
+<h5 id="只有部分浏览器支持的元素"><a href="#只有部分浏览器支持的元素" class="headerlink" title="只有部分浏览器支持的元素"></a>只有部分浏览器支持的元素</h5><p>bgsound、marquee、applet等</p>
+<h4 id="新增的元素（功能都很强大）"><a href="#新增的元素（功能都很强大）" class="headerlink" title="新增的元素（功能都很强大）"></a>新增的元素（<em>功能都很强大</em>）</h4><h5 id="结构元素"><a href="#结构元素" class="headerlink" title="结构元素"></a>结构元素</h5><p>section、article、aside等</p>
+<h5 id="多媒体元素"><a href="#多媒体元素" class="headerlink" title="多媒体元素"></a>多媒体元素</h5><p>video、audio、embed等</p>
+<h5 id="表单标签"><a href="#表单标签" class="headerlink" title="表单标签"></a>表单标签</h5><p>input</p>
+<h5 id="扩展HTML功能的元素"><a href="#扩展HTML功能的元素" class="headerlink" title="扩展HTML功能的元素"></a>扩展HTML功能的元素</h5><p>canvas等</p>
+<h4 id="全局属性"><a href="#全局属性" class="headerlink" title="全局属性"></a>全局属性</h4><p>1)contenteditable属性<br>2)contextmenu属性<br>3)data-*属性<br>4)spellcheck属性<br>5)draggable属性<br>6)hidden属性</p>
+<h2 id="HTML5文档结构"><a href="#HTML5文档结构" class="headerlink" title="HTML5文档结构"></a>HTML5文档结构</h2><p><strong>HTML文档中元素：从开始标记到结束标记的所有代码</strong><br><strong>元素的内容：开始标记与结束标记之间的内容</strong><br><strong>元素属性：用来说明元素的特征，每个属性总是对应一个属性值，称为”属性/值”</strong></p>
+<h3 id="head标签"><a href="#head标签" class="headerlink" title="head标签"></a>head标签</h3><p>文档头部信息，标签内容包含字符编码设置、标题、关键字与网页描述等</p>
+<h3 id="body标签"><a href="#body标签" class="headerlink" title="body标签"></a>body标签</h3><p>网页主体信息（我们上网所见所听所感信息都来源于body里）<br>其中<code>&lt;header&gt;&lt;/header&gt;、&lt;main&gt;&lt;/main&gt;、&lt;footer&gt;&lt;/footer&gt;</code>等新增标签语义清晰，利于SEO，利于盲人阅读，无法用这些新增标签表达的结构还是用<div></p>
+<h4 id="lt-header-gt-lt-header-gt-标签"><a href="#lt-header-gt-lt-header-gt-标签" class="headerlink" title="&lt;header&gt;&lt;/header&gt;标签"></a><code>&lt;header&gt;&lt;/header&gt;</code>标签</h4><p>可以是整个页面或者页面区域的一个头部信息（标题）<br>可以包含：logo、标题、搜索、导航、通知、帐号等<br>至少包含一个标题(h1~h6)，还可以包含hgroup、nav等<br><em>注意：跟 <code>&lt;head&gt;&lt;/head&gt;</code> 标签的区别</em></p>
+<h4 id="lt-main-gt-lt-main-gt-标签"><a href="#lt-main-gt-lt-main-gt-标签" class="headerlink" title="&lt;main&gt;&lt;/main&gt;标签"></a><code>&lt;main&gt;&lt;/main&gt;</code>标签</h4><p>页面中的主体部分。不能包含公共导航、logo、版权信息等公共内容<br><em>注意：一个页面只能有一个main标签。<code>&lt;main&gt;</code>元素不能是以下元素的后代：<code>&lt;article&gt;、&lt;aside&gt;、&lt;footer&gt;、&lt;header&gt;或&lt;nav&gt;</code></em></p>
+<h4 id="lt-footer-gt-lt-footer-gt-标签"><a href="#lt-footer-gt-lt-footer-gt-标签" class="headerlink" title="&lt;footer&gt;&lt;/footer&gt;标签"></a><code>&lt;footer&gt;&lt;/footer&gt;</code>标签</h4><p>页面或页面某个板块的底部部分<br>通常包含文档的作者、版权信息、使用条款链接、联系信息等等<br><em>可以在一个文档中使用多个 <code>&lt;footer&gt;</code>元素</em></p>
+<h4 id="lt-nav-gt-lt-nav-gt-标签"><a href="#lt-nav-gt-lt-nav-gt-标签" class="headerlink" title="&lt;nav&gt;&lt;/nav&gt;标签"></a><code>&lt;nav&gt;&lt;/nav&gt;</code>标签</h4><p>导航(navigation)的简写<br>专门用来包裹导航的内容。包括顶部导航、底部导航、侧边栏导航、翻页导航等</p>
+<h4 id="lt-article-gt-lt-article-gt-标签"><a href="#lt-article-gt-lt-article-gt-标签" class="headerlink" title="&lt;article&gt;&lt;/article&gt;标签"></a><code>&lt;article&gt;&lt;/article&gt;</code>标签</h4><p>文档、页面或者是应用程序当中的独立完整可以被外部引用的内容<br>它可以是一篇文章、一篇帖子、一段评论或者是独立的插件形式出现<br><em><code>&lt;article&gt;&lt;article&gt;</code>里面也可以使用 <code>&lt;header&gt;、&lt;footer&gt;以及&lt;article&gt;</code>标签</em></p>
+<h4 id="lt-section-gt-lt-section-gt-标签"><a href="#lt-section-gt-lt-section-gt-标签" class="headerlink" title="&lt;section&gt;&lt;/section&gt;标签"></a><code>&lt;section&gt;&lt;/section&gt;</code>标签</h4><p>定义了文档的某个区域。比如章节、头部、底部或者文档的其他区域（即整体中的某部分）<br><em><code>&lt;section&gt;&lt;/section&gt;</code>里也可以有 <code>&lt;article&gt;&lt;/article&gt;</code>标签</em></p>
+<h4 id="lt-aside-gt-lt-aside-gt-标签"><a href="#lt-aside-gt-lt-aside-gt-标签" class="headerlink" title="&lt;aside&gt;&lt;/aside&gt;标签"></a><code>&lt;aside&gt;&lt;/aside&gt;</code>标签</h4><p>定义<code>&lt;article&gt;</code>标签外的内容。广告，侧边栏等</p>
+<h4 id="lt-hgroup-gt-lt-hgroup-gt-标题组"><a href="#lt-hgroup-gt-lt-hgroup-gt-标题组" class="headerlink" title="&lt;hgroup&gt;&lt;/hgroup&gt;标题组"></a><code>&lt;hgroup&gt;&lt;/hgroup&gt;</code>标题组</h4><p>对网页或区段(section)的标题进行组合。一个区域中包括了主标题和至少一个子标题的时候才用<br><em>注意：单独一个标题的时候，不用 <code>&lt;hgroup&gt;&lt;/hgroup&gt;</code></em></p>
+<h4 id="lt-time-gt-lt-time-gt-时间"><a href="#lt-time-gt-lt-time-gt-时间" class="headerlink" title="&lt;time&gt;&lt;/time&gt;时间"></a><code>&lt;time&gt;&lt;/time&gt;</code>时间</h4><p>主要是使页面语义描述更清晰，便于网络搜索引擎更好的理解网页页面<br>time可以为内容添加如发布时间，事件发生时间等信息。<br>拥有datetime和pubdate两个属性</p>
+<h4 id="lt-address-gt-lt-address-gt-联系信息"><a href="#lt-address-gt-lt-address-gt-联系信息" class="headerlink" title="&lt;address&gt;&lt;/address&gt;联系信息"></a><code>&lt;address&gt;&lt;/address&gt;</code>联系信息</h4><p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;address&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li&gt;网站：http:&#x2F;&#x2F;www.w3school.com.cn&#x2F;&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;GitHub:XXXXXXXX&lt;&#x2F;li&gt;</span><br><span class="line">	&lt;li&gt;E-mail:xxxxxxx@qq.com&lt;&#x2F;li&gt;</span><br><span class="line">  &lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;address&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="其他元素"><a href="#其他元素" class="headerlink" title="其他元素"></a>其他元素</h4><h5 id="bdi-双向隔离，将指定文本脱离父元素的文本方向"><a href="#bdi-双向隔离，将指定文本脱离父元素的文本方向" class="headerlink" title="bdi:双向隔离，将指定文本脱离父元素的文本方向"></a>bdi:双向隔离，将指定文本脱离父元素的文本方向</h5><h5 id="details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性"><a href="#details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性" class="headerlink" title="details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性"></a>details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性</h5><h5 id="figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分"><a href="#figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分" class="headerlink" title="figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分"></a>figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分</h5><h5 id="ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容"><a href="#ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容" class="headerlink" title="ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容"></a>ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容</h5><h5 id="progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量"><a href="#progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量" class="headerlink" title="progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量"></a>progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量</h5><h5 id="dialog：定义一个对话框，只有open属性"><a href="#dialog：定义一个对话框，只有open属性" class="headerlink" title="dialog：定义一个对话框，只有open属性"></a>dialog：定义一个对话框，只有open属性</h5><h5 id="mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行"><a href="#mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行" class="headerlink" title="mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行"></a>mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行</h5>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>HTML</tag>
+        <tag>标记语言</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ajax</title>
+    <url>/2020/04/25/Ajax/</url>
+    <content><![CDATA[<h3 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h3><p><strong>Ajax全称：Asynchronous Javascript And XML(异步 JS和XML)，它能使用JS实现异步访问服务器。众所周知，服务器给客户端传过去的是整个html完整页面，而Ajax局部刷新，服务器不再响应整个页面，只是传递数据，数据交换可以是txt、xml、json</strong></p>
+<a id="more"></a>
+
+<h4 id="异步交互与同步交互"><a href="#异步交互与同步交互" class="headerlink" title="异步交互与同步交互"></a>异步交互与同步交互</h4><blockquote>
+<p>同步：</p>
+<blockquote>
+<p>例如发送一个请求，需要等待伺服器响应结束，才能发送第二个请求，等待时间给用户的直观感受就是”卡”<br>刷新是刷新整个页面<br>异步：<br>例如同上发一个请求后，无需等待伺服器的响应，就能开始发送第二个请求<br>可以使用js结束伺服器的响应，然后使用js的局部刷新</p>
+</blockquote>
+</blockquote>
+<p><img src="/images/ajax_pic.png" alt="同步与异步" title="同步交互与异步交互"></p>
+<h4 id="Ajax优缺点"><a href="#Ajax优缺点" class="headerlink" title="Ajax优缺点"></a>Ajax优缺点</h4><blockquote>
+<p>优点：</p>
+<blockquote>
+<p>异步交互：增强用户体验<br>性能：因为伺服器无需重复加载整个页面，只需要响应部分内容，减轻伺服器压力<br>缺点；<br>场景：局限性，不是所有场景适用<br>无端增多了对伺服器的访问次数，给伺服器带来了压力</p>
+</blockquote>
+</blockquote>
+<h4 id="Ajax使用"><a href="#Ajax使用" class="headerlink" title="Ajax使用"></a>Ajax使用</h4><h5 id="Ajax发送异步请求"><a href="#Ajax发送异步请求" class="headerlink" title="Ajax发送异步请求"></a>Ajax发送异步请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;四步操作</span><br><span class="line">	&#x2F;&#x2F;第一步（得到XMLHttpRequest）</span><br><span class="line">	&#x2F;&#x2F;创建XMLHttpRequest对象函数</span><br><span class="line">	function createXMLHttpRequest()&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			return new XMLHttpRequest();&#x2F;&#x2F;大多数浏览器支持它创建XMLHttpRequest对象</span><br><span class="line">		&#125;catch(e)&#123;</span><br><span class="line">			try&#123;</span><br><span class="line">				return new ActiveXObject(&quot;Msxml2.XMLHTTP&quot;);&#x2F;&#x2F;IE6.0使用其创建XMLHttpRequest对象</span><br><span class="line">			&#125;catch(e)&#123;</span><br><span class="line">				try&#123;</span><br><span class="line">					return new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);&#x2F;&#x2F;IE5.5及更早版本使用其创建XMLHttpRequest对象</span><br><span class="line">				&#125;catch(e)&#123;</span><br><span class="line">					alert(&quot;您这浏览器是自制的吧，这都无法满足您&quot;);</span><br><span class="line">					throw e;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;第二步（打开与服务器的连接）</span><br><span class="line">	&#x2F;&#x2F;使用xmlHttp.open(请求方式,请求URL,请求是否为异步);打开连接</span><br><span class="line">	&#x2F;&#x2F;请求方式:可以使用GET或POST</span><br><span class="line">	&#x2F;&#x2F;请求URL:指定服务器端资源，例如：&#x2F;cn&#x2F;com&#x2F;resource</span><br><span class="line">	&#x2F;&#x2F;请求是否为异步:为true发送异步请求，否则为同步请求</span><br><span class="line">	xmlHttp.open(&quot;POST&quot;,&quot;&#x2F;cn&#x2F;com&#x2F;resource&quot;,true);</span><br><span class="line">	xmlHttp.setRequestHeader(&quot;Content-Type&quot;,&quot;application&#x2F;x-www-form-urlencoded&quot;);&#x2F;*这是设置Content-Type请求头，POST需要这一步，GET不用*&#x2F;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;第三步（发送请求）</span><br><span class="line">	xmlHttp.send(null);&#x2F;&#x2F;如果不给参数null可能造成部分浏览器不能发送，如果是GET请求，则必须给出参数null</span><br><span class="line">	xmlHttp.send(&quot;username&#x3D;zhangsan&amp;password&#x3D;123&quot;);&#x2F;&#x2F;发送请求是指定请求体，发送请求需要带有参数一般使用POST</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;第四步（）</span><br><span class="line">	&#x2F;&#x2F;在xmlHttp对象的一个事件上注册监听器：onreadystatechange</span><br><span class="line">	&#x2F;&#x2F;xmlHttp一共有5个状态：</span><br><span class="line">	&#x2F;&#x2F;0状态：刚创建,还没有调用open方法;</span><br><span class="line">	&#x2F;&#x2F;1状态：请求开始，调用open方法，但还没有调用send方法</span><br><span class="line">	&#x2F;&#x2F;2状态：调用完了send方法</span><br><span class="line">	&#x2F;&#x2F;3状态：服务器已经开始响应，但不表示响应结束了</span><br><span class="line">	&#x2F;&#x2F;4状态；服务器响应结束！（这是我们最关心的状态）</span><br><span class="line">	&#x2F;&#x2F;得到xmlHttp的状态:</span><br><span class="line">	var state &#x3D; xmlHttp.readyState;</span><br><span class="line">	&#x2F;&#x2F;得到服务器响应的状态码：</span><br><span class="line">	var status &#x3D; xmlHttp.status;&#x2F;&#x2F;例如为404，500</span><br><span class="line">	&#x2F;&#x2F;得到服务器响应内容：</span><br><span class="line">	var content &#x3D; xmlHttp.responseText;&#x2F;&#x2F;得到文本式内容</span><br><span class="line">	var content &#x3D; xmlHttp.responseXML;&#x2F;&#x2F;得到xml格式内容（即Document对象）</span><br><span class="line">	</span><br><span class="line">	xmlHttp.onreadystatechange &#x3D; function()&#123;&#x2F;&#x2F;xmlHttp的五种状态都会调用该方法</span><br><span class="line">		if(xmlHttp.readyState&#x3D;&#x3D;4&amp;&amp;xmlHttp.status&#x3D;&#x3D;200)&#123;&#x2F;&#x2F;双重判断，是否为4状态，状态码是否为200</span><br><span class="line">			&#x2F;&#x2F;获取响应内容</span><br><span class="line">			var text &#x3D; xmlHttp.responseText;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="XStream"><a href="#XStream" class="headerlink" title="XStream"></a>XStream</h4><h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><p><strong>可以把javaBean序列化（即转化）为xml</strong></p>
+<h5 id="XStream的jar包"><a href="#XStream的jar包" class="headerlink" title="XStream的jar包"></a>XStream的jar包</h5><blockquote>
+<p>核心JAR包：XStream-1.4.7.jar<br>必须依赖包：xpp3_min-1.1.4c(XML Pull Parser,一款速度很快的xml解析器)</p>
+</blockquote>
+<h5 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">XStream xstream &#x3D; new XStream();</span><br><span class="line">String xmlStr &#x3D; xstream.toXML(javabean);</span><br></pre></td></tr></table></figure>
+
+<h4 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h4><h5 id="JSON是什么"><a href="#JSON是什么" class="headerlink" title="JSON是什么"></a>JSON是什么</h5><p><strong>JS提供的一种数据交换格式！</strong></p>
+<h5 id="JSON的语法"><a href="#JSON的语法" class="headerlink" title="JSON的语法"></a>JSON的语法</h5><p>示例；<br><code>var person = {&quot;name&quot;: &quot;zhangsan&quot;, &quot;age&quot;: 18, &quot;sex&quot;: &quot;male&quot;};</code><br>这JSON对象就跟JS字面式定义对象没什么区别，{}表示对象，里面属性值可以是null、数值、字符串、数组(用[]括起来)、布尔值<br><em>属性名这里必须用双引号括起来，单引号不行</em><br>上例JSON对象如果用双引号括起来成字符串，也可以通过eval函数实现转换</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var str &#x3D; &quot;&#123;\&quot;name\&quot;: \&quot;zhangsan\&quot;, \&quot;age\&quot;: 18, \&quot;sex\&quot;: \&quot;male\&quot;&#125;&quot;;&#x2F;&#x2F;双引号里面的双引号需要使用转义字符</span><br><span class="line">var person &#x3D; ever(&quot;(&quot; + str + &quot;)&quot;);</span><br></pre></td></tr></table></figure>
+
+<h5 id="JSON与XML比较"><a href="#JSON与XML比较" class="headerlink" title="JSON与XML比较"></a>JSON与XML比较</h5><p><strong>可读性：XML胜出</strong><br><strong>解析难度：JSON简单很多</strong><br><strong>流行度：XML已经流行很多年，但在AJAX领域，JSON更受欢迎</strong></p>
+<h5 id="json-lib小工具"><a href="#json-lib小工具" class="headerlink" title="json-lib小工具"></a>json-lib小工具</h5><h6 id="是什么"><a href="#是什么" class="headerlink" title="是什么?"></a>是什么?</h6><p><strong>它可以把javabean转换为json串</strong></p>
+<h6 id="核心类"><a href="#核心类" class="headerlink" title="核心类"></a>核心类</h6><p>JSONObject –父类Map<br>JSONArray –父类List</p>
+<h6 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;方式一</span><br><span class="line">JSONObject map &#x3D; new JSONObject();</span><br><span class="line">map.put(&quot;name&quot;,&quot;zhangsan&quot;);</span><br><span class="line">map.put(&quot;age&quot;,18);</span><br><span class="line">map.put(&quot;sex&quot;,&quot;male&quot;);</span><br><span class="line">String s &#x3D; map.toString();</span><br><span class="line">System.out.println(s);&#x2F;&#x2F;打印出一个JSON字符串</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;方式二，将Person对象转换为JSON对象</span><br><span class="line">Person p &#x3D; new Person(&quot;lisi&quot;,21,&quot;male&quot;);</span><br><span class="line">JSONObject map &#x3D; JSONObject.fromObject(p);</span><br><span class="line">System.out.println(map.toString());</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;JSONArray同上类似</span><br><span class="line">Person p1 &#x3D; new Person(&quot;zhangsan&quot;,50,&quot;famale&quot;);</span><br><span class="line">Person p2 &#x3D; new Person(&quot;wangwu&quot;,46,&quot;male&quot;);</span><br><span class="line">JSONArray list &#x3D; new JSONArray();</span><br><span class="line">list.add(p1);</span><br><span class="line">list.add(p2);</span><br><span class="line">System.out.println(list.toString());</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;若原先有一个List，我们可以把List转化为JSON对象</span><br><span class="line">Person p1 &#x3D; new Person(&quot;zhangsan&quot;,50,&quot;famale&quot;);</span><br><span class="line">Person p2 &#x3D; new Person(&quot;wangwu&quot;,46,&quot;male&quot;);</span><br><span class="line">List&lt;Person&gt; list &#x3D; new ArrayList&lt;Person&gt;();</span><br><span class="line">list.add(p1);</span><br><span class="line">list.add(p2);</span><br><span class="line"></span><br><span class="line">System.out.println(JSONArray.fromObject(list).toString());</span><br></pre></td></tr></table></figure>
+
+<h4 id="打包AJAX工具类"><a href="#打包AJAX工具类" class="headerlink" title="打包AJAX工具类"></a>打包AJAX工具类</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">	&#x2F;&#x2F;创建XMLHttpRequest对象函数</span><br><span class="line">	function createXMLHttpRequest()&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			return new XMLHttpRequest();&#x2F;&#x2F;大多数浏览器支持它创建XMLHttpRequest对象</span><br><span class="line">		&#125;catch(e)&#123;</span><br><span class="line">			try&#123;</span><br><span class="line">				return new ActiveXObject(&quot;Msxml2.XMLHTTP&quot;);&#x2F;&#x2F;IE6.0使用其创建XMLHttpRequest对象</span><br><span class="line">			&#125;catch(e)&#123;</span><br><span class="line">				try&#123;</span><br><span class="line">					return new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);&#x2F;&#x2F;IE5.5及更早版本使用其创建XMLHttpRequest对象</span><br><span class="line">				&#125;catch(e)&#123;</span><br><span class="line">					alert(&quot;您这浏览器是自制的吧，这都无法满足您&quot;);</span><br><span class="line">					throw e;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">var ajax &#x3D; function(option)&#123;</span><br><span class="line">	&#x2F;*传递对象参数，该对象包括以下属性，</span><br><span class="line">	请求方式：method,</span><br><span class="line">	请求的url：url,</span><br><span class="line">	是否异步：asyn,</span><br><span class="line">	请求体：params,</span><br><span class="line">	回调方法：callback,</span><br><span class="line">	服务器响应数据转换成什么类型：type*&#x2F;</span><br><span class="line">	</span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *1.得到xmlHttp</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	var xmlHttp &#x3D; createXMLHttpRequest();</span><br><span class="line">	</span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *2.打开连接</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	if(!option.method)&#123;&#x2F;&#x2F;默认为GET请求</span><br><span class="line">		option.method &#x3D; GET;</span><br><span class="line">	&#125;</span><br><span class="line">	if(option.asyn &#x3D;&#x3D; undefined)&#123;&#x2F;&#x2F;默认为异步处理</span><br><span class="line">		option.asyn &#x3D; true;</span><br><span class="line">	&#125;</span><br><span class="line">	xmlHttp.open(option.method,url,option.asyn);</span><br><span class="line">	</span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *3.判断是否为POST</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	if(&quot;POST&quot;&#x3D;&#x3D;option.method)&#123;</span><br><span class="line">		xmlHttp.setRequestHeader(&quot;Content-Type&quot;,&quot;application&#x2F;x-www-form-urlencoded&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *4.发送请求</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	xmlHttp.send(option.params);</span><br><span class="line">	</span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *5.注册监听</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	xmlHttp.onreadystatechange &#x3D; funcion()&#123;</span><br><span class="line">		if(xmlHttp.readyState&#x3D;&#x3D;4&amp;&amp;xmlHttp.status&#x3D;&#x3D;200)&#123;&#x2F;&#x2F;双重判断</span><br><span class="line">			var data;</span><br><span class="line">			if(!option.type)&#123;&#x2F;&#x2F;如果type没有给值默认为文本类型</span><br><span class="line">				data &#x3D; xmlHttp.responseText;</span><br><span class="line">			&#125;else if(option.type &#x3D;&#x3D; &quot;xml&quot;)&#123;</span><br><span class="line">				data &#x3D; xmlHttp.responseXML;</span><br><span class="line">			&#125;else if(option.type &#x3D;&#x3D; &quot;json&quot;)&#123;</span><br><span class="line">				var text &#x3D; xmlHttp.responseText;</span><br><span class="line">				data &#x3D; eval(&quot;(&quot; + text + &quot;)&quot;);</span><br><span class="line">			&#125;else if(option.type &#x3D;&#x3D; &quot;text&quot;)&#123;</span><br><span class="line">				data &#x3D; xmlHttp.responseText;</span><br><span class="line">			&#125;</span><br><span class="line">			&#x2F;&#x2F;调用回调方法</span><br><span class="line">			option.callback(data);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;  </span><br><span class="line">&#125;</span><br><span class="line">export(ajax);</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>Ajax</tag>
+        <tag>异步操作</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SQL</title>
     <url>/2020/02/12/SQL/</url>
     <content><![CDATA[<h2 id="SQL语言的概述"><a href="#SQL语言的概述" class="headerlink" title="SQL语言的概述"></a>SQL语言的概述</h2><h3 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h3><ul>
@@ -200,78 +317,133 @@
         <category>JavaWeb</category>
       </categories>
       <tags>
-        <tag>XML</tag>
         <tag>标记语言</tag>
+        <tag>XML</tag>
         <tag>XML解析</tag>
       </tags>
   </entry>
   <entry>
-    <title>HTML5序章</title>
-    <url>/2020/02/18/HTML5%E5%BA%8F%E7%AB%A0/</url>
-    <content><![CDATA[<p><strong>一天天宅着蛮枯燥的，HTML5地学习或许能打破这乏味的时光。以前,刚开始学习 HTML ，才明白前端界面是如何实现的，当然也少不了CSS、JavaScript。像我们这博客完全是通过这3样语言实现的静态网页，瞬间感觉前端是不是比后端的东西，更直观地看得出成果。你光使用后端语言是无法完成Web网页开发，当然，如果有后端语言与数据库实现的自然是动态网页。话不多说，言归正传，开始我们今天HTML5的学习！</strong></p>
-<h2 id="HTML5概述"><a href="#HTML5概述" class="headerlink" title="HTML5概述"></a>HTML5概述</h2><h3 id="HTML-HyperText-Markup-Language"><a href="#HTML-HyperText-Markup-Language" class="headerlink" title="HTML(HyperText Markup Language)"></a>HTML(HyperText Markup Language)</h3><p>  <strong>HTML全称翻译而来是一款超文本标记语言，经过多过版本的更新，最后到现在HTML5，其实目的就是升级优化添加新功能，目前主要优势表现在终端上，跨平台、跨分辨率、版本控制简单</strong><br>  <strong>HTML5 实际上指的是包括HTML、CSS和JS在内的一套技术组合，能够减少浏览器对于需要插件(这也是显著功能)的丰富性网络应用服务</strong></p>
+    <title>SQL进阶</title>
+    <url>/2020/02/20/SQL%E8%BF%9B%E9%98%B6/</url>
+    <content><![CDATA[<h2 id="SQL进阶"><a href="#SQL进阶" class="headerlink" title="SQL进阶"></a>SQL进阶</h2><h3 id="SQL编码问题"><a href="#SQL编码问题" class="headerlink" title="SQL编码问题"></a>SQL编码问题</h3><p>使用<code>SHOW VARIABLES LIKE &#39;char%&#39;;</code>可以查看当前窗口sql相关编码,在dos窗口内使用<code>set 你想修改的选项=gbk;</code>，这种修改在窗口关闭后将失效，也就是一次性修改。每次修改或许会很繁琐，所以也可以找到my.ini文件在里面进行修改，重启数据库系统，使修改配置生效   </p>
 <a id="more"></a>
 
-<h3 id="标记语言与编程语言区别"><a href="#标记语言与编程语言区别" class="headerlink" title="标记语言与编程语言区别"></a>标记语言与编程语言区别</h3><p>  <em><strong>觉得这个有必要记录下，标记语言强调属性，没有逻辑结构；而编程语言有逻辑和行为能力</strong></em></p>
-<h3 id="HTML5的八大特性"><a href="#HTML5的八大特性" class="headerlink" title="HTML5的八大特性"></a>HTML5的八大特性</h3><p><strong>1)语义特性</strong><br><strong>2)离线存储特性</strong><br><strong>3)设备访问特性</strong><br><strong>4)通讯特性</strong><br><strong>5)多媒体特性</strong><br><strong>6)三维及图形特性</strong><br><strong>7)性能及基础特性</strong><br><strong>8)CSS3特性</strong></p>
-<h3 id="HTML5的优点"><a href="#HTML5的优点" class="headerlink" title="HTML5的优点"></a>HTML5的优点</h3><h4 id="标签丰富、功能强大"><a href="#标签丰富、功能强大" class="headerlink" title="标签丰富、功能强大"></a>标签丰富、功能强大</h4><p>通过HTML5可以轻松实现页面中的音频、视频、动画等效果。</p>
-<h4 id="支持移动互联网的Web应用需求"><a href="#支持移动互联网的Web应用需求" class="headerlink" title="支持移动互联网的Web应用需求"></a>支持移动互联网的Web应用需求</h4><p>HTML5开发应用，可以轻松运行于手机、平板电脑等移动设备。</p>
-<h4 id="适应当前Web应用发展潮流"><a href="#适应当前Web应用发展潮流" class="headerlink" title="适应当前Web应用发展潮流"></a>适应当前Web应用发展潮流</h4><p>HTML5应用界面友好，功能强大，是今后Web发展的主流方向。</p>
-<h4 id="解决了跨浏览器问题"><a href="#解决了跨浏览器问题" class="headerlink" title="解决了跨浏览器问题"></a>解决了跨浏览器问题</h4><p>HTML5之前各大浏览器的竞争，在各自浏览器增加各种各样的功能，且不具有统一的标准。用不同浏览器看到不同页面效果。在HTML5中，纳入了所有合理的扩展功能，具备良好的跨平台性能。针对不支持新标签的老式IE浏览器，只需简单地添加JavaScript代码就可以使用新的元素</p>
-<h4 id="新增了多个新特性"><a href="#新增了多个新特性" class="headerlink" title="新增了多个新特性"></a>新增了多个新特性</h4><h5 id="良好的语义特性"><a href="#良好的语义特性" class="headerlink" title="良好的语义特性"></a>良好的语义特性</h5><p>HTML5支持数据与微格式，增加的新元素赋予网页更好的意义和结构。增加了很多新的结构元素，从而使文档结构更加清晰明确，新增的结构元素包括section元素、article元素、nav元素以及aside元素等</p>
-<h5 id="强大的绘图功能"><a href="#强大的绘图功能" class="headerlink" title="强大的绘图功能"></a>强大的绘图功能</h5><p>既可以通过Canvas API动态地绘制各种效果精美的图形，也可以通过SVG绘制各种伸缩矢量图形</p>
-<h5 id="增强的音频视频播放和控制功能"><a href="#增强的音频视频播放和控制功能" class="headerlink" title="增强的音频视频播放和控制功能"></a>增强的音频视频播放和控制功能</h5><p>HTML5新增了audio和video元素，可以不依赖任何插件而播放音频和视频</p>
-<h5 id="HTML5的数据存储和数据处理的功能"><a href="#HTML5的数据存储和数据处理的功能" class="headerlink" title="HTML5的数据存储和数据处理的功能"></a>HTML5的数据存储和数据处理的功能</h5><p>(1)离线应用 (2)Web通信 (3)本地存储</p>
-<h5 id="获取地理位置信息"><a href="#获取地理位置信息" class="headerlink" title="获取地理位置信息"></a>获取地理位置信息</h5><p>HTML5新增了Geolocation API规范，可以通过浏览器获取用户的地理位置信息</p>
-<h5 id="提高页面相应的多线程"><a href="#提高页面相应的多线程" class="headerlink" title="提高页面相应的多线程"></a>提高页面相应的多线程</h5><p>HTML5新增Web Workers来实现多线程功能。通过Web Workers将耗时长的处理交给后台线程，降低Web服务的响应时间，有利于增强用户体验</p>
-<h5 id="文件-API"><a href="#文件-API" class="headerlink" title="文件 API"></a>文件 API</h5><p>FileReader API：简化用户访问本地/服务器端文件系统的相关处理<br>FileSystem API：给文件系统添加浏览器保护，使得文件系统数据可以永久本地保存</p>
-<h4 id="用户优先的原则"><a href="#用户优先的原则" class="headerlink" title="用户优先的原则"></a>用户优先的原则</h4><h5 id="安全机制的设计"><a href="#安全机制的设计" class="headerlink" title="安全机制的设计"></a>安全机制的设计</h5><h5 id="表现和内容分离"><a href="#表现和内容分离" class="headerlink" title="表现和内容分离"></a>表现和内容分离</h5><h4 id="化繁为简的优势"><a href="#化繁为简的优势" class="headerlink" title="化繁为简的优势"></a>化繁为简的优势</h4><p>新的简化的字符集声明、新的简化的DOCTYPE、简单而强大的HTML5 API及以浏览器原生能力替换复杂的JavaScript代码。为了避免造成误解，HTML5对每一个细节都有着非常明确的规范说明，不允许有任何的歧义和模糊出现</p>
-<h3 id="HTML5支持情况"><a href="#HTML5支持情况" class="headerlink" title="HTML5支持情况"></a>HTML5支持情况</h3><p>  就目前Chrome52(谷歌)与FireFox48(火狐)两个浏览器支持项数最多，当然这毕竟程序员受欢迎程度高的两个浏览器。</p>
-<h4 id="检测指定元素的DOM对象是否被浏览器支持"><a href="#检测指定元素的DOM对象是否被浏览器支持" class="headerlink" title="检测指定元素的DOM对象是否被浏览器支持"></a>检测指定元素的DOM对象是否被浏览器支持</h4><p>如：canvas、video、audio等</p>
-<h4 id="检测浏览器是否支持指定元素的对象的方法"><a href="#检测浏览器是否支持指定元素的对象的方法" class="headerlink" title="检测浏览器是否支持指定元素的对象的方法"></a>检测浏览器是否支持指定元素的对象的方法</h4><p>如：canvas.getContext (canvas这个元素对图像操作功能是真的强大，就这博客动态背景粒子效果也是通过它实现的)</p>
-<h4 id="检测全局对象是否拥有特定属性"><a href="#检测全局对象是否拥有特定属性" class="headerlink" title="检测全局对象是否拥有特定属性"></a>检测全局对象是否拥有特定属性</h4><p>如：navigator.geolocation()</p>
-<h4 id="使用HTML特性检测工具-Modernizr"><a href="#使用HTML特性检测工具-Modernizr" class="headerlink" title="使用HTML特性检测工具(Modernizr)"></a>使用HTML特性检测工具(Modernizr)</h4><h5 id="检测浏览器对HTML5元素的支持情况"><a href="#检测浏览器对HTML5元素的支持情况" class="headerlink" title="检测浏览器对HTML5元素的支持情况"></a>检测浏览器对HTML5元素的支持情况</h5><p><a href="http://caniuse.com/" target="_blank" rel="noopener">Can I use</a></p>
-<h5 id="检测浏览器对HTML5的支持情况"><a href="#检测浏览器对HTML5的支持情况" class="headerlink" title="检测浏览器对HTML5的支持情况"></a>检测浏览器对HTML5的支持情况</h5><p><a href="http://html5test.com/" target="_blank" rel="noopener">HTML5TEST</a></p>
-<h5 id="检查HTML5内容是否完全符合规范"><a href="#检查HTML5内容是否完全符合规范" class="headerlink" title="检查HTML5内容是否完全符合规范"></a>检查HTML5内容是否完全符合规范</h5><p><a href="http://validator.w3.org/" target="_blank" rel="noopener">The W3C Markup Validation Service</a></p>
-<h3 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h3><p>开发工具这就很多了，对于前端学习小白当然是用Dreamweaver甚好，当然WebStorm、VSCode、VS2019(微软的东西，值得一试)等开发工具也可以尝试</p>
-<h3 id="帮助文档"><a href="#帮助文档" class="headerlink" title="帮助文档"></a>帮助文档</h3><p><a href="http://www.w3school.com.cn/" target="_blank" rel="noopener">W3C</a><br><a href="http://developer.mozilla.org/" target="_blank" rel="noopener">Mozilla</a></p>
-<h2 id="HTML5的变化"><a href="#HTML5的变化" class="headerlink" title="HTML5的变化"></a>HTML5的变化</h2><h3 id="标记的改进"><a href="#标记的改进" class="headerlink" title="标记的改进"></a>标记的改进</h3><h4 id="DOCTYPE声明"><a href="#DOCTYPE声明" class="headerlink" title="DOCTYPE声明"></a>DOCTYPE声明</h4><p><code>&lt;!DOCTYPE html&gt;</code></p>
-<h4 id="指定字符编码"><a href="#指定字符编码" class="headerlink" title="指定字符编码"></a>指定字符编码</h4><p><code>&lt;meta charset=utf-8&gt;</code></p>
-<h4 id="标签不需要区分大小写"><a href="#标签不需要区分大小写" class="headerlink" title="标签不需要区分大小写"></a>标签不需要区分大小写</h4><h4 id="可以省略的标签"><a href="#可以省略的标签" class="headerlink" title="可以省略的标签"></a>可以省略的标签</h4><h5 id="不允许写结束标签"><a href="#不允许写结束标签" class="headerlink" title="不允许写结束标签"></a>不允许写结束标签</h5><p>area、base、br、col、hr、img、input、meta、link、param、embed、keygen、track、source等</p>
-<h5 id="可以省略的结束标签"><a href="#可以省略的结束标签" class="headerlink" title="可以省略的结束标签"></a>可以省略的结束标签</h5><p>dt、dd、li、p、rt、rp、option、optiongroup、colgroup、thread、tbody、tfoot、tr、td、th等</p>
-<h5 id="开始标签和结束标签均可省略"><a href="#开始标签和结束标签均可省略" class="headerlink" title="开始标签和结束标签均可省略"></a>开始标签和结束标签均可省略</h5><p>html、head、body、tbody、thead、colgroup等</p>
-<h4 id="Boolean属性设置"><a href="#Boolean属性设置" class="headerlink" title="Boolean属性设置"></a>Boolean属性设置</h4><p>checked、selected、multiple、readonly、和disable等</p>
-<h5 id="当只写属性而不指定属性值时，表示属性值为true"><a href="#当只写属性而不指定属性值时，表示属性值为true" class="headerlink" title="当只写属性而不指定属性值时，表示属性值为true"></a>当只写属性而不指定属性值时，表示属性值为true</h5><h5 id="如果想要将属性值设为false，可以不使用该属性"><a href="#如果想要将属性值设为false，可以不使用该属性" class="headerlink" title="如果想要将属性值设为false，可以不使用该属性"></a>如果想要将属性值设为false，可以不使用该属性</h5><h5 id="若属性值为true时，也可以将属性名设定为属性值，或空字符串"><a href="#若属性值为true时，也可以将属性名设定为属性值，或空字符串" class="headerlink" title="若属性值为true时，也可以将属性名设定为属性值，或空字符串"></a>若属性值为true时，也可以将属性名设定为属性值，或空字符串</h5><h4 id="属性引号"><a href="#属性引号" class="headerlink" title="属性引号"></a>属性引号</h4><p>  当属性不包含一些特殊字符(空字符串、&lt;、&gt;、=、单引号、双引号)，引号可以省略。示例：<meta charset="utf-8"></p>
-<h4 id="废弃的元素"><a href="#废弃的元素" class="headerlink" title="废弃的元素"></a>废弃的元素</h4><h5 id="使用CSS替换的元素"><a href="#使用CSS替换的元素" class="headerlink" title="使用CSS替换的元素"></a>使用CSS替换的元素</h5><p>basefont、big、center、font、strike、s、tt、u等</p>
-<h5 id="停用frame框架"><a href="#停用frame框架" class="headerlink" title="停用frame框架"></a>停用frame框架</h5><p>frame主要对页面进行分割，但由于frame不便于搜索引擎的抓取和优化，故不再支持</p>
-<h5 id="只有部分浏览器支持的元素"><a href="#只有部分浏览器支持的元素" class="headerlink" title="只有部分浏览器支持的元素"></a>只有部分浏览器支持的元素</h5><p>bgsound、marquee、applet等</p>
-<h4 id="新增的元素（功能都很强大）"><a href="#新增的元素（功能都很强大）" class="headerlink" title="新增的元素（功能都很强大）"></a>新增的元素（<em>功能都很强大</em>）</h4><h5 id="结构元素"><a href="#结构元素" class="headerlink" title="结构元素"></a>结构元素</h5><p>section、article、aside等</p>
-<h5 id="多媒体元素"><a href="#多媒体元素" class="headerlink" title="多媒体元素"></a>多媒体元素</h5><p>video、audio、embed等</p>
-<h5 id="表单标签"><a href="#表单标签" class="headerlink" title="表单标签"></a>表单标签</h5><p>input</p>
-<h5 id="扩展HTML功能的元素"><a href="#扩展HTML功能的元素" class="headerlink" title="扩展HTML功能的元素"></a>扩展HTML功能的元素</h5><p>canvas等</p>
-<h4 id="全局属性"><a href="#全局属性" class="headerlink" title="全局属性"></a>全局属性</h4><p>1)contenteditable属性<br>2)contextmenu属性<br>3)data-*属性<br>4)spellcheck属性<br>5)draggable属性<br>6)hidden属性</p>
-<h2 id="HTML5文档结构"><a href="#HTML5文档结构" class="headerlink" title="HTML5文档结构"></a>HTML5文档结构</h2><p><strong>HTML文档中元素：从开始标记到结束标记的所有代码</strong><br><strong>元素的内容：开始标记与结束标记之间的内容</strong><br><strong>元素属性：用来说明元素的特征，每个属性总是对应一个属性值，称为”属性/值”</strong></p>
-<h3 id="head标签"><a href="#head标签" class="headerlink" title="head标签"></a>head标签</h3><p>文档头部信息，标签内容包含字符编码设置、标题、关键字与网页描述等</p>
-<h3 id="body标签"><a href="#body标签" class="headerlink" title="body标签"></a>body标签</h3><p>网页主体信息（我们上网所见所听所感信息都来源于body里）<br>其中<code>&lt;header&gt;&lt;/header&gt;、&lt;main&gt;&lt;/main&gt;、&lt;footer&gt;&lt;/footer&gt;</code>等新增标签语义清晰，利于SEO，利于盲人阅读，无法用这些新增标签表达的结构还是用<div></p>
-<h4 id="lt-header-gt-lt-header-gt-标签"><a href="#lt-header-gt-lt-header-gt-标签" class="headerlink" title="&lt;header&gt;&lt;/header&gt;标签"></a><code>&lt;header&gt;&lt;/header&gt;</code>标签</h4><p>可以是整个页面或者页面区域的一个头部信息（标题）<br>可以包含：logo、标题、搜索、导航、通知、帐号等<br>至少包含一个标题(h1~h6)，还可以包含hgroup、nav等<br><em>注意：跟 <code>&lt;head&gt;&lt;/head&gt;</code> 标签的区别</em></p>
-<h4 id="lt-main-gt-lt-main-gt-标签"><a href="#lt-main-gt-lt-main-gt-标签" class="headerlink" title="&lt;main&gt;&lt;/main&gt;标签"></a><code>&lt;main&gt;&lt;/main&gt;</code>标签</h4><p>页面中的主体部分。不能包含公共导航、logo、版权信息等公共内容<br><em>注意：一个页面只能有一个main标签。<code>&lt;main&gt;</code>元素不能是以下元素的后代：<code>&lt;article&gt;、&lt;aside&gt;、&lt;footer&gt;、&lt;header&gt;或&lt;nav&gt;</code></em></p>
-<h4 id="lt-footer-gt-lt-footer-gt-标签"><a href="#lt-footer-gt-lt-footer-gt-标签" class="headerlink" title="&lt;footer&gt;&lt;/footer&gt;标签"></a><code>&lt;footer&gt;&lt;/footer&gt;</code>标签</h4><p>页面或页面某个板块的底部部分<br>通常包含文档的作者、版权信息、使用条款链接、联系信息等等<br><em>可以在一个文档中使用多个 <code>&lt;footer&gt;</code>元素</em></p>
-<h4 id="lt-nav-gt-lt-nav-gt-标签"><a href="#lt-nav-gt-lt-nav-gt-标签" class="headerlink" title="&lt;nav&gt;&lt;/nav&gt;标签"></a><code>&lt;nav&gt;&lt;/nav&gt;</code>标签</h4><p>导航(navigation)的简写<br>专门用来包裹导航的内容。包括顶部导航、底部导航、侧边栏导航、翻页导航等</p>
-<h4 id="lt-article-gt-lt-article-gt-标签"><a href="#lt-article-gt-lt-article-gt-标签" class="headerlink" title="&lt;article&gt;&lt;/article&gt;标签"></a><code>&lt;article&gt;&lt;/article&gt;</code>标签</h4><p>文档、页面或者是应用程序当中的独立完整可以被外部引用的内容<br>它可以是一篇文章、一篇帖子、一段评论或者是独立的插件形式出现<br><em><code>&lt;article&gt;&lt;article&gt;</code>里面也可以使用 <code>&lt;header&gt;、&lt;footer&gt;以及&lt;article&gt;</code>标签</em></p>
-<h4 id="lt-section-gt-lt-section-gt-标签"><a href="#lt-section-gt-lt-section-gt-标签" class="headerlink" title="&lt;section&gt;&lt;/section&gt;标签"></a><code>&lt;section&gt;&lt;/section&gt;</code>标签</h4><p>定义了文档的某个区域。比如章节、头部、底部或者文档的其他区域（即整体中的某部分）<br><em><code>&lt;section&gt;&lt;/section&gt;</code>里也可以有 <code>&lt;article&gt;&lt;/article&gt;</code>标签</em></p>
-<h4 id="lt-aside-gt-lt-aside-gt-标签"><a href="#lt-aside-gt-lt-aside-gt-标签" class="headerlink" title="&lt;aside&gt;&lt;/aside&gt;标签"></a><code>&lt;aside&gt;&lt;/aside&gt;</code>标签</h4><p>定义<code>&lt;article&gt;</code>标签外的内容。广告，侧边栏等</p>
-<h4 id="lt-hgroup-gt-lt-hgroup-gt-标题组"><a href="#lt-hgroup-gt-lt-hgroup-gt-标题组" class="headerlink" title="&lt;hgroup&gt;&lt;/hgroup&gt;标题组"></a><code>&lt;hgroup&gt;&lt;/hgroup&gt;</code>标题组</h4><p>对网页或区段(section)的标题进行组合。一个区域中包括了主标题和至少一个子标题的时候才用<br><em>注意：单独一个标题的时候，不用 <code>&lt;hgroup&gt;&lt;/hgroup&gt;</code></em></p>
-<h4 id="lt-time-gt-lt-time-gt-时间"><a href="#lt-time-gt-lt-time-gt-时间" class="headerlink" title="&lt;time&gt;&lt;/time&gt;时间"></a><code>&lt;time&gt;&lt;/time&gt;</code>时间</h4><p>主要是使页面语义描述更清晰，便于网络搜索引擎更好的理解网页页面<br>time可以为内容添加如发布时间，事件发生时间等信息。<br>拥有datetime和pubdate两个属性</p>
-<h4 id="lt-address-gt-lt-address-gt-联系信息"><a href="#lt-address-gt-lt-address-gt-联系信息" class="headerlink" title="&lt;address&gt;&lt;/address&gt;联系信息"></a><code>&lt;address&gt;&lt;/address&gt;</code>联系信息</h4><p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;address&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li&gt;网站：http:&#x2F;&#x2F;www.w3school.com.cn&#x2F;&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;GitHub:XXXXXXXX&lt;&#x2F;li&gt;</span><br><span class="line">	&lt;li&gt;E-mail:xxxxxxx@qq.com&lt;&#x2F;li&gt;</span><br><span class="line">  &lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;address&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="mysql备份与恢复命令-即导入和导出"><a href="#mysql备份与恢复命令-即导入和导出" class="headerlink" title="mysql备份与恢复命令(即导入和导出)"></a>mysql备份与恢复命令(即导入和导出)</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysqldump -uroot -proot mydb&gt;d:&#x2F;yzw.sql&#x2F;&#x2F;备份</span><br><span class="line">mysql -uroot -proot mydb&lt;d:&#x2F;yzw.sql&#x2F;&#x2F;恢复</span><br><span class="line">source d:&#x2F;yzw.sql&#x2F;&#x2F;在当前数据库恢复</span><br></pre></td></tr></table></figure>
 
-<h4 id="其他元素"><a href="#其他元素" class="headerlink" title="其他元素"></a>其他元素</h4><h5 id="bdi-双向隔离，将指定文本脱离父元素的文本方向"><a href="#bdi-双向隔离，将指定文本脱离父元素的文本方向" class="headerlink" title="bdi:双向隔离，将指定文本脱离父元素的文本方向"></a>bdi:双向隔离，将指定文本脱离父元素的文本方向</h5><h5 id="details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性"><a href="#details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性" class="headerlink" title="details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性"></a>details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性</h5><h5 id="figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分"><a href="#figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分" class="headerlink" title="figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分"></a>figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分</h5><h5 id="ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容"><a href="#ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容" class="headerlink" title="ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容"></a>ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容</h5><h5 id="progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量"><a href="#progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量" class="headerlink" title="progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量"></a>progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量</h5><h5 id="dialog：定义一个对话框，只有open属性"><a href="#dialog：定义一个对话框，只有open属性" class="headerlink" title="dialog：定义一个对话框，只有open属性"></a>dialog：定义一个对话框，只有open属性</h5><h5 id="mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行"><a href="#mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行" class="headerlink" title="mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行"></a>mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行</h5>]]></content>
+<h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h3><h4 id="主键约束-唯一标识"><a href="#主键约束-唯一标识" class="headerlink" title="主键约束(唯一标识)"></a>主键约束(唯一标识)</h4><p><strong>主键特点：非空、唯一、被引用(外键体现这一点)</strong><br>当表的某一列被指定为主键后，该列就不能为空，不能出现重复值</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;当创建表时指定主键的两种方式</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid		CHAR(6) PRIMARY KEY,</span><br><span class="line">	sname   VARCHAR(20),</span><br><span class="line">	sage    INT</span><br><span class="line">&#125;;</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid		CHAR(6),</span><br><span class="line">	sname   VARCHAR(20),</span><br><span class="line">	sage    INT,</span><br><span class="line">	PRIMARY KEY(sid)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;修改表时指定主键</span><br><span class="line">ALTER TABLE stu ADD PRIMARY KEY(sid);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;删除主键</span><br><span class="line">ALTER TABLE stu DROP PRIMARY KEY;</span><br></pre></td></tr></table></figure>
+
+<h4 id="主键自增长"><a href="#主键自增长" class="headerlink" title="主键自增长"></a>主键自增长</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;创建表时指定主键自增长</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid     INT PRIMARY KEY AUTO_INCREMENT,&#x2F;&#x2F;自增长，数据类型必须是int</span><br><span class="line">	sname   VARCHAR(20),</span><br><span class="line">	age     INT</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;sname设置非空约束</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid     INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	sname   VARCHAR(20) NOT NULL,</span><br><span class="line">	age     INT</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;sname设置唯一约束</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid     INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	sname   VARCHAR(20) UNIQUE,</span><br><span class="line">	age     INT</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="外键约束"><a href="#外键约束" class="headerlink" title="外键约束"></a>外键约束</h4><p><strong>外键必须引用主键，外键可以重复且可以为空，一张表中可以有多个外键</strong><br>对象模型：可以双向关联，而且引用的是对象，而不是一个主键<br>关系模型：只能多方引用一方，而且引用的只是主键，而不是一整行记录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE dept&#123;</span><br><span class="line">	id		INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	dname 	VARCHAR(20)</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;设置外键两种方式</span><br><span class="line">&#x2F;&#x2F;创建表时设置外键</span><br><span class="line">CREATE TABLE emp&#123;</span><br><span class="line">	empno   INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	ename   VARCHAR(50),</span><br><span class="line">	dno		INT,</span><br><span class="line">	CONSTRAINT fk_emp_dept FOREIGN KEY(dno) REFERENCES dept(id)</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;修改表设置外键</span><br><span class="line">ALTER TABLE emp ADD CONSTRAINT fk_emp_dept FOREIGN KEY(dno) REFERENCES dept(id)</span><br></pre></td></tr></table></figure>
+
+<h3 id="三种关联关系"><a href="#三种关联关系" class="headerlink" title="三种关联关系"></a>三种关联关系</h3><h4 id="一对一"><a href="#一对一" class="headerlink" title="一对一"></a>一对一</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE hasband&#123;</span><br><span class="line">	hid 	INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	hname 	VARCHAR(25)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">CREATE TABLE wife&#123;</span><br><span class="line">	wid 	INT PRIMARY KEY AUTO_INCREMENT,&#x2F;&#x2F;wid即作主键又作外键，非空，唯一，引用hid</span><br><span class="line">	wname 	VARCHAR(25),</span><br><span class="line">	hid		INT,</span><br><span class="line">	CONSTRAINT fk_wife_hasband FOREIGN KEY(wid) REFERENCES hasband(hid)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="一对多"><a href="#一对多" class="headerlink" title="一对多"></a>一对多</h4><p>上面写外键约束用过，略</p>
+<h4 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE student&#123;</span><br><span class="line">	sid 	INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	sname 	VARCHAR(25),</span><br><span class="line">&#125;;</span><br><span class="line">CREATE TABLE teacher&#123;</span><br><span class="line">	tid 	INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	tname 	VARCHAR(25),</span><br><span class="line">&#125;;</span><br><span class="line">CREATE TABLE stu_tea&#123;</span><br><span class="line">	sid		INT,</span><br><span class="line">	tid		INT,</span><br><span class="line">	CONSTRAINT fk_sutdent FOREIGN KEY(sid) REFERENCES subject(sid),</span><br><span class="line">	CONSTRAINT fk_teacher FOREIGN KEY(tid) REFERENCES teacher(tid)</span><br><span class="line">&#125;;</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;刘德华&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;张学友&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;郭富城&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;黎明&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;梁朝伟&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;梁家辉&quot;);</span><br><span class="line"></span><br><span class="line">INSERT INTO teacher VALUES(NULL,&quot;崔老师&quot;);</span><br><span class="line">INSERT INTO teacher VALUES(NULL,&quot;史老师&quot;);</span><br><span class="line">INSERT INTO teacher VALUES(NULL,&quot;王老师&quot;);</span><br><span class="line"></span><br><span class="line">INSERT INTO stu_tea VALUES(1,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(2,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(3,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(4,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(5,1);</span><br><span class="line"></span><br><span class="line">INSERT INTO stu_tea VALUES(1,2);</span><br><span class="line">INSERT INTO stu_tea VALUES(2,2);</span><br><span class="line">INSERT INTO stu_tea VALUES(3,2);</span><br><span class="line"></span><br><span class="line">INSERT INTO stu_tea VALUES(3,3);</span><br><span class="line">INSERT INTO stu_tea VALUES(4,3);</span><br><span class="line">INSERT INTO stu_tea VALUES(6,3);</span><br></pre></td></tr></table></figure>
+
+<h3 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h3><h4 id="合并结果集-合并两张表格"><a href="#合并结果集-合并两张表格" class="headerlink" title="合并结果集(合并两张表格)"></a>合并结果集(合并两张表格)</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE ab&#123;a INT,b VARCHAR(11)&#125;;</span><br><span class="line">INSERT INTO ab VALUES(1,&quot;1&quot;);</span><br><span class="line">INSERT INTO ab VALUES(2,&quot;2&quot;);</span><br><span class="line">INSERT INTO ab VALUES(3,&quot;3&quot;);</span><br><span class="line"></span><br><span class="line">CREATE TABLE ab2&#123;c INT,d VARCHAR(11)&#125;;</span><br><span class="line">INSERT INTO ab2 VALUES(3,&quot;3&quot;);</span><br><span class="line">INSERT INTO ab2 VALUES(4,&quot;4&quot;);</span><br><span class="line">INSERT INTO ab2 VALUES(5,&quot;5&quot;);</span><br><span class="line"></span><br><span class="line">SELECT * FROM ab </span><br><span class="line">UNION ALL 		  &#x2F;&#x2F;ALL去掉的话，完全相同的行将保留1个</span><br><span class="line">SELECT * FROM ab2;&#x2F;&#x2F;要求两张表结果集完全相同（即要查询的列类型相同）</span><br></pre></td></tr></table></figure>
+
+<h4 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h4><h5 id="连接查询之内连接"><a href="#连接查询之内连接" class="headerlink" title="连接查询之内连接"></a>连接查询之内连接</h5><p>方言：<code>SELECT * FROM 表1 别名1,表2 别名2 WHERE 别名1.xx=别名2.xx</code><br>标准：<code>SELECT * FROM 表1 别名1 INNER JOIN 表2 别名2 ON 别名1.xx=别名2.xx</code><br>自然：<code>SELECT * FROM 表1 别名1 NATURAL JOIN 表2 别名2</code></p>
+<h5 id="连接查询之外连接"><a href="#连接查询之外连接" class="headerlink" title="连接查询之外连接"></a>连接查询之外连接</h5><p>左外连接：外连接一主一次，左外部左表为主，主表所有记录无论满足条件与否，都打印出来，不满足字段内容为null</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM 表1 别名1 LEFT OUTER JOIN 表2 别名2 ON 别名1.xx&#x3D;别名2.xx</span><br><span class="line">&#x2F;&#x2F;示例：</span><br><span class="line">SELECT e.ename,e.sal,IFNULL(d.dname,&quot;无内容&quot;) AS dname</span><br><span class="line">FROM emp e LEFT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br></pre></td></tr></table></figure>
+
+<p>右外连接：与左连接理解类似</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM 表1 别名1 RIGHT OUTER JOIN 表2 别名2 ON 别名1.xx&#x3D;别名2.xx</span><br><span class="line">&#x2F;&#x2F;示例：</span><br><span class="line">SELECT e.ename,e.sal,d.dname</span><br><span class="line">FROM emp e RIGHT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br></pre></td></tr></table></figure>
+
+<p>全外连接：<code>SELECT * FROM 表1 别名1 FULL OUTER JOIN 表2 别名2 ON 别名1.xx=别名2.xx</code><em>mysql不支持</em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">解决方式：</span><br><span class="line">SELECT e.ename,e.sal,IFNULL(d.dname,&quot;无内容&quot;) AS dname</span><br><span class="line">FROM emp e LEFT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br><span class="line">UNION &#x2F;&#x2F;去除结果集实现全连接 </span><br><span class="line">SELECT e.ename,e.sal,d.dname</span><br><span class="line">FROM emp e RIGHT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br></pre></td></tr></table></figure>
+
+<h4 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h4><p>子查询就是查询中有查询（即出现多个select关键字）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;示例1：</span><br><span class="line">SELECT * FROM emp WHERE sal&#x3D;(SELECT MAX(sal) FROM emp);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例2：</span><br><span class="line">SELECT e.empno,e.ename </span><br><span class="line">FROM (SELECT * FROM emp WHERE deptno&#x3D;30) e</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例3：</span><br><span class="line">SELECT * FROM emp WHERE sal &gt; ALL (SELECT sal FROM emp WHERE deptno&#x3D;30)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例4：</span><br><span class="line">SELECT * FROM emp WHERE sal &gt; ANY (SELECT sal FROM emp WHERE deptno&#x3D;20)</span><br></pre></td></tr></table></figure>
+
+<p>总结：<br>1.单行单列：<code>SELECT * FROM 表1 别名1 WHERE 列1 [=、&gt;、&lt;、&lt;=、&gt;=、!=] (SELECT 列 FROM 表2 别名2 WHERE 条件)</code><br>2.多行单列：<code>SELECT * FROM 表1 别名1 WHERE 列1 [IN、ALL、ANY] (SELECT 列 FROM 表2 别名2 WHERE 条件)</code><br>3.单行多列：<code>SELECT * FROM 表1 别名1 WHERE (列1,列2) IN (SELECT 列1 列2 FROM 表2 别名2 WHERE 条件)</code><br>4.多行多列；<code>SELECT * FROM 表1 别名1 , (SELECT ...) 别名2 WHERE 条件</code></p>
+]]></content>
       <categories>
-        <category>前端</category>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>SQL</tag>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVN版本控制</title>
+    <url>/2020/03/18/SVN%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</url>
+    <content><![CDATA[<h2 id="SVN版本控制"><a href="#SVN版本控制" class="headerlink" title="SVN版本控制"></a>SVN版本控制</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><strong>SVN是subversion的缩写，是一个开放源代码的版本控制系统（CMS），通过采用分支管理系统的高效管理，简而言之就是用于多个人共同开发同一个项目，实现共享资源，实现最终集中式的管理，它是最初版本控制工具CVS的升级版</strong></p>
+<a id="more"></a>
+
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p><strong>由于实际项目开发是多人进行开发，就会出现项目代码提交的冲突，这时候使用项目版本控制工具可以有效地解决冲突以及代码的管理</strong></p>
+<h3 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h3><p><strong>在SVN中所保存的代码只能被本地进行管理，这一局限性也导致Linux之父林纳斯·托瓦兹开发了其替代产品Git。而且SVN使用了客户端服务器模式，也是说如果使用SVN一定要搭建服务其，还要单独配置客户端，也就是说，SVN如果脱离了网络，那么将无法进行版本控制</strong></p>
+<h3 id="SVN服务器的搭建"><a href="#SVN服务器的搭建" class="headerlink" title="SVN服务器的搭建"></a>SVN服务器的搭建</h3><p><em>注意：如果想要用自己电脑搭建SVN服务器一定要关闭防火墙，有360的需要卸载，否则可能出现连接不上</em><br><strong>满足上述要求以后，下载SVN服务器端软件自行选择，有apache的<a href="http://subversion.apache.org/packages.html" target="_blank" rel="noopener">subversion</a>,还有<a href="https://www.visualsvn.com/" target="_blank" rel="noopener">VisualSVN</a>等，这里提到的前一个配置相对麻烦，而VisualSVN适合新手，傻瓜式安装，具体安装不详细说明，网上有很多安装步骤详细讲解</strong></p>
+<h3 id="SVN客户端的配置"><a href="#SVN客户端的配置" class="headerlink" title="SVN客户端的配置"></a>SVN客户端的配置</h3><p><strong>至于客户端，则是<a href="https://tortoisesvn.net/" target="_blank" rel="noopener">TortoiseSVN</a>,页面进去是最新版客户端SVN，想要老版本下面文章有进入链接，至于对自己英语水平不自信的，比如我，最好还是下一语言包，安装也很简单不再赘述</strong></p>
+<h3 id="项目的发布与检出"><a href="#项目的发布与检出" class="headerlink" title="项目的发布与检出"></a>项目的发布与检出</h3><p><strong>喜欢用命令的用命令，当然下载了TortoiseSVN用命令感觉多此一举，因为我们是服务器与客户端都在自己本机，首先应当是确定自己的服务端是否启动，这很关键，在就是搭建自己的版本库，因为都是可视化界面，什么创建项目，创建组，创建用户啊都很容易，然后就是自己客户端操作，实现项目检入与检出，这里提醒一下汉化后其实导出就是检出，但检入和检出与导入和导出是不同概念。检入字面意思理解就是让你本地项目交给服务端管理，接受版本控制。而导入则不然，相当于复制入服务端，但不受其控制，就是两者没内在联系。导出和检出同理</strong></p>
+<h3 id="解决冲突问题"><a href="#解决冲突问题" class="headerlink" title="解决冲突问题"></a>解决冲突问题</h3><p><strong>项目提交难免会发生冲突，SVN提供了很好解决方案，当你与另一人提交的同一文件发生冲突，会提醒你，然后你打开文件，会查看到你修改的与另一个人的代码同时存在，这时需要你自己判断两者都要保留，然后合并。还是删除其一的修改，这就是你自己的判断了。因为本人比较懒不想截图，所以全篇没有图片参考，字面意思自认为该讲的都讲了。当然SVN插件在eclipse、IntelliJ IDEA等工具的使用自行体会网上教程很多。</strong></p>
+]]></content>
+      <categories>
+        <category>开发工具</category>
+      </categories>
+      <tags>
+        <tag>SVN</tag>
+        <tag>版本控制</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>dynasties</title>
+    <url>/2020/04/01/dynasties/</url>
+    <content><![CDATA[<a id="more"></a>
+<p><img src="http://img.xixik.net/cimg/083/xixik_c53006a681fc4200.jpeg" alt="尧舜禹→夏" title="尧舜禹→夏"><br><img src="http://img.xixik.net/cimg/083/xixik_87512603bf7f461e.jpeg" alt="商" title="商"><br><img src="http://img.xixik.net/cimg/083/xixik_a1523ca6228beae4.jpeg" alt="周" title="周"><br><img src="http://img.xixik.net/cimg/083/xixik_87c9e06af0d51132.jpeg" alt="秦" title="秦"><br><img src="http://img.xixik.net/cimg/083/xixik_01848d23bc3c0496.jpeg" alt="汉" title="汉"><br><img src="http://img.xixik.net/cimg/083/xixik_2a93308ddfd78f78.jpeg" alt="魏" title="魏"><br><img src="http://img.xixik.net/cimg/083/xixik_34ae3a4f7693d9ea.jpeg" alt="蜀" title="蜀"><br><img src="http://img.xixik.net/cimg/083/xixik_bafe42d5cde82df4.jpeg" alt="吴" title="吴"><br><img src="http://img.xixik.net/cimg/083/xixik_20b47e2887f23ecf.jpeg" alt="晋" title="晋"><br><img src="http://img.xixik.net/cimg/083/xixik_57f8d17ebfdb1a85.jpeg" alt="隋" title="隋"><br><img src="http://img.xixik.net/cimg/083/xixik_04c8ec9fff83c2f9.jpeg" alt="唐" title="唐"><br><img src="http://img.xixik.net/cimg/083/xixik_6bc06e9bb6ef708c.jpeg" alt="辽" title="辽"><br><img src="http://img.xixik.net/cimg/083/xixik_6e40141c5eb849ea.jpeg" alt="宋" title="宋"><br><img src="http://img.xixik.net/cimg/083/xixik_74a385004d03fc0a.jpeg" alt="西夏" title="西夏"><br><img src="http://img.xixik.net/cimg/083/xixik_d209b6d3983aaf85.jpeg" alt="金" title="金"><br><img src="http://img.xixik.net/cimg/083/xixik_1f2382bcdab86fe9.jpeg" alt="元" title="元"><br><img src="http://img.xixik.net/cimg/083/xixik_a160592906ace6ec.jpeg" alt="明" title="明"><br><img src="http://img.xixik.net/cimg/083/xixik_633a17f15265a0ef.jpeg" alt="清" title="清"><br><em><strong>注意：转载自嘻嘻网图片，切勿商用</strong></em></p>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>历史</tag>
+        <tag>纯图片</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>dom4j</title>
+    <url>/2020/04/21/dom4j/</url>
+    <content><![CDATA[<h3 id="dom4j"><a href="#dom4j" class="headerlink" title="dom4j"></a>dom4j</h3><p><strong>dom4j组织提供了针对xml解析的解析器dom4j,其是由jdom组织分裂出来后出现的,其优于jdom。dom4j不是javase的一部分</strong></p>
+<a id="more"></a>
+
+<h4 id="dom4j使用"><a href="#dom4j使用" class="headerlink" title="dom4j使用"></a>dom4j使用</h4><p><em>使用前需要在项目中导入dom4j的jar包</em><br>xml文件如下:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1 id1&#x3D;&quot;01&quot;&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现查询xml中元素操作"><a href="#dom4j实现查询xml中元素操作" class="headerlink" title="dom4j实现查询xml中元素操作"></a>dom4j实现查询xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查询所有name元素里的值</span><br><span class="line">	public static void selectName() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到p1</span><br><span class="line">		List&lt;Element&gt; list &#x3D; root.elements(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.遍历List</span><br><span class="line">		for(Element temp:list)&#123;</span><br><span class="line">			&#x2F;&#x2F;这里temp得到每一个p1元素</span><br><span class="line">			Element name1 &#x3D; temp.element(&quot;name&quot;);&#x2F;&#x2F;得到p1下面的name元素</span><br><span class="line">			&#x2F;&#x2F;得到name里面的值</span><br><span class="line">			String s &#x3D; name1.getText();</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;查询第一个name元素的值</span><br><span class="line">	public static void selectSin() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到p1下第一个name</span><br><span class="line">		Element name1 &#x3D; p1.element(&quot;name&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.得到name的值</span><br><span class="line">		String s1 &#x3D; name1.getText();</span><br><span class="line">		System.out.println(s1);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#x2F;&#x2F;查询第二个name元素的值	</span><br><span class="line">	public static void selectSecond() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到所有p1</span><br><span class="line">		List&lt;Element&gt; list &#x3D; root.elements(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到第二个p1</span><br><span class="line">		Element p2 &#x3D; list.get(1);</span><br><span class="line">		&#x2F;&#x2F;6.得到p1下面name</span><br><span class="line">		Element name2 &#x3D; p2.element(&quot;name&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.得到name的值</span><br><span class="line">		String s2 &#x3D; name2.getText();</span><br><span class="line">		System.out.println(s2);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现添加xml中元素操作"><a href="#dom4j实现添加xml中元素操作" class="headerlink" title="dom4j实现添加xml中元素操作"></a>dom4j实现添加xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;在第一个p1标签末尾添加一个sex标签</span><br><span class="line">	public static addSex() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.获取第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.p1下面添加sex元素</span><br><span class="line">		Element sex1 &#x3D; p1.addElement(&quot;sex&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.在sex里添加内容</span><br><span class="line">		sex1.setText(&quot;男&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="在特定位置实现元素添加"><a href="#在特定位置实现元素添加" class="headerlink" title="在特定位置实现元素添加"></a>在特定位置实现元素添加</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;在第一个p1标签中age标签前添加一个&lt;school&gt;cqgcxy.edu.cn&lt;&#x2F;school&gt;</span><br><span class="line">	public static void addAgeBefore() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();		</span><br><span class="line">		&#x2F;&#x2F;4.获取第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.获取p1下面的所有元素</span><br><span class="line">		List&lt;Element&gt; list &#x3D; p1.elements();</span><br><span class="line">		&#x2F;&#x2F;6.创建要添加元素</span><br><span class="line">		Element school &#x3D; DocumentHelper.createElement(&quot;school&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.给标签添加内容</span><br><span class="line">		school.setText(&quot;eqgcxy.edu.cn&quot;);</span><br><span class="line">		&#x2F;&#x2F;8.在特定位置添加元素</span><br><span class="line">		list.add(1,school);</span><br><span class="line">		&#x2F;&#x2F;9.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现修改xml中元素操作"><a href="#dom4j实现修改xml中元素操作" class="headerlink" title="dom4j实现修改xml中元素操作"></a>dom4j实现修改xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;修改第一个p1中age元素内容</span><br><span class="line">	public static void fixAge() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();	</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到age</span><br><span class="line">		Element age &#x3D; p1.element(&quot;age&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.修改age的值</span><br><span class="line">		age.setText(&quot;250&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现删除xml中元素操作"><a href="#dom4j实现删除xml中元素操作" class="headerlink" title="dom4j实现删除xml中元素操作"></a>dom4j实现删除xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;删除第一个p1下school节点</span><br><span class="line">	public static void deleteSchool() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;*使用工具类替换1、2步</span><br><span class="line">		Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);*&#x2F;</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();	</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到school</span><br><span class="line">		Element school &#x3D; p1.element(&quot;school&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.删除school(通过父节点实现删除)</span><br><span class="line">		p1.remove(school);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">		&#x2F;*使用工具类替换回写操作</span><br><span class="line">		Dom4jUtils.xmlWriter(PATH,document)*&#x2F;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现获取xml中元素属性值操作"><a href="#dom4j实现获取xml中元素属性值操作" class="headerlink" title="dom4j实现获取xml中元素属性值操作"></a>dom4j实现获取xml中元素属性值操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取第一个p1属性id1的值</span><br><span class="line">	public static void getValue() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.获取p1的属性id1值</span><br><span class="line">		String value &#x3D; p1.attributeValue(&quot;id1&quot;);</span><br><span class="line">		System.out.println(value);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j工具类"><a href="#dom4j工具类" class="headerlink" title="dom4j工具类"></a>dom4j工具类</h5><p><strong>由于什么的CRUD代码中存在大量重复使用的代码，因此我们可以建立一个工具类来封装这些重复代码，实现调用工具类，来减少代码冗余</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Dom4jUtils&#123;</span><br><span class="line">	public state final String PATH &#x3D; &quot;src&#x2F;person.xml&quot;;</span><br><span class="line">	&#x2F;&#x2F;返回document</span><br><span class="line">	public static Document getDocument(String path)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			&#x2F;&#x2F;1.创建解析器</span><br><span class="line">			SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">			&#x2F;&#x2F;2.得到document</span><br><span class="line">			Document document &#x3D; saxReader.read(path);</span><br><span class="line">			return document;</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		return null;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;回写xml</span><br><span class="line">	public static void xmlWriter(String path,Document document)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">			XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">			writer.write(document);</span><br><span class="line">			writer.close();</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="dom4j支持XPATH操作"><a href="#dom4j支持XPATH操作" class="headerlink" title="dom4j支持XPATH操作"></a>dom4j支持XPATH操作</h4><p><strong>可以直接获取某一个元素，不必按照一层一层解析的方式</strong></p>
+<h5 id="语法形式"><a href="#语法形式" class="headerlink" title="语法形式"></a>语法形式</h5><p>第一种形式：<code>/a/b/c</code>来表示a里面的b里面的c<br>第二种形式：<code>//A</code>表示选择所有A元素<br>第三种形式：<code>/AAA/CCC/DDD/*</code>表示/AAA/CCC/DDD/里面的所有元素<br>第四种形式：<code>/*/*/*/</code>DDD表示选择所有第四层所有DDD元素<br>第五种形式；<code>//*</code>所有元素<br>第六种形式：<code>/a/b[1]</code>选择a标签中第一个b标签，/a/b[last()]选择a标签中最后一个b标签<br>第七种形式：<code>//@id</code>表示选择所有id属性，//BBB[@id]表示选择所有含id属性的BBB元素<br>第八种形式；<code>//BBB[@id=&#39;b1&#39;]</code>选择含Id属性且值为b1的所有BBB标签,b1如果左右有空格将不会被选取*</p>
+<h5 id="如何在dom4j中使用XPATH"><a href="#如何在dom4j中使用XPATH" class="headerlink" title="如何在dom4j中使用XPATH"></a>如何在dom4j中使用XPATH</h5><p><strong>默认的情况下，dom4j不支持XPATH，如果想使用，需要引入XPATH的jar包，在文件中找到jaxen-1.1-beta-6.jar，将其复制进eclipse构建的项目中lib下，右击项目Build Path选择Add to Build Path</strong><br><strong>在dom4j中提供了两个方法支持XPATH,它们分别是：selectNodes(“XPATH表达式”)和selectSingleNode(“XPATH表达式”)，第一个方法获取多个节点，第二个则获取单一节点</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查询xml中所有name元素的值</span><br><span class="line">public static void getValue()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到所有name</span><br><span class="line">	List&lt;Node&gt; list&#x3D;document.selectNodes(&quot;&#x2F;&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.遍历集合</span><br><span class="line">	for(Node note:list)&#123;&#x2F;&#x2F;node是每一个name元素</span><br><span class="line">		&#x2F;&#x2F;获取name元素里面的值</span><br><span class="line">		String s &#x3D; node.getText();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取第一个p1下面name的值</span><br><span class="line">public static void getValue1()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到name元素</span><br><span class="line">	Node name1&#x3D;document.和selectSingleNode(&quot;&#x2F;&#x2F;p1[@id1&#x3D;&quot;01&quot;]&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.得到name里面内容</span><br><span class="line">	String s1 &#x3D; name1.getText();</span><br><span class="line">	System.out.println(s1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>JavaWeb</category>
       </categories>
       <tags>
         <tag>标记语言</tag>
-        <tag>HTML</tag>
+        <tag>XML</tag>
+        <tag>XML解析</tag>
       </tags>
   </entry>
   <entry>
@@ -354,145 +526,418 @@
         <category>JavaWeb</category>
       </categories>
       <tags>
-        <tag>XML</tag>
         <tag>标记语言</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ajax</title>
-    <url>/2020/04/25/Ajax/</url>
-    <content><![CDATA[<h3 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h3><p><strong>Ajax全称：Asynchronous Javascript And XML(异步 JS和XML)，它能使用JS实现异步访问服务器。众所周知，服务器给客户端传过去的是整个html完整页面，而Ajax局部刷新，服务器不再响应整个页面，只是传递数据，数据交换可以是txt、xml、json</strong></p>
-<a id="more"></a>
-
-<h4 id="异步交互与同步交互"><a href="#异步交互与同步交互" class="headerlink" title="异步交互与同步交互"></a>异步交互与同步交互</h4><blockquote>
-<p>同步：</p>
-<blockquote>
-<p>例如发送一个请求，需要等待伺服器响应结束，才能发送第二个请求，等待时间给用户的直观感受就是”卡”<br>刷新是刷新整个页面<br>异步：<br>例如同上发一个请求后，无需等待伺服器的响应，就能开始发送第二个请求<br>可以使用js结束伺服器的响应，然后使用js的局部刷新</p>
-</blockquote>
-</blockquote>
-<p><img src="/images/ajax_pic.png" alt="同步与异步" title="同步交互与异步交互"></p>
-<h4 id="Ajax优缺点"><a href="#Ajax优缺点" class="headerlink" title="Ajax优缺点"></a>Ajax优缺点</h4><blockquote>
-<p>优点：</p>
-<blockquote>
-<p>异步交互：增强用户体验<br>性能：因为伺服器无需重复加载整个页面，只需要响应部分内容，减轻伺服器压力<br>缺点；<br>场景：局限性，不是所有场景适用<br>无端增多了对伺服器的访问次数，给伺服器带来了压力</p>
-</blockquote>
-</blockquote>
-<h4 id="Ajax使用"><a href="#Ajax使用" class="headerlink" title="Ajax使用"></a>Ajax使用</h4><h5 id="Ajax发送异步请求"><a href="#Ajax发送异步请求" class="headerlink" title="Ajax发送异步请求"></a>Ajax发送异步请求</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;四步操作</span><br><span class="line">	&#x2F;&#x2F;第一步（得到XMLHttpRequest）</span><br><span class="line">	&#x2F;&#x2F;创建XMLHttpRequest对象函数</span><br><span class="line">	function createXMLHttpRequest()&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			return new XMLHttpRequest();&#x2F;&#x2F;大多数浏览器支持它创建XMLHttpRequest对象</span><br><span class="line">		&#125;catch(e)&#123;</span><br><span class="line">			try&#123;</span><br><span class="line">				return new ActiveXObject(&quot;Msxml2.XMLHTTP&quot;);&#x2F;&#x2F;IE6.0使用其创建XMLHttpRequest对象</span><br><span class="line">			&#125;catch(e)&#123;</span><br><span class="line">				try&#123;</span><br><span class="line">					return new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);&#x2F;&#x2F;IE5.5及更早版本使用其创建XMLHttpRequest对象</span><br><span class="line">				&#125;catch(e)&#123;</span><br><span class="line">					alert(&quot;您这浏览器是自制的吧，这都无法满足您&quot;);</span><br><span class="line">					throw e;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;第二步（打开与服务器的连接）</span><br><span class="line">	&#x2F;&#x2F;使用xmlHttp.open(请求方式,请求URL,请求是否为异步);打开连接</span><br><span class="line">	&#x2F;&#x2F;请求方式:可以使用GET或POST</span><br><span class="line">	&#x2F;&#x2F;请求URL:指定服务器端资源，例如：&#x2F;cn&#x2F;com&#x2F;resource</span><br><span class="line">	&#x2F;&#x2F;请求是否为异步:为true发送异步请求，否则为同步请求</span><br><span class="line">	xmlHttp.open(&quot;POST&quot;,&quot;&#x2F;cn&#x2F;com&#x2F;resource&quot;,true);</span><br><span class="line">	xmlHttp.setRequestHeader(&quot;Content-Type&quot;,&quot;application&#x2F;x-www-form-urlencoded&quot;);&#x2F;*这是设置Content-Type请求头，POST需要这一步，GET不用*&#x2F;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;第三步（发送请求）</span><br><span class="line">	xmlHttp.send(null);&#x2F;&#x2F;如果不给参数null可能造成部分浏览器不能发送，如果是GET请求，则必须给出参数null</span><br><span class="line">	xmlHttp.send(&quot;username&#x3D;zhangsan&amp;password&#x3D;123&quot;);&#x2F;&#x2F;发送请求是指定请求体，发送请求需要带有参数一般使用POST</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;第四步（）</span><br><span class="line">	&#x2F;&#x2F;在xmlHttp对象的一个事件上注册监听器：onreadystatechange</span><br><span class="line">	&#x2F;&#x2F;xmlHttp一共有5个状态：</span><br><span class="line">	&#x2F;&#x2F;0状态：刚创建,还没有调用open方法;</span><br><span class="line">	&#x2F;&#x2F;1状态：请求开始，调用open方法，但还没有调用send方法</span><br><span class="line">	&#x2F;&#x2F;2状态：调用完了send方法</span><br><span class="line">	&#x2F;&#x2F;3状态：服务器已经开始响应，但不表示响应结束了</span><br><span class="line">	&#x2F;&#x2F;4状态；服务器响应结束！（这是我们最关心的状态）</span><br><span class="line">	&#x2F;&#x2F;得到xmlHttp的状态:</span><br><span class="line">	var state &#x3D; xmlHttp.readyState;</span><br><span class="line">	&#x2F;&#x2F;得到服务器响应的状态码：</span><br><span class="line">	var status &#x3D; xmlHttp.status;&#x2F;&#x2F;例如为404，500</span><br><span class="line">	&#x2F;&#x2F;得到服务器响应内容：</span><br><span class="line">	var content &#x3D; xmlHttp.responseText;&#x2F;&#x2F;得到文本式内容</span><br><span class="line">	var content &#x3D; xmlHttp.responseXML;&#x2F;&#x2F;得到xml格式内容（即Document对象）</span><br><span class="line">	</span><br><span class="line">	xmlHttp.onreadystatechange &#x3D; function()&#123;&#x2F;&#x2F;xmlHttp的五种状态都会调用该方法</span><br><span class="line">		if(xmlHttp.readyState&#x3D;&#x3D;4&amp;&amp;xmlHttp.status&#x3D;&#x3D;200)&#123;&#x2F;&#x2F;双重判断，是否为4状态，状态码是否为200</span><br><span class="line">			&#x2F;&#x2F;获取响应内容</span><br><span class="line">			var text &#x3D; xmlHttp.responseText;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br></pre></td></tr></table></figure>
-
-<h4 id="XStream"><a href="#XStream" class="headerlink" title="XStream"></a>XStream</h4><h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><p><strong>可以把javaBean序列化（即转化）为xml</strong></p>
-<h5 id="XStream的jar包"><a href="#XStream的jar包" class="headerlink" title="XStream的jar包"></a>XStream的jar包</h5><blockquote>
-<p>核心JAR包：XStream-1.4.7.jar<br>必须依赖包：xpp3_min-1.1.4c(XML Pull Parser,一款速度很快的xml解析器)</p>
-</blockquote>
-<h5 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">XStream xstream &#x3D; new XStream();</span><br><span class="line">String xmlStr &#x3D; xstream.toXML(javabean);</span><br></pre></td></tr></table></figure>
-
-<h4 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h4><h5 id="JSON是什么"><a href="#JSON是什么" class="headerlink" title="JSON是什么"></a>JSON是什么</h5><p><strong>JS提供的一种数据交换格式！</strong></p>
-<h5 id="JSON的语法"><a href="#JSON的语法" class="headerlink" title="JSON的语法"></a>JSON的语法</h5><p>示例；<br><code>var person = {&quot;name&quot;: &quot;zhangsan&quot;, &quot;age&quot;: 18, &quot;sex&quot;: &quot;male&quot;};</code><br>这JSON对象就跟JS字面式定义对象没什么区别，{}表示对象，里面属性值可以是null、数值、字符串、数组(用[]括起来)、布尔值<br><em>属性名这里必须用双引号括起来，单引号不行</em><br>上例JSON对象如果用双引号括起来成字符串，也可以通过eval函数实现转换</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var str &#x3D; &quot;&#123;\&quot;name\&quot;: \&quot;zhangsan\&quot;, \&quot;age\&quot;: 18, \&quot;sex\&quot;: \&quot;male\&quot;&#125;&quot;;&#x2F;&#x2F;双引号里面的双引号需要使用转义字符</span><br><span class="line">var person &#x3D; ever(&quot;(&quot; + str + &quot;)&quot;);</span><br></pre></td></tr></table></figure>
-
-<h5 id="JSON与XML比较"><a href="#JSON与XML比较" class="headerlink" title="JSON与XML比较"></a>JSON与XML比较</h5><p><strong>可读性：XML胜出</strong><br><strong>解析难度：JSON简单很多</strong><br><strong>流行度：XML已经流行很多年，但在AJAX领域，JSON更受欢迎</strong></p>
-<h5 id="json-lib小工具"><a href="#json-lib小工具" class="headerlink" title="json-lib小工具"></a>json-lib小工具</h5><h6 id="是什么"><a href="#是什么" class="headerlink" title="是什么?"></a>是什么?</h6><p><strong>它可以把javabean转换为json串</strong></p>
-<h6 id="核心类"><a href="#核心类" class="headerlink" title="核心类"></a>核心类</h6><p>JSONObject –父类Map<br>JSONArray –父类List</p>
-<h6 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;方式一</span><br><span class="line">JSONObject map &#x3D; new JSONObject();</span><br><span class="line">map.put(&quot;name&quot;,&quot;zhangsan&quot;);</span><br><span class="line">map.put(&quot;age&quot;,18);</span><br><span class="line">map.put(&quot;sex&quot;,&quot;male&quot;);</span><br><span class="line">String s &#x3D; map.toString();</span><br><span class="line">System.out.println(s);&#x2F;&#x2F;打印出一个JSON字符串</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;方式二，将Person对象转换为JSON对象</span><br><span class="line">Person p &#x3D; new Person(&quot;lisi&quot;,21,&quot;male&quot;);</span><br><span class="line">JSONObject map &#x3D; JSONObject.fromObject(p);</span><br><span class="line">System.out.println(map.toString());</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;JSONArray同上类似</span><br><span class="line">Person p1 &#x3D; new Person(&quot;zhangsan&quot;,50,&quot;famale&quot;);</span><br><span class="line">Person p2 &#x3D; new Person(&quot;wangwu&quot;,46,&quot;male&quot;);</span><br><span class="line">JSONArray list &#x3D; new JSONArray();</span><br><span class="line">list.add(p1);</span><br><span class="line">list.add(p2);</span><br><span class="line">System.out.println(list.toString());</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;若原先有一个List，我们可以把List转化为JSON对象</span><br><span class="line">Person p1 &#x3D; new Person(&quot;zhangsan&quot;,50,&quot;famale&quot;);</span><br><span class="line">Person p2 &#x3D; new Person(&quot;wangwu&quot;,46,&quot;male&quot;);</span><br><span class="line">List&lt;Person&gt; list &#x3D; new ArrayList&lt;Person&gt;();</span><br><span class="line">list.add(p1);</span><br><span class="line">list.add(p2);</span><br><span class="line"></span><br><span class="line">System.out.println(JSONArray.fromObject(list).toString());</span><br></pre></td></tr></table></figure>
-
-<h4 id="打包AJAX工具类"><a href="#打包AJAX工具类" class="headerlink" title="打包AJAX工具类"></a>打包AJAX工具类</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">	&#x2F;&#x2F;创建XMLHttpRequest对象函数</span><br><span class="line">	function createXMLHttpRequest()&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			return new XMLHttpRequest();&#x2F;&#x2F;大多数浏览器支持它创建XMLHttpRequest对象</span><br><span class="line">		&#125;catch(e)&#123;</span><br><span class="line">			try&#123;</span><br><span class="line">				return new ActiveXObject(&quot;Msxml2.XMLHTTP&quot;);&#x2F;&#x2F;IE6.0使用其创建XMLHttpRequest对象</span><br><span class="line">			&#125;catch(e)&#123;</span><br><span class="line">				try&#123;</span><br><span class="line">					return new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);&#x2F;&#x2F;IE5.5及更早版本使用其创建XMLHttpRequest对象</span><br><span class="line">				&#125;catch(e)&#123;</span><br><span class="line">					alert(&quot;您这浏览器是自制的吧，这都无法满足您&quot;);</span><br><span class="line">					throw e;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">var ajax &#x3D; function(option)&#123;</span><br><span class="line">	&#x2F;*传递对象参数，该对象包括以下属性，</span><br><span class="line">	请求方式：method,</span><br><span class="line">	请求的url：url,</span><br><span class="line">	是否异步：asyn,</span><br><span class="line">	请求体：params,</span><br><span class="line">	回调方法：callback,</span><br><span class="line">	服务器响应数据转换成什么类型：type*&#x2F;</span><br><span class="line">	</span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *1.得到xmlHttp</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	var xmlHttp &#x3D; createXMLHttpRequest();</span><br><span class="line">	</span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *2.打开连接</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	if(!option.method)&#123;&#x2F;&#x2F;默认为GET请求</span><br><span class="line">		option.method &#x3D; GET;</span><br><span class="line">	&#125;</span><br><span class="line">	if(option.asyn &#x3D;&#x3D; undefined)&#123;&#x2F;&#x2F;默认为异步处理</span><br><span class="line">		option.asyn &#x3D; true;</span><br><span class="line">	&#125;</span><br><span class="line">	xmlHttp.open(option.method,url,option.asyn);</span><br><span class="line">	</span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *3.判断是否为POST</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	if(&quot;POST&quot;&#x3D;&#x3D;option.method)&#123;</span><br><span class="line">		xmlHttp.setRequestHeader(&quot;Content-Type&quot;,&quot;application&#x2F;x-www-form-urlencoded&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *4.发送请求</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	xmlHttp.send(option.params);</span><br><span class="line">	</span><br><span class="line">	&#x2F;*</span><br><span class="line">	 *5.注册监听</span><br><span class="line">	 *&#x2F;</span><br><span class="line">	xmlHttp.onreadystatechange &#x3D; funcion()&#123;</span><br><span class="line">		if(xmlHttp.readyState&#x3D;&#x3D;4&amp;&amp;xmlHttp.status&#x3D;&#x3D;200)&#123;&#x2F;&#x2F;双重判断</span><br><span class="line">			var data;</span><br><span class="line">			if(!option.type)&#123;&#x2F;&#x2F;如果type没有给值默认为文本类型</span><br><span class="line">				data &#x3D; xmlHttp.responseText;</span><br><span class="line">			&#125;else if(option.type &#x3D;&#x3D; &quot;xml&quot;)&#123;</span><br><span class="line">				data &#x3D; xmlHttp.responseXML;</span><br><span class="line">			&#125;else if(option.type &#x3D;&#x3D; &quot;json&quot;)&#123;</span><br><span class="line">				var text &#x3D; xmlHttp.responseText;</span><br><span class="line">				data &#x3D; eval(&quot;(&quot; + text + &quot;)&quot;);</span><br><span class="line">			&#125;else if(option.type &#x3D;&#x3D; &quot;text&quot;)&#123;</span><br><span class="line">				data &#x3D; xmlHttp.responseText;</span><br><span class="line">			&#125;</span><br><span class="line">			&#x2F;&#x2F;调用回调方法</span><br><span class="line">			option.callback(data);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;  </span><br><span class="line">&#125;</span><br><span class="line">export(ajax);</span><br></pre></td></tr></table></figure>
-
-
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>Ajax</tag>
-        <tag>异步操作</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL进阶</title>
-    <url>/2020/02/20/SQL%E8%BF%9B%E9%98%B6/</url>
-    <content><![CDATA[<h2 id="SQL进阶"><a href="#SQL进阶" class="headerlink" title="SQL进阶"></a>SQL进阶</h2><h3 id="SQL编码问题"><a href="#SQL编码问题" class="headerlink" title="SQL编码问题"></a>SQL编码问题</h3><p>使用<code>SHOW VARIABLES LIKE &#39;char%&#39;;</code>可以查看当前窗口sql相关编码,在dos窗口内使用<code>set 你想修改的选项=gbk;</code>，这种修改在窗口关闭后将失效，也就是一次性修改。每次修改或许会很繁琐，所以也可以找到my.ini文件在里面进行修改，重启数据库系统，使修改配置生效   </p>
-<a id="more"></a>
-
-<h3 id="mysql备份与恢复命令-即导入和导出"><a href="#mysql备份与恢复命令-即导入和导出" class="headerlink" title="mysql备份与恢复命令(即导入和导出)"></a>mysql备份与恢复命令(即导入和导出)</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysqldump -uroot -proot mydb&gt;d:&#x2F;yzw.sql&#x2F;&#x2F;备份</span><br><span class="line">mysql -uroot -proot mydb&lt;d:&#x2F;yzw.sql&#x2F;&#x2F;恢复</span><br><span class="line">source d:&#x2F;yzw.sql&#x2F;&#x2F;在当前数据库恢复</span><br></pre></td></tr></table></figure>
-
-<h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h3><h4 id="主键约束-唯一标识"><a href="#主键约束-唯一标识" class="headerlink" title="主键约束(唯一标识)"></a>主键约束(唯一标识)</h4><p><strong>主键特点：非空、唯一、被引用(外键体现这一点)</strong><br>当表的某一列被指定为主键后，该列就不能为空，不能出现重复值</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;当创建表时指定主键的两种方式</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid		CHAR(6) PRIMARY KEY,</span><br><span class="line">	sname   VARCHAR(20),</span><br><span class="line">	sage    INT</span><br><span class="line">&#125;;</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid		CHAR(6),</span><br><span class="line">	sname   VARCHAR(20),</span><br><span class="line">	sage    INT,</span><br><span class="line">	PRIMARY KEY(sid)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;修改表时指定主键</span><br><span class="line">ALTER TABLE stu ADD PRIMARY KEY(sid);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;删除主键</span><br><span class="line">ALTER TABLE stu DROP PRIMARY KEY;</span><br></pre></td></tr></table></figure>
-
-<h4 id="主键自增长"><a href="#主键自增长" class="headerlink" title="主键自增长"></a>主键自增长</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;创建表时指定主键自增长</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid     INT PRIMARY KEY AUTO_INCREMENT,&#x2F;&#x2F;自增长，数据类型必须是int</span><br><span class="line">	sname   VARCHAR(20),</span><br><span class="line">	age     INT</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h4 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;sname设置非空约束</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid     INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	sname   VARCHAR(20) NOT NULL,</span><br><span class="line">	age     INT</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h4 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;sname设置唯一约束</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid     INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	sname   VARCHAR(20) UNIQUE,</span><br><span class="line">	age     INT</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h4 id="外键约束"><a href="#外键约束" class="headerlink" title="外键约束"></a>外键约束</h4><p><strong>外键必须引用主键，外键可以重复且可以为空，一张表中可以有多个外键</strong><br>对象模型：可以双向关联，而且引用的是对象，而不是一个主键<br>关系模型：只能多方引用一方，而且引用的只是主键，而不是一整行记录</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE dept&#123;</span><br><span class="line">	id		INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	dname 	VARCHAR(20)</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;设置外键两种方式</span><br><span class="line">&#x2F;&#x2F;创建表时设置外键</span><br><span class="line">CREATE TABLE emp&#123;</span><br><span class="line">	empno   INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	ename   VARCHAR(50),</span><br><span class="line">	dno		INT,</span><br><span class="line">	CONSTRAINT fk_emp_dept FOREIGN KEY(dno) REFERENCES dept(id)</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;修改表设置外键</span><br><span class="line">ALTER TABLE emp ADD CONSTRAINT fk_emp_dept FOREIGN KEY(dno) REFERENCES dept(id)</span><br></pre></td></tr></table></figure>
-
-<h3 id="三种关联关系"><a href="#三种关联关系" class="headerlink" title="三种关联关系"></a>三种关联关系</h3><h4 id="一对一"><a href="#一对一" class="headerlink" title="一对一"></a>一对一</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE hasband&#123;</span><br><span class="line">	hid 	INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	hname 	VARCHAR(25)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">CREATE TABLE wife&#123;</span><br><span class="line">	wid 	INT PRIMARY KEY AUTO_INCREMENT,&#x2F;&#x2F;wid即作主键又作外键，非空，唯一，引用hid</span><br><span class="line">	wname 	VARCHAR(25),</span><br><span class="line">	hid		INT,</span><br><span class="line">	CONSTRAINT fk_wife_hasband FOREIGN KEY(wid) REFERENCES hasband(hid)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="一对多"><a href="#一对多" class="headerlink" title="一对多"></a>一对多</h4><p>上面写外键约束用过，略</p>
-<h4 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE student&#123;</span><br><span class="line">	sid 	INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	sname 	VARCHAR(25),</span><br><span class="line">&#125;;</span><br><span class="line">CREATE TABLE teacher&#123;</span><br><span class="line">	tid 	INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	tname 	VARCHAR(25),</span><br><span class="line">&#125;;</span><br><span class="line">CREATE TABLE stu_tea&#123;</span><br><span class="line">	sid		INT,</span><br><span class="line">	tid		INT,</span><br><span class="line">	CONSTRAINT fk_sutdent FOREIGN KEY(sid) REFERENCES subject(sid),</span><br><span class="line">	CONSTRAINT fk_teacher FOREIGN KEY(tid) REFERENCES teacher(tid)</span><br><span class="line">&#125;;</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;刘德华&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;张学友&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;郭富城&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;黎明&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;梁朝伟&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;梁家辉&quot;);</span><br><span class="line"></span><br><span class="line">INSERT INTO teacher VALUES(NULL,&quot;崔老师&quot;);</span><br><span class="line">INSERT INTO teacher VALUES(NULL,&quot;史老师&quot;);</span><br><span class="line">INSERT INTO teacher VALUES(NULL,&quot;王老师&quot;);</span><br><span class="line"></span><br><span class="line">INSERT INTO stu_tea VALUES(1,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(2,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(3,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(4,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(5,1);</span><br><span class="line"></span><br><span class="line">INSERT INTO stu_tea VALUES(1,2);</span><br><span class="line">INSERT INTO stu_tea VALUES(2,2);</span><br><span class="line">INSERT INTO stu_tea VALUES(3,2);</span><br><span class="line"></span><br><span class="line">INSERT INTO stu_tea VALUES(3,3);</span><br><span class="line">INSERT INTO stu_tea VALUES(4,3);</span><br><span class="line">INSERT INTO stu_tea VALUES(6,3);</span><br></pre></td></tr></table></figure>
-
-<h3 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h3><h4 id="合并结果集-合并两张表格"><a href="#合并结果集-合并两张表格" class="headerlink" title="合并结果集(合并两张表格)"></a>合并结果集(合并两张表格)</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE ab&#123;a INT,b VARCHAR(11)&#125;;</span><br><span class="line">INSERT INTO ab VALUES(1,&quot;1&quot;);</span><br><span class="line">INSERT INTO ab VALUES(2,&quot;2&quot;);</span><br><span class="line">INSERT INTO ab VALUES(3,&quot;3&quot;);</span><br><span class="line"></span><br><span class="line">CREATE TABLE ab2&#123;c INT,d VARCHAR(11)&#125;;</span><br><span class="line">INSERT INTO ab2 VALUES(3,&quot;3&quot;);</span><br><span class="line">INSERT INTO ab2 VALUES(4,&quot;4&quot;);</span><br><span class="line">INSERT INTO ab2 VALUES(5,&quot;5&quot;);</span><br><span class="line"></span><br><span class="line">SELECT * FROM ab </span><br><span class="line">UNION ALL 		  &#x2F;&#x2F;ALL去掉的话，完全相同的行将保留1个</span><br><span class="line">SELECT * FROM ab2;&#x2F;&#x2F;要求两张表结果集完全相同（即要查询的列类型相同）</span><br></pre></td></tr></table></figure>
-
-<h4 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h4><h5 id="连接查询之内连接"><a href="#连接查询之内连接" class="headerlink" title="连接查询之内连接"></a>连接查询之内连接</h5><p>方言：<code>SELECT * FROM 表1 别名1,表2 别名2 WHERE 别名1.xx=别名2.xx</code><br>标准：<code>SELECT * FROM 表1 别名1 INNER JOIN 表2 别名2 ON 别名1.xx=别名2.xx</code><br>自然：<code>SELECT * FROM 表1 别名1 NATURAL JOIN 表2 别名2</code></p>
-<h5 id="连接查询之外连接"><a href="#连接查询之外连接" class="headerlink" title="连接查询之外连接"></a>连接查询之外连接</h5><p>左外连接：外连接一主一次，左外部左表为主，主表所有记录无论满足条件与否，都打印出来，不满足字段内容为null</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM 表1 别名1 LEFT OUTER JOIN 表2 别名2 ON 别名1.xx&#x3D;别名2.xx</span><br><span class="line">&#x2F;&#x2F;示例：</span><br><span class="line">SELECT e.ename,e.sal,IFNULL(d.dname,&quot;无内容&quot;) AS dname</span><br><span class="line">FROM emp e LEFT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br></pre></td></tr></table></figure>
-
-<p>右外连接：与左连接理解类似</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM 表1 别名1 RIGHT OUTER JOIN 表2 别名2 ON 别名1.xx&#x3D;别名2.xx</span><br><span class="line">&#x2F;&#x2F;示例：</span><br><span class="line">SELECT e.ename,e.sal,d.dname</span><br><span class="line">FROM emp e RIGHT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br></pre></td></tr></table></figure>
-
-<p>全外连接：<code>SELECT * FROM 表1 别名1 FULL OUTER JOIN 表2 别名2 ON 别名1.xx=别名2.xx</code><em>mysql不支持</em></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">解决方式：</span><br><span class="line">SELECT e.ename,e.sal,IFNULL(d.dname,&quot;无内容&quot;) AS dname</span><br><span class="line">FROM emp e LEFT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br><span class="line">UNION &#x2F;&#x2F;去除结果集实现全连接 </span><br><span class="line">SELECT e.ename,e.sal,d.dname</span><br><span class="line">FROM emp e RIGHT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br></pre></td></tr></table></figure>
-
-<h4 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h4><p>子查询就是查询中有查询（即出现多个select关键字）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;示例1：</span><br><span class="line">SELECT * FROM emp WHERE sal&#x3D;(SELECT MAX(sal) FROM emp);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例2：</span><br><span class="line">SELECT e.empno,e.ename </span><br><span class="line">FROM (SELECT * FROM emp WHERE deptno&#x3D;30) e</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例3：</span><br><span class="line">SELECT * FROM emp WHERE sal &gt; ALL (SELECT sal FROM emp WHERE deptno&#x3D;30)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例4：</span><br><span class="line">SELECT * FROM emp WHERE sal &gt; ANY (SELECT sal FROM emp WHERE deptno&#x3D;20)</span><br></pre></td></tr></table></figure>
-
-<p>总结：<br>1.单行单列：<code>SELECT * FROM 表1 别名1 WHERE 列1 [=、&gt;、&lt;、&lt;=、&gt;=、!=] (SELECT 列 FROM 表2 别名2 WHERE 条件)</code><br>2.多行单列：<code>SELECT * FROM 表1 别名1 WHERE 列1 [IN、ALL、ANY] (SELECT 列 FROM 表2 别名2 WHERE 条件)</code><br>3.单行多列：<code>SELECT * FROM 表1 别名1 WHERE (列1,列2) IN (SELECT 列1 列2 FROM 表2 别名2 WHERE 条件)</code><br>4.多行多列；<code>SELECT * FROM 表1 别名1 , (SELECT ...) 别名2 WHERE 条件</code></p>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>SQL</tag>
-        <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>dom4j</title>
-    <url>/2020/04/21/dom4j/</url>
-    <content><![CDATA[<h3 id="dom4j"><a href="#dom4j" class="headerlink" title="dom4j"></a>dom4j</h3><p><strong>dom4j组织提供了针对xml解析的解析器dom4j,其是由jdom组织分裂出来后出现的,其优于jdom。dom4j不是javase的一部分</strong></p>
-<a id="more"></a>
-
-<h4 id="dom4j使用"><a href="#dom4j使用" class="headerlink" title="dom4j使用"></a>dom4j使用</h4><p><em>使用前需要在项目中导入dom4j的jar包</em><br>xml文件如下:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1 id1&#x3D;&quot;01&quot;&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j实现查询xml中元素操作"><a href="#dom4j实现查询xml中元素操作" class="headerlink" title="dom4j实现查询xml中元素操作"></a>dom4j实现查询xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查询所有name元素里的值</span><br><span class="line">	public static void selectName() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到p1</span><br><span class="line">		List&lt;Element&gt; list &#x3D; root.elements(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.遍历List</span><br><span class="line">		for(Element temp:list)&#123;</span><br><span class="line">			&#x2F;&#x2F;这里temp得到每一个p1元素</span><br><span class="line">			Element name1 &#x3D; temp.element(&quot;name&quot;);&#x2F;&#x2F;得到p1下面的name元素</span><br><span class="line">			&#x2F;&#x2F;得到name里面的值</span><br><span class="line">			String s &#x3D; name1.getText();</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;查询第一个name元素的值</span><br><span class="line">	public static void selectSin() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到p1下第一个name</span><br><span class="line">		Element name1 &#x3D; p1.element(&quot;name&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.得到name的值</span><br><span class="line">		String s1 &#x3D; name1.getText();</span><br><span class="line">		System.out.println(s1);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#x2F;&#x2F;查询第二个name元素的值	</span><br><span class="line">	public static void selectSecond() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到所有p1</span><br><span class="line">		List&lt;Element&gt; list &#x3D; root.elements(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到第二个p1</span><br><span class="line">		Element p2 &#x3D; list.get(1);</span><br><span class="line">		&#x2F;&#x2F;6.得到p1下面name</span><br><span class="line">		Element name2 &#x3D; p2.element(&quot;name&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.得到name的值</span><br><span class="line">		String s2 &#x3D; name2.getText();</span><br><span class="line">		System.out.println(s2);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j实现添加xml中元素操作"><a href="#dom4j实现添加xml中元素操作" class="headerlink" title="dom4j实现添加xml中元素操作"></a>dom4j实现添加xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;在第一个p1标签末尾添加一个sex标签</span><br><span class="line">	public static addSex() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.获取第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.p1下面添加sex元素</span><br><span class="line">		Element sex1 &#x3D; p1.addElement(&quot;sex&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.在sex里添加内容</span><br><span class="line">		sex1.setText(&quot;男&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="在特定位置实现元素添加"><a href="#在特定位置实现元素添加" class="headerlink" title="在特定位置实现元素添加"></a>在特定位置实现元素添加</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;在第一个p1标签中age标签前添加一个&lt;school&gt;cqgcxy.edu.cn&lt;&#x2F;school&gt;</span><br><span class="line">	public static void addAgeBefore() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();		</span><br><span class="line">		&#x2F;&#x2F;4.获取第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.获取p1下面的所有元素</span><br><span class="line">		List&lt;Element&gt; list &#x3D; p1.elements();</span><br><span class="line">		&#x2F;&#x2F;6.创建要添加元素</span><br><span class="line">		Element school &#x3D; DocumentHelper.createElement(&quot;school&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.给标签添加内容</span><br><span class="line">		school.setText(&quot;eqgcxy.edu.cn&quot;);</span><br><span class="line">		&#x2F;&#x2F;8.在特定位置添加元素</span><br><span class="line">		list.add(1,school);</span><br><span class="line">		&#x2F;&#x2F;9.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j实现修改xml中元素操作"><a href="#dom4j实现修改xml中元素操作" class="headerlink" title="dom4j实现修改xml中元素操作"></a>dom4j实现修改xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;修改第一个p1中age元素内容</span><br><span class="line">	public static void fixAge() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();	</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到age</span><br><span class="line">		Element age &#x3D; p1.element(&quot;age&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.修改age的值</span><br><span class="line">		age.setText(&quot;250&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j实现删除xml中元素操作"><a href="#dom4j实现删除xml中元素操作" class="headerlink" title="dom4j实现删除xml中元素操作"></a>dom4j实现删除xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;删除第一个p1下school节点</span><br><span class="line">	public static void deleteSchool() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;*使用工具类替换1、2步</span><br><span class="line">		Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);*&#x2F;</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();	</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到school</span><br><span class="line">		Element school &#x3D; p1.element(&quot;school&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.删除school(通过父节点实现删除)</span><br><span class="line">		p1.remove(school);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">		&#x2F;*使用工具类替换回写操作</span><br><span class="line">		Dom4jUtils.xmlWriter(PATH,document)*&#x2F;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j实现获取xml中元素属性值操作"><a href="#dom4j实现获取xml中元素属性值操作" class="headerlink" title="dom4j实现获取xml中元素属性值操作"></a>dom4j实现获取xml中元素属性值操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取第一个p1属性id1的值</span><br><span class="line">	public static void getValue() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.获取p1的属性id1值</span><br><span class="line">		String value &#x3D; p1.attributeValue(&quot;id1&quot;);</span><br><span class="line">		System.out.println(value);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j工具类"><a href="#dom4j工具类" class="headerlink" title="dom4j工具类"></a>dom4j工具类</h5><p><strong>由于什么的CRUD代码中存在大量重复使用的代码，因此我们可以建立一个工具类来封装这些重复代码，实现调用工具类，来减少代码冗余</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Dom4jUtils&#123;</span><br><span class="line">	public state final String PATH &#x3D; &quot;src&#x2F;person.xml&quot;;</span><br><span class="line">	&#x2F;&#x2F;返回document</span><br><span class="line">	public static Document getDocument(String path)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			&#x2F;&#x2F;1.创建解析器</span><br><span class="line">			SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">			&#x2F;&#x2F;2.得到document</span><br><span class="line">			Document document &#x3D; saxReader.read(path);</span><br><span class="line">			return document;</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		return null;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;回写xml</span><br><span class="line">	public static void xmlWriter(String path,Document document)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">			XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">			writer.write(document);</span><br><span class="line">			writer.close();</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="dom4j支持XPATH操作"><a href="#dom4j支持XPATH操作" class="headerlink" title="dom4j支持XPATH操作"></a>dom4j支持XPATH操作</h4><p><strong>可以直接获取某一个元素，不必按照一层一层解析的方式</strong></p>
-<h5 id="语法形式"><a href="#语法形式" class="headerlink" title="语法形式"></a>语法形式</h5><p>第一种形式：<code>/a/b/c</code>来表示a里面的b里面的c<br>第二种形式：<code>//A</code>表示选择所有A元素<br>第三种形式：<code>/AAA/CCC/DDD/*</code>表示/AAA/CCC/DDD/里面的所有元素<br>第四种形式：<code>/*/*/*/</code>DDD表示选择所有第四层所有DDD元素<br>第五种形式；<code>//*</code>所有元素<br>第六种形式：<code>/a/b[1]</code>选择a标签中第一个b标签，/a/b[last()]选择a标签中最后一个b标签<br>第七种形式：<code>//@id</code>表示选择所有id属性，//BBB[@id]表示选择所有含id属性的BBB元素<br>第八种形式；<code>//BBB[@id=&#39;b1&#39;]</code>选择含Id属性且值为b1的所有BBB标签,b1如果左右有空格将不会被选取*</p>
-<h5 id="如何在dom4j中使用XPATH"><a href="#如何在dom4j中使用XPATH" class="headerlink" title="如何在dom4j中使用XPATH"></a>如何在dom4j中使用XPATH</h5><p><strong>默认的情况下，dom4j不支持XPATH，如果想使用，需要引入XPATH的jar包，在文件中找到jaxen-1.1-beta-6.jar，将其复制进eclipse构建的项目中lib下，右击项目Build Path选择Add to Build Path</strong><br><strong>在dom4j中提供了两个方法支持XPATH,它们分别是：selectNodes(“XPATH表达式”)和selectSingleNode(“XPATH表达式”)，第一个方法获取多个节点，第二个则获取单一节点</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查询xml中所有name元素的值</span><br><span class="line">public static void getValue()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到所有name</span><br><span class="line">	List&lt;Node&gt; list&#x3D;document.selectNodes(&quot;&#x2F;&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.遍历集合</span><br><span class="line">	for(Node note:list)&#123;&#x2F;&#x2F;node是每一个name元素</span><br><span class="line">		&#x2F;&#x2F;获取name元素里面的值</span><br><span class="line">		String s &#x3D; node.getText();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取第一个p1下面name的值</span><br><span class="line">public static void getValue1()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到name元素</span><br><span class="line">	Node name1&#x3D;document.和selectSingleNode(&quot;&#x2F;&#x2F;p1[@id1&#x3D;&quot;01&quot;]&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.得到name里面内容</span><br><span class="line">	String s1 &#x3D; name1.getText();</span><br><span class="line">	System.out.println(s1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>JavaWeb</category>
-      </categories>
-      <tags>
         <tag>XML</tag>
-        <tag>标记语言</tag>
-        <tag>XML解析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TED的一篇演讲</title>
+    <url>/2021/09/26/TED%E7%9A%84%E4%B8%80%E7%AF%87%E6%BC%94%E8%AE%B2/</url>
+    <content><![CDATA[<h3 id="《不要让别人打乱你的人生节奏》"><a href="#《不要让别人打乱你的人生节奏》" class="headerlink" title="《不要让别人打乱你的人生节奏》"></a>《不要让别人打乱你的人生节奏》</h3><p><strong>我挺喜欢TED的演讲视频，各国各领域的人用他们优秀的口才，来传达给人们他们的思想和认知。你可以完全认同他们的观点，也可以认同其中一部分，或者全盘否定。观点无对错，你可以认为今天很冷，他可以认为一般，或者有点热。我们再别人的演讲中，其实也是对认知的进一步改观，思想的放开，从中收获，思考。我之所以分享这一篇演讲，其一，源于喜欢。其二，这也算是我们有时感到人生迷茫时的“鸡汤”，再次抄录，还是那句话，不一样的人，不一样的感受，一千个人眼中有一千个哈姆雷特。</strong></p>
+<a id="more"></a>
+<p><strong>有的人21岁毕业，到27岁才找到工作</strong>  </p>
+<p><strong>有点人25岁毕业，但马上就找到了工作</strong>  </p>
+<p><strong>有的人没上过大学，却在18岁就找到了热爱的事</strong>  </p>
+<p><strong>有的人一毕业就找到好工作，赚很多钱，却过的不开心</strong>  </p>
+<p><strong>有的人选择间隔年，去寻找自我</strong>  </p>
+<p><strong>有的人16岁就清楚知道自己要什么，但在26岁时改变了想法</strong>  </p>
+<p><strong>有的人有了孩子，却还是单身</strong>  </p>
+<p><strong>有的人结了婚，却等了10年才生孩子</strong>  </p>
+<p><strong>有的人身处一段感情，爱的却是别人</strong>  </p>
+<p><strong>有的人明明彼此相爱，却没有在一起</strong>  </p>
+<p><strong>我想说的是，人生中的每一件事都取决于我们自己的时间</strong>  </p>
+<p><strong>你身边有些朋友也许遥遥领先于你</strong>  </p>
+<p><strong>有些朋友也许落后于你，但凡事都有它自己的节奏</strong>  </p>
+<p><strong>他们有他们的节奏，你有你自己的</strong>  </p>
+<p><strong>耐心一点</strong>  </p>
+<p><strong>Mark Cuban 25岁的时候还在酒吧做酒保</strong>    </p>
+<p><strong>在被拒12次后，JK罗琳到32岁才出版了哈利波特</strong>  </p>
+<p><strong>Otega到39岁才创办了Zara</strong>  </p>
+<p><strong>马云35岁才建立了阿里巴巴</strong>  </p>
+<p><strong>Morgan Freeman 到52岁的时候才迎来他演艺事业的大爆发</strong></p>
+<p><strong>Steve Carell 40岁才红</strong>  </p>
+<p><strong>Rinchard Branson 34岁才创办维珍航空</strong>  </p>
+<p><strong>25岁后才拿到文凭，依然值得骄傲</strong>  </p>
+<p><strong>30岁没结婚，但过得快乐也是一种成功</strong>  </p>
+<p><strong>35岁之后成家也完全可以</strong>  </p>
+<p><strong>40岁买房也没什么丢脸的</strong>  </p>
+<p><strong>不要让任何人扰乱你的时间表</strong>    </p>
+<p><strong>因为爱因斯坦曾经说过，</strong>  </p>
+<p><strong>并不是每一件算的出来的事都有意义</strong>  </p>
+<p><strong>也不是每一件有意义的事，都能够被算出来</strong>  </p>
+<p><strong>这才是最重要的事</strong></p>
+<p><strong>我希望你们可以创造属于自己的充满意义的人生</strong>  </p>
+<p><strong>学会用这些去影响点亮他人的生活</strong>  </p>
+<p><strong>这才是真正的成功</strong>     </p>
+]]></content>
+      <categories>
+        <category>分享</category>
+      </categories>
+      <tags>
+        <tag>演讲</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2019/04/01/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<a id="more"></a>
+
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+      <tags>
+        <tag>奥利给</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>电影推荐</title>
+    <url>/2021/05/09/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90/</url>
+    <content><![CDATA[<p><strong>作为一个阅片无数的过来人，七七八八的电影看过很多，好的不少，烂的也多。因此，想推荐一些我喜欢的电影。相比电视剧，我偏好电影，因为电影以较短时间，呈现给我们精彩的内容，节省时间同时，给我们带来不错的观影体验（仅限好电影）。电影有很多种类，喜剧、恐怖、惊悚、科幻、战争、历史等。也分地区，不同地区电影也有其不同特点。在此，我想把我看过的，自认为觉得不错的电影分享出来，当然有些好电影，我没看过的，就不会列出来。所有影片只列名字，不作影评，我觉得自己写不好或者写的很烂，反而影响推荐，我觉得不同电影，不同人有不同观感，我不能融入我的主观色彩。</strong></p>
+<p><strong>顺序无先后，想起哪部写哪部</strong></p>
+<h3 id="内地"><a href="#内地" class="headerlink" title="内地"></a>内地</h3><p><strong>《蓝风筝》、《活着》、《霸王别姬》、《茶馆》、《鬼子来了》、《阳光灿烂的日子》、《让子弹飞》、《盲山》、《盲井》、《过年》、《甲方乙方》、《大腕》、《疯狂的石头》、《疯狂的赛车》、《杀生》、《斗牛》、《Hello，树先生》、《落叶归根》、《人在囧途》、《我不是药神》、《夏洛特烦恼》、《无名之辈》、《三毛从军记》、《无人区》、《天下无贼》、《背靠背，脸对脸》</strong></p>
+<h3 id="港片"><a href="#港片" class="headerlink" title="港片"></a>港片</h3><p><strong>《监狱风云》、《英雄本色》、《纵情四海》、《黑社会》、《黑社会2：以和为贵》、《黑狱断肠歌之砌生猪肉》、《至尊三十六计之偷天换日》、《火烧岛》、《跛豪》、《五亿探长雷洛传》、《黑金》、《门徒》、《无间道三部曲》、《金钱帝国》、《机动部队》、《警察故事》、《A计划》、《快餐车》、《奇迹》、《城市猎人》、《杀破狼》、《东邪西毒》、《东成西就》、《新龙门客栈1992》、《赌神》、《赌神2》、《棋王》、《无双》、《黄飞鸿》、《方世玉》、《太极张三丰》、《精武英雄》、《导火线》、《笑林小子2：新乌龙院》、《新少林五祖》、《山村老尸》、《三五成群》、《人肉叉烧包黄秋生版》、《打蛇》、《狗咬狗》、《垂帘听政》、《倩女幽魂三部曲》、《半斤八两》、《摩登保镖》、《鬼马双星》、《卖身契》、《鸡同鸭讲》、《抢钱夫妻》、《钱作怪》、《福星系列》、《审死官》、《九品芝麻官》、《喜剧之王》、《大话西游周星驰版》、《功夫》、《少林足球》、《食神》、《逃学威龙》、《国产凌凌漆》、《鹿鼎记》、《家有喜事》、《回魂夜》、《情圣》、《整蛊专家》、《百变星君》、《武状元苏乞儿》</strong></p>
+<h3 id="国外"><a href="#国外" class="headerlink" title="国外"></a>国外</h3><p><strong>《肖申克的救赎》、《猫鼠游戏》、《泰坦尼克号》、《盗梦空间》、《西西里的美丽传说》、《末代皇帝》、《何以为家》、《小偷家族》、《阿甘正传》、《看不见的客人》、《我是谁：没有绝对安全的系统》、《非常嫌疑犯》、《两杆大烟枪》、《偷拐抢骗》、《闪灵》、《恐怖游轮》、《楚门的世界》、《教父》、《这个杀手不太冷》、《辛德勒的名单》、《蝙蝠侠：黑暗骑士》、《小丑》、《复仇者联盟》、《银河护卫队》、《死侍》、《X战警》、《变形金刚》、《星球大战》、《终结者》、《碟中谍》、《黑客帝国》、《谍影重重》、《生化危机》、《古墓丽影》、《木乃伊》、《加勒比海盗》、《哈利波特》、《指环王》、《霍比特人》、《阿凡达》、《死神来了》、《速度与激情》、《死亡飞车》、《电锯惊魂》、《三傻大闹宝莱坞》、《摔跤吧，爸爸》、《寄生虫》、《恶魔的艺术2：邪降》、《风雨哈佛路》、《千与千寻》、《菊次郎的夏天》、《热血高校》、《突袭》、《突袭2：暴徒》、《摩登时代》、《城市之光》、《大独裁者》、《淘金记》、《马戏团》、《憨豆的黄金周》、《死寂》、《咒怨》、《孤儿怨》</strong></p>
+]]></content>
+      <categories>
+        <category>分享</category>
+      </categories>
+      <tags>
+        <tag>电影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>病毒浅谈</title>
+    <url>/2020/02/17/%E7%97%85%E6%AF%92%E6%B5%85%E8%B0%88/</url>
+    <content><![CDATA[<p><strong>病毒在生物上的危害就不多说，最近的COVID-19病毒就知道其可怕。本篇主要来谈谈计算机的病毒</strong></p>
+<h2 id="计算机病毒"><a href="#计算机病毒" class="headerlink" title="计算机病毒"></a>计算机病毒</h2><h3 id="什么是计算机病毒？"><a href="#什么是计算机病毒？" class="headerlink" title="什么是计算机病毒？"></a>什么是计算机病毒？</h3><p><strong>计算机病毒简单来讲，是一种人为制造，在计算机运行中对其信息或系统起破坏作用的程序</strong></p>
+<a id="more"></a>
+
+<h3 id="计算机病毒的特点是什么？"><a href="#计算机病毒的特点是什么？" class="headerlink" title="计算机病毒的特点是什么？"></a>计算机病毒的特点是什么？</h3><p><em><strong>破坏性、传染性、寄生性、潜伏性、隐蔽性</strong></em><br>不多解释，从字面意思，看就是类似于生物病毒</p>
+<h3 id="计算机中病毒的表现形式"><a href="#计算机中病毒的表现形式" class="headerlink" title="计算机中病毒的表现形式"></a>计算机中病毒的表现形式</h3><p><strong>计算机中病毒会出现哪些症状（表现）呢？</strong><br>1)程序运行速度明显变慢甚至死机<br>2)出现莫名其妙的信息，比如没有用网络资源而网卡指示灯一直闪烁；插入U盘后，无法正常退出；提示一些不相干的话，发出一段音乐，产生特定的图像，鼠标自个儿在动，自动链接到一些陌生的网站<br>3)外部设备工作异常<br>4)程序运行出现不合理的结果</p>
+<h3 id="病毒能破坏硬件吗？"><a href="#病毒能破坏硬件吗？" class="headerlink" title="病毒能破坏硬件吗？"></a>病毒能破坏硬件吗？</h3><p><strong>病毒本身就是程序，所以它不可能直接破坏硬件。但它可以通过破坏程序导致硬件不能正常工作</strong></p>
+<h3 id="病毒的传播介质"><a href="#病毒的传播介质" class="headerlink" title="病毒的传播介质"></a>病毒的传播介质</h3><p>1)U盘等可移动存储设备<br>2)随着网络的飞速发展，网络成为最主要的病毒传播途径</p>
+<p><strong>来个笑话</strong></p>
+<blockquote>
+<p>某天表妹和她的表哥在一起聊天，她们聊到了关于电脑的话题<br>表妹：表哥，去年我买了一台电脑。<br>表哥：怎么都没看你用过？<br>表妹：刚买就中病毒了<br>表哥：你没有叫人修理吗？<br>表妹得意地说：一年都不开机，病毒还不被饿死！</p>
+</blockquote>
+<p>  蛮好笑的，让我想起我小学时候，我的一同学作文，内容跟这笑话差不多，说的是每到夏天蚊子特别的多，蚊子盯地他很难受，于是他灵机一动，拿出了酒。他爸妈回来看着他拿着酒瓶，整个人迷迷糊糊的，就焦急地问他：你为什么喝酒啊？他说：”我把自己灌醉，这样蚊子吸我的血，就会跟着醉，他们醉倒了就不会盯我了”，把他爸妈都逗乐了。跟上面这笑话真是”英雄所见略同”啊</p>
+<h3 id="病毒的防治"><a href="#病毒的防治" class="headerlink" title="病毒的防治"></a>病毒的防治</h3><p><strong>每台计算机应安装杀毒软件及防火墙，并注意及时升级杀毒软件，以防止或及时发现计算机病毒的入侵一旦发现计算机系统染上病毒后，要立即使用杀毒软件进行清除。对于外来数据要严格检查，对重要数据记得做好备份</strong><br><em><strong>特别注意：</strong></em><br>观察任务栏上杀毒软件图标异常，杀毒软件检测没有病毒不一定真的没有病毒。如果怀疑有病毒，可以换个杀毒软件试试。磁盘格式化可以删除所有文件，包括病毒，这是一种玉石俱焚的方法</p>
+<p>下面给出一个防蠕虫配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ip access-list extended worm</span><br><span class="line">deny tcp any any eq 135</span><br><span class="line">deny tcp any any eq 137</span><br><span class="line">deny tcp any any eq 138</span><br><span class="line">deny tcp any any eq 139</span><br><span class="line">deny udp any any eq 135</span><br><span class="line">deny tcp any any eq 445</span><br><span class="line">deny udp any any eq 445</span><br><span class="line">permit ip any any </span><br><span class="line">interface GigabitEthernet 2&#x2F;1</span><br><span class="line">ip access-group worm in</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>病毒</tag>
+        <tag>网络安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>道德经原文</title>
+    <url>/2020/03/28/%E9%81%93%E5%BE%B7%E7%BB%8F%E5%8E%9F%E6%96%87/</url>
+    <content><![CDATA[<h3 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h3><blockquote>
+<p>道，可道，非常道；名，可名，非常名。无名，天地始；有名，万物母。常无，欲观其妙；常有，欲观其徼。此两者同出而异名，同谓之玄，玄之又玄，众妙之门。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h3><blockquote>
+<p>天下皆知美之为美，斯恶已；皆知善之为善，斯不善已。故有无相生，难易相成，长短相形，高下相倾，音声相和，前后相随。是以圣人处无为之事，行不言之教。万物作而不辞，生而不有，为而不恃，成功不居。夫唯不居，是以不去。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h3><blockquote>
+<p>不上贤，使民不争；不贵难得之货，使民不盗；不见可欲，使心不乱。圣人治：虚其心，实其腹，弱其志，强其骨。常使民无知无欲，使知者不敢为，则无不治。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四章"><a href="#第四章" class="headerlink" title="第四章"></a>第四章</h3><blockquote>
+<p>道冲，而用之久不盈。深乎!万物宗。挫其锐，解其忿，和其光，同其尘。湛常存。吾不知谁子?象帝之先。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a>第五章</h3><blockquote>
+<p>天地不仁，以万物为刍狗；圣人不仁，以百姓为刍狗。天地之间，其犹橐蘥。虚而不屈，动而俞出。多言数穷，不如守中。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h3><blockquote>
+<p>谷神不死，是谓玄牝。玄牝门，天地根。绵绵若存，用之不勤。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h3><blockquote>
+<p>天长地久。天地所以能长久者，以其不自生，故能长久。是以圣人后其身而身先，外其身而身存。以其无私，故能成其私。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第八章"><a href="#第八章" class="headerlink" title="第八章"></a>第八章</h3><blockquote>
+<p>上善若水。水善利万物，又不争，处众人之所恶，故几于道。居善地，心善渊，与善人，言善信，政善治，事善能，动善时。夫唯不争，故无尤。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第九章"><a href="#第九章" class="headerlink" title="第九章"></a>第九章</h3><blockquote>
+<p>持而盈之，不若其以。揣而锐之，不可长保。金玉满堂，莫之能守。富贵而骄，自遗其咎。功成、名遂、身退、天之道。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十章"><a href="#第十章" class="headerlink" title="第十章"></a>第十章</h3><blockquote>
+<p>载营魄抱一，能无离?专气致柔，能婴儿?涤除玄览，能无疵?爱人治国，能无为?天门开阖，能为雌?明白四达，能无知?<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十一章"><a href="#第十一章" class="headerlink" title="第十一章"></a>第十一章</h3><blockquote>
+<p>三十辐共一毂，当其无有，车之用。埏埴以为器，当其无有，器之用。凿户牖以为室，当其无有，室之用。有之以为利，无之以为用。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十二章"><a href="#第十二章" class="headerlink" title="第十二章"></a>第十二章</h3><blockquote>
+<p>五色令人目盲；五音令人耳聋；五味令人口爽；驰骋田猎，令人心发狂；难得之货，令人行妨。是以圣人为腹不为目。故去彼取此。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十三章"><a href="#第十三章" class="headerlink" title="第十三章"></a>第十三章</h3><blockquote>
+<p>宠辱若惊，贵大患若身。何谓宠辱?辱为下。得之若惊，失之若惊，是谓宠辱若惊。何谓贵大患若身?吾所以有大患，为我有身。及我无身，吾有何患!故贵身于天下，若可托天下；爱以身为天下者，若可寄天下。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十四章"><a href="#第十四章" class="headerlink" title="第十四章"></a>第十四章</h3><blockquote>
+<p>视之不见，名曰夷；听之不闻，名曰希；搏之不得，名曰微。此三者不可致诘，故混而为一。其上不曒，在下不昧。绳绳兮不可名，复归于无物。是谓无状之状，无物之象，是谓忽恍。迎不见其首，随不见其后。执古之道，以语今之有。以知古始，是谓道已。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十五章"><a href="#第十五章" class="headerlink" title="第十五章"></a>第十五章</h3><blockquote>
+<p>古之善为士者，微妙玄通，深不可识。夫唯不可识，故强为之容：豫若冬涉川，犹若畏四邻，俨若客，涣若水将释，敦若朴，混若浊，旷若谷，孰能浊以静之?徐清。安以动之?徐生。保此道者，不欲盈。夫唯不盈，能弊复成。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十六章"><a href="#第十六章" class="headerlink" title="第十六章"></a>第十六章</h3><blockquote>
+<p>致虚极，守静笃。万物并作，吾以观其复。夫物云云，各归其根。归根曰静，静曰复命，复命曰常，知常曰明。不知常，忘作，凶。知常容，容能公，公能王，王能天，天能道，道能久，没身不殆。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十七章"><a href="#第十七章" class="headerlink" title="第十七章"></a>第十七章</h3><blockquote>
+<p>太上，下知有之；其次，亲之豫之；其次，畏之侮之。信不足，有不信!由其贵言。成功事遂，百姓谓我自然。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十八章"><a href="#第十八章" class="headerlink" title="第十八章"></a>第十八章</h3><blockquote>
+<p>大道废，有人义。智慧出，有大伪。六亲不和，有孝慈。国家昏乱，有忠臣。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十九章"><a href="#第十九章" class="headerlink" title="第十九章"></a>第十九章</h3><blockquote>
+<p>绝圣弃智，民利百倍；绝民弃义，民复孝慈；绝巧弃利，盗贼无有。此三者，为文不足，故令有所属：见素抱朴，少私寡欲。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十章"><a href="#第二十章" class="headerlink" title="第二十章"></a>第二十章</h3><blockquote>
+<p>绝学无忧。唯之与阿，相去几何?善之与恶，相去何若?人之所畏，不可不畏。忙兮其未央!众人熙熙，若享太牢，若春登台。我魄未兆，若婴儿未孩。乘乘无所归!众人皆有馀，我独若遗。我愚人之心，纯纯。俗人昭昭，我独若昏。俗人察察，我独闷闷。淡若海，漂无所止。众人皆有已，我独顽似鄙。我独异于人，而贵食母。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十一章"><a href="#第二十一章" class="headerlink" title="第二十一章"></a>第二十一章</h3><blockquote>
+<p>孔得之容，唯道是从。道之为物，唯恍唯忽。忽恍中有象，恍忽中有物。窈冥中有精，其精甚真，其中有信。自古及今，其名不去，以阅众甫。吾何以知众甫之然?以此。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十二章"><a href="#第二十二章" class="headerlink" title="第二十二章"></a>第二十二章</h3><blockquote>
+<p>曲则全，枉则正；洼则盈，敝则新；少则得，多则或。是以圣人抱一为天下式。不自见，故明；不自是，故彰；不自伐，故有功；不自矜，故长。夫惟不争，故天下莫能与之争。古之所谓“曲则全”，岂虚语?故成全而归之。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十三章"><a href="#第二十三章" class="headerlink" title="第二十三章"></a>第二十三章</h3><blockquote>
+<p>希言自然。飘风不终朝，骤雨不终日。孰为此?天地。天地上不能久，而况于人?故从事而道者，道德之；同于德者，德德之；同于失者，道失之。信不足，有不信。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十四章"><a href="#第二十四章" class="headerlink" title="第二十四章"></a>第二十四章</h3><blockquote>
+<p>企者不久，跨者不行，自见不明，自是不彰，自伐无功，自矜不长。其在道，日馀食赘行。物或有恶之，故有道不处。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十五章"><a href="#第二十五章" class="headerlink" title="第二十五章"></a>第二十五章</h3><blockquote>
+<p>有物混成，先天地生。寂漠!独立不改，周行不殆，可以为天下母。吾不知其名，字之曰道，吾强为之名曰大。大曰逝，逝曰远，远曰返。道大，天大，地大，王大。域中有四大，而王处一。人法地，地法天，天法道，道法自然。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十六章"><a href="#第二十六章" class="headerlink" title="第二十六章"></a>第二十六章</h3><blockquote>
+<p>重为轻根，静为躁君。是以君子终日行，不离辎重，虽有荣观，燕处超然。如何万乘之主，以身轻天下?轻则失臣，躁则失君。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十七章"><a href="#第二十七章" class="headerlink" title="第二十七章"></a>第二十七章</h3><blockquote>
+<p>善行，无辙迹；善言，无瑕谪；善计，不用筹策；善闭，无关键不可开；善结，无绳约不可解。是以圣人常善救人，而无弃人；常善救物，而无弃物。是谓袭明。善人，不善人之师；不善人，善人之资。不贵其师，不爱其资，虽知大迷，是谓要妙。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十八章"><a href="#第二十八章" class="headerlink" title="第二十八章"></a>第二十八章</h3><blockquote>
+<p>知其雄，守其雌，为天下溪。为天下溪，常德不离，复归于婴儿。知其白，守其黑，为天下式。常得不忒，复归于无极。知其荣，守其辱，为天下谷。为天下谷，常得乃足，复归于朴。朴散则为器，圣人用为官长，是以大制无割。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十九章"><a href="#第二十九章" class="headerlink" title="第二十九章"></a>第二十九章</h3><blockquote>
+<p>将欲取天下而为之，吾见其不得已。天下神器，不可为。为者败之，执者失之。夫物或行或随，或嘘或吹，或强或赢，或接或隳。是以圣人去甚，去奢，去泰。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十章"><a href="#第三十章" class="headerlink" title="第三十章"></a>第三十章</h3><blockquote>
+<p>以道作人主者，不以兵强天下，其事好远：师之所处，荆棘生。故善者果而已，不以取强。果而勿骄，果而勿矜，果而勿伐，果而不得以，是果而勿强。物壮则老，谓之非道，非道早已。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十一章"><a href="#第三十一章" class="headerlink" title="第三十一章"></a>第三十一章</h3><blockquote>
+<p>夫佳兵者，不祥之器，物或恶之，故有道不处。君子居则贵左，用兵则贵右。兵者不祥之器，非君子之器，不得已而用之，恬惔为上，故不美，若美之，是乐煞人。夫乐煞者，不可得意于天下。故吉事尚左，凶事尚右。是以偏将军居左，上将军居右。煞人众多，以悲哀泣之；战胜，以哀礼处之。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十二章"><a href="#第三十二章" class="headerlink" title="第三十二章"></a>第三十二章</h3><blockquote>
+<p>道常无名。朴虽小，天下不敢臣。王侯若能守，万物将自宾。天地相合，以降甘露，人莫之令而自均。始制有名。名亦既有，天将知止。知止不殆。譬道在天下，犹川谷与江海。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十三章"><a href="#第三十三章" class="headerlink" title="第三十三章"></a>第三十三章</h3><blockquote>
+<p>知人者智，自知者明。胜人有力，自胜者强。知足者富，强行有志。不失其所者久，死而不亡者寿。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十四章"><a href="#第三十四章" class="headerlink" title="第三十四章"></a>第三十四章</h3><blockquote>
+<p>大道汜，其可左右。万物恃之以生而不辞，成功不名有。爱养万物不为主，可名于大。是以圣人终不为大，故能成其大。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十五章"><a href="#第三十五章" class="headerlink" title="第三十五章"></a>第三十五章</h3><blockquote>
+<p>执大象，天下往。往而不害，安平太。乐与饵，过客止。道出言，淡无味，视不足见，听不足闻，用不可既。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十六章"><a href="#第三十六章" class="headerlink" title="第三十六章"></a>第三十六章</h3><blockquote>
+<p>将欲翕之，必故张之；将欲弱之，必故强之；将欲废之，必故兴之；将欲夺之，必故与之。是谓微明。柔胜刚，弱胜强。鱼不可脱于渊，国有利器，不可示人。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十七章"><a href="#第三十七章" class="headerlink" title="第三十七章"></a>第三十七章</h3><blockquote>
+<p>道常无为而无不为。侯王若能守，万物将自化。化而欲作，吾将镇之以无名之朴。无名之朴，亦将不欲。不欲以静，天下将自正。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十八章"><a href="#第三十八章" class="headerlink" title="第三十八章"></a>第三十八章</h3><blockquote>
+<p>上德不德，是以有德。下德不失德，是以无德。上德无为而无以为，下德无为而有以为。上仁为之而无以为，上义为之而有以为。上礼为之而莫之应，则攘臂而仍之。故失道而后德，失德而后仁，失仁而后义，失义而后礼。夫礼者，忠信之薄，而乱之首。前识者，道之华，而愚之始。是以大丈夫处其厚不处其薄，居其实不居其华。故去彼取此。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十九章"><a href="#第三十九章" class="headerlink" title="第三十九章"></a>第三十九章</h3><blockquote>
+<p>昔之得一者：天得一以清，地得一以宁，神得一以灵，谷得一以盈，万物得一以生，侯王得一以为天下正。天无以清，将恐裂；地无以宁，将恐废；神无以灵，将恐歇；谷无以盈，将恐竭；万物无以生，将恐灭；侯王无以贵高，将恐蹶。故贵以贱为本，高以下为基。是以侯王自谓孤、寡、不谷。此其以贱为本耶非?故致数车无车。不欲琭琭如玉，落落如石。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四十章"><a href="#第四十章" class="headerlink" title="第四十章"></a>第四十章</h3><blockquote>
+<p>反者道之动，弱者道之用。天下万物生于有，有生于无。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四十一章"><a href="#第四十一章" class="headerlink" title="第四十一章"></a>第四十一章</h3><blockquote>
+<p>上士闻道，勤而行之；中士闻道，若存若亡；下士闻道，大咲之。不咲不足以为道。故建言有之：明道若昧，进道若退，夷道若类，上德若谷，大白若辱，广德若不足，建德若偷，质真若渝，大方无隅，大器晚成，大音希声，大象无形。道隐无名。夫唯道，善贷且善。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四十二章"><a href="#第四十二章" class="headerlink" title="第四十二章"></a>第四十二章</h3><blockquote>
+<p>道生一，一生二，二生三，三生万物。万物负阴而抱阳，冲气以为和。人之所恶，唯孤、寡、不谷，而王公以为称。故物或损之而益，或益之而损。人之所教，我亦教之：强梁者不得其死，吾将以为教父。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四十三章"><a href="#第四十三章" class="headerlink" title="第四十三章"></a>第四十三章</h3><blockquote>
+<p>天下之至柔，驰骋天下之至坚。无有入于无闻。是以知无为有益。不言之教，无为之益，天下希及之。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四十四章"><a href="#第四十四章" class="headerlink" title="第四十四章"></a>第四十四章</h3><blockquote>
+<p>名与身熟亲?身与货熟多?得与亡熟病?是故甚爱必大费，多藏必厚亡。故知足不辱，知止不殆，可以长久。</p>
+</blockquote>
+<h3 id="第四十五章"><a href="#第四十五章" class="headerlink" title="第四十五章"></a>第四十五章</h3><blockquote>
+<p>大成若缺，其用不弊。大盈若冲，其用不穷。大直若屈，大巧若拙，大辩若讷。躁胜塞，静胜热，清静以为天下正。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四十六章"><a href="#第四十六章" class="headerlink" title="第四十六章"></a>第四十六章</h3><blockquote>
+<p>天下有道，却走马以粪；天下无道，戎马生于郊。罪莫大于可欲，祸莫大于不知足，咎莫大于欲得。故知足之足，常足。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四十七章"><a href="#第四十七章" class="headerlink" title="第四十七章"></a>第四十七章</h3><blockquote>
+<p>不出户，知天下；不窥牖，见天道。其出弥远，其知弥近。是以圣人不行而知，不见而名，不为而成。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四十八章"><a href="#第四十八章" class="headerlink" title="第四十八章"></a>第四十八章</h3><blockquote>
+<p>为学日益，为道日损，损之又损之，以至于无为。无为无不为。取天下常以无事，及其有事，不足以取天下。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四十九章"><a href="#第四十九章" class="headerlink" title="第四十九章"></a>第四十九章</h3><blockquote>
+<p>圣人无心，以百姓心为心。善者吾善之，不善者吾亦善之，得善。信者吾信之，不信者吾亦信之，得信。圣人在天下，怵怵；为天下，浑其心。百姓皆注其耳目，圣人皆孩之。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五十章"><a href="#第五十章" class="headerlink" title="第五十章"></a>第五十章</h3><blockquote>
+<p>出生入死。生之徒十有三，死之徒十有三，人之生，动之死地，十有三。夫何故?以其生生之厚。盖闻善摄生者，路行不遇兕虎，入军不被甲兵。兕无所投其角，虎无所揩其爪，兵无所容其刃。夫何故?以其无死地。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五十一章"><a href="#第五十一章" class="headerlink" title="第五十一章"></a>第五十一章</h3><blockquote>
+<p>道生之，德畜之，物形之，势成之。是以万物莫不尊道而贵德。道之尊，德之贵，夫莫之命而常自然。故道生之，德畜之，长之育之，成之熟之，养之覆之。生而不有，为而不恃，长而不宰，是谓玄德。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五十二章"><a href="#第五十二章" class="headerlink" title="第五十二章"></a>第五十二章</h3><blockquote>
+<p>天下有始，以为天下母。既知其母，又知其子。既知其子，复守其母。没身不殆。塞其兑，闭其门。终身不勤。开其兑，济其事，终身不救。见小曰明，守柔曰强。用其光，复归其明，无遗身殃，是谓习常。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五十三章"><a href="#第五十三章" class="headerlink" title="第五十三章"></a>第五十三章</h3><blockquote>
+<p>使我介然有知，行于大道，唯施是畏。大道甚夷，而人好径。朝甚除，田甚芜，仓甚虚，服文彩，带利剑，厌饮食，财货有馀，是谓盗夸。非道也哉!<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五十四章"><a href="#第五十四章" class="headerlink" title="第五十四章"></a>第五十四章</h3><blockquote>
+<p>善建者不拔，善抱者不脱，子孙祭祀不辍。修之身，其德乃真；修之家，其德有馀；修之乡，其德乃长；修之于国，其德乃丰；修之于天下，其德乃普。故以身观身，以家观家，以乡观乡，以国观国，以天下观天下。吾何以知天下之然?以此。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五十五章"><a href="#第五十五章" class="headerlink" title="第五十五章"></a>第五十五章</h3><blockquote>
+<p>含德之厚，比于赤子。毒虫不螫，猛兽不据，玃鸟不搏。骨弱筋柔而握固。未知牝牡之合而脧作，精之至。终日号而不嗄，和之至。知和曰常，知常曰明，益生曰祥，心使气曰强。物壮则老，谓之不道，不道早已。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五十六章"><a href="#第五十六章" class="headerlink" title="第五十六章"></a>第五十六章</h3><blockquote>
+<p>知者不言，言者不知。塞其兑，闭其门，挫其锐，解其忿，和其光，同其尘，是谓玄同。故不可得而亲，不可得而疏；不可得而利，不可得而害；不可得而贵，亦不可得而贱。故为天下贵。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五十七章"><a href="#第五十七章" class="headerlink" title="第五十七章"></a>第五十七章</h3><blockquote>
+<p>以正治国，以奇用兵，以无事取天下。吾何以知其然?以此。天下多忌讳，而人弥贫；人多利器，国家滋昏；人多伎巧，奇物滋起；法物滋彰，盗贼多有。故圣人云：“我无为，人自化；我好静，人自正；我无事，人自富；我无欲，人自朴。”</p>
+</blockquote>
+<h3 id="第五十八章"><a href="#第五十八章" class="headerlink" title="第五十八章"></a>第五十八章</h3><blockquote>
+<p>其政闷闷，其人醇醇；其政察察，其人缺缺。祸，福之所倚；福，祸之所伏。熟知其极?其无正。政复为奇，善复为妖。人之迷，其日固久。是以圣人方而不割，廉而不害，直而不肆，光而不曜。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五十九章"><a href="#第五十九章" class="headerlink" title="第五十九章"></a>第五十九章</h3><blockquote>
+<p>治人事天，莫若啬。夫唯啬，是谓早服。早服谓之重积德。重积德则无不克，无不克则莫知其极。莫知其极，可以有国。有国之母，可以长久。是谓深根、固蒂、长生、久视之道。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十章"><a href="#第六十章" class="headerlink" title="第六十章"></a>第六十章</h3><blockquote>
+<p>治大国若亨小鲜。以道莅天下，其鬼不神。非其鬼不神，其神不伤人。非其神不伤人，圣人亦不伤人。夫两不相伤，故得交归。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十一章"><a href="#第六十一章" class="headerlink" title="第六十一章"></a>第六十一章</h3><blockquote>
+<p>大国者下流，天下之交，天下之牝。牡常以静胜牝，以静为下。故大国以下小国，则取小国；小国以下大国，则取大国。故或下以取，或下如取。大国不过欲兼畜人，小国不过欲入事人。此两者各得其所欲，大者宜为下。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十二章"><a href="#第六十二章" class="headerlink" title="第六十二章"></a>第六十二章</h3><blockquote>
+<p>道者，万物之奥。善，人之宝；不善，人之所不保。美言可以市尊，行可以加人。人之不善，何弃之有?故立天子，置三公，虽有拱璧以先驷马，不如坐进此道。古之所以贵此道者何?不曰求以得，有罪以勉，故为天下贵。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十三章"><a href="#第六十三章" class="headerlink" title="第六十三章"></a>第六十三章</h3><blockquote>
+<p>为无为，事无事，味无味。大小多少，报怨以德。图难于易，为大于细。天下难事，必作于易；天下大事，必作于细。是以圣人终不为大，故能成其大。夫轻诺必寡信，多易必多难，是以圣人犹难之，故终无难。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十四章"><a href="#第六十四章" class="headerlink" title="第六十四章"></a>第六十四章</h3><blockquote>
+<p>其安易持，其未兆易谋，其脆易破，其微易散。为之于未有，治之于未乱。合抱之木，生于毫末；九层之台，起于累土；千里之行，始于足下。为者败之，执者失之。是以圣人无为，故无败；无执，故无失。民之从事，常于几成而败之。慎终如始，则无败事。是以圣人欲不欲，不贵难得之货；学不学，复众人之所过。以辅万物之自然而不敢为。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十五章"><a href="#第六十五章" class="headerlink" title="第六十五章"></a>第六十五章</h3><blockquote>
+<p>古之善为道者，非以明人，将以愚之。民之难治，以其多智。以智治国，国之贼；不以智治国，国之福。知此两者，亦揩式。常知揩式，是谓玄德。玄德深远，与物反，然后乃至大顺。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十六章"><a href="#第六十六章" class="headerlink" title="第六十六章"></a>第六十六章</h3><blockquote>
+<p>江海所以能为百谷王，以其善下之，故能为百谷王。是以圣人欲上人，必以言下之；欲先人，必以身后之。是以圣人处上而人不重，处前而人不害，是以天下乐推而不厌。以其不争，故天下莫与之争。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十七章"><a href="#第六十七章" class="headerlink" title="第六十七章"></a>第六十七章</h3><blockquote>
+<p>天下皆谓我大，不肖。夫唯大，故不肖。若肖，久矣其细!我有三宝，持而保之：一曰慈，二曰俭，三曰不敢为天下先。夫慈，故能勇；俭，故能广；不敢为天下先，故能成器长。今舍慈且勇，舍俭且广，舍后且先，死矣。夫慈，以战则胜，以守则固。天将救之，以慈卫之。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十八章"><a href="#第六十八章" class="headerlink" title="第六十八章"></a>第六十八章</h3><blockquote>
+<p>古之善为士者不武，善战者不怒，善胜敌者不争，善用仁者为下。是谓不争之德，是以用人之力，是谓配天古之极。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十九章"><a href="#第六十九章" class="headerlink" title="第六十九章"></a>第六十九章</h3><blockquote>
+<p>用兵有言：“吾不敢为主而为客，不敢进寸而退尺。”是谓行无行，攘无臂，仍无敌，执无兵。祸莫大于轻敌，轻敌几丧吾宝。故抗兵相加，则哀者胜。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十章"><a href="#第七十章" class="headerlink" title="第七十章"></a>第七十章</h3><blockquote>
+<p>吾言甚易知，甚易行。天下莫能知，莫能行。言有宗，事有君。夫唯无知，是以不我知。知我者希，则我者贵。是以圣人被褐怀玉。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十一章"><a href="#第七十一章" class="headerlink" title="第七十一章"></a>第七十一章</h3><blockquote>
+<p>知不知上，不知知，病。是以圣人不病。以其病病，是以不病。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十二章"><a href="#第七十二章" class="headerlink" title="第七十二章"></a>第七十二章</h3><blockquote>
+<p>民不畏威，大威至。无狭其所居，无厌其所生。夫唯不厌，是以不厌。是以圣人自知不自见，自爱不自贵。故去彼取此。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十三章"><a href="#第七十三章" class="headerlink" title="第七十三章"></a>第七十三章</h3><blockquote>
+<p>勇于敢则杀，勇于不敢则活，知此两者或利或害。天之所恶，孰知其故?天之道，不争而善胜，不言而善应，不召而自来，坦然而善谋。天网恢恢，疏而不漏。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十四章"><a href="#第七十四章" class="headerlink" title="第七十四章"></a>第七十四章</h3><blockquote>
+<p>民不畏死，奈何以死惧之?若使常畏死，而为奇者，吾执得而煞之，熟敢?常有司煞者煞。夫代司煞者，是谓代大匠斲，夫代大匠斲，希有不伤其手。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十五章"><a href="#第七十五章" class="headerlink" title="第七十五章"></a>第七十五章</h3><blockquote>
+<p>民之饥，以其上食税之多，是以饥。民之难治，以其上有为，是以难治。人之轻死，以其生生之厚，是以轻死。夫唯无以生为者，是贤于贵生。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十六章"><a href="#第七十六章" class="headerlink" title="第七十六章"></a>第七十六章</h3><blockquote>
+<p>人生之柔弱，其死坚强。万物草木生之柔脆，其死枯槁。故坚强者死之徒，柔弱者生之徒。是以兵强则不胜，木强则共。故坚强处下，柔弱处上。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十七章"><a href="#第七十七章" class="headerlink" title="第七十七章"></a>第七十七章</h3><blockquote>
+<p>天之道，其犹张弓!高者抑之，下者举之，有馀者损之，不足者与之。天之道，损有馀而补不足；人道则不然，损不足，奉有馀。熟能有馀以奉天下?其唯有道者。是以圣人为而不恃，功成不处，斯不见贤。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十八章"><a href="#第七十八章" class="headerlink" title="第七十八章"></a>第七十八章</h3><blockquote>
+<p>天下柔弱莫过于水，而攻坚；强莫之能先。其无以易之。故弱胜强，柔胜刚，天下莫能知，莫能行。故圣人云：“受国之垢，是谓社稷主；受国不祥，是谓天下王。”正言若反。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十九章"><a href="#第七十九章" class="headerlink" title="第七十九章"></a>第七十九章</h3><blockquote>
+<p>和大怨，必有馀怨，安可以为善?是以圣人执左契，不责于人。故有德司契，无德司彻。天道无亲，常与善人。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第八十章"><a href="#第八十章" class="headerlink" title="第八十章"></a>第八十章</h3><blockquote>
+<p>小国寡人，使有什佰之器而不用，使人重死而不远徙。虽有舟舆，无所乘之；虽有甲兵，无所陈之。使民复结绳而用之。甘其食，美其服，安其居，乐其俗，邻国相望，鸡狗之声相闻，民至老死，不相往来。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第八十一章"><a href="#第八十一章" class="headerlink" title="第八十一章"></a>第八十一章</h3><blockquote>
+<p>信言不美，美言不信。善者不辩，辩者不善。知者不博，博者不知。圣人不积，既以为人己愈有，既以与人己愈多。天之道，利而不害。圣人之道，为而不争。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>哲学</category>
+      </categories>
+      <tags>
+        <tag>老子</tag>
+        <tag>道家</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>网络安全与防火墙</title>
+    <url>/2020/02/17/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%B8%8E%E9%98%B2%E7%81%AB%E5%A2%99/</url>
+    <content><![CDATA[<p><strong>在关于防火墙的叙述前，我们需要了解什么是网络安全，网络安全的兴起以及网络不安全带来的困扰。本章将上半部分讲述网络安全，下半部分对防火墙的定义及弊端进行浅谈</strong></p>
+<a id="more"></a>
+
+<h2 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2><h3 id="究竟什么是网络安全？"><a href="#究竟什么是网络安全？" class="headerlink" title="究竟什么是网络安全？"></a>究竟什么是网络安全？</h3><blockquote>
+<p>有人曾说过:网络的神奇在于你可以使用其他任何人的资源；<strong>可怕在其他人可以用你的资源</strong>。<br>因此，网络安全则是为了对计算机软硬件及系统中的数据地保护</p>
+</blockquote>
+<h3 id="什么让网络不安全？"><a href="#什么让网络不安全？" class="headerlink" title="什么让网络不安全？"></a>什么让网络不安全？</h3><h4 id="1-网络的缺陷"><a href="#1-网络的缺陷" class="headerlink" title="1.网络的缺陷"></a>1.网络的缺陷</h4><p>  因特网在设计之初对共享性和开放性的强调，而导致其先天的安全缺陷。然而其赖以生存的TCP/IP协议族在设计理念上更多是考虑该网络不会因局部故障而影响信息的传输，基本没有考虑安全问题。因此它在控制不可信连接、分辨非法访问、辨别身份伪装等方面存在很大缺陷，从而导致网络安全隐患。</p>
+<blockquote>
+<p>多数底层协议为广播方式，多数应用层协议为明文传输，缺乏保密与认证机制，因此容易遭受欺骗和窃听</p>
+</blockquote>
+<h4 id="2-软件与系统的漏洞及后门"><a href="#2-软件与系统的漏洞及后门" class="headerlink" title="2.软件与系统的漏洞及后门"></a>2.软件与系统的漏洞及后门</h4><p>  随着软件与网络系统规模不断增大，大多数的信息系统和网络存在着先天性的安全漏洞和安全威胁。软件的后门是编程人员为了自便而设置的，一般不为人知。<br>  比如，我们常用的操作系统，无论是 Windows 还是 Linux 几乎都存在或多或少的安全漏洞，众多的服务器、浏览器、桌面软件等都被发现存在安全隐患。任何一个软件系统都可能会因为程序员的一个疏忽或设计中的一个缺陷等原因留下漏洞。 </p>
+<h4 id="3-病毒和木马"><a href="#3-病毒和木马" class="headerlink" title="3.病毒和木马"></a>3.病毒和木马</h4><p>  <strong>病毒：</strong>一种人为蓄意制造、以破坏为主的程序，其寄生于其他应用程序或系统可执行文件，通过部分修改或移动程序，通过自我复制或占据宿主查询的部分而隐藏起来(类比我们的生物病毒),是计算机系统最直接的安全威胁。而Internet是网络滋生和传播的温床。<br>  <strong>木马：</strong>与病毒不同不会传染，主要是窃取用户信息，木马入侵不会想病毒那样入侵后立马有感觉，而是通过秘密破坏，完成非授权用户无法完成的功能，施种者可以任意破坏窃取被种者的文件，甚至远程操控被种者电脑。</p>
+<h4 id="4-黑客攻击"><a href="#4-黑客攻击" class="headerlink" title="4.黑客攻击"></a>4.黑客攻击</h4><p>  黑客都是些熟练使用计算机的能人，但标题所说黑客攻击是指为得利益不择手段(通过网路非法进入他人系统、截获或篡改计算机数据、危害信息安全)的人，通常这类黑客以骇客称之，像黑客的另一分支红客与蓝客就是正义的一方，相比破坏者，这些守护者的技术水平更高，不是有那么一句”打天下容守天下难”吗。</p>
+<h4 id="5，网络安全建设滞后"><a href="#5，网络安全建设滞后" class="headerlink" title="5，网络安全建设滞后"></a>5，网络安全建设滞后</h4><p>  网络硬件建设如火如荼了，网络安全管理滞后，用户安全意识不强，即使应用了最好的安全设备也经常达不到预期效果。<br>  也就是说一个国家的百姓衣食住行都安顿下来了，可是约束百姓的法律才颁布出来，百姓法律意识薄弱，仍会出茬子。</p>
+<h3 id="网络安全工作目的"><a href="#网络安全工作目的" class="headerlink" title="网络安全工作目的"></a>网络安全工作目的</h3><p><strong>用简洁的三字词概括就是：进不来、拿不走、改不了、看不懂、跑不了、可审查</strong><br>所以，虚拟专用网、访问控制、入侵检测、防病毒软件、防火墙等就出现了</p>
+<hr>
+<h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><h3 id="防火墙是什么？"><a href="#防火墙是什么？" class="headerlink" title="防火墙是什么？"></a>防火墙是什么？</h3><blockquote>
+<p>在建筑设计专业术语，用于分隔不同区域，能将火灾有效限制在一定空间内，阻断火灾在防火墙的一侧蔓延到另一侧，对于减少火灾造成损失有着重要作用</p>
+</blockquote>
+<p><strong>而对于网络防火墙就是在两个网络之间实现访问控制的一个或一组软件或硬件系统，是实现网络和信息安全的基础设施(类似一堵城墙将外部和内部进行隔离，并在此基础上实现数据包的访问控制等功能)</strong></p>
+<h3 id="防火墙功能"><a href="#防火墙功能" class="headerlink" title="防火墙功能"></a>防火墙功能</h3><p>防火墙主要功能是对流经它的网路通信进行扫描，过滤危险的数据或访问请求，以免在目标计算机上被执行。防火墙还可以关闭不使用的端口、禁止特定端口的通信、封锁木马、禁止来自特殊站点的访问，从而防止入侵者的所有通道。<br>这里我们也可以做一个比喻，把因特网比喻成为现实生活中的大街，内网比作一所别墅，数据比喻来往与大街的人，防火墙则是将别墅围起来的高墙，房子的主人及亲朋好友（正常进出网络数据）通过防火墙大门人脸识别，允许进入。而那些企图进入的不法分子（恶意数据包），则被拒之墙外。</p>
+<h3 id="防火墙的分类"><a href="#防火墙的分类" class="headerlink" title="防火墙的分类"></a>防火墙的分类</h3><ul>
+<li><strong>防火墙可分为软件防火墙、硬件防火墙</strong></li>
+<li><strong>防火墙也可以分为个人防火墙、网路防火墙</strong></li>
+</ul>
+<p><em>一般情况下，个人防火墙是软件防火墙(比如Windows自带的防火墙)，网络防火墙有硬件防火墙，也有软件防火墙</em></p>
+<h3 id="防火墙不足之处"><a href="#防火墙不足之处" class="headerlink" title="防火墙不足之处"></a>防火墙不足之处</h3><p><strong>无法保护内部用户之间的攻击，防外不防内</strong><br><strong>无法防护基本操作系统漏洞的攻击</strong><br><strong>一般无法防护病毒的侵袭</strong><br><strong>对网络性能有影响</strong></p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>网络安全</tag>
+        <tag>防火墙</tag>
       </tags>
   </entry>
   <entry>
@@ -552,8 +997,8 @@
         <category>开发工具</category>
       </categories>
       <tags>
-        <tag>git</tag>
         <tag>版本控制</tag>
+        <tag>git</tag>
         <tag>分布式</tag>
       </tags>
   </entry>
@@ -699,6 +1144,9 @@
 </blockquote>
 <blockquote>
 <p><strong>艮山谦，君子以裒多益寡</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>夕阳无限好，只是近黄昏。</strong></p>
 </blockquote>
 <blockquote>
 <p><strong>青山依旧在，几度夕阳红。</strong></p>
@@ -974,6 +1422,9 @@
 <p><strong>缘起，在人群中，我看见了你；缘灭，我看见了你，在人群中。</strong></p>
 </blockquote>
 <blockquote>
+<p><strong>有人背井离乡，因为希望有朝一日荣归故里，有人荣归故里，因为曾经背井离乡。</strong></p>
+</blockquote>
+<blockquote>
 <p><strong>朱门酒肉臭，路有冻死骨。</strong></p>
 </blockquote>
 <blockquote>
@@ -1166,6 +1617,9 @@
 <p><strong>有志者、事竟成，破釜沉舟，百二秦关终属楚；苦心人、天不负，卧薪尝胆，三千越甲可吞吴。</strong></p>
 </blockquote>
 <blockquote>
+<p><strong>纸上得来终觉浅，绝知此事要躬行。</strong></p>
+</blockquote>
+<blockquote>
 <p><strong>千里修书只为墙，让他三尺又何妨。万里长城今犹在，不见当年秦始皇。</strong></p>
 </blockquote>
 <blockquote>
@@ -1298,404 +1752,6 @@
       <tags>
         <tag>诗句</tag>
         <tag>俗语</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>dynasties</title>
-    <url>/2020/04/01/dynasties/</url>
-    <content><![CDATA[<a id="more"></a>
-<p><img src="http://img.xixik.net/cimg/083/xixik_c53006a681fc4200.jpeg" alt="尧舜禹→夏" title="尧舜禹→夏"><br><img src="http://img.xixik.net/cimg/083/xixik_87512603bf7f461e.jpeg" alt="商" title="商"><br><img src="http://img.xixik.net/cimg/083/xixik_a1523ca6228beae4.jpeg" alt="周" title="周"><br><img src="http://img.xixik.net/cimg/083/xixik_87c9e06af0d51132.jpeg" alt="秦" title="秦"><br><img src="http://img.xixik.net/cimg/083/xixik_01848d23bc3c0496.jpeg" alt="汉" title="汉"><br><img src="http://img.xixik.net/cimg/083/xixik_2a93308ddfd78f78.jpeg" alt="魏" title="魏"><br><img src="http://img.xixik.net/cimg/083/xixik_34ae3a4f7693d9ea.jpeg" alt="蜀" title="蜀"><br><img src="http://img.xixik.net/cimg/083/xixik_bafe42d5cde82df4.jpeg" alt="吴" title="吴"><br><img src="http://img.xixik.net/cimg/083/xixik_20b47e2887f23ecf.jpeg" alt="晋" title="晋"><br><img src="http://img.xixik.net/cimg/083/xixik_57f8d17ebfdb1a85.jpeg" alt="隋" title="隋"><br><img src="http://img.xixik.net/cimg/083/xixik_04c8ec9fff83c2f9.jpeg" alt="唐" title="唐"><br><img src="http://img.xixik.net/cimg/083/xixik_6bc06e9bb6ef708c.jpeg" alt="辽" title="辽"><br><img src="http://img.xixik.net/cimg/083/xixik_6e40141c5eb849ea.jpeg" alt="宋" title="宋"><br><img src="http://img.xixik.net/cimg/083/xixik_74a385004d03fc0a.jpeg" alt="西夏" title="西夏"><br><img src="http://img.xixik.net/cimg/083/xixik_d209b6d3983aaf85.jpeg" alt="金" title="金"><br><img src="http://img.xixik.net/cimg/083/xixik_1f2382bcdab86fe9.jpeg" alt="元" title="元"><br><img src="http://img.xixik.net/cimg/083/xixik_a160592906ace6ec.jpeg" alt="明" title="明"><br><img src="http://img.xixik.net/cimg/083/xixik_633a17f15265a0ef.jpeg" alt="清" title="清"><br><em><strong>注意：转载自嘻嘻网图片，切勿商用</strong></em></p>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>历史</tag>
-        <tag>纯图片</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SVN版本控制</title>
-    <url>/2020/03/18/SVN%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</url>
-    <content><![CDATA[<h2 id="SVN版本控制"><a href="#SVN版本控制" class="headerlink" title="SVN版本控制"></a>SVN版本控制</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><strong>SVN是subversion的缩写，是一个开放源代码的版本控制系统（CMS），通过采用分支管理系统的高效管理，简而言之就是用于多个人共同开发同一个项目，实现共享资源，实现最终集中式的管理，它是最初版本控制工具CVS的升级版</strong></p>
-<a id="more"></a>
-
-<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p><strong>由于实际项目开发是多人进行开发，就会出现项目代码提交的冲突，这时候使用项目版本控制工具可以有效地解决冲突以及代码的管理</strong></p>
-<h3 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h3><p><strong>在SVN中所保存的代码只能被本地进行管理，这一局限性也导致Linux之父林纳斯·托瓦兹开发了其替代产品Git。而且SVN使用了客户端服务器模式，也是说如果使用SVN一定要搭建服务其，还要单独配置客户端，也就是说，SVN如果脱离了网络，那么将无法进行版本控制</strong></p>
-<h3 id="SVN服务器的搭建"><a href="#SVN服务器的搭建" class="headerlink" title="SVN服务器的搭建"></a>SVN服务器的搭建</h3><p><em>注意：如果想要用自己电脑搭建SVN服务器一定要关闭防火墙，有360的需要卸载，否则可能出现连接不上</em><br><strong>满足上述要求以后，下载SVN服务器端软件自行选择，有apache的<a href="http://subversion.apache.org/packages.html" target="_blank" rel="noopener">subversion</a>,还有<a href="https://www.visualsvn.com/" target="_blank" rel="noopener">VisualSVN</a>等，这里提到的前一个配置相对麻烦，而VisualSVN适合新手，傻瓜式安装，具体安装不详细说明，网上有很多安装步骤详细讲解</strong></p>
-<h3 id="SVN客户端的配置"><a href="#SVN客户端的配置" class="headerlink" title="SVN客户端的配置"></a>SVN客户端的配置</h3><p><strong>至于客户端，则是<a href="https://tortoisesvn.net/" target="_blank" rel="noopener">TortoiseSVN</a>,页面进去是最新版客户端SVN，想要老版本下面文章有进入链接，至于对自己英语水平不自信的，比如我，最好还是下一语言包，安装也很简单不再赘述</strong></p>
-<h3 id="项目的发布与检出"><a href="#项目的发布与检出" class="headerlink" title="项目的发布与检出"></a>项目的发布与检出</h3><p><strong>喜欢用命令的用命令，当然下载了TortoiseSVN用命令感觉多此一举，因为我们是服务器与客户端都在自己本机，首先应当是确定自己的服务端是否启动，这很关键，在就是搭建自己的版本库，因为都是可视化界面，什么创建项目，创建组，创建用户啊都很容易，然后就是自己客户端操作，实现项目检入与检出，这里提醒一下汉化后其实导出就是检出，但检入和检出与导入和导出是不同概念。检入字面意思理解就是让你本地项目交给服务端管理，接受版本控制。而导入则不然，相当于复制入服务端，但不受其控制，就是两者没内在联系。导出和检出同理</strong></p>
-<h3 id="解决冲突问题"><a href="#解决冲突问题" class="headerlink" title="解决冲突问题"></a>解决冲突问题</h3><p><strong>项目提交难免会发生冲突，SVN提供了很好解决方案，当你与另一人提交的同一文件发生冲突，会提醒你，然后你打开文件，会查看到你修改的与另一个人的代码同时存在，这时需要你自己判断两者都要保留，然后合并。还是删除其一的修改，这就是你自己的判断了。因为本人比较懒不想截图，所以全篇没有图片参考，字面意思自认为该讲的都讲了。当然SVN插件在eclipse、IntelliJ IDEA等工具的使用自行体会网上教程很多。</strong></p>
-]]></content>
-      <categories>
-        <category>开发工具</category>
-      </categories>
-      <tags>
-        <tag>版本控制</tag>
-        <tag>SVN</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>网络安全与防火墙</title>
-    <url>/2020/02/17/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%B8%8E%E9%98%B2%E7%81%AB%E5%A2%99/</url>
-    <content><![CDATA[<p><strong>在关于防火墙的叙述前，我们需要了解什么是网络安全，网络安全的兴起以及网络不安全带来的困扰。本章将上半部分讲述网络安全，下半部分对防火墙的定义及弊端进行浅谈</strong></p>
-<a id="more"></a>
-
-<h2 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2><h3 id="究竟什么是网络安全？"><a href="#究竟什么是网络安全？" class="headerlink" title="究竟什么是网络安全？"></a>究竟什么是网络安全？</h3><blockquote>
-<p>有人曾说过:网络的神奇在于你可以使用其他任何人的资源；<strong>可怕在其他人可以用你的资源</strong>。<br>因此，网络安全则是为了对计算机软硬件及系统中的数据地保护</p>
-</blockquote>
-<h3 id="什么让网络不安全？"><a href="#什么让网络不安全？" class="headerlink" title="什么让网络不安全？"></a>什么让网络不安全？</h3><h4 id="1-网络的缺陷"><a href="#1-网络的缺陷" class="headerlink" title="1.网络的缺陷"></a>1.网络的缺陷</h4><p>  因特网在设计之初对共享性和开放性的强调，而导致其先天的安全缺陷。然而其赖以生存的TCP/IP协议族在设计理念上更多是考虑该网络不会因局部故障而影响信息的传输，基本没有考虑安全问题。因此它在控制不可信连接、分辨非法访问、辨别身份伪装等方面存在很大缺陷，从而导致网络安全隐患。</p>
-<blockquote>
-<p>多数底层协议为广播方式，多数应用层协议为明文传输，缺乏保密与认证机制，因此容易遭受欺骗和窃听</p>
-</blockquote>
-<h4 id="2-软件与系统的漏洞及后门"><a href="#2-软件与系统的漏洞及后门" class="headerlink" title="2.软件与系统的漏洞及后门"></a>2.软件与系统的漏洞及后门</h4><p>  随着软件与网络系统规模不断增大，大多数的信息系统和网络存在着先天性的安全漏洞和安全威胁。软件的后门是编程人员为了自便而设置的，一般不为人知。<br>  比如，我们常用的操作系统，无论是 Windows 还是 Linux 几乎都存在或多或少的安全漏洞，众多的服务器、浏览器、桌面软件等都被发现存在安全隐患。任何一个软件系统都可能会因为程序员的一个疏忽或设计中的一个缺陷等原因留下漏洞。 </p>
-<h4 id="3-病毒和木马"><a href="#3-病毒和木马" class="headerlink" title="3.病毒和木马"></a>3.病毒和木马</h4><p>  <strong>病毒：</strong>一种人为蓄意制造、以破坏为主的程序，其寄生于其他应用程序或系统可执行文件，通过部分修改或移动程序，通过自我复制或占据宿主查询的部分而隐藏起来(类比我们的生物病毒),是计算机系统最直接的安全威胁。而Internet是网络滋生和传播的温床。<br>  <strong>木马：</strong>与病毒不同不会传染，主要是窃取用户信息，木马入侵不会想病毒那样入侵后立马有感觉，而是通过秘密破坏，完成非授权用户无法完成的功能，施种者可以任意破坏窃取被种者的文件，甚至远程操控被种者电脑。</p>
-<h4 id="4-黑客攻击"><a href="#4-黑客攻击" class="headerlink" title="4.黑客攻击"></a>4.黑客攻击</h4><p>  黑客都是些熟练使用计算机的能人，但标题所说黑客攻击是指为得利益不择手段(通过网路非法进入他人系统、截获或篡改计算机数据、危害信息安全)的人，通常这类黑客以骇客称之，像黑客的另一分支红客与蓝客就是正义的一方，相比破坏者，这些守护者的技术水平更高，不是有那么一句”打天下容守天下难”吗。</p>
-<h4 id="5，网络安全建设滞后"><a href="#5，网络安全建设滞后" class="headerlink" title="5，网络安全建设滞后"></a>5，网络安全建设滞后</h4><p>  网络硬件建设如火如荼了，网络安全管理滞后，用户安全意识不强，即使应用了最好的安全设备也经常达不到预期效果。<br>  也就是说一个国家的百姓衣食住行都安顿下来了，可是约束百姓的法律才颁布出来，百姓法律意识薄弱，仍会出茬子。</p>
-<h3 id="网络安全工作目的"><a href="#网络安全工作目的" class="headerlink" title="网络安全工作目的"></a>网络安全工作目的</h3><p><strong>用简洁的三字词概括就是：进不来、拿不走、改不了、看不懂、跑不了、可审查</strong><br>所以，虚拟专用网、访问控制、入侵检测、防病毒软件、防火墙等就出现了</p>
-<hr>
-<h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><h3 id="防火墙是什么？"><a href="#防火墙是什么？" class="headerlink" title="防火墙是什么？"></a>防火墙是什么？</h3><blockquote>
-<p>在建筑设计专业术语，用于分隔不同区域，能将火灾有效限制在一定空间内，阻断火灾在防火墙的一侧蔓延到另一侧，对于减少火灾造成损失有着重要作用</p>
-</blockquote>
-<p><strong>而对于网络防火墙就是在两个网络之间实现访问控制的一个或一组软件或硬件系统，是实现网络和信息安全的基础设施(类似一堵城墙将外部和内部进行隔离，并在此基础上实现数据包的访问控制等功能)</strong></p>
-<h3 id="防火墙功能"><a href="#防火墙功能" class="headerlink" title="防火墙功能"></a>防火墙功能</h3><p>防火墙主要功能是对流经它的网路通信进行扫描，过滤危险的数据或访问请求，以免在目标计算机上被执行。防火墙还可以关闭不使用的端口、禁止特定端口的通信、封锁木马、禁止来自特殊站点的访问，从而防止入侵者的所有通道。<br>这里我们也可以做一个比喻，把因特网比喻成为现实生活中的大街，内网比作一所别墅，数据比喻来往与大街的人，防火墙则是将别墅围起来的高墙，房子的主人及亲朋好友（正常进出网络数据）通过防火墙大门人脸识别，允许进入。而那些企图进入的不法分子（恶意数据包），则被拒之墙外。</p>
-<h3 id="防火墙的分类"><a href="#防火墙的分类" class="headerlink" title="防火墙的分类"></a>防火墙的分类</h3><ul>
-<li><strong>防火墙可分为软件防火墙、硬件防火墙</strong></li>
-<li><strong>防火墙也可以分为个人防火墙、网路防火墙</strong></li>
-</ul>
-<p><em>一般情况下，个人防火墙是软件防火墙(比如Windows自带的防火墙)，网络防火墙有硬件防火墙，也有软件防火墙</em></p>
-<h3 id="防火墙不足之处"><a href="#防火墙不足之处" class="headerlink" title="防火墙不足之处"></a>防火墙不足之处</h3><p><strong>无法保护内部用户之间的攻击，防外不防内</strong><br><strong>无法防护基本操作系统漏洞的攻击</strong><br><strong>一般无法防护病毒的侵袭</strong><br><strong>对网络性能有影响</strong></p>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>网络安全</tag>
-        <tag>防火墙</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>病毒浅谈</title>
-    <url>/2020/02/17/%E7%97%85%E6%AF%92%E6%B5%85%E8%B0%88/</url>
-    <content><![CDATA[<p><strong>病毒在生物上的危害就不多说，最近的COVID-19病毒就知道其可怕。本篇主要来谈谈计算机的病毒</strong></p>
-<h2 id="计算机病毒"><a href="#计算机病毒" class="headerlink" title="计算机病毒"></a>计算机病毒</h2><h3 id="什么是计算机病毒？"><a href="#什么是计算机病毒？" class="headerlink" title="什么是计算机病毒？"></a>什么是计算机病毒？</h3><p><strong>计算机病毒简单来讲，是一种人为制造，在计算机运行中对其信息或系统起破坏作用的程序</strong></p>
-<a id="more"></a>
-
-<h3 id="计算机病毒的特点是什么？"><a href="#计算机病毒的特点是什么？" class="headerlink" title="计算机病毒的特点是什么？"></a>计算机病毒的特点是什么？</h3><p><em><strong>破坏性、传染性、寄生性、潜伏性、隐蔽性</strong></em><br>不多解释，从字面意思，看就是类似于生物病毒</p>
-<h3 id="计算机中病毒的表现形式"><a href="#计算机中病毒的表现形式" class="headerlink" title="计算机中病毒的表现形式"></a>计算机中病毒的表现形式</h3><p><strong>计算机中病毒会出现哪些症状（表现）呢？</strong><br>1)程序运行速度明显变慢甚至死机<br>2)出现莫名其妙的信息，比如没有用网络资源而网卡指示灯一直闪烁；插入U盘后，无法正常退出；提示一些不相干的话，发出一段音乐，产生特定的图像，鼠标自个儿在动，自动链接到一些陌生的网站<br>3)外部设备工作异常<br>4)程序运行出现不合理的结果</p>
-<h3 id="病毒能破坏硬件吗？"><a href="#病毒能破坏硬件吗？" class="headerlink" title="病毒能破坏硬件吗？"></a>病毒能破坏硬件吗？</h3><p><strong>病毒本身就是程序，所以它不可能直接破坏硬件。但它可以通过破坏程序导致硬件不能正常工作</strong></p>
-<h3 id="病毒的传播介质"><a href="#病毒的传播介质" class="headerlink" title="病毒的传播介质"></a>病毒的传播介质</h3><p>1)U盘等可移动存储设备<br>2)随着网络的飞速发展，网络成为最主要的病毒传播途径</p>
-<p><strong>来个笑话</strong></p>
-<blockquote>
-<p>某天表妹和她的表哥在一起聊天，她们聊到了关于电脑的话题<br>表妹：表哥，去年我买了一台电脑。<br>表哥：怎么都没看你用过？<br>表妹：刚买就中病毒了<br>表哥：你没有叫人修理吗？<br>表妹得意地说：一年都不开机，病毒还不被饿死！</p>
-</blockquote>
-<p>  蛮好笑的，让我想起我小学时候，我的一同学作文，内容跟这笑话差不多，说的是每到夏天蚊子特别的多，蚊子盯地他很难受，于是他灵机一动，拿出了酒。他爸妈回来看着他拿着酒瓶，整个人迷迷糊糊的，就焦急地问他：你为什么喝酒啊？他说：”我把自己灌醉，这样蚊子吸我的血，就会跟着醉，他们醉倒了就不会盯我了”，把他爸妈都逗乐了。跟上面这笑话真是”英雄所见略同”啊</p>
-<h3 id="病毒的防治"><a href="#病毒的防治" class="headerlink" title="病毒的防治"></a>病毒的防治</h3><p><strong>每台计算机应安装杀毒软件及防火墙，并注意及时升级杀毒软件，以防止或及时发现计算机病毒的入侵一旦发现计算机系统染上病毒后，要立即使用杀毒软件进行清除。对于外来数据要严格检查，对重要数据记得做好备份</strong><br><em><strong>特别注意：</strong></em><br>观察任务栏上杀毒软件图标异常，杀毒软件检测没有病毒不一定真的没有病毒。如果怀疑有病毒，可以换个杀毒软件试试。磁盘格式化可以删除所有文件，包括病毒，这是一种玉石俱焚的方法</p>
-<p>下面给出一个防蠕虫配置</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ip access-list extended worm</span><br><span class="line">deny tcp any any eq 135</span><br><span class="line">deny tcp any any eq 137</span><br><span class="line">deny tcp any any eq 138</span><br><span class="line">deny tcp any any eq 139</span><br><span class="line">deny udp any any eq 135</span><br><span class="line">deny tcp any any eq 445</span><br><span class="line">deny udp any any eq 445</span><br><span class="line">permit ip any any </span><br><span class="line">interface GigabitEthernet 2&#x2F;1</span><br><span class="line">ip access-group worm in</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>网络安全</tag>
-        <tag>病毒</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2019/04/01/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<a id="more"></a>
-
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-      <tags>
-        <tag>奥利给</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>电影推荐</title>
-    <url>/2021/05/09/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90/</url>
-    <content><![CDATA[<p><strong>作为一个阅片无数的过来人，七七八八的电影看过很多，好的不少，烂的也多。因此，想推荐一些我喜欢的电影。相比电视剧，我偏好电影，因为电影以较短时间，呈现给我们精彩的内容，节省时间同时，给我们带来不错的观影体验（仅限好电影）。电影有很多种类，喜剧、恐怖、惊悚、科幻、战争、历史等。也分地区，不同地区电影也有其不同特点。在此，我想把我看过的，自认为觉得不错的电影分享出来，当然有些好电影，我没看过的，就不会列出来。所有影片只列名字，不作影评，我觉得自己写不好或者写的很烂，反而影响推荐，我觉得不同电影，不同人有不同观感，我不能融入我的主观色彩。</strong></p>
-<p><strong>顺序无先后，想起哪部写哪部</strong></p>
-<h3 id="内地"><a href="#内地" class="headerlink" title="内地"></a>内地</h3><p><strong>《蓝风筝》、《活着》、《霸王别姬》、《茶馆》、《鬼子来了》、《阳光灿烂的日子》、《让子弹飞》、《盲山》、《盲井》、《过年》、《甲方乙方》、《大腕》、《疯狂的石头》、《疯狂的赛车》、《杀生》、《斗牛》、《Hello，树先生》、《落叶归根》、《人在囧途》、《我不是药神》、《夏洛特烦恼》、《无名之辈》、《三毛从军记》、《无人区》、《天下无贼》、《背靠背，脸对脸》</strong></p>
-<h3 id="港片"><a href="#港片" class="headerlink" title="港片"></a>港片</h3><p><strong>《监狱风云》、《英雄本色》、《纵情四海》、《黑社会》、《黑社会2：以和为贵》、《黑狱断肠歌之砌生猪肉》、《至尊三十六计之偷天换日》、《火烧岛》、《跛豪》、《五亿探长雷洛传》、《黑金》、《门徒》、《无间道三部曲》、《金钱帝国》、《机动部队》、《警察故事》、《A计划》、《快餐车》、《奇迹》、《城市猎人》、《杀破狼》、《东邪西毒》、《东成西就》、《新龙门客栈1992》、《赌神》、《赌神2》、《棋王》、《无双》、《黄飞鸿》、《方世玉》、《太极张三丰》、《精武英雄》、《导火线》、《笑林小子2：新乌龙院》、《新少林五祖》、《山村老尸》、《三五成群》、《人肉叉烧包黄秋生版》、《打蛇》、《狗咬狗》、《垂帘听政》、《倩女幽魂三部曲》、《半斤八两》、《摩登保镖》、《鬼马双星》、《卖身契》、《鸡同鸭讲》、《抢钱夫妻》、《钱作怪》、《福星系列》、《审死官》、《九品芝麻官》、《喜剧之王》、《大话西游周星驰版》、《功夫》、《少林足球》、《食神》、《逃学威龙》、《国产凌凌漆》、《鹿鼎记》、《家有喜事》、《回魂夜》、《情圣》、《整蛊专家》、《百变星君》、《武状元苏乞儿》</strong></p>
-<h3 id="国外"><a href="#国外" class="headerlink" title="国外"></a>国外</h3><p><strong>《肖申克的救赎》、《猫鼠游戏》、《泰坦尼克号》、《盗梦空间》、《西西里的美丽传说》、《末代皇帝》、《何以为家》、《小偷家族》、《阿甘正传》、《看不见的客人》、《我是谁：没有绝对安全的系统》、《非常嫌疑犯》、《两杆大烟枪》、《偷拐抢骗》、《闪灵》、《恐怖游轮》、《楚门的世界》、《教父》、《这个杀手不太冷》、《辛德勒的名单》、《蝙蝠侠：黑暗骑士》、《小丑》、《复仇者联盟》、《银河护卫队》、《死侍》、《X战警》、《变形金刚》、《星球大战》、《终结者》、《碟中谍》、《黑客帝国》、《谍影重重》、《生化危机》、《古墓丽影》、《木乃伊》、《加勒比海盗》、《哈利波特》、《指环王》、《霍比特人》、《阿凡达》、《死神来了》、《速度与激情》、《死亡飞车》、《电锯惊魂》、《三傻大闹宝莱坞》、《摔跤吧，爸爸》、《寄生虫》、《恶魔的艺术2：邪降》、《风雨哈佛路》、《千与千寻》、《菊次郎的夏天》、《热血高校》、《突袭》、《突袭2：暴徒》、《摩登时代》、《城市之光》、《大独裁者》、《淘金记》、《马戏团》、《憨豆的黄金周》、《死寂》、《咒怨》、《孤儿怨》</strong></p>
-]]></content>
-      <categories>
-        <category>分享</category>
-      </categories>
-      <tags>
-        <tag>电影</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经原文</title>
-    <url>/2020/03/28/%E9%81%93%E5%BE%B7%E7%BB%8F%E5%8E%9F%E6%96%87/</url>
-    <content><![CDATA[<h3 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h3><blockquote>
-<p>道，可道，非常道；名，可名，非常名。无名，天地始；有名，万物母。常无，欲观其妙；常有，欲观其徼。此两者同出而异名，同谓之玄，玄之又玄，众妙之门。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h3><blockquote>
-<p>天下皆知美之为美，斯恶已；皆知善之为善，斯不善已。故有无相生，难易相成，长短相形，高下相倾，音声相和，前后相随。是以圣人处无为之事，行不言之教。万物作而不辞，生而不有，为而不恃，成功不居。夫唯不居，是以不去。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<a id="more"></a>
-
-<h3 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h3><blockquote>
-<p>不上贤，使民不争；不贵难得之货，使民不盗；不见可欲，使心不乱。圣人治：虚其心，实其腹，弱其志，强其骨。常使民无知无欲，使知者不敢为，则无不治。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四章"><a href="#第四章" class="headerlink" title="第四章"></a>第四章</h3><blockquote>
-<p>道冲，而用之久不盈。深乎!万物宗。挫其锐，解其忿，和其光，同其尘。湛常存。吾不知谁子?象帝之先。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a>第五章</h3><blockquote>
-<p>天地不仁，以万物为刍狗；圣人不仁，以百姓为刍狗。天地之间，其犹橐蘥。虚而不屈，动而俞出。多言数穷，不如守中。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h3><blockquote>
-<p>谷神不死，是谓玄牝。玄牝门，天地根。绵绵若存，用之不勤。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h3><blockquote>
-<p>天长地久。天地所以能长久者，以其不自生，故能长久。是以圣人后其身而身先，外其身而身存。以其无私，故能成其私。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第八章"><a href="#第八章" class="headerlink" title="第八章"></a>第八章</h3><blockquote>
-<p>上善若水。水善利万物，又不争，处众人之所恶，故几于道。居善地，心善渊，与善人，言善信，政善治，事善能，动善时。夫唯不争，故无尤。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第九章"><a href="#第九章" class="headerlink" title="第九章"></a>第九章</h3><blockquote>
-<p>持而盈之，不若其以。揣而锐之，不可长保。金玉满堂，莫之能守。富贵而骄，自遗其咎。功成、名遂、身退、天之道。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十章"><a href="#第十章" class="headerlink" title="第十章"></a>第十章</h3><blockquote>
-<p>载营魄抱一，能无离?专气致柔，能婴儿?涤除玄览，能无疵?爱人治国，能无为?天门开阖，能为雌?明白四达，能无知?<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十一章"><a href="#第十一章" class="headerlink" title="第十一章"></a>第十一章</h3><blockquote>
-<p>三十辐共一毂，当其无有，车之用。埏埴以为器，当其无有，器之用。凿户牖以为室，当其无有，室之用。有之以为利，无之以为用。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十二章"><a href="#第十二章" class="headerlink" title="第十二章"></a>第十二章</h3><blockquote>
-<p>五色令人目盲；五音令人耳聋；五味令人口爽；驰骋田猎，令人心发狂；难得之货，令人行妨。是以圣人为腹不为目。故去彼取此。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十三章"><a href="#第十三章" class="headerlink" title="第十三章"></a>第十三章</h3><blockquote>
-<p>宠辱若惊，贵大患若身。何谓宠辱?辱为下。得之若惊，失之若惊，是谓宠辱若惊。何谓贵大患若身?吾所以有大患，为我有身。及我无身，吾有何患!故贵身于天下，若可托天下；爱以身为天下者，若可寄天下。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十四章"><a href="#第十四章" class="headerlink" title="第十四章"></a>第十四章</h3><blockquote>
-<p>视之不见，名曰夷；听之不闻，名曰希；搏之不得，名曰微。此三者不可致诘，故混而为一。其上不曒，在下不昧。绳绳兮不可名，复归于无物。是谓无状之状，无物之象，是谓忽恍。迎不见其首，随不见其后。执古之道，以语今之有。以知古始，是谓道已。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十五章"><a href="#第十五章" class="headerlink" title="第十五章"></a>第十五章</h3><blockquote>
-<p>古之善为士者，微妙玄通，深不可识。夫唯不可识，故强为之容：豫若冬涉川，犹若畏四邻，俨若客，涣若水将释，敦若朴，混若浊，旷若谷，孰能浊以静之?徐清。安以动之?徐生。保此道者，不欲盈。夫唯不盈，能弊复成。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十六章"><a href="#第十六章" class="headerlink" title="第十六章"></a>第十六章</h3><blockquote>
-<p>致虚极，守静笃。万物并作，吾以观其复。夫物云云，各归其根。归根曰静，静曰复命，复命曰常，知常曰明。不知常，忘作，凶。知常容，容能公，公能王，王能天，天能道，道能久，没身不殆。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十七章"><a href="#第十七章" class="headerlink" title="第十七章"></a>第十七章</h3><blockquote>
-<p>太上，下知有之；其次，亲之豫之；其次，畏之侮之。信不足，有不信!由其贵言。成功事遂，百姓谓我自然。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十八章"><a href="#第十八章" class="headerlink" title="第十八章"></a>第十八章</h3><blockquote>
-<p>大道废，有人义。智慧出，有大伪。六亲不和，有孝慈。国家昏乱，有忠臣。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十九章"><a href="#第十九章" class="headerlink" title="第十九章"></a>第十九章</h3><blockquote>
-<p>绝圣弃智，民利百倍；绝民弃义，民复孝慈；绝巧弃利，盗贼无有。此三者，为文不足，故令有所属：见素抱朴，少私寡欲。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十章"><a href="#第二十章" class="headerlink" title="第二十章"></a>第二十章</h3><blockquote>
-<p>绝学无忧。唯之与阿，相去几何?善之与恶，相去何若?人之所畏，不可不畏。忙兮其未央!众人熙熙，若享太牢，若春登台。我魄未兆，若婴儿未孩。乘乘无所归!众人皆有馀，我独若遗。我愚人之心，纯纯。俗人昭昭，我独若昏。俗人察察，我独闷闷。淡若海，漂无所止。众人皆有已，我独顽似鄙。我独异于人，而贵食母。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十一章"><a href="#第二十一章" class="headerlink" title="第二十一章"></a>第二十一章</h3><blockquote>
-<p>孔得之容，唯道是从。道之为物，唯恍唯忽。忽恍中有象，恍忽中有物。窈冥中有精，其精甚真，其中有信。自古及今，其名不去，以阅众甫。吾何以知众甫之然?以此。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十二章"><a href="#第二十二章" class="headerlink" title="第二十二章"></a>第二十二章</h3><blockquote>
-<p>曲则全，枉则正；洼则盈，敝则新；少则得，多则或。是以圣人抱一为天下式。不自见，故明；不自是，故彰；不自伐，故有功；不自矜，故长。夫惟不争，故天下莫能与之争。古之所谓“曲则全”，岂虚语?故成全而归之。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十三章"><a href="#第二十三章" class="headerlink" title="第二十三章"></a>第二十三章</h3><blockquote>
-<p>希言自然。飘风不终朝，骤雨不终日。孰为此?天地。天地上不能久，而况于人?故从事而道者，道德之；同于德者，德德之；同于失者，道失之。信不足，有不信。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十四章"><a href="#第二十四章" class="headerlink" title="第二十四章"></a>第二十四章</h3><blockquote>
-<p>企者不久，跨者不行，自见不明，自是不彰，自伐无功，自矜不长。其在道，日馀食赘行。物或有恶之，故有道不处。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十五章"><a href="#第二十五章" class="headerlink" title="第二十五章"></a>第二十五章</h3><blockquote>
-<p>有物混成，先天地生。寂漠!独立不改，周行不殆，可以为天下母。吾不知其名，字之曰道，吾强为之名曰大。大曰逝，逝曰远，远曰返。道大，天大，地大，王大。域中有四大，而王处一。人法地，地法天，天法道，道法自然。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十六章"><a href="#第二十六章" class="headerlink" title="第二十六章"></a>第二十六章</h3><blockquote>
-<p>重为轻根，静为躁君。是以君子终日行，不离辎重，虽有荣观，燕处超然。如何万乘之主，以身轻天下?轻则失臣，躁则失君。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十七章"><a href="#第二十七章" class="headerlink" title="第二十七章"></a>第二十七章</h3><blockquote>
-<p>善行，无辙迹；善言，无瑕谪；善计，不用筹策；善闭，无关键不可开；善结，无绳约不可解。是以圣人常善救人，而无弃人；常善救物，而无弃物。是谓袭明。善人，不善人之师；不善人，善人之资。不贵其师，不爱其资，虽知大迷，是谓要妙。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十八章"><a href="#第二十八章" class="headerlink" title="第二十八章"></a>第二十八章</h3><blockquote>
-<p>知其雄，守其雌，为天下溪。为天下溪，常德不离，复归于婴儿。知其白，守其黑，为天下式。常得不忒，复归于无极。知其荣，守其辱，为天下谷。为天下谷，常得乃足，复归于朴。朴散则为器，圣人用为官长，是以大制无割。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十九章"><a href="#第二十九章" class="headerlink" title="第二十九章"></a>第二十九章</h3><blockquote>
-<p>将欲取天下而为之，吾见其不得已。天下神器，不可为。为者败之，执者失之。夫物或行或随，或嘘或吹，或强或赢，或接或隳。是以圣人去甚，去奢，去泰。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十章"><a href="#第三十章" class="headerlink" title="第三十章"></a>第三十章</h3><blockquote>
-<p>以道作人主者，不以兵强天下，其事好远：师之所处，荆棘生。故善者果而已，不以取强。果而勿骄，果而勿矜，果而勿伐，果而不得以，是果而勿强。物壮则老，谓之非道，非道早已。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十一章"><a href="#第三十一章" class="headerlink" title="第三十一章"></a>第三十一章</h3><blockquote>
-<p>夫佳兵者，不祥之器，物或恶之，故有道不处。君子居则贵左，用兵则贵右。兵者不祥之器，非君子之器，不得已而用之，恬惔为上，故不美，若美之，是乐煞人。夫乐煞者，不可得意于天下。故吉事尚左，凶事尚右。是以偏将军居左，上将军居右。煞人众多，以悲哀泣之；战胜，以哀礼处之。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十二章"><a href="#第三十二章" class="headerlink" title="第三十二章"></a>第三十二章</h3><blockquote>
-<p>道常无名。朴虽小，天下不敢臣。王侯若能守，万物将自宾。天地相合，以降甘露，人莫之令而自均。始制有名。名亦既有，天将知止。知止不殆。譬道在天下，犹川谷与江海。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十三章"><a href="#第三十三章" class="headerlink" title="第三十三章"></a>第三十三章</h3><blockquote>
-<p>知人者智，自知者明。胜人有力，自胜者强。知足者富，强行有志。不失其所者久，死而不亡者寿。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十四章"><a href="#第三十四章" class="headerlink" title="第三十四章"></a>第三十四章</h3><blockquote>
-<p>大道汜，其可左右。万物恃之以生而不辞，成功不名有。爱养万物不为主，可名于大。是以圣人终不为大，故能成其大。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十五章"><a href="#第三十五章" class="headerlink" title="第三十五章"></a>第三十五章</h3><blockquote>
-<p>执大象，天下往。往而不害，安平太。乐与饵，过客止。道出言，淡无味，视不足见，听不足闻，用不可既。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十六章"><a href="#第三十六章" class="headerlink" title="第三十六章"></a>第三十六章</h3><blockquote>
-<p>将欲翕之，必故张之；将欲弱之，必故强之；将欲废之，必故兴之；将欲夺之，必故与之。是谓微明。柔胜刚，弱胜强。鱼不可脱于渊，国有利器，不可示人。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十七章"><a href="#第三十七章" class="headerlink" title="第三十七章"></a>第三十七章</h3><blockquote>
-<p>道常无为而无不为。侯王若能守，万物将自化。化而欲作，吾将镇之以无名之朴。无名之朴，亦将不欲。不欲以静，天下将自正。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十八章"><a href="#第三十八章" class="headerlink" title="第三十八章"></a>第三十八章</h3><blockquote>
-<p>上德不德，是以有德。下德不失德，是以无德。上德无为而无以为，下德无为而有以为。上仁为之而无以为，上义为之而有以为。上礼为之而莫之应，则攘臂而仍之。故失道而后德，失德而后仁，失仁而后义，失义而后礼。夫礼者，忠信之薄，而乱之首。前识者，道之华，而愚之始。是以大丈夫处其厚不处其薄，居其实不居其华。故去彼取此。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十九章"><a href="#第三十九章" class="headerlink" title="第三十九章"></a>第三十九章</h3><blockquote>
-<p>昔之得一者：天得一以清，地得一以宁，神得一以灵，谷得一以盈，万物得一以生，侯王得一以为天下正。天无以清，将恐裂；地无以宁，将恐废；神无以灵，将恐歇；谷无以盈，将恐竭；万物无以生，将恐灭；侯王无以贵高，将恐蹶。故贵以贱为本，高以下为基。是以侯王自谓孤、寡、不谷。此其以贱为本耶非?故致数车无车。不欲琭琭如玉，落落如石。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四十章"><a href="#第四十章" class="headerlink" title="第四十章"></a>第四十章</h3><blockquote>
-<p>反者道之动，弱者道之用。天下万物生于有，有生于无。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四十一章"><a href="#第四十一章" class="headerlink" title="第四十一章"></a>第四十一章</h3><blockquote>
-<p>上士闻道，勤而行之；中士闻道，若存若亡；下士闻道，大咲之。不咲不足以为道。故建言有之：明道若昧，进道若退，夷道若类，上德若谷，大白若辱，广德若不足，建德若偷，质真若渝，大方无隅，大器晚成，大音希声，大象无形。道隐无名。夫唯道，善贷且善。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四十二章"><a href="#第四十二章" class="headerlink" title="第四十二章"></a>第四十二章</h3><blockquote>
-<p>道生一，一生二，二生三，三生万物。万物负阴而抱阳，冲气以为和。人之所恶，唯孤、寡、不谷，而王公以为称。故物或损之而益，或益之而损。人之所教，我亦教之：强梁者不得其死，吾将以为教父。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四十三章"><a href="#第四十三章" class="headerlink" title="第四十三章"></a>第四十三章</h3><blockquote>
-<p>天下之至柔，驰骋天下之至坚。无有入于无闻。是以知无为有益。不言之教，无为之益，天下希及之。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四十四章"><a href="#第四十四章" class="headerlink" title="第四十四章"></a>第四十四章</h3><blockquote>
-<p>名与身熟亲?身与货熟多?得与亡熟病?是故甚爱必大费，多藏必厚亡。故知足不辱，知止不殆，可以长久。</p>
-</blockquote>
-<h3 id="第四十五章"><a href="#第四十五章" class="headerlink" title="第四十五章"></a>第四十五章</h3><blockquote>
-<p>大成若缺，其用不弊。大盈若冲，其用不穷。大直若屈，大巧若拙，大辩若讷。躁胜塞，静胜热，清静以为天下正。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四十六章"><a href="#第四十六章" class="headerlink" title="第四十六章"></a>第四十六章</h3><blockquote>
-<p>天下有道，却走马以粪；天下无道，戎马生于郊。罪莫大于可欲，祸莫大于不知足，咎莫大于欲得。故知足之足，常足。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四十七章"><a href="#第四十七章" class="headerlink" title="第四十七章"></a>第四十七章</h3><blockquote>
-<p>不出户，知天下；不窥牖，见天道。其出弥远，其知弥近。是以圣人不行而知，不见而名，不为而成。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四十八章"><a href="#第四十八章" class="headerlink" title="第四十八章"></a>第四十八章</h3><blockquote>
-<p>为学日益，为道日损，损之又损之，以至于无为。无为无不为。取天下常以无事，及其有事，不足以取天下。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四十九章"><a href="#第四十九章" class="headerlink" title="第四十九章"></a>第四十九章</h3><blockquote>
-<p>圣人无心，以百姓心为心。善者吾善之，不善者吾亦善之，得善。信者吾信之，不信者吾亦信之，得信。圣人在天下，怵怵；为天下，浑其心。百姓皆注其耳目，圣人皆孩之。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五十章"><a href="#第五十章" class="headerlink" title="第五十章"></a>第五十章</h3><blockquote>
-<p>出生入死。生之徒十有三，死之徒十有三，人之生，动之死地，十有三。夫何故?以其生生之厚。盖闻善摄生者，路行不遇兕虎，入军不被甲兵。兕无所投其角，虎无所揩其爪，兵无所容其刃。夫何故?以其无死地。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五十一章"><a href="#第五十一章" class="headerlink" title="第五十一章"></a>第五十一章</h3><blockquote>
-<p>道生之，德畜之，物形之，势成之。是以万物莫不尊道而贵德。道之尊，德之贵，夫莫之命而常自然。故道生之，德畜之，长之育之，成之熟之，养之覆之。生而不有，为而不恃，长而不宰，是谓玄德。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五十二章"><a href="#第五十二章" class="headerlink" title="第五十二章"></a>第五十二章</h3><blockquote>
-<p>天下有始，以为天下母。既知其母，又知其子。既知其子，复守其母。没身不殆。塞其兑，闭其门。终身不勤。开其兑，济其事，终身不救。见小曰明，守柔曰强。用其光，复归其明，无遗身殃，是谓习常。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五十三章"><a href="#第五十三章" class="headerlink" title="第五十三章"></a>第五十三章</h3><blockquote>
-<p>使我介然有知，行于大道，唯施是畏。大道甚夷，而人好径。朝甚除，田甚芜，仓甚虚，服文彩，带利剑，厌饮食，财货有馀，是谓盗夸。非道也哉!<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五十四章"><a href="#第五十四章" class="headerlink" title="第五十四章"></a>第五十四章</h3><blockquote>
-<p>善建者不拔，善抱者不脱，子孙祭祀不辍。修之身，其德乃真；修之家，其德有馀；修之乡，其德乃长；修之于国，其德乃丰；修之于天下，其德乃普。故以身观身，以家观家，以乡观乡，以国观国，以天下观天下。吾何以知天下之然?以此。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五十五章"><a href="#第五十五章" class="headerlink" title="第五十五章"></a>第五十五章</h3><blockquote>
-<p>含德之厚，比于赤子。毒虫不螫，猛兽不据，玃鸟不搏。骨弱筋柔而握固。未知牝牡之合而脧作，精之至。终日号而不嗄，和之至。知和曰常，知常曰明，益生曰祥，心使气曰强。物壮则老，谓之不道，不道早已。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五十六章"><a href="#第五十六章" class="headerlink" title="第五十六章"></a>第五十六章</h3><blockquote>
-<p>知者不言，言者不知。塞其兑，闭其门，挫其锐，解其忿，和其光，同其尘，是谓玄同。故不可得而亲，不可得而疏；不可得而利，不可得而害；不可得而贵，亦不可得而贱。故为天下贵。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五十七章"><a href="#第五十七章" class="headerlink" title="第五十七章"></a>第五十七章</h3><blockquote>
-<p>以正治国，以奇用兵，以无事取天下。吾何以知其然?以此。天下多忌讳，而人弥贫；人多利器，国家滋昏；人多伎巧，奇物滋起；法物滋彰，盗贼多有。故圣人云：“我无为，人自化；我好静，人自正；我无事，人自富；我无欲，人自朴。”</p>
-</blockquote>
-<h3 id="第五十八章"><a href="#第五十八章" class="headerlink" title="第五十八章"></a>第五十八章</h3><blockquote>
-<p>其政闷闷，其人醇醇；其政察察，其人缺缺。祸，福之所倚；福，祸之所伏。熟知其极?其无正。政复为奇，善复为妖。人之迷，其日固久。是以圣人方而不割，廉而不害，直而不肆，光而不曜。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五十九章"><a href="#第五十九章" class="headerlink" title="第五十九章"></a>第五十九章</h3><blockquote>
-<p>治人事天，莫若啬。夫唯啬，是谓早服。早服谓之重积德。重积德则无不克，无不克则莫知其极。莫知其极，可以有国。有国之母，可以长久。是谓深根、固蒂、长生、久视之道。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十章"><a href="#第六十章" class="headerlink" title="第六十章"></a>第六十章</h3><blockquote>
-<p>治大国若亨小鲜。以道莅天下，其鬼不神。非其鬼不神，其神不伤人。非其神不伤人，圣人亦不伤人。夫两不相伤，故得交归。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十一章"><a href="#第六十一章" class="headerlink" title="第六十一章"></a>第六十一章</h3><blockquote>
-<p>大国者下流，天下之交，天下之牝。牡常以静胜牝，以静为下。故大国以下小国，则取小国；小国以下大国，则取大国。故或下以取，或下如取。大国不过欲兼畜人，小国不过欲入事人。此两者各得其所欲，大者宜为下。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十二章"><a href="#第六十二章" class="headerlink" title="第六十二章"></a>第六十二章</h3><blockquote>
-<p>道者，万物之奥。善，人之宝；不善，人之所不保。美言可以市尊，行可以加人。人之不善，何弃之有?故立天子，置三公，虽有拱璧以先驷马，不如坐进此道。古之所以贵此道者何?不曰求以得，有罪以勉，故为天下贵。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十三章"><a href="#第六十三章" class="headerlink" title="第六十三章"></a>第六十三章</h3><blockquote>
-<p>为无为，事无事，味无味。大小多少，报怨以德。图难于易，为大于细。天下难事，必作于易；天下大事，必作于细。是以圣人终不为大，故能成其大。夫轻诺必寡信，多易必多难，是以圣人犹难之，故终无难。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十四章"><a href="#第六十四章" class="headerlink" title="第六十四章"></a>第六十四章</h3><blockquote>
-<p>其安易持，其未兆易谋，其脆易破，其微易散。为之于未有，治之于未乱。合抱之木，生于毫末；九层之台，起于累土；千里之行，始于足下。为者败之，执者失之。是以圣人无为，故无败；无执，故无失。民之从事，常于几成而败之。慎终如始，则无败事。是以圣人欲不欲，不贵难得之货；学不学，复众人之所过。以辅万物之自然而不敢为。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十五章"><a href="#第六十五章" class="headerlink" title="第六十五章"></a>第六十五章</h3><blockquote>
-<p>古之善为道者，非以明人，将以愚之。民之难治，以其多智。以智治国，国之贼；不以智治国，国之福。知此两者，亦揩式。常知揩式，是谓玄德。玄德深远，与物反，然后乃至大顺。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十六章"><a href="#第六十六章" class="headerlink" title="第六十六章"></a>第六十六章</h3><blockquote>
-<p>江海所以能为百谷王，以其善下之，故能为百谷王。是以圣人欲上人，必以言下之；欲先人，必以身后之。是以圣人处上而人不重，处前而人不害，是以天下乐推而不厌。以其不争，故天下莫与之争。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十七章"><a href="#第六十七章" class="headerlink" title="第六十七章"></a>第六十七章</h3><blockquote>
-<p>天下皆谓我大，不肖。夫唯大，故不肖。若肖，久矣其细!我有三宝，持而保之：一曰慈，二曰俭，三曰不敢为天下先。夫慈，故能勇；俭，故能广；不敢为天下先，故能成器长。今舍慈且勇，舍俭且广，舍后且先，死矣。夫慈，以战则胜，以守则固。天将救之，以慈卫之。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十八章"><a href="#第六十八章" class="headerlink" title="第六十八章"></a>第六十八章</h3><blockquote>
-<p>古之善为士者不武，善战者不怒，善胜敌者不争，善用仁者为下。是谓不争之德，是以用人之力，是谓配天古之极。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十九章"><a href="#第六十九章" class="headerlink" title="第六十九章"></a>第六十九章</h3><blockquote>
-<p>用兵有言：“吾不敢为主而为客，不敢进寸而退尺。”是谓行无行，攘无臂，仍无敌，执无兵。祸莫大于轻敌，轻敌几丧吾宝。故抗兵相加，则哀者胜。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十章"><a href="#第七十章" class="headerlink" title="第七十章"></a>第七十章</h3><blockquote>
-<p>吾言甚易知，甚易行。天下莫能知，莫能行。言有宗，事有君。夫唯无知，是以不我知。知我者希，则我者贵。是以圣人被褐怀玉。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十一章"><a href="#第七十一章" class="headerlink" title="第七十一章"></a>第七十一章</h3><blockquote>
-<p>知不知上，不知知，病。是以圣人不病。以其病病，是以不病。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十二章"><a href="#第七十二章" class="headerlink" title="第七十二章"></a>第七十二章</h3><blockquote>
-<p>民不畏威，大威至。无狭其所居，无厌其所生。夫唯不厌，是以不厌。是以圣人自知不自见，自爱不自贵。故去彼取此。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十三章"><a href="#第七十三章" class="headerlink" title="第七十三章"></a>第七十三章</h3><blockquote>
-<p>勇于敢则杀，勇于不敢则活，知此两者或利或害。天之所恶，孰知其故?天之道，不争而善胜，不言而善应，不召而自来，坦然而善谋。天网恢恢，疏而不漏。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十四章"><a href="#第七十四章" class="headerlink" title="第七十四章"></a>第七十四章</h3><blockquote>
-<p>民不畏死，奈何以死惧之?若使常畏死，而为奇者，吾执得而煞之，熟敢?常有司煞者煞。夫代司煞者，是谓代大匠斲，夫代大匠斲，希有不伤其手。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十五章"><a href="#第七十五章" class="headerlink" title="第七十五章"></a>第七十五章</h3><blockquote>
-<p>民之饥，以其上食税之多，是以饥。民之难治，以其上有为，是以难治。人之轻死，以其生生之厚，是以轻死。夫唯无以生为者，是贤于贵生。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十六章"><a href="#第七十六章" class="headerlink" title="第七十六章"></a>第七十六章</h3><blockquote>
-<p>人生之柔弱，其死坚强。万物草木生之柔脆，其死枯槁。故坚强者死之徒，柔弱者生之徒。是以兵强则不胜，木强则共。故坚强处下，柔弱处上。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十七章"><a href="#第七十七章" class="headerlink" title="第七十七章"></a>第七十七章</h3><blockquote>
-<p>天之道，其犹张弓!高者抑之，下者举之，有馀者损之，不足者与之。天之道，损有馀而补不足；人道则不然，损不足，奉有馀。熟能有馀以奉天下?其唯有道者。是以圣人为而不恃，功成不处，斯不见贤。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十八章"><a href="#第七十八章" class="headerlink" title="第七十八章"></a>第七十八章</h3><blockquote>
-<p>天下柔弱莫过于水，而攻坚；强莫之能先。其无以易之。故弱胜强，柔胜刚，天下莫能知，莫能行。故圣人云：“受国之垢，是谓社稷主；受国不祥，是谓天下王。”正言若反。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十九章"><a href="#第七十九章" class="headerlink" title="第七十九章"></a>第七十九章</h3><blockquote>
-<p>和大怨，必有馀怨，安可以为善?是以圣人执左契，不责于人。故有德司契，无德司彻。天道无亲，常与善人。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第八十章"><a href="#第八十章" class="headerlink" title="第八十章"></a>第八十章</h3><blockquote>
-<p>小国寡人，使有什佰之器而不用，使人重死而不远徙。虽有舟舆，无所乘之；虽有甲兵，无所陈之。使民复结绳而用之。甘其食，美其服，安其居，乐其俗，邻国相望，鸡狗之声相闻，民至老死，不相往来。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第八十一章"><a href="#第八十一章" class="headerlink" title="第八十一章"></a>第八十一章</h3><blockquote>
-<p>信言不美，美言不信。善者不辩，辩者不善。知者不博，博者不知。圣人不积，既以为人己愈有，既以与人己愈多。天之道，利而不害。圣人之道，为而不争。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>哲学</category>
-      </categories>
-      <tags>
-        <tag>老子</tag>
-        <tag>道家</tag>
       </tags>
   </entry>
 </search>
