@@ -65,6 +65,53 @@
       </tags>
   </entry>
   <entry>
+    <title>JAXP</title>
+    <url>/2020/04/17/JAXP/</url>
+    <content><![CDATA[<h3 id="JAXP"><a href="#JAXP" class="headerlink" title="JAXP"></a>JAXP</h3><h4 id="xml的解析-将用到JAVA代码-重点内容"><a href="#xml的解析-将用到JAVA代码-重点内容" class="headerlink" title="xml的解析(将用到JAVA代码)重点内容"></a>xml的解析(<em>将用到JAVA代码</em>)<em><strong>重点内容</strong></em></h4><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>xml为标记下语言，JS使用dom解析标记型文档，根据html的层级结构，在内存中分配一个树型结构，把html中的标签、属性、对象都封装成对象，例如：document对象、element对象、属性对象、文本对象、Node节点对象</p>
+<p><strong>xml的解析方式有两种：dom和sax</strong></p>
+<a id="more"></a>
+<p><img src="/images/xml_pic.png" alt="解析图" title="xml的解析"><br><em>上图是dom的解析过程，该方式好处是很方便实现数据的增删改操作，但是如果文件过大，容易造成内存溢出。至于sax解析采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回，不会造成内存溢出，查询操作方便，但不能实现增删改操作</em><br><strong>总结：</strong><br>   <strong>-dom方式解析：根据xml的层级结构在内存中分配一个树状结构，把xml标签，属性和文本都封装成对象</strong><br>   <strong>-使用dom弊端：如果文件过大，容易造成溢出</strong><br>   <strong>-sax方式解析：采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回</strong><br>   <strong>-使用sax弊端：不能实现增删改操作</strong></p>
+<h5 id="解析器"><a href="#解析器" class="headerlink" title="解析器"></a>解析器</h5><p><strong>不同的公司和组织提供了针对dom和sax方式的解析器，通过api方式提供，sun公司提供了针对dom和sax的解析器jaxp，dom4j组织提供的解析器就叫dom4j，同样还有jdom组织的解析器jdom</strong></p>
+<h5 id="JAXP的API"><a href="#JAXP的API" class="headerlink" title="JAXP的API"></a>JAXP的API</h5><p><strong>jaxp解析器在jdk的javax.xml.parsers包里面，包里四个类主要针对dom和sax解析使用，针对dom有DocumentBuilder（解析器类）和DocumentBuilderFactory（解析器工厂）两个类，而sax有SAXParser和SAXParserFactory</strong></p>
+<h4 id="jaxp使用"><a href="#jaxp使用" class="headerlink" title="jaxp使用"></a>jaxp使用</h4><p>xml文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void selectAll() throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;1.创建解析器工厂</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.根据工厂创建解析器</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.解析xml返回的document</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);&#x2F;&#x2F;括号内填写你xml文件所在位置</span><br><span class="line">&#x2F;&#x2F;4.得到所有元素</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;name&quot;);&#x2F;&#x2F;这里得到的是上面xml中name标签</span><br><span class="line">&#x2F;&#x2F;5.遍历集合</span><br><span class="line">	for(int i &#x3D; 0; i&lt;list.getLength();i++)&#123;</span><br><span class="line">		Node name &#x3D; list.item(i);&#x2F;&#x2F;得到每一个name元素</span><br><span class="line">		&#x2F;&#x2F;得到name元素里面的值</span><br><span class="line">		String s &#x3D; name1.getTextContent();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public void selectSin() throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.同上</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;name&quot;);</span><br><span class="line">&#x2F;&#x2F;5.得到第一个name元素</span><br><span class="line">	Node name1 &#x3D; list.item(0);</span><br><span class="line">&#x2F;&#x2F;6.得到name里面的值</span><br><span class="line">	String s &#x3D; name1.getTextContent();</span><br><span class="line">	System.out.println(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="增加操作"><a href="#增加操作" class="headerlink" title="增加操作"></a>增加操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void add() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.同上</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;p1&quot;);</span><br><span class="line">&#x2F;&#x2F;5.得到第一个p1</span><br><span class="line">	Node p1 &#x3D; list.item(0);</span><br><span class="line">&#x2F;&#x2F;6.创建标签</span><br><span class="line">	Element sex1 &#x3D; document.createElement(&quot;sex&quot;);</span><br><span class="line">&#x2F;&#x2F;7.创建文本</span><br><span class="line">	Text text1 &#x3D; document.createTextNode(&quot;男&quot;);</span><br><span class="line">&#x2F;&#x2F;8.把文本添加到sex1下面</span><br><span class="line">	sex1.appendChild(text1);</span><br><span class="line">&#x2F;&#x2F;9.把sex1添加到p1下面</span><br><span class="line">	p1.appendChild(sex1);</span><br><span class="line">&#x2F;&#x2F;10.回写xml</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="修改操作"><a href="#修改操作" class="headerlink" title="修改操作"></a>修改操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void fix() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.得到sex元素</span><br><span class="line">	Node sex1 &#x3D; document.getElementsByTagName(&quot;sex&quot;).item(0);</span><br><span class="line">&#x2F;&#x2F;5.修改sex的内容</span><br><span class="line">	sex1.setTextContent(&quot;man&quot;);</span><br><span class="line">&#x2F;&#x2F;6.回写</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void delete() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.得到sex元素</span><br><span class="line">	Node sex1 &#x3D; NodeList list&#x3D;document.getElementsByTagName(&quot;sex&quot;).item(0);</span><br><span class="line">&#x2F;&#x2F;5.得到它的父节点p1</span><br><span class="line">	Node p1 &#x3D; sex1.getParentNode();</span><br><span class="line">&#x2F;&#x2F;6.删除sex</span><br><span class="line">	p1.removeChild(sex1);</span><br><span class="line">&#x2F;&#x2F;7.回写	</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
+
+<h5 id="遍历节点-把所有元素名称打印出来"><a href="#遍历节点-把所有元素名称打印出来" class="headerlink" title="遍历节点(把所有元素名称打印出来)"></a>遍历节点(<em>把所有元素名称打印出来</em>)</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void listElement() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;5.调用递归方法</span><br><span class="line">	list1(document);</span><br><span class="line">&#125;</span><br><span class="line">4.编写一个递归方法实现遍历</span><br><span class="line">public static void list1(Node node)&#123;</span><br><span class="line">	if(node.getNodeType &#x3D;&#x3D; Node.ELEMENT_NODE)&#123;&#x2F;&#x2F;避免将标签内容中不必要的空格和tab打印出来</span><br><span class="line">		System.out.println(node.getNodeName());&#x2F;&#x2F;获取节点名称</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;得到一层子节点</span><br><span class="line">	NodeList list &#x3D; node.getChildNodes();</span><br><span class="line">	for(int i&#x3D;0;i&lt;list.getLength();i++)&#123;</span><br><span class="line">		Node temp &#x3D; list.item(i);</span><br><span class="line">		&#x2F;&#x2F;继续得到temp的子节点</span><br><span class="line">		list1.(temp);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="JAXP实现sax操作"><a href="#JAXP实现sax操作" class="headerlink" title="JAXP实现sax操作"></a>JAXP实现sax操作</h4><p><strong>由于sax不能执行增删改操作，所以以下是实现它的查询操作</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class MyDefault1 extends DefaultHandler&#123;&#x2F;&#x2F;以下三个方法自动执行</span><br><span class="line">	@Override</span><br><span class="line">	public void startElement(String uri,String localName,String qName,Attributes attributes)throws SAXException&#123;</span><br><span class="line">		super.startElement(uri,localName,qName,attributes);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void characters(char[] ch,int start,int length)throws SAXException&#123;</span><br><span class="line">		super.characters(ch,start,length);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void endElement(String uri,String localName,String qName)throws SAXException&#123;</span><br><span class="line">		super.endElement(uri,localName,qName);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MyDefault2 extends DefaultHandler&#123;&#x2F;&#x2F;获取所有name元素的值</span><br><span class="line">	boolean flag &#x3D; false;</span><br><span class="line">	@Override</span><br><span class="line">	public void startElement(String uri,String localName,String qName,Attributes attributes)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;判断qName是否是name元素</span><br><span class="line">		if(&quot;name&quot;.equals(qName))&#123;</span><br><span class="line">			flag &#x3D; true;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void characters(char[] ch,int start,int length)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;当flag值是true时表示解析到name元素</span><br><span class="line">		if(flag &#x3D;&#x3D; true)&#123;</span><br><span class="line">			System.out.println(new String(ch,start,length));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void endElement(String uri,String localName,String qName)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;将flag设置为false,表示name元素结束</span><br><span class="line">		if(&quot;name&quot;.equals(qName))&#123;</span><br><span class="line">			flag &#x3D; false;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void main (String[] args)&#123;</span><br><span class="line">&#x2F;&#x2F;1.创建解析器工厂</span><br><span class="line">	SAXParserFactory saxParserFactory &#x3D; SAXParserFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.创建解析器</span><br><span class="line">	SAXParser saxParser &#x3D; SAXParserFactory.newSAXParser();</span><br><span class="line">&#x2F;&#x2F;3.执行parse方法</span><br><span class="line">	saxParser.parse(&quot;src&#x2F;p1.xml&quot;,new MyDefault2());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+]]></content>
+      <categories>
+        <category>JavaWeb</category>
+      </categories>
+      <tags>
+        <tag>XML</tag>
+        <tag>标记语言</tag>
+        <tag>XML解析</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>HTML5序章</title>
     <url>/2020/02/18/HTML5%E5%BA%8F%E7%AB%A0/</url>
     <content><![CDATA[<p><strong>一天天宅着蛮枯燥的，HTML5地学习或许能打破这乏味的时光。以前,刚开始学习 HTML ，才明白前端界面是如何实现的，当然也少不了CSS、JavaScript。像我们这博客完全是通过这3样语言实现的静态网页，瞬间感觉前端是不是比后端的东西，更直观地看得出成果。你光使用后端语言是无法完成Web网页开发，当然，如果有后端语言与数据库实现的自然是动态网页。话不多说，言归正传，开始我们今天HTML5的学习！</strong></p>
@@ -129,55 +176,94 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>HTML</tag>
         <tag>标记语言</tag>
+        <tag>HTML</tag>
       </tags>
   </entry>
   <entry>
-    <title>JAXP</title>
-    <url>/2020/04/17/JAXP/</url>
-    <content><![CDATA[<h3 id="JAXP"><a href="#JAXP" class="headerlink" title="JAXP"></a>JAXP</h3><h4 id="xml的解析-将用到JAVA代码-重点内容"><a href="#xml的解析-将用到JAVA代码-重点内容" class="headerlink" title="xml的解析(将用到JAVA代码)重点内容"></a>xml的解析(<em>将用到JAVA代码</em>)<em><strong>重点内容</strong></em></h4><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>xml为标记下语言，JS使用dom解析标记型文档，根据html的层级结构，在内存中分配一个树型结构，把html中的标签、属性、对象都封装成对象，例如：document对象、element对象、属性对象、文本对象、Node节点对象</p>
-<p><strong>xml的解析方式有两种：dom和sax</strong></p>
+    <title>Linux常用命令</title>
+    <url>/2022/02/26/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h1 id="Linux常用命令"><a href="#Linux常用命令" class="headerlink" title="Linux常用命令"></a>Linux常用命令</h1><h2 id="文件处理命令"><a href="#文件处理命令" class="headerlink" title="文件处理命令"></a>文件处理命令</h2><h3 id="目录处理命令"><a href="#目录处理命令" class="headerlink" title="目录处理命令"></a>目录处理命令</h3><p><code>ls -a(显示所有文件，包括隐藏文件) -l(详细信息显示) -d(查看目录属性) -i(查看文件唯一标识ID) -lh</code></p>
+<p><code>ls -l</code>查询出来结果首项，如果：<br><code>-</code>打头表示文件<br><code>d</code>打头表示目录<br><code>l</code>打头表示软链接  </p>
+<blockquote>
+<p>-rw-r–r–<br>  u g o<br>  u所有者 g所属组 o其他人<br>  r读 w写 x执行</p>
+</blockquote>
+<p><code>mkdir -p(递归创建)</code><br><code>cd /tmp/bin(切换到指定目录) ..(回到上一级目录)</code><br><code>pwd(查看当前所在目录)</code><br><code>rmdir(删除空目录)</code><br><code>cp -rp -r(复制目录) -p(保留文件属性) 复制文件不需要加选项r</code><br><code>mv(剪切、改名)</code><br><code>rm -rf(文件或目录) -r(删除目录) -f(强制) -i(询问是否删除)</code></p>
 <a id="more"></a>
-<p><img src="/images/xml_pic.png" alt="解析图" title="xml的解析"><br><em>上图是dom的解析过程，该方式好处是很方便实现数据的增删改操作，但是如果文件过大，容易造成内存溢出。至于sax解析采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回，不会造成内存溢出，查询操作方便，但不能实现增删改操作</em><br><strong>总结：</strong><br>   <strong>-dom方式解析：根据xml的层级结构在内存中分配一个树状结构，把xml标签，属性和文本都封装成对象</strong><br>   <strong>-使用dom弊端：如果文件过大，容易造成溢出</strong><br>   <strong>-sax方式解析：采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回</strong><br>   <strong>-使用sax弊端：不能实现增删改操作</strong></p>
-<h5 id="解析器"><a href="#解析器" class="headerlink" title="解析器"></a>解析器</h5><p><strong>不同的公司和组织提供了针对dom和sax方式的解析器，通过api方式提供，sun公司提供了针对dom和sax的解析器jaxp，dom4j组织提供的解析器就叫dom4j，同样还有jdom组织的解析器jdom</strong></p>
-<h5 id="JAXP的API"><a href="#JAXP的API" class="headerlink" title="JAXP的API"></a>JAXP的API</h5><p><strong>jaxp解析器在jdk的javax.xml.parsers包里面，包里四个类主要针对dom和sax解析使用，针对dom有DocumentBuilder（解析器类）和DocumentBuilderFactory（解析器工厂）两个类，而sax有SAXParser和SAXParserFactory</strong></p>
-<h4 id="jaxp使用"><a href="#jaxp使用" class="headerlink" title="jaxp使用"></a>jaxp使用</h4><p>xml文件内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void selectAll() throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;1.创建解析器工厂</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.根据工厂创建解析器</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.解析xml返回的document</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);&#x2F;&#x2F;括号内填写你xml文件所在位置</span><br><span class="line">&#x2F;&#x2F;4.得到所有元素</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;name&quot;);&#x2F;&#x2F;这里得到的是上面xml中name标签</span><br><span class="line">&#x2F;&#x2F;5.遍历集合</span><br><span class="line">	for(int i &#x3D; 0; i&lt;list.getLength();i++)&#123;</span><br><span class="line">		Node name &#x3D; list.item(i);&#x2F;&#x2F;得到每一个name元素</span><br><span class="line">		&#x2F;&#x2F;得到name元素里面的值</span><br><span class="line">		String s &#x3D; name1.getTextContent();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public void selectSin() throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.同上</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;name&quot;);</span><br><span class="line">&#x2F;&#x2F;5.得到第一个name元素</span><br><span class="line">	Node name1 &#x3D; list.item(0);</span><br><span class="line">&#x2F;&#x2F;6.得到name里面的值</span><br><span class="line">	String s &#x3D; name1.getTextContent();</span><br><span class="line">	System.out.println(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="增加操作"><a href="#增加操作" class="headerlink" title="增加操作"></a>增加操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void add() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.同上</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;p1&quot;);</span><br><span class="line">&#x2F;&#x2F;5.得到第一个p1</span><br><span class="line">	Node p1 &#x3D; list.item(0);</span><br><span class="line">&#x2F;&#x2F;6.创建标签</span><br><span class="line">	Element sex1 &#x3D; document.createElement(&quot;sex&quot;);</span><br><span class="line">&#x2F;&#x2F;7.创建文本</span><br><span class="line">	Text text1 &#x3D; document.createTextNode(&quot;男&quot;);</span><br><span class="line">&#x2F;&#x2F;8.把文本添加到sex1下面</span><br><span class="line">	sex1.appendChild(text1);</span><br><span class="line">&#x2F;&#x2F;9.把sex1添加到p1下面</span><br><span class="line">	p1.appendChild(sex1);</span><br><span class="line">&#x2F;&#x2F;10.回写xml</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="修改操作"><a href="#修改操作" class="headerlink" title="修改操作"></a>修改操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void fix() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.得到sex元素</span><br><span class="line">	Node sex1 &#x3D; document.getElementsByTagName(&quot;sex&quot;).item(0);</span><br><span class="line">&#x2F;&#x2F;5.修改sex的内容</span><br><span class="line">	sex1.setTextContent(&quot;man&quot;);</span><br><span class="line">&#x2F;&#x2F;6.回写</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void delete() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.得到sex元素</span><br><span class="line">	Node sex1 &#x3D; NodeList list&#x3D;document.getElementsByTagName(&quot;sex&quot;).item(0);</span><br><span class="line">&#x2F;&#x2F;5.得到它的父节点p1</span><br><span class="line">	Node p1 &#x3D; sex1.getParentNode();</span><br><span class="line">&#x2F;&#x2F;6.删除sex</span><br><span class="line">	p1.removeChild(sex1);</span><br><span class="line">&#x2F;&#x2F;7.回写	</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
-
-<h5 id="遍历节点-把所有元素名称打印出来"><a href="#遍历节点-把所有元素名称打印出来" class="headerlink" title="遍历节点(把所有元素名称打印出来)"></a>遍历节点(<em>把所有元素名称打印出来</em>)</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void listElement() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;5.调用递归方法</span><br><span class="line">	list1(document);</span><br><span class="line">&#125;</span><br><span class="line">4.编写一个递归方法实现遍历</span><br><span class="line">public static void list1(Node node)&#123;</span><br><span class="line">	if(node.getNodeType &#x3D;&#x3D; Node.ELEMENT_NODE)&#123;&#x2F;&#x2F;避免将标签内容中不必要的空格和tab打印出来</span><br><span class="line">		System.out.println(node.getNodeName());&#x2F;&#x2F;获取节点名称</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;得到一层子节点</span><br><span class="line">	NodeList list &#x3D; node.getChildNodes();</span><br><span class="line">	for(int i&#x3D;0;i&lt;list.getLength();i++)&#123;</span><br><span class="line">		Node temp &#x3D; list.item(i);</span><br><span class="line">		&#x2F;&#x2F;继续得到temp的子节点</span><br><span class="line">		list1.(temp);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="JAXP实现sax操作"><a href="#JAXP实现sax操作" class="headerlink" title="JAXP实现sax操作"></a>JAXP实现sax操作</h4><p><strong>由于sax不能执行增删改操作，所以以下是实现它的查询操作</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class MyDefault1 extends DefaultHandler&#123;&#x2F;&#x2F;以下三个方法自动执行</span><br><span class="line">	@Override</span><br><span class="line">	public void startElement(String uri,String localName,String qName,Attributes attributes)throws SAXException&#123;</span><br><span class="line">		super.startElement(uri,localName,qName,attributes);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void characters(char[] ch,int start,int length)throws SAXException&#123;</span><br><span class="line">		super.characters(ch,start,length);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void endElement(String uri,String localName,String qName)throws SAXException&#123;</span><br><span class="line">		super.endElement(uri,localName,qName);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MyDefault2 extends DefaultHandler&#123;&#x2F;&#x2F;获取所有name元素的值</span><br><span class="line">	boolean flag &#x3D; false;</span><br><span class="line">	@Override</span><br><span class="line">	public void startElement(String uri,String localName,String qName,Attributes attributes)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;判断qName是否是name元素</span><br><span class="line">		if(&quot;name&quot;.equals(qName))&#123;</span><br><span class="line">			flag &#x3D; true;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void characters(char[] ch,int start,int length)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;当flag值是true时表示解析到name元素</span><br><span class="line">		if(flag &#x3D;&#x3D; true)&#123;</span><br><span class="line">			System.out.println(new String(ch,start,length));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void endElement(String uri,String localName,String qName)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;将flag设置为false,表示name元素结束</span><br><span class="line">		if(&quot;name&quot;.equals(qName))&#123;</span><br><span class="line">			flag &#x3D; false;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void main (String[] args)&#123;</span><br><span class="line">&#x2F;&#x2F;1.创建解析器工厂</span><br><span class="line">	SAXParserFactory saxParserFactory &#x3D; SAXParserFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.创建解析器</span><br><span class="line">	SAXParser saxParser &#x3D; SAXParserFactory.newSAXParser();</span><br><span class="line">&#x2F;&#x2F;3.执行parse方法</span><br><span class="line">	saxParser.parse(&quot;src&#x2F;p1.xml&quot;,new MyDefault2());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
+<h3 id="文件处理命令-1"><a href="#文件处理命令-1" class="headerlink" title="文件处理命令"></a>文件处理命令</h3><p><code>touch(创建文件)</code><br><code>cat(显示文件内容) -n(显示行号)</code><br><code>tac(倒显文件内容)</code><br><code>more(分页显示文件内容，空格或f进行翻页，回车进行换行，q退出)</code><br><code>less(可以向上翻页) pgup向上翻页，用/可以搜索关键词，n查看下一个匹配关键词</code><br><code>head(显示文件前面10行内容) -n(指定显示行数)</code><br><code>tail(显示文件末尾10行内容) -n(指定显示行数) -f(动态实时显示)</code></p>
+<h3 id="链接命令"><a href="#链接命令" class="headerlink" title="链接命令"></a>链接命令</h3><p><code>ln(生成硬链接) -s(创建软链接)</code><br><strong>软链接相当于win系统下的快捷方式，软链接文件权限都是rwx</strong><br><strong>硬链接相当<code>cp-p+同步更新</code>，可以通过<code>ls-i</code>节点识别硬链接，硬链接不能跨分区，硬链接不能针对目录来设置</strong>  </p>
+<h2 id="权限管理命令"><a href="#权限管理命令" class="headerlink" title="权限管理命令"></a>权限管理命令</h2><p><strong>一个文件权限，只能是文件所有者或root管理员可以更改</strong></p>
+<h3 id="权限管理命令chmod"><a href="#权限管理命令chmod" class="headerlink" title="权限管理命令chmod"></a>权限管理命令chmod</h3><p><code>chmod(改变文件或目录权限 ) [{ugoa}{+-=}{rwx}][文件或目录][mode=42][文件或目录] -R(递归修改)</code>  </p>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p><code>chmod u+x hello.list</code>给hello.list文件所有者增加x执行权限<br><code>chmod g=rwx yzw.java</code>给yzw.java文件所属组赋予rwx权限<br><code>chmod g=rwx,o-r yzw.java</code>修改多个权限可以用逗号分隔</p>
+</blockquote>
+<p><strong>权限的数字表示：r用4表示，w用2表示，x用1表示，来实现权限修改</strong></p>
+<blockquote>
+<p><code>rwxrw-r--</code>对应7 6 4<br><code>r-x-wx-w-</code>对应5 3 2<br><code>chmod 640 yzw.java</code>通过数字表示实现了yzw.java文件权限更改</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">代表字符</th>
+<th align="center">权限</th>
+<th align="center">对文件的含义</th>
+<th align="center">对<font color="red">目录</font>的含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>r</strong></td>
+<td align="center">读权限</td>
+<td align="center">可以查看文件内容</td>
+<td align="center">可以列出目录中的内容</td>
+</tr>
+<tr>
+<td align="center"><strong>w</strong></td>
+<td align="center">写权限</td>
+<td align="center">可以修改文件内容</td>
+<td align="center">可以在目录中创建、删除文件</td>
+</tr>
+<tr>
+<td align="center"><strong>x</strong></td>
+<td align="center">执行权限</td>
+<td align="center">可以执行文件</td>
+<td align="center">可以进入目录</td>
+</tr>
+</tbody></table>
+<h3 id="其他权限管理命令"><a href="#其他权限管理命令" class="headerlink" title="其他权限管理命令"></a>其他权限管理命令</h3><p><code>chown(改变文件或目录的所有者，只有管理员root可以操作) [用户][文件或目录]</code><br><code>chgrp(改变文件或目录的所属组) [用户组][文件或目录]</code><br><code>umask(显示、设置文件的缺省权限) -S(以rwx形式显示新建文件缺省权限)</code></p>
+<h2 id="文件搜索命令"><a href="#文件搜索命令" class="headerlink" title="文件搜索命令"></a>文件搜索命令</h2><h3 id="文件搜索命令find"><a href="#文件搜索命令find" class="headerlink" title="文件搜索命令find"></a>文件搜索命令find</h3><p><code>find(执行权限：所有用户) [搜索范围][匹配条件]</code><br><strong>示例：</strong></p>
+<blockquote>
+<p><code>find /etc -name init</code>(在etc目录下面搜索名字为init的文件或目录，注意：这里是精准查询)<br><code>find /etc -name *init*</code>(模糊查询，这里<code>*</code>表示任意字符)<br><code>find /etc -name init*</code>(找到init开头的文件或目录)<br><code>find /etc -name init???</code>(找到init后面三个字符的文件或目录，这里?表示单个字符)<br><code>find -iname(不区分大小写) init</code><br><code>find -size(根据文件大小查找) +204800</code>(+n表示大于，-n表示小于，n表示等于，这里204800换算：204800数据块=102400KB=100MB)<br><code>find /home -user yzw</code>(找所有者yzw在home目录的所有文件)<br><code>find /etc -cmin -5</code>(在etc目录下查找5分钟内被修改过属性的文件和目录，<code>-amin</code>表示访问时间access，<code>-cmin</code>表示文件属性，<code>-mmin</code>表示文件内容)<br><code>find -size +163840 -a -size -204800</code>(在etc下查找大于80MB小于100MB的文件，<code>-a</code>是and的意思)<br><code>find -size +163840 -o -size -204800</code>(<code>-o</code>是or的意思)<br><code>find /etc -name init* -a -type f</code>(查看etc目录下名以init开头的文件，<code>f</code>表示文件，<code>d</code>表示目录，<code>l</code>表示软链接)<br><code>find /etc -name yzw -exec ls -l {} \;(在etc目录下查找yzw文件并显示其详细信息)</code><br><code>find /home -user jack -ok rm {} \;</code>(<code>-ok</code>对结果多了询问)<br><code>find -inum 10086 -exec rm {} \;</code>(根据i节点查找到ID为10086文件进行删除)  </p>
+</blockquote>
+<h3 id="其他搜索命令"><a href="#其他搜索命令" class="headerlink" title="其他搜索命令"></a>其他搜索命令</h3><p><code>locate(在文件资料库里面查找) -i(不区分大小写)</code><br><code>updatedb</code>(更新文件资料库)<br><code>which</code>(搜索命令所在目录及别名信息)<br><code>whereis</code>(搜索命令所在目录及帮助文档路径)<br><code>grep(在文件内容中查找) -i(不区分大小写) -v(排查指定字符串)</code><br><code>grep -v ^# /etc/inittab</code>(排除以#开头的注释)</p>
+<h2 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h2><p><code>man</code>(获取帮助信息)<br><code>man 5 passwd</code>(查看配置文件帮助文档，1表示命令，5表示配置文件，默认查看命令帮助文档)<br><code>whatis</code>(查看命令简单信息)<br><code>apropos</code>(查看配置文件简单信息)<br><code>ls --help</code>(查看常见选项)<br><code>info</code>(同<code>man</code>差不多)<br><code>help</code>(查看内置命令帮助信息)</p>
+<h2 id="用户管理命令"><a href="#用户管理命令" class="headerlink" title="用户管理命令"></a>用户管理命令</h2><p><code>useradd</code>(添加新用户)<br><code>passwd</code>(新增或修改密码，用户只能更改自身密码，管理员root可以更改任何用户密码)<br><code>who</code>(查看登录用户信息,tty表示本地终端，pts表示远程终端)<br><code>w</code>(查看登录用户详细信息)</p>
+<h2 id="压缩解压命令"><a href="#压缩解压命令" class="headerlink" title="压缩解压命令"></a>压缩解压命令</h2><p><code>gzip</code>(压缩成.gz文件且不保留原文件，不能压缩目录)<br><code>gunzip或gzip -d</code>(解压.gz文件)<br><code>tar(打包目录) -zcvf [压缩后文件名][目录]</code>(压缩格式.tar.gz)  </p>
+<blockquote>
+<p><code>-c</code>打包<br><code>-v</code>显示详细信息<br><code>-f</code>指定文件名<br><code>-z</code>打包同时压缩  </p>
+</blockquote>
+<p><code>tar -zxvf</code>(解压)</p>
+<blockquote>
+<p><code>-x</code>解包<br><code>-v</code>显示信息<br><code>-f</code>指定解压文件<br><code>-z</code>解压缩  </p>
+</blockquote>
+<p><code>zip -r(压缩目录)[压缩后文件名][文件或目录]</code>(能保留原文件，压缩格式.zip)<br><code>unzip</code>(解压.zip文件)<br><code>bzip2 -k(保留原文件)</code>(gzip升级版可以保留原文件，压缩格式.bz2)<br><code>tar -cjf</code>(将z换成j可以生成.tar.bz2压缩格式)，例:<code>tar -cjf yzw.tar.bz2 yzw</code><br><code>bunzip2或bzip -d</code>(解压.bz2)<br><code>tar -xjf</code>(解压.tar.bz2)  </p>
+<h2 id="网络命令"><a href="#网络命令" class="headerlink" title="网络命令"></a>网络命令</h2><p><code>write</code>(给指定用户发信息，以Ctrl+D保存结束)<br><code>wall(write all，给所有用户发送信息)</code><br><code>ping -c(指定发送次数)</code>(测试网络连通性)<br><code>ifconfig</code>(查看和设置网卡信息)，例:<code>ifconfig eth0 192.168.8.8</code>(临时更改ip)<br><code>mail</code>(查看发送电子邮件)<br><code>last</code>(列出目前与过去登入系统的用户信息)<br><code>lastlog -u uid</code>(检查某特定用户上次登录时间，不加选项列出所有用户)<br><code>traceroute</code>(跟踪路由，即显示数据包到主机间的路径)，例：<code>traceroute www.baidu.com</code><br><code>netstat(显示网络相关信息) -t(查询TCP协议) -u(查询UDP协议) -l(查看监听端口) -r(查看路由网关) -n(显示ip地址和端口号)</code>  </p>
+<blockquote>
+<p>netstat -tlun 查看本机监听的端口<br>netstat -an 查看本机所有网络连接<br>netstat -rn 查看本机路由表  </p>
+</blockquote>
+<p><code>setup</code>(配置网络，redhat专有命令)<br><code>mount -t</code>(挂载命令，即分配盘符)例：<code>mount -t iso9660 /dev/sr0 /mnt/cdrom</code><br><code>umount</code>(挂载卸载命令)</p>
+<h2 id="关机重启命令"><a href="#关机重启命令" class="headerlink" title="关机重启命令"></a>关机重启命令</h2><p><code>shutdown -h now</code>(立刻关键)<br><code>shutdown -h 20:30</code>(20:30关机)<br><code>shutdown -r now</code>(立刻重启)<br><code>shutdown -r 20:30</code>(20:30重启)<br><code>shutdown -c</code>(取消前一个关机命令)<br><code>halt</code>(关机命令)<br><code>poweroff</code>(关机命令)<br><code>init 0</code>(关机命令)<br><code>reboot</code>(重启命令)<br><code>init 6</code>(重启命令)</p>
+<blockquote>
+<p><strong>系统运行级别：0代表关机 1代表单用户 2代表不完全多用户，不含NFS服务 3代表完全多用户 4代表未分配 5代表图形界面 6代表重启</strong></p>
+</blockquote>
+<p><code>runlevel</code>(查询当时运行级别)<br><code>logout</code>(退出登录)</p>
 ]]></content>
       <categories>
-        <category>JavaWeb</category>
+        <category>Linux</category>
       </categories>
       <tags>
-        <tag>标记语言</tag>
-        <tag>XML</tag>
-        <tag>XML解析</tag>
+        <tag>Linux</tag>
+        <tag>命令</tag>
       </tags>
   </entry>
   <entry>
@@ -336,92 +422,6 @@
       <tags>
         <tag>SQL</tag>
         <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux常用命令</title>
-    <url>/2022/02/26/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<h1 id="Linux常用命令"><a href="#Linux常用命令" class="headerlink" title="Linux常用命令"></a>Linux常用命令</h1><h2 id="文件处理命令"><a href="#文件处理命令" class="headerlink" title="文件处理命令"></a>文件处理命令</h2><h3 id="目录处理命令"><a href="#目录处理命令" class="headerlink" title="目录处理命令"></a>目录处理命令</h3><p><code>ls -a(显示所有文件，包括隐藏文件) -l(详细信息显示) -d(查看目录属性) -i(查看文件唯一标识ID) -lh</code></p>
-<p><code>ls -l</code>查询出来结果首项，如果：<br><code>-</code>打头表示文件<br><code>d</code>打头表示目录<br><code>l</code>打头表示软链接  </p>
-<blockquote>
-<p>-rw-r–r–<br>  u g o<br>  u所有者 g所属组 o其他人<br>  r读 w写 x执行</p>
-</blockquote>
-<p><code>mkdir -p(递归创建)</code><br><code>cd /tmp/bin(切换到指定目录) ..(回到上一级目录)</code><br><code>pwd(查看当前所在目录)</code><br><code>rmdir(删除空目录)</code><br><code>cp -rp -r(复制目录) -p(保留文件属性) 复制文件不需要加选项r</code><br><code>mv(剪切、改名)</code><br><code>rm -rf(文件或目录) -r(删除目录) -f(强制) -i(询问是否删除)</code></p>
-<a id="more"></a>
-<h3 id="文件处理命令-1"><a href="#文件处理命令-1" class="headerlink" title="文件处理命令"></a>文件处理命令</h3><p><code>touch(创建文件)</code><br><code>cat(显示文件内容) -n(显示行号)</code><br><code>tac(倒显文件内容)</code><br><code>more(分页显示文件内容，空格或f进行翻页，回车进行换行，q退出)</code><br><code>less(可以向上翻页) pgup向上翻页，用/可以搜索关键词，n查看下一个匹配关键词</code><br><code>head(显示文件前面10行内容) -n(指定显示行数)</code><br><code>tail(显示文件末尾10行内容) -n(指定显示行数) -f(动态实时显示)</code></p>
-<h3 id="链接命令"><a href="#链接命令" class="headerlink" title="链接命令"></a>链接命令</h3><p><code>ln(生成硬链接) -s(创建软链接)</code><br><strong>软链接相当于win系统下的快捷方式，软链接文件权限都是rwx</strong><br><strong>硬链接相当<code>cp-p+同步更新</code>，可以通过<code>ls-i</code>节点识别硬链接，硬链接不能跨分区，硬链接不能针对目录来设置</strong>  </p>
-<h2 id="权限管理命令"><a href="#权限管理命令" class="headerlink" title="权限管理命令"></a>权限管理命令</h2><p><strong>一个文件权限，只能是文件所有者或root管理员可以更改</strong></p>
-<h3 id="权限管理命令chmod"><a href="#权限管理命令chmod" class="headerlink" title="权限管理命令chmod"></a>权限管理命令chmod</h3><p><code>chmod(改变文件或目录权限 ) [{ugoa}{+-=}{rwx}][文件或目录][mode=42][文件或目录] -R(递归修改)</code>  </p>
-<p><strong>示例：</strong></p>
-<blockquote>
-<p><code>chmod u+x hello.list</code>给hello.list文件所有者增加x执行权限<br><code>chmod g=rwx yzw.java</code>给yzw.java文件所属组赋予rwx权限<br><code>chmod g=rwx,o-r yzw.java</code>修改多个权限可以用逗号分隔</p>
-</blockquote>
-<p><strong>权限的数字表示：r用4表示，w用2表示，x用1表示，来实现权限修改</strong></p>
-<blockquote>
-<p><code>rwxrw-r--</code>对应7 6 4<br><code>r-x-wx-w-</code>对应5 3 2<br><code>chmod 640 yzw.java</code>通过数字表示实现了yzw.java文件权限更改</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">代表字符</th>
-<th align="center">权限</th>
-<th align="center">对文件的含义</th>
-<th align="center">对<font color="red">目录</font>的含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><strong>r</strong></td>
-<td align="center">读权限</td>
-<td align="center">可以查看文件内容</td>
-<td align="center">可以列出目录中的内容</td>
-</tr>
-<tr>
-<td align="center"><strong>w</strong></td>
-<td align="center">写权限</td>
-<td align="center">可以修改文件内容</td>
-<td align="center">可以在目录中创建、删除文件</td>
-</tr>
-<tr>
-<td align="center"><strong>x</strong></td>
-<td align="center">执行权限</td>
-<td align="center">可以执行文件</td>
-<td align="center">可以进入目录</td>
-</tr>
-</tbody></table>
-<h3 id="其他权限管理命令"><a href="#其他权限管理命令" class="headerlink" title="其他权限管理命令"></a>其他权限管理命令</h3><p><code>chown(改变文件或目录的所有者，只有管理员root可以操作) [用户][文件或目录]</code><br><code>chgrp(改变文件或目录的所属组) [用户组][文件或目录]</code><br><code>umask(显示、设置文件的缺省权限) -S(以rwx形式显示新建文件缺省权限)</code></p>
-<h2 id="文件搜索命令"><a href="#文件搜索命令" class="headerlink" title="文件搜索命令"></a>文件搜索命令</h2><h3 id="文件搜索命令find"><a href="#文件搜索命令find" class="headerlink" title="文件搜索命令find"></a>文件搜索命令find</h3><p><code>find(执行权限：所有用户) [搜索范围][匹配条件]</code><br><strong>示例：</strong></p>
-<blockquote>
-<p><code>find /etc -name init</code>(在etc目录下面搜索名字为init的文件或目录，注意：这里是精准查询)<br><code>find /etc -name *init*</code>(模糊查询，这里<code>*</code>表示任意字符)<br><code>find /etc -name init*</code>(找到init开头的文件或目录)<br><code>find /etc -name init???</code>(找到init后面三个字符的文件或目录，这里?表示单个字符)<br><code>find -iname(不区分大小写) init</code><br><code>find -size(根据文件大小查找) +204800</code>(+n表示大于，-n表示小于，n表示等于，这里204800换算：204800数据块=102400KB=100MB)<br><code>find /home -user yzw</code>(找所有者yzw在home目录的所有文件)<br><code>find /etc -cmin -5</code>(在etc目录下查找5分钟内被修改过属性的文件和目录，<code>-amin</code>表示访问时间access，<code>-cmin</code>表示文件属性，<code>-mmin</code>表示文件内容)<br><code>find -size +163840 -a -size -204800</code>(在etc下查找大于80MB小于100MB的文件，<code>-a</code>是and的意思)<br><code>find -size +163840 -o -size -204800</code>(<code>-o</code>是or的意思)<br><code>find /etc -name init* -a -type f</code>(查看etc目录下名以init开头的文件，<code>f</code>表示文件，<code>d</code>表示目录，<code>l</code>表示软链接)<br><code>find /etc -name yzw -exec ls -l {} \;(在etc目录下查找yzw文件并显示其详细信息)</code><br><code>find /home -user jack -ok rm {} \;</code>(<code>-ok</code>对结果多了询问)<br><code>find -inum 10086 -exec rm {} \;</code>(根据i节点查找到ID为10086文件进行删除)  </p>
-</blockquote>
-<h3 id="其他搜索命令"><a href="#其他搜索命令" class="headerlink" title="其他搜索命令"></a>其他搜索命令</h3><p><code>locate(在文件资料库里面查找) -i(不区分大小写)</code><br><code>updatedb</code>(更新文件资料库)<br><code>which</code>(搜索命令所在目录及别名信息)<br><code>whereis</code>(搜索命令所在目录及帮助文档路径)<br><code>grep(在文件内容中查找) -i(不区分大小写) -v(排查指定字符串)</code><br><code>grep -v ^# /etc/inittab</code>(排除以#开头的注释)</p>
-<h2 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h2><p><code>man</code>(获取帮助信息)<br><code>man 5 passwd</code>(查看配置文件帮助文档，1表示命令，5表示配置文件，默认查看命令帮助文档)<br><code>whatis</code>(查看命令简单信息)<br><code>apropos</code>(查看配置文件简单信息)<br><code>ls --help</code>(查看常见选项)<br><code>info</code>(同<code>man</code>差不多)<br><code>help</code>(查看内置命令帮助信息)</p>
-<h2 id="用户管理命令"><a href="#用户管理命令" class="headerlink" title="用户管理命令"></a>用户管理命令</h2><p><code>useradd</code>(添加新用户)<br><code>passwd</code>(新增或修改密码，用户只能更改自身密码，管理员root可以更改任何用户密码)<br><code>who</code>(查看登录用户信息,tty表示本地终端，pts表示远程终端)<br><code>w</code>(查看登录用户详细信息)</p>
-<h2 id="压缩解压命令"><a href="#压缩解压命令" class="headerlink" title="压缩解压命令"></a>压缩解压命令</h2><p><code>gzip</code>(压缩成.gz文件且不保留原文件，不能压缩目录)<br><code>gunzip或gzip -d</code>(解压.gz文件)<br><code>tar(打包目录) -zcvf [压缩后文件名][目录]</code>(压缩格式.tar.gz)  </p>
-<blockquote>
-<p><code>-c</code>打包<br><code>-v</code>显示详细信息<br><code>-f</code>指定文件名<br><code>-z</code>打包同时压缩  </p>
-</blockquote>
-<p><code>tar -zxvf</code>(解压)</p>
-<blockquote>
-<p><code>-x</code>解包<br><code>-v</code>显示信息<br><code>-f</code>指定解压文件<br><code>-z</code>解压缩  </p>
-</blockquote>
-<p><code>zip -r(压缩目录)[压缩后文件名][文件或目录]</code>(能保留原文件，压缩格式.zip)<br><code>unzip</code>(解压.zip文件)<br><code>bzip2 -k(保留原文件)</code>(gzip升级版可以保留原文件，压缩格式.bz2)<br><code>tar -cjf</code>(将z换成j可以生成.tar.bz2压缩格式)，例:<code>tar -cjf yzw.tar.bz2 yzw</code><br><code>bunzip2或bzip -d</code>(解压.bz2)<br><code>tar -xjf</code>(解压.tar.bz2)  </p>
-<h2 id="网络命令"><a href="#网络命令" class="headerlink" title="网络命令"></a>网络命令</h2><p><code>write</code>(给指定用户发信息，以Ctrl+D保存结束)<br><code>wall(write all，给所有用户发送信息)</code><br><code>ping -c(指定发送次数)</code>(测试网络连通性)<br><code>ifconfig</code>(查看和设置网卡信息)，例:<code>ifconfig eth0 192.168.8.8</code>(临时更改ip)<br><code>mail</code>(查看发送电子邮件)<br><code>last</code>(列出目前与过去登入系统的用户信息)<br><code>lastlog -u uid</code>(检查某特定用户上次登录时间，不加选项列出所有用户)<br><code>traceroute</code>(跟踪路由，即显示数据包到主机间的路径)，例：<code>traceroute www.baidu.com</code><br><code>netstat(显示网络相关信息) -t(查询TCP协议) -u(查询UDP协议) -l(查看监听端口) -r(查看路由网关) -n(显示ip地址和端口号)</code>  </p>
-<blockquote>
-<p>netstat -tlun 查看本机监听的端口<br>netstat -an 查看本机所有网络连接<br>netstat -rn 查看本机路由表  </p>
-</blockquote>
-<p><code>setup</code>(配置网络，redhat专有命令)<br><code>mount -t</code>(挂载命令，即分配盘符)例：<code>mount -t iso9660 /dev/sr0 /mnt/cdrom</code><br><code>umount</code>(挂载卸载命令)</p>
-<h2 id="关机重启命令"><a href="#关机重启命令" class="headerlink" title="关机重启命令"></a>关机重启命令</h2><p><code>shutdown -h now</code>(立刻关键)<br><code>shutdown -h 20:30</code>(20:30关机)<br><code>shutdown -r now</code>(立刻重启)<br><code>shutdown -r 20:30</code>(20:30重启)<br><code>shutdown -c</code>(取消前一个关机命令)<br><code>halt</code>(关机命令)<br><code>poweroff</code>(关机命令)<br><code>init 0</code>(关机命令)<br><code>reboot</code>(重启命令)<br><code>init 6</code>(重启命令)</p>
-<blockquote>
-<p><strong>系统运行级别：0代表关机 1代表单用户 2代表不完全多用户，不含NFS服务 3代表完全多用户 4代表未分配 5代表图形界面 6代表重启</strong></p>
-</blockquote>
-<p><code>runlevel</code>(查询当时运行级别)<br><code>logout</code>(退出登录)</p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>命令</tag>
       </tags>
   </entry>
   <entry>
@@ -621,8 +621,22 @@
         <category>JavaWeb</category>
       </categories>
       <tags>
-        <tag>标记语言</tag>
         <tag>XML</tag>
+        <tag>标记语言</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>dynasties</title>
+    <url>/2020/04/01/dynasties/</url>
+    <content><![CDATA[<a id="more"></a>
+<p><img src="http://img.xixik.net/cimg/083/xixik_c53006a681fc4200.jpeg" alt="尧舜禹→夏" title="尧舜禹→夏"><br><img src="http://img.xixik.net/cimg/083/xixik_87512603bf7f461e.jpeg" alt="商" title="商"><br><img src="http://img.xixik.net/cimg/083/xixik_a1523ca6228beae4.jpeg" alt="周" title="周"><br><img src="http://img.xixik.net/cimg/083/xixik_87c9e06af0d51132.jpeg" alt="秦" title="秦"><br><img src="http://img.xixik.net/cimg/083/xixik_01848d23bc3c0496.jpeg" alt="汉" title="汉"><br><img src="http://img.xixik.net/cimg/083/xixik_2a93308ddfd78f78.jpeg" alt="魏" title="魏"><br><img src="http://img.xixik.net/cimg/083/xixik_34ae3a4f7693d9ea.jpeg" alt="蜀" title="蜀"><br><img src="http://img.xixik.net/cimg/083/xixik_bafe42d5cde82df4.jpeg" alt="吴" title="吴"><br><img src="http://img.xixik.net/cimg/083/xixik_20b47e2887f23ecf.jpeg" alt="晋" title="晋"><br><img src="http://img.xixik.net/cimg/083/xixik_57f8d17ebfdb1a85.jpeg" alt="隋" title="隋"><br><img src="http://img.xixik.net/cimg/083/xixik_04c8ec9fff83c2f9.jpeg" alt="唐" title="唐"><br><img src="http://img.xixik.net/cimg/083/xixik_6bc06e9bb6ef708c.jpeg" alt="辽" title="辽"><br><img src="http://img.xixik.net/cimg/083/xixik_6e40141c5eb849ea.jpeg" alt="宋" title="宋"><br><img src="http://img.xixik.net/cimg/083/xixik_74a385004d03fc0a.jpeg" alt="西夏" title="西夏"><br><img src="http://img.xixik.net/cimg/083/xixik_d209b6d3983aaf85.jpeg" alt="金" title="金"><br><img src="http://img.xixik.net/cimg/083/xixik_1f2382bcdab86fe9.jpeg" alt="元" title="元"><br><img src="http://img.xixik.net/cimg/083/xixik_a160592906ace6ec.jpeg" alt="明" title="明"><br><img src="http://img.xixik.net/cimg/083/xixik_633a17f15265a0ef.jpeg" alt="清" title="清"><br><em><strong>注意：转载自嘻嘻网图片，切勿商用</strong></em></p>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>历史</tag>
+        <tag>纯图片</tag>
       </tags>
   </entry>
   <entry>
@@ -660,23 +674,9 @@
         <category>JavaWeb</category>
       </categories>
       <tags>
-        <tag>标记语言</tag>
         <tag>XML</tag>
+        <tag>标记语言</tag>
         <tag>XML解析</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>dynasties</title>
-    <url>/2020/04/01/dynasties/</url>
-    <content><![CDATA[<a id="more"></a>
-<p><img src="http://img.xixik.net/cimg/083/xixik_c53006a681fc4200.jpeg" alt="尧舜禹→夏" title="尧舜禹→夏"><br><img src="http://img.xixik.net/cimg/083/xixik_87512603bf7f461e.jpeg" alt="商" title="商"><br><img src="http://img.xixik.net/cimg/083/xixik_a1523ca6228beae4.jpeg" alt="周" title="周"><br><img src="http://img.xixik.net/cimg/083/xixik_87c9e06af0d51132.jpeg" alt="秦" title="秦"><br><img src="http://img.xixik.net/cimg/083/xixik_01848d23bc3c0496.jpeg" alt="汉" title="汉"><br><img src="http://img.xixik.net/cimg/083/xixik_2a93308ddfd78f78.jpeg" alt="魏" title="魏"><br><img src="http://img.xixik.net/cimg/083/xixik_34ae3a4f7693d9ea.jpeg" alt="蜀" title="蜀"><br><img src="http://img.xixik.net/cimg/083/xixik_bafe42d5cde82df4.jpeg" alt="吴" title="吴"><br><img src="http://img.xixik.net/cimg/083/xixik_20b47e2887f23ecf.jpeg" alt="晋" title="晋"><br><img src="http://img.xixik.net/cimg/083/xixik_57f8d17ebfdb1a85.jpeg" alt="隋" title="隋"><br><img src="http://img.xixik.net/cimg/083/xixik_04c8ec9fff83c2f9.jpeg" alt="唐" title="唐"><br><img src="http://img.xixik.net/cimg/083/xixik_6bc06e9bb6ef708c.jpeg" alt="辽" title="辽"><br><img src="http://img.xixik.net/cimg/083/xixik_6e40141c5eb849ea.jpeg" alt="宋" title="宋"><br><img src="http://img.xixik.net/cimg/083/xixik_74a385004d03fc0a.jpeg" alt="西夏" title="西夏"><br><img src="http://img.xixik.net/cimg/083/xixik_d209b6d3983aaf85.jpeg" alt="金" title="金"><br><img src="http://img.xixik.net/cimg/083/xixik_1f2382bcdab86fe9.jpeg" alt="元" title="元"><br><img src="http://img.xixik.net/cimg/083/xixik_a160592906ace6ec.jpeg" alt="明" title="明"><br><img src="http://img.xixik.net/cimg/083/xixik_633a17f15265a0ef.jpeg" alt="清" title="清"><br><em><strong>注意：转载自嘻嘻网图片，切勿商用</strong></em></p>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>历史</tag>
-        <tag>纯图片</tag>
       </tags>
   </entry>
   <entry>
