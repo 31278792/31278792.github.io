@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Docker命令</title>
+    <url>/2022/03/06/Docker%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h3 id="docker安装"><a href="#docker安装" class="headerlink" title="docker安装"></a>docker安装</h3><p>首先，简单说下docker容器安装步骤。<br><strong>第一步，我们需要移除旧版本的docker命令：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-selinux \</span><br><span class="line">                  docker-engine-selinux \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p><strong>第二步，安装所需依赖包：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum install -y yum-utils \</span><br><span class="line">  device-mapper-persistent-data \</span><br><span class="line">  lvm2</span><br></pre></td></tr></table></figure>
+
+<p><strong>第三步，由于访问国外网站网速限制，我们需要配置镜像源，这里我用的是阿里云镜像：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo</span><br></pre></td></tr></table></figure>
+
+<p><strong>第四步，配置缓存：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum makecache fast</span><br></pre></td></tr></table></figure>
+
+<p><strong>第五步，执行docker安装命令：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum install -y docker-ce（这里docker-ce指的是社区版）</span><br></pre></td></tr></table></figure>
+
+<p><strong>第六步，配置镜像加速器，我用的是 <a href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors" target="_blank" rel="noopener">阿里云镜像加速器</a>，登录自己阿里云账号获得自己专属镜像加速器地址：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">suco mkdir -p &#x2F;etc&#x2F;docker(若没有该目录，则执行这条命令进行创建，有则跳过)</span><br><span class="line">sudo tee &#x2F;etc&#x2F;docker&#x2F;daemon.json &lt;&lt;-&#39;EOF&#39;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [这里输入你的阿里云镜像加速器地址]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p><strong>第七步，加载daemon配置文件：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+
+<p><strong>第八步，重启docker</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="docker命令"><a href="#docker命令" class="headerlink" title="docker命令"></a>docker命令</h3><p><code>docker version</code>查看docker版本，用来检验docker是否安装成功<br><code>docker info</code>查看docker的信息，可以用来查看docker镜像加速器是否配置成功<br><code>systemctl start docker</code>开启docker<br><code>systemctl restart docker</code>重启docker<br><code>systemctl enable docker</code>设置docker自启动  </p>
+<h4 id="docker镜像相关命令"><a href="#docker镜像相关命令" class="headerlink" title="docker镜像相关命令"></a>docker镜像相关命令</h4><p><code>docker images</code>或<code>docker images ls</code>查看当前存在的镜像<br><code>docker pull [镜像名]:[版本号]</code>获取镜像，不给版本号，默认最新latest<br><code>docker rmi [镜像ID]或[镜像名]</code>删除镜像，删除镜像时需确保该镜像没有创建容器<br><code>docker images -q</code>查看镜像ID<br><code>docker history [镜像名称]</code>查看一个镜像的制作历程  </p>
+<h4 id="docker容器相关命令"><a href="#docker容器相关命令" class="headerlink" title="docker容器相关命令"></a>docker容器相关命令</h4><p><code>docker ps</code>查看运行的容器<br><code>docker ps -a</code>查看所有的容器(包含运行和退出)<br><code>docker ps -a -q</code>查看所有容器的ID<br><code>docker run -i -t(-i -t用来作容器的交互) -d(后台运行容器) --rm(容器在启动后，执行完成命令或程序后自动销毁) --name(给容器自定义一个名字) -p(宿主机：内部端口)</code>运行容器<br>实例：<code>docker run --rm -d --name tomcat123 -p 8081:8080 tomcat</code><br><code>docker stop $(docker ps -a -q)</code>停掉所有容器<br><code>docker rm -f(强制)</code>删除容器<br><code>docker start</code>启动容器<br><code>docker restart</code>重启容器<br><code>docker exec</code>进入容器<br>实例：<code>docker exec -it tomcat-8080 bash</code><br><code>exit</code>退出容器<br><code>docker cp</code>实现宿主机与容器之间文件交换<br><code>docker logs -f(查看实时日志) -t(查看日志产生日期) --tail=5(查看日志最后5行)</code>查看指定容器日志  </p>
+<h4 id="docker数据卷"><a href="#docker数据卷" class="headerlink" title="docker数据卷"></a>docker数据卷</h4><p>数据卷可以在容器之间共享和重用，对数据卷的修改会立马生效，对数据卷的更新，不会影响镜像，数据卷具有持久化，即使容器被删除，也会一直存在，数据卷的两种创建方式<br><code>docker run -v(数据卷名称)</code><br><code>docker run -v(路径)</code><br>例：<code>docker run -d --name tomcat-8080 -p 8080:8080 -v /home/yzw/docker-volumn/:/usr/local/tomcat/webapps/volumn tomcat</code><br>`</p>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+        <tag>命令</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Ajax</title>
     <url>/2020/04/25/Ajax/</url>
     <content><![CDATA[<h3 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h3><p><strong>Ajax全称：Asynchronous Javascript And XML(异步 JS和XML)，它能使用JS实现异步访问服务器。众所周知，服务器给客户端传过去的是整个html完整页面，而Ajax局部刷新，服务器不再响应整个页面，只是传递数据，数据交换可以是txt、xml、json</strong></p>
@@ -49,45 +91,50 @@
       </tags>
   </entry>
   <entry>
-    <title>Docker命令</title>
-    <url>/2022/03/06/Docker%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<h3 id="docker安装"><a href="#docker安装" class="headerlink" title="docker安装"></a>docker安装</h3><p>首先，简单说下docker容器安装步骤。<br><strong>第一步，我们需要移除旧版本的docker命令：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-selinux \</span><br><span class="line">                  docker-engine-selinux \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
-
+    <title>JAXP</title>
+    <url>/2020/04/17/JAXP/</url>
+    <content><![CDATA[<h3 id="JAXP"><a href="#JAXP" class="headerlink" title="JAXP"></a>JAXP</h3><h4 id="xml的解析-将用到JAVA代码-重点内容"><a href="#xml的解析-将用到JAVA代码-重点内容" class="headerlink" title="xml的解析(将用到JAVA代码)重点内容"></a>xml的解析(<em>将用到JAVA代码</em>)<em><strong>重点内容</strong></em></h4><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>xml为标记下语言，JS使用dom解析标记型文档，根据html的层级结构，在内存中分配一个树型结构，把html中的标签、属性、对象都封装成对象，例如：document对象、element对象、属性对象、文本对象、Node节点对象</p>
+<p><strong>xml的解析方式有两种：dom和sax</strong></p>
 <a id="more"></a>
+<p><img src="/images/xml_pic.png" alt="解析图" title="xml的解析"><br><em>上图是dom的解析过程，该方式好处是很方便实现数据的增删改操作，但是如果文件过大，容易造成内存溢出。至于sax解析采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回，不会造成内存溢出，查询操作方便，但不能实现增删改操作</em><br><strong>总结：</strong><br>   <strong>-dom方式解析：根据xml的层级结构在内存中分配一个树状结构，把xml标签，属性和文本都封装成对象</strong><br>   <strong>-使用dom弊端：如果文件过大，容易造成溢出</strong><br>   <strong>-sax方式解析：采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回</strong><br>   <strong>-使用sax弊端：不能实现增删改操作</strong></p>
+<h5 id="解析器"><a href="#解析器" class="headerlink" title="解析器"></a>解析器</h5><p><strong>不同的公司和组织提供了针对dom和sax方式的解析器，通过api方式提供，sun公司提供了针对dom和sax的解析器jaxp，dom4j组织提供的解析器就叫dom4j，同样还有jdom组织的解析器jdom</strong></p>
+<h5 id="JAXP的API"><a href="#JAXP的API" class="headerlink" title="JAXP的API"></a>JAXP的API</h5><p><strong>jaxp解析器在jdk的javax.xml.parsers包里面，包里四个类主要针对dom和sax解析使用，针对dom有DocumentBuilder（解析器类）和DocumentBuilderFactory（解析器工厂）两个类，而sax有SAXParser和SAXParserFactory</strong></p>
+<h4 id="jaxp使用"><a href="#jaxp使用" class="headerlink" title="jaxp使用"></a>jaxp使用</h4><p>xml文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
 
-<p><strong>第二步，安装所需依赖包：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum install -y yum-utils \</span><br><span class="line">  device-mapper-persistent-data \</span><br><span class="line">  lvm2</span><br></pre></td></tr></table></figure>
+<h5 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void selectAll() throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;1.创建解析器工厂</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.根据工厂创建解析器</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.解析xml返回的document</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);&#x2F;&#x2F;括号内填写你xml文件所在位置</span><br><span class="line">&#x2F;&#x2F;4.得到所有元素</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;name&quot;);&#x2F;&#x2F;这里得到的是上面xml中name标签</span><br><span class="line">&#x2F;&#x2F;5.遍历集合</span><br><span class="line">	for(int i &#x3D; 0; i&lt;list.getLength();i++)&#123;</span><br><span class="line">		Node name &#x3D; list.item(i);&#x2F;&#x2F;得到每一个name元素</span><br><span class="line">		&#x2F;&#x2F;得到name元素里面的值</span><br><span class="line">		String s &#x3D; name1.getTextContent();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public void selectSin() throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.同上</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;name&quot;);</span><br><span class="line">&#x2F;&#x2F;5.得到第一个name元素</span><br><span class="line">	Node name1 &#x3D; list.item(0);</span><br><span class="line">&#x2F;&#x2F;6.得到name里面的值</span><br><span class="line">	String s &#x3D; name1.getTextContent();</span><br><span class="line">	System.out.println(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong>第三步，由于访问国外网站网速限制，我们需要配置镜像源，这里我用的是阿里云镜像：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo</span><br></pre></td></tr></table></figure>
+<h5 id="增加操作"><a href="#增加操作" class="headerlink" title="增加操作"></a>增加操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void add() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.同上</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;p1&quot;);</span><br><span class="line">&#x2F;&#x2F;5.得到第一个p1</span><br><span class="line">	Node p1 &#x3D; list.item(0);</span><br><span class="line">&#x2F;&#x2F;6.创建标签</span><br><span class="line">	Element sex1 &#x3D; document.createElement(&quot;sex&quot;);</span><br><span class="line">&#x2F;&#x2F;7.创建文本</span><br><span class="line">	Text text1 &#x3D; document.createTextNode(&quot;男&quot;);</span><br><span class="line">&#x2F;&#x2F;8.把文本添加到sex1下面</span><br><span class="line">	sex1.appendChild(text1);</span><br><span class="line">&#x2F;&#x2F;9.把sex1添加到p1下面</span><br><span class="line">	p1.appendChild(sex1);</span><br><span class="line">&#x2F;&#x2F;10.回写xml</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong>第四步，配置缓存：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum makecache fast</span><br></pre></td></tr></table></figure>
+<h5 id="修改操作"><a href="#修改操作" class="headerlink" title="修改操作"></a>修改操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void fix() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.得到sex元素</span><br><span class="line">	Node sex1 &#x3D; document.getElementsByTagName(&quot;sex&quot;).item(0);</span><br><span class="line">&#x2F;&#x2F;5.修改sex的内容</span><br><span class="line">	sex1.setTextContent(&quot;man&quot;);</span><br><span class="line">&#x2F;&#x2F;6.回写</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong>第五步，执行docker安装命令：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum install -y docker-ce（这里docker-ce指的是社区版）</span><br></pre></td></tr></table></figure>
+<h5 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void delete() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.得到sex元素</span><br><span class="line">	Node sex1 &#x3D; NodeList list&#x3D;document.getElementsByTagName(&quot;sex&quot;).item(0);</span><br><span class="line">&#x2F;&#x2F;5.得到它的父节点p1</span><br><span class="line">	Node p1 &#x3D; sex1.getParentNode();</span><br><span class="line">&#x2F;&#x2F;6.删除sex</span><br><span class="line">	p1.removeChild(sex1);</span><br><span class="line">&#x2F;&#x2F;7.回写	</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
 
-<p><strong>第六步，配置镜像加速器，我用的是 <a href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors" target="_blank" rel="noopener">阿里云镜像加速器</a>，登录自己阿里云账号获得自己专属镜像加速器地址：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">suco mkdir -p &#x2F;etc&#x2F;docker(若没有该目录，则执行这条命令进行创建，有则跳过)</span><br><span class="line">sudo tee &#x2F;etc&#x2F;docker&#x2F;daemon.json &lt;&lt;-&#39;EOF&#39;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [这里输入你的阿里云镜像加速器地址]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h5 id="遍历节点-把所有元素名称打印出来"><a href="#遍历节点-把所有元素名称打印出来" class="headerlink" title="遍历节点(把所有元素名称打印出来)"></a>遍历节点(<em>把所有元素名称打印出来</em>)</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void listElement() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;5.调用递归方法</span><br><span class="line">	list1(document);</span><br><span class="line">&#125;</span><br><span class="line">4.编写一个递归方法实现遍历</span><br><span class="line">public static void list1(Node node)&#123;</span><br><span class="line">	if(node.getNodeType &#x3D;&#x3D; Node.ELEMENT_NODE)&#123;&#x2F;&#x2F;避免将标签内容中不必要的空格和tab打印出来</span><br><span class="line">		System.out.println(node.getNodeName());&#x2F;&#x2F;获取节点名称</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;得到一层子节点</span><br><span class="line">	NodeList list &#x3D; node.getChildNodes();</span><br><span class="line">	for(int i&#x3D;0;i&lt;list.getLength();i++)&#123;</span><br><span class="line">		Node temp &#x3D; list.item(i);</span><br><span class="line">		&#x2F;&#x2F;继续得到temp的子节点</span><br><span class="line">		list1.(temp);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong>第七步，加载daemon配置文件：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<h4 id="JAXP实现sax操作"><a href="#JAXP实现sax操作" class="headerlink" title="JAXP实现sax操作"></a>JAXP实现sax操作</h4><p><strong>由于sax不能执行增删改操作，所以以下是实现它的查询操作</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class MyDefault1 extends DefaultHandler&#123;&#x2F;&#x2F;以下三个方法自动执行</span><br><span class="line">	@Override</span><br><span class="line">	public void startElement(String uri,String localName,String qName,Attributes attributes)throws SAXException&#123;</span><br><span class="line">		super.startElement(uri,localName,qName,attributes);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void characters(char[] ch,int start,int length)throws SAXException&#123;</span><br><span class="line">		super.characters(ch,start,length);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void endElement(String uri,String localName,String qName)throws SAXException&#123;</span><br><span class="line">		super.endElement(uri,localName,qName);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MyDefault2 extends DefaultHandler&#123;&#x2F;&#x2F;获取所有name元素的值</span><br><span class="line">	boolean flag &#x3D; false;</span><br><span class="line">	@Override</span><br><span class="line">	public void startElement(String uri,String localName,String qName,Attributes attributes)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;判断qName是否是name元素</span><br><span class="line">		if(&quot;name&quot;.equals(qName))&#123;</span><br><span class="line">			flag &#x3D; true;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void characters(char[] ch,int start,int length)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;当flag值是true时表示解析到name元素</span><br><span class="line">		if(flag &#x3D;&#x3D; true)&#123;</span><br><span class="line">			System.out.println(new String(ch,start,length));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void endElement(String uri,String localName,String qName)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;将flag设置为false,表示name元素结束</span><br><span class="line">		if(&quot;name&quot;.equals(qName))&#123;</span><br><span class="line">			flag &#x3D; false;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong>第八步，重启docker</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void main (String[] args)&#123;</span><br><span class="line">&#x2F;&#x2F;1.创建解析器工厂</span><br><span class="line">	SAXParserFactory saxParserFactory &#x3D; SAXParserFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.创建解析器</span><br><span class="line">	SAXParser saxParser &#x3D; SAXParserFactory.newSAXParser();</span><br><span class="line">&#x2F;&#x2F;3.执行parse方法</span><br><span class="line">	saxParser.parse(&quot;src&#x2F;p1.xml&quot;,new MyDefault2());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="docker命令"><a href="#docker命令" class="headerlink" title="docker命令"></a>docker命令</h3><p><code>docker version</code>查看docker版本，用来检验docker是否安装成功<br><code>docker info</code>查看docker的信息，可以用来查看docker镜像加速器是否配置成功<br><code>systemctl start docker</code>开启docker<br><code>systemctl restart docker</code>重启docker<br><code>systemctl enable docker</code>设置docker自启动  </p>
-<h4 id="docker镜像相关命令"><a href="#docker镜像相关命令" class="headerlink" title="docker镜像相关命令"></a>docker镜像相关命令</h4><p><code>docker images</code>或<code>docker images ls</code>查看当前存在的镜像<br><code>docker pull [镜像名]:[版本号]</code>获取镜像，不给版本号，默认最新latest<br><code>docker rmi [镜像ID]或[镜像名]</code>删除镜像，删除镜像时需确保该镜像没有创建容器<br><code>docker images -q</code>查看镜像ID<br><code>docker history [镜像名称]</code>查看一个镜像的制作历程  </p>
-<h4 id="docker容器相关命令"><a href="#docker容器相关命令" class="headerlink" title="docker容器相关命令"></a>docker容器相关命令</h4><p><code>docker ps</code>查看运行的容器<br><code>docker ps -a</code>查看所有的容器(包含运行和退出)<br><code>docker ps -a -q</code>查看所有容器的ID<br><code>docker run -i -t(-i -t用来作容器的交互) -d(后台运行容器) --rm(容器在启动后，执行完成命令或程序后自动销毁) --name(给容器自定义一个名字) -p(宿主机：内部端口)</code>运行容器<br>实例：<code>docker run --rm -d --name tomcat123 -p 8081:8080 tomcat</code><br><code>docker stop $(docker ps -a -q)</code>停掉所有容器<br><code>docker rm -f(强制)</code>删除容器<br><code>docker start</code>启动容器<br><code>docker restart</code>重启容器<br><code>docker exec</code>进入容器<br>实例：<code>docker exec -it tomcat-8080 bash</code><br><code>exit</code>退出容器<br><code>docker cp</code>实现宿主机与容器之间文件交换<br><code>docker logs -f(查看实时日志) -t(查看日志产生日期) --tail=5(查看日志最后5行)</code>查看指定容器日志  </p>
-<h4 id="docker数据卷"><a href="#docker数据卷" class="headerlink" title="docker数据卷"></a>docker数据卷</h4><p>数据卷可以在容器之间共享和重用，对数据卷的修改会立马生效，对数据卷的更新，不会影响镜像，数据卷具有持久化，即使容器被删除，也会一直存在，数据卷的两种创建方式<br><code>docker run -v(数据卷名称)</code><br><code>docker run -v(路径)</code><br>例：<code>docker run -d --name tomcat-8080 -p 8080:8080 -v /home/yzw/docker-volumn/:/usr/local/tomcat/webapps/volumn tomcat</code><br>`</p>
+
+
+
+
+
+
+
+
+
+
 ]]></content>
       <categories>
-        <category>Docker</category>
+        <category>JavaWeb</category>
       </categories>
       <tags>
-        <tag>docker</tag>
-        <tag>命令</tag>
+        <tag>XML</tag>
+        <tag>标记语言</tag>
+        <tag>XML解析</tag>
       </tags>
   </entry>
   <entry>
@@ -155,159 +202,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>HTML</tag>
         <tag>标记语言</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux常用命令</title>
-    <url>/2022/02/26/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<h1 id="Linux常用命令"><a href="#Linux常用命令" class="headerlink" title="Linux常用命令"></a>Linux常用命令</h1><h2 id="文件处理命令"><a href="#文件处理命令" class="headerlink" title="文件处理命令"></a>文件处理命令</h2><h3 id="目录处理命令"><a href="#目录处理命令" class="headerlink" title="目录处理命令"></a>目录处理命令</h3><p><code>ls -a(显示所有文件，包括隐藏文件) -l(详细信息显示) -d(查看目录属性) -i(查看文件唯一标识ID) -lh</code></p>
-<p><code>ls -l</code>查询出来结果首项，如果：<br><code>-</code>打头表示文件<br><code>d</code>打头表示目录<br><code>l</code>打头表示软链接  </p>
-<blockquote>
-<p>-rw-r–r–<br>  u g o<br>  u所有者 g所属组 o其他人<br>  r读 w写 x执行</p>
-</blockquote>
-<p><code>mkdir -p(递归创建)</code><br><code>cd /tmp/bin(切换到指定目录) ..(回到上一级目录)</code><br><code>pwd(查看当前所在目录)</code><br><code>rmdir(删除空目录)</code><br><code>cp -rp -r(复制目录) -p(保留文件属性) 复制文件不需要加选项r</code><br><code>mv(剪切、改名)</code><br><code>rm -rf(文件或目录) -r(删除目录) -f(强制) -i(询问是否删除)</code></p>
-<a id="more"></a>
-<h3 id="文件处理命令-1"><a href="#文件处理命令-1" class="headerlink" title="文件处理命令"></a>文件处理命令</h3><p><code>touch(创建文件)</code><br><code>cat(显示文件内容) -n(显示行号)</code><br><code>tac(倒显文件内容)</code><br><code>more(分页显示文件内容，空格或f进行翻页，回车进行换行，q退出)</code><br><code>less(可以向上翻页) pgup向上翻页，用/可以搜索关键词，n查看下一个匹配关键词</code><br><code>head(显示文件前面10行内容) -n(指定显示行数)</code><br><code>tail(显示文件末尾10行内容) -n(指定显示行数) -f(动态实时显示)</code></p>
-<h3 id="链接命令"><a href="#链接命令" class="headerlink" title="链接命令"></a>链接命令</h3><p><code>ln(生成硬链接) -s(创建软链接)</code><br><strong>软链接相当于win系统下的快捷方式，软链接文件权限都是rwx</strong><br><strong>硬链接相当<code>cp-p+同步更新</code>，可以通过<code>ls-i</code>节点识别硬链接，硬链接不能跨分区，硬链接不能针对目录来设置</strong>  </p>
-<h2 id="权限管理命令"><a href="#权限管理命令" class="headerlink" title="权限管理命令"></a>权限管理命令</h2><p><strong>一个文件权限，只能是文件所有者或root管理员可以更改</strong></p>
-<h3 id="权限管理命令chmod"><a href="#权限管理命令chmod" class="headerlink" title="权限管理命令chmod"></a>权限管理命令chmod</h3><p><code>chmod(改变文件或目录权限 ) [{ugoa}{+-=}{rwx}][文件或目录][mode=42][文件或目录] -R(递归修改)</code>  </p>
-<p><strong>示例：</strong></p>
-<blockquote>
-<p><code>chmod u+x hello.list</code>给hello.list文件所有者增加x执行权限<br><code>chmod g=rwx yzw.java</code>给yzw.java文件所属组赋予rwx权限<br><code>chmod g=rwx,o-r yzw.java</code>修改多个权限可以用逗号分隔</p>
-</blockquote>
-<p><strong>权限的数字表示：r用4表示，w用2表示，x用1表示，来实现权限修改</strong></p>
-<blockquote>
-<p><code>rwxrw-r--</code>对应7 6 4<br><code>r-x-wx-w-</code>对应5 3 2<br><code>chmod 640 yzw.java</code>通过数字表示实现了yzw.java文件权限更改</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">代表字符</th>
-<th align="center">权限</th>
-<th align="center">对文件的含义</th>
-<th align="center">对<font color="red">目录</font>的含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><strong>r</strong></td>
-<td align="center">读权限</td>
-<td align="center">可以查看文件内容</td>
-<td align="center">可以列出目录中的内容</td>
-</tr>
-<tr>
-<td align="center"><strong>w</strong></td>
-<td align="center">写权限</td>
-<td align="center">可以修改文件内容</td>
-<td align="center">可以在目录中创建、删除文件</td>
-</tr>
-<tr>
-<td align="center"><strong>x</strong></td>
-<td align="center">执行权限</td>
-<td align="center">可以执行文件</td>
-<td align="center">可以进入目录</td>
-</tr>
-</tbody></table>
-<h3 id="其他权限管理命令"><a href="#其他权限管理命令" class="headerlink" title="其他权限管理命令"></a>其他权限管理命令</h3><p><code>chown(改变文件或目录的所有者，只有管理员root可以操作) [用户][文件或目录]</code><br><code>chgrp(改变文件或目录的所属组) [用户组][文件或目录]</code><br><code>umask(显示、设置文件的缺省权限) -S(以rwx形式显示新建文件缺省权限)</code></p>
-<h2 id="文件搜索命令"><a href="#文件搜索命令" class="headerlink" title="文件搜索命令"></a>文件搜索命令</h2><h3 id="文件搜索命令find"><a href="#文件搜索命令find" class="headerlink" title="文件搜索命令find"></a>文件搜索命令find</h3><p><code>find(执行权限：所有用户) [搜索范围][匹配条件]</code><br><strong>示例：</strong></p>
-<blockquote>
-<p><code>find /etc -name init</code>(在etc目录下面搜索名字为init的文件或目录，注意：这里是精准查询)<br><code>find /etc -name *init*</code>(模糊查询，这里<code>*</code>表示任意字符)<br><code>find /etc -name init*</code>(找到init开头的文件或目录)<br><code>find /etc -name init???</code>(找到init后面三个字符的文件或目录，这里?表示单个字符)<br><code>find -iname(不区分大小写) init</code><br><code>find -size(根据文件大小查找) +204800</code>(+n表示大于，-n表示小于，n表示等于，这里204800换算：204800数据块=102400KB=100MB)<br><code>find /home -user yzw</code>(找所有者yzw在home目录的所有文件)<br><code>find /etc -cmin -5</code>(在etc目录下查找5分钟内被修改过属性的文件和目录，<code>-amin</code>表示访问时间access，<code>-cmin</code>表示文件属性，<code>-mmin</code>表示文件内容)<br><code>find -size +163840 -a -size -204800</code>(在etc下查找大于80MB小于100MB的文件，<code>-a</code>是and的意思)<br><code>find -size +163840 -o -size -204800</code>(<code>-o</code>是or的意思)<br><code>find /etc -name init* -a -type f</code>(查看etc目录下名以init开头的文件，<code>f</code>表示文件，<code>d</code>表示目录，<code>l</code>表示软链接)<br><code>find /etc -name yzw -exec ls -l {} \;(在etc目录下查找yzw文件并显示其详细信息)</code><br><code>find /home -user jack -ok rm {} \;</code>(<code>-ok</code>对结果多了询问)<br><code>find -inum 10086 -exec rm {} \;</code>(根据i节点查找到ID为10086文件进行删除)  </p>
-</blockquote>
-<h3 id="其他搜索命令"><a href="#其他搜索命令" class="headerlink" title="其他搜索命令"></a>其他搜索命令</h3><p><code>locate(在文件资料库里面查找) -i(不区分大小写)</code><br><code>updatedb</code>(更新文件资料库)<br><code>which</code>(搜索命令所在目录及别名信息)<br><code>whereis</code>(搜索命令所在目录及帮助文档路径)<br><code>grep(在文件内容中查找) -i(不区分大小写) -v(排查指定字符串)</code><br><code>grep -v ^# /etc/inittab</code>(排除以#开头的注释)</p>
-<h2 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h2><p><code>man</code>(获取帮助信息)<br><code>man 5 passwd</code>(查看配置文件帮助文档，1表示命令，5表示配置文件，默认查看命令帮助文档)<br><code>whatis</code>(查看命令简单信息)<br><code>apropos</code>(查看配置文件简单信息)<br><code>ls --help</code>(查看常见选项)<br><code>info</code>(同<code>man</code>差不多)<br><code>help</code>(查看内置命令帮助信息)</p>
-<h2 id="用户管理命令"><a href="#用户管理命令" class="headerlink" title="用户管理命令"></a>用户管理命令</h2><p><code>useradd</code>(添加新用户)<br><code>passwd</code>(新增或修改密码，用户只能更改自身密码，管理员root可以更改任何用户密码)<br><code>who</code>(查看登录用户信息,tty表示本地终端，pts表示远程终端)<br><code>w</code>(查看登录用户详细信息)</p>
-<h2 id="压缩解压命令"><a href="#压缩解压命令" class="headerlink" title="压缩解压命令"></a>压缩解压命令</h2><p><code>gzip</code>(压缩成.gz文件且不保留原文件，不能压缩目录)<br><code>gunzip或gzip -d</code>(解压.gz文件)<br><code>tar(打包目录) -zcvf [压缩后文件名][目录]</code>(压缩格式.tar.gz)  </p>
-<blockquote>
-<p><code>-c</code>打包<br><code>-v</code>显示详细信息<br><code>-f</code>指定文件名<br><code>-z</code>打包同时压缩  </p>
-</blockquote>
-<p><code>tar -zxvf</code>(解压)</p>
-<blockquote>
-<p><code>-x</code>解包<br><code>-v</code>显示信息<br><code>-f</code>指定解压文件<br><code>-z</code>解压缩  </p>
-</blockquote>
-<p><code>zip -r(压缩目录)[压缩后文件名][文件或目录]</code>(能保留原文件，压缩格式.zip)<br><code>unzip</code>(解压.zip文件)<br><code>bzip2 -k(保留原文件)</code>(gzip升级版可以保留原文件，压缩格式.bz2)<br><code>tar -cjf</code>(将z换成j可以生成.tar.bz2压缩格式)，例:<code>tar -cjf yzw.tar.bz2 yzw</code><br><code>bunzip2或bzip -d</code>(解压.bz2)<br><code>tar -xjf</code>(解压.tar.bz2)  </p>
-<h2 id="网络命令"><a href="#网络命令" class="headerlink" title="网络命令"></a>网络命令</h2><p><code>write</code>(给指定用户发信息，以Ctrl+D保存结束)<br><code>wall(write all，给所有用户发送信息)</code><br><code>ping -c(指定发送次数)</code>(测试网络连通性)<br><code>ifconfig</code>(查看和设置网卡信息)，例:<code>ifconfig eth0 192.168.8.8</code>(临时更改ip)<br><code>mail</code>(查看发送电子邮件)<br><code>last</code>(列出目前与过去登入系统的用户信息)<br><code>lastlog -u uid</code>(检查某特定用户上次登录时间，不加选项列出所有用户)<br><code>traceroute</code>(跟踪路由，即显示数据包到主机间的路径)，例：<code>traceroute www.baidu.com</code><br><code>netstat(显示网络相关信息) -t(查询TCP协议) -u(查询UDP协议) -l(查看监听端口) -r(查看路由网关) -n(显示ip地址和端口号)</code>  </p>
-<blockquote>
-<p>netstat -tlun 查看本机监听的端口<br>netstat -an 查看本机所有网络连接<br>netstat -rn 查看本机路由表  </p>
-</blockquote>
-<p><code>setup</code>(配置网络，redhat专有命令)<br><code>mount -t</code>(挂载命令，即分配盘符)例：<code>mount -t iso9660 /dev/sr0 /mnt/cdrom</code><br><code>umount</code>(挂载卸载命令)</p>
-<h2 id="关机重启命令"><a href="#关机重启命令" class="headerlink" title="关机重启命令"></a>关机重启命令</h2><p><code>shutdown -h now</code>(立刻关键)<br><code>shutdown -h 20:30</code>(20:30关机)<br><code>shutdown -r now</code>(立刻重启)<br><code>shutdown -r 20:30</code>(20:30重启)<br><code>shutdown -c</code>(取消前一个关机命令)<br><code>halt</code>(关机命令)<br><code>poweroff</code>(关机命令)<br><code>init 0</code>(关机命令)<br><code>reboot</code>(重启命令)<br><code>init 6</code>(重启命令)</p>
-<blockquote>
-<p><strong>系统运行级别：0代表关机 1代表单用户 2代表不完全多用户，不含NFS服务 3代表完全多用户 4代表未分配 5代表图形界面 6代表重启</strong></p>
-</blockquote>
-<p><code>runlevel</code>(查询当时运行级别)<br><code>logout</code>(退出登录)</p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>命令</tag>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Effctive 90条经验法则</title>
-    <url>/2022/02/25/90%E6%9D%A1%E7%BB%8F%E9%AA%8C%E6%B3%95%E5%88%99/</url>
-    <content><![CDATA[<blockquote>
-<h4 id="第1条：用静态工厂方法代替构造器"><a href="#第1条：用静态工厂方法代替构造器" class="headerlink" title="第1条：用静态工厂方法代替构造器"></a>第1条：用静态工厂方法代替构造器</h4><h4 id="第2条：遇到多个构造器参数时要考虑使用构建器"><a href="#第2条：遇到多个构造器参数时要考虑使用构建器" class="headerlink" title="第2条：遇到多个构造器参数时要考虑使用构建器"></a>第2条：遇到多个构造器参数时要考虑使用构建器</h4><h4 id="第3条：用私有构造器或者枚举类型强化Singleton属性"><a href="#第3条：用私有构造器或者枚举类型强化Singleton属性" class="headerlink" title="第3条：用私有构造器或者枚举类型强化Singleton属性"></a>第3条：用私有构造器或者枚举类型强化Singleton属性</h4><h4 id="第4条：通过私有构造器强化不可实例化的能力"><a href="#第4条：通过私有构造器强化不可实例化的能力" class="headerlink" title="第4条：通过私有构造器强化不可实例化的能力"></a>第4条：通过私有构造器强化不可实例化的能力</h4><h4 id="第5条：优先考虑依赖注入来引用资源"><a href="#第5条：优先考虑依赖注入来引用资源" class="headerlink" title="第5条：优先考虑依赖注入来引用资源"></a>第5条：优先考虑依赖注入来引用资源</h4><h4 id="第6条：避免创建不必要的对象"><a href="#第6条：避免创建不必要的对象" class="headerlink" title="第6条：避免创建不必要的对象"></a>第6条：避免创建不必要的对象</h4><h4 id="第7条：消除过期的对象引用"><a href="#第7条：消除过期的对象引用" class="headerlink" title="第7条：消除过期的对象引用"></a>第7条：消除过期的对象引用</h4><h4 id="第8条：避免使用终结方法和清除方法"><a href="#第8条：避免使用终结方法和清除方法" class="headerlink" title="第8条：避免使用终结方法和清除方法"></a>第8条：避免使用终结方法和清除方法</h4></blockquote>
-<a id="more"></a>
-<blockquote>
-<h4 id="第9条：try-with-resources优先于try-finally"><a href="#第9条：try-with-resources优先于try-finally" class="headerlink" title="第9条：try-with-resources优先于try-finally"></a>第9条：try-with-resources优先于try-finally</h4><h4 id="第10条：覆盖equals时请遵循通用约定"><a href="#第10条：覆盖equals时请遵循通用约定" class="headerlink" title="第10条：覆盖equals时请遵循通用约定"></a>第10条：覆盖equals时请遵循通用约定</h4><h4 id="第11条：覆盖equals时总要覆盖hashCode"><a href="#第11条：覆盖equals时总要覆盖hashCode" class="headerlink" title="第11条：覆盖equals时总要覆盖hashCode"></a>第11条：覆盖equals时总要覆盖hashCode</h4><h4 id="第12条：始终要覆盖toString"><a href="#第12条：始终要覆盖toString" class="headerlink" title="第12条：始终要覆盖toString"></a>第12条：始终要覆盖toString</h4><h4 id="第13条：谨慎地覆盖clone"><a href="#第13条：谨慎地覆盖clone" class="headerlink" title="第13条：谨慎地覆盖clone"></a>第13条：谨慎地覆盖clone</h4><h4 id="第14条：考虑实现Comparable接口"><a href="#第14条：考虑实现Comparable接口" class="headerlink" title="第14条：考虑实现Comparable接口"></a>第14条：考虑实现Comparable接口</h4><h4 id="第15条：使类和成员的可访问性最小化"><a href="#第15条：使类和成员的可访问性最小化" class="headerlink" title="第15条：使类和成员的可访问性最小化"></a>第15条：使类和成员的可访问性最小化</h4><h4 id="第16条：要在公有类中使用访问方法而非公有域"><a href="#第16条：要在公有类中使用访问方法而非公有域" class="headerlink" title="第16条：要在公有类中使用访问方法而非公有域"></a>第16条：要在公有类中使用访问方法而非公有域</h4><h4 id="第17条：使可变性最小化"><a href="#第17条：使可变性最小化" class="headerlink" title="第17条：使可变性最小化"></a>第17条：使可变性最小化</h4><h4 id="第18条：复合优先于继承"><a href="#第18条：复合优先于继承" class="headerlink" title="第18条：复合优先于继承"></a>第18条：复合优先于继承</h4><h4 id="第19条：要么设计继承并提供文档说明，要么禁止继承"><a href="#第19条：要么设计继承并提供文档说明，要么禁止继承" class="headerlink" title="第19条：要么设计继承并提供文档说明，要么禁止继承"></a>第19条：要么设计继承并提供文档说明，要么禁止继承</h4><h4 id="第20条：接口优于抽象类"><a href="#第20条：接口优于抽象类" class="headerlink" title="第20条：接口优于抽象类"></a>第20条：接口优于抽象类</h4><h4 id="第21条：为后代设计接口"><a href="#第21条：为后代设计接口" class="headerlink" title="第21条：为后代设计接口"></a>第21条：为后代设计接口</h4><h4 id="第22条：接口只用于定义类型"><a href="#第22条：接口只用于定义类型" class="headerlink" title="第22条：接口只用于定义类型"></a>第22条：接口只用于定义类型</h4><h4 id="第23条：类层次优于标签类"><a href="#第23条：类层次优于标签类" class="headerlink" title="第23条：类层次优于标签类"></a>第23条：类层次优于标签类</h4><h4 id="第24条：静态成员类优于非静态成员类"><a href="#第24条：静态成员类优于非静态成员类" class="headerlink" title="第24条：静态成员类优于非静态成员类"></a>第24条：静态成员类优于非静态成员类</h4><h4 id="第25条：限制源文件为单个顶级类"><a href="#第25条：限制源文件为单个顶级类" class="headerlink" title="第25条：限制源文件为单个顶级类"></a>第25条：限制源文件为单个顶级类</h4><h4 id="第26条：请不要使用原生态类型"><a href="#第26条：请不要使用原生态类型" class="headerlink" title="第26条：请不要使用原生态类型"></a>第26条：请不要使用原生态类型</h4><h4 id="第27条：消除非受检的警告"><a href="#第27条：消除非受检的警告" class="headerlink" title="第27条：消除非受检的警告"></a>第27条：消除非受检的警告</h4><h4 id="第28条：列表优于数组"><a href="#第28条：列表优于数组" class="headerlink" title="第28条：列表优于数组"></a>第28条：列表优于数组</h4><h4 id="第29条：优先考虑泛型"><a href="#第29条：优先考虑泛型" class="headerlink" title="第29条：优先考虑泛型"></a>第29条：优先考虑泛型</h4><h4 id="第30条：优先考虑泛型方法"><a href="#第30条：优先考虑泛型方法" class="headerlink" title="第30条：优先考虑泛型方法"></a>第30条：优先考虑泛型方法</h4><h4 id="第31条：利用有限制通配符来提升API的灵活性"><a href="#第31条：利用有限制通配符来提升API的灵活性" class="headerlink" title="第31条：利用有限制通配符来提升API的灵活性"></a>第31条：利用有限制通配符来提升API的灵活性</h4><h4 id="第32条：谨慎并用泛型和可变参数"><a href="#第32条：谨慎并用泛型和可变参数" class="headerlink" title="第32条：谨慎并用泛型和可变参数"></a>第32条：谨慎并用泛型和可变参数</h4><h4 id="第33条：优先考虑类型安全的异构容器"><a href="#第33条：优先考虑类型安全的异构容器" class="headerlink" title="第33条：优先考虑类型安全的异构容器"></a>第33条：优先考虑类型安全的异构容器</h4><h4 id="第34条：用enum代替int常量"><a href="#第34条：用enum代替int常量" class="headerlink" title="第34条：用enum代替int常量"></a>第34条：用enum代替int常量</h4><h4 id="第35条：用实例域代替序数"><a href="#第35条：用实例域代替序数" class="headerlink" title="第35条：用实例域代替序数"></a>第35条：用实例域代替序数</h4><h4 id="第36条：用EnumSet代替位域"><a href="#第36条：用EnumSet代替位域" class="headerlink" title="第36条：用EnumSet代替位域"></a>第36条：用EnumSet代替位域</h4><h4 id="第37条：用EnumMap代替序数索引"><a href="#第37条：用EnumMap代替序数索引" class="headerlink" title="第37条：用EnumMap代替序数索引"></a>第37条：用EnumMap代替序数索引</h4><h4 id="第38条：用接口模拟可扩展的枚举"><a href="#第38条：用接口模拟可扩展的枚举" class="headerlink" title="第38条：用接口模拟可扩展的枚举"></a>第38条：用接口模拟可扩展的枚举</h4><h4 id="第39条：注解优先于命名模式"><a href="#第39条：注解优先于命名模式" class="headerlink" title="第39条：注解优先于命名模式"></a>第39条：注解优先于命名模式</h4><h4 id="第40条：坚持使用Override注解"><a href="#第40条：坚持使用Override注解" class="headerlink" title="第40条：坚持使用Override注解"></a>第40条：坚持使用Override注解</h4><h4 id="第41条：用标记接口定义类型"><a href="#第41条：用标记接口定义类型" class="headerlink" title="第41条：用标记接口定义类型"></a>第41条：用标记接口定义类型</h4><h4 id="第42条：Lambda优先于匿名类"><a href="#第42条：Lambda优先于匿名类" class="headerlink" title="第42条：Lambda优先于匿名类"></a>第42条：Lambda优先于匿名类</h4><h4 id="第43条：方法引用优先于Lambda"><a href="#第43条：方法引用优先于Lambda" class="headerlink" title="第43条：方法引用优先于Lambda"></a>第43条：方法引用优先于Lambda</h4><h4 id="第44条：坚持使用标准的函数接口"><a href="#第44条：坚持使用标准的函数接口" class="headerlink" title="第44条：坚持使用标准的函数接口"></a>第44条：坚持使用标准的函数接口</h4><h4 id="第45条：谨慎使用Stream"><a href="#第45条：谨慎使用Stream" class="headerlink" title="第45条：谨慎使用Stream"></a>第45条：谨慎使用Stream</h4><h4 id="第46条：优先选择Stream中无副作用的函数"><a href="#第46条：优先选择Stream中无副作用的函数" class="headerlink" title="第46条：优先选择Stream中无副作用的函数"></a>第46条：优先选择Stream中无副作用的函数</h4><h4 id="第47条：Stream要优先用Collection作为返回类型"><a href="#第47条：Stream要优先用Collection作为返回类型" class="headerlink" title="第47条：Stream要优先用Collection作为返回类型"></a>第47条：Stream要优先用Collection作为返回类型</h4><h4 id="第48条：谨慎使用Stream并行"><a href="#第48条：谨慎使用Stream并行" class="headerlink" title="第48条：谨慎使用Stream并行"></a>第48条：谨慎使用Stream并行</h4><h4 id="第49条：检查参数的有效性"><a href="#第49条：检查参数的有效性" class="headerlink" title="第49条：检查参数的有效性"></a>第49条：检查参数的有效性</h4><h4 id="第50条：必要时进行保护性拷贝"><a href="#第50条：必要时进行保护性拷贝" class="headerlink" title="第50条：必要时进行保护性拷贝"></a>第50条：必要时进行保护性拷贝</h4><h4 id="第51条：谨慎设计方法签名"><a href="#第51条：谨慎设计方法签名" class="headerlink" title="第51条：谨慎设计方法签名"></a>第51条：谨慎设计方法签名</h4><h4 id="第52条：慎用重载"><a href="#第52条：慎用重载" class="headerlink" title="第52条：慎用重载"></a>第52条：慎用重载</h4><h4 id="第53条：慎用可变参数"><a href="#第53条：慎用可变参数" class="headerlink" title="第53条：慎用可变参数"></a>第53条：慎用可变参数</h4><h4 id="第54条：返回零长度的数组或者集合，而不是null"><a href="#第54条：返回零长度的数组或者集合，而不是null" class="headerlink" title="第54条：返回零长度的数组或者集合，而不是null"></a>第54条：返回零长度的数组或者集合，而不是null</h4><h4 id="第55条：谨慎返回optional"><a href="#第55条：谨慎返回optional" class="headerlink" title="第55条：谨慎返回optional"></a>第55条：谨慎返回optional</h4><h4 id="第56条：为所有导出API元素编写文档注释"><a href="#第56条：为所有导出API元素编写文档注释" class="headerlink" title="第56条：为所有导出API元素编写文档注释"></a>第56条：为所有导出API元素编写文档注释</h4><h4 id="第57条：将局部变量的作用域最小化"><a href="#第57条：将局部变量的作用域最小化" class="headerlink" title="第57条：将局部变量的作用域最小化"></a>第57条：将局部变量的作用域最小化</h4><h4 id="第58条：for-each循环优先于传统的for循环"><a href="#第58条：for-each循环优先于传统的for循环" class="headerlink" title="第58条：for-each循环优先于传统的for循环"></a>第58条：for-each循环优先于传统的for循环</h4><h4 id="第59条：了解和使用类库"><a href="#第59条：了解和使用类库" class="headerlink" title="第59条：了解和使用类库"></a>第59条：了解和使用类库</h4><h4 id="第60条：如果需要精确的答案，请避免使用float和double"><a href="#第60条：如果需要精确的答案，请避免使用float和double" class="headerlink" title="第60条：如果需要精确的答案，请避免使用float和double"></a>第60条：如果需要精确的答案，请避免使用float和double</h4><h4 id="第61条：基本类型优先于装箱基本类型"><a href="#第61条：基本类型优先于装箱基本类型" class="headerlink" title="第61条：基本类型优先于装箱基本类型"></a>第61条：基本类型优先于装箱基本类型</h4><h4 id="第62条：如果其他类型更适合，则尽量避免使用字符串"><a href="#第62条：如果其他类型更适合，则尽量避免使用字符串" class="headerlink" title="第62条：如果其他类型更适合，则尽量避免使用字符串"></a>第62条：如果其他类型更适合，则尽量避免使用字符串</h4><h4 id="第63条：了解字符串连接的性能"><a href="#第63条：了解字符串连接的性能" class="headerlink" title="第63条：了解字符串连接的性能"></a>第63条：了解字符串连接的性能</h4><h4 id="第64条：通过接口引用对象"><a href="#第64条：通过接口引用对象" class="headerlink" title="第64条：通过接口引用对象"></a>第64条：通过接口引用对象</h4><h4 id="第65条：接口优先于反射机制"><a href="#第65条：接口优先于反射机制" class="headerlink" title="第65条：接口优先于反射机制"></a>第65条：接口优先于反射机制</h4><h4 id="第66条：谨慎地使用本地方法"><a href="#第66条：谨慎地使用本地方法" class="headerlink" title="第66条：谨慎地使用本地方法"></a>第66条：谨慎地使用本地方法</h4><h4 id="第67条：谨慎地进行优化"><a href="#第67条：谨慎地进行优化" class="headerlink" title="第67条：谨慎地进行优化"></a>第67条：谨慎地进行优化</h4><h4 id="第68条：遵守普遍接受的命名惯例"><a href="#第68条：遵守普遍接受的命名惯例" class="headerlink" title="第68条：遵守普遍接受的命名惯例"></a>第68条：遵守普遍接受的命名惯例</h4><h4 id="第69条：只针对异常的情况才使用异常"><a href="#第69条：只针对异常的情况才使用异常" class="headerlink" title="第69条：只针对异常的情况才使用异常"></a>第69条：只针对异常的情况才使用异常</h4><h4 id="第70条：对可恢复的情况使用受检异常，对编程错误使用运行时异常"><a href="#第70条：对可恢复的情况使用受检异常，对编程错误使用运行时异常" class="headerlink" title="第70条：对可恢复的情况使用受检异常，对编程错误使用运行时异常"></a>第70条：对可恢复的情况使用受检异常，对编程错误使用运行时异常</h4><h4 id="第71条：避免不必要地使用受检异常"><a href="#第71条：避免不必要地使用受检异常" class="headerlink" title="第71条：避免不必要地使用受检异常"></a>第71条：避免不必要地使用受检异常</h4><h4 id="第72条：优先使用标准的异常"><a href="#第72条：优先使用标准的异常" class="headerlink" title="第72条：优先使用标准的异常"></a>第72条：优先使用标准的异常</h4><h4 id="第73条：抛出与抽象对应的异常"><a href="#第73条：抛出与抽象对应的异常" class="headerlink" title="第73条：抛出与抽象对应的异常"></a>第73条：抛出与抽象对应的异常</h4><h4 id="第74条：每个方法抛出的所有异常都要建立文档"><a href="#第74条：每个方法抛出的所有异常都要建立文档" class="headerlink" title="第74条：每个方法抛出的所有异常都要建立文档"></a>第74条：每个方法抛出的所有异常都要建立文档</h4><h4 id="第75条：在细节消息中包含失败-捕获信息"><a href="#第75条：在细节消息中包含失败-捕获信息" class="headerlink" title="第75条：在细节消息中包含失败-捕获信息"></a>第75条：在细节消息中包含失败-捕获信息</h4><h4 id="第76条：努力使失败保持原子性"><a href="#第76条：努力使失败保持原子性" class="headerlink" title="第76条：努力使失败保持原子性"></a>第76条：努力使失败保持原子性</h4><h4 id="第77条：不要忽略异常"><a href="#第77条：不要忽略异常" class="headerlink" title="第77条：不要忽略异常"></a>第77条：不要忽略异常</h4><h4 id="第78条：同步访问共享的可变数据"><a href="#第78条：同步访问共享的可变数据" class="headerlink" title="第78条：同步访问共享的可变数据"></a>第78条：同步访问共享的可变数据</h4><h4 id="第79条：避免过度同步"><a href="#第79条：避免过度同步" class="headerlink" title="第79条：避免过度同步"></a>第79条：避免过度同步</h4><h4 id="第80条：executor、task和stream优先于线程"><a href="#第80条：executor、task和stream优先于线程" class="headerlink" title="第80条：executor、task和stream优先于线程"></a>第80条：executor、task和stream优先于线程</h4><h4 id="第81条：并发工具优先于wait和notify"><a href="#第81条：并发工具优先于wait和notify" class="headerlink" title="第81条：并发工具优先于wait和notify"></a>第81条：并发工具优先于wait和notify</h4><h4 id="第82条：线程安全性的文档化"><a href="#第82条：线程安全性的文档化" class="headerlink" title="第82条：线程安全性的文档化"></a>第82条：线程安全性的文档化</h4><h4 id="第83条：慎用延迟初始化"><a href="#第83条：慎用延迟初始化" class="headerlink" title="第83条：慎用延迟初始化"></a>第83条：慎用延迟初始化</h4><h4 id="第84条：不要依赖于线程调度器"><a href="#第84条：不要依赖于线程调度器" class="headerlink" title="第84条：不要依赖于线程调度器"></a>第84条：不要依赖于线程调度器</h4><h4 id="第85条：其他方法优先于Java序列化"><a href="#第85条：其他方法优先于Java序列化" class="headerlink" title="第85条：其他方法优先于Java序列化"></a>第85条：其他方法优先于Java序列化</h4><h4 id="第86条：谨慎地实现Serializable接口"><a href="#第86条：谨慎地实现Serializable接口" class="headerlink" title="第86条：谨慎地实现Serializable接口"></a>第86条：谨慎地实现Serializable接口</h4><h4 id="第87条：考虑使用自定义的序列化形式"><a href="#第87条：考虑使用自定义的序列化形式" class="headerlink" title="第87条：考虑使用自定义的序列化形式"></a>第87条：考虑使用自定义的序列化形式</h4><h4 id="第88条：保护性地编写readObject方法"><a href="#第88条：保护性地编写readObject方法" class="headerlink" title="第88条：保护性地编写readObject方法"></a>第88条：保护性地编写readObject方法</h4><h4 id="第89条：对于实例控制，枚举类型优先于readResolve"><a href="#第89条：对于实例控制，枚举类型优先于readResolve" class="headerlink" title="第89条：对于实例控制，枚举类型优先于readResolve"></a>第89条：对于实例控制，枚举类型优先于readResolve</h4><h4 id="第90条：考虑用序列化代理代替序列化实例"><a href="#第90条：考虑用序列化代理代替序列化实例" class="headerlink" title="第90条：考虑用序列化代理代替序列化实例"></a>第90条：考虑用序列化代理代替序列化实例</h4></blockquote>
-]]></content>
-      <categories>
-        <category>后端</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL进阶</title>
-    <url>/2020/02/20/SQL%E8%BF%9B%E9%98%B6/</url>
-    <content><![CDATA[<h2 id="SQL进阶"><a href="#SQL进阶" class="headerlink" title="SQL进阶"></a>SQL进阶</h2><h3 id="SQL编码问题"><a href="#SQL编码问题" class="headerlink" title="SQL编码问题"></a>SQL编码问题</h3><p>使用<code>SHOW VARIABLES LIKE &#39;char%&#39;;</code>可以查看当前窗口sql相关编码,在dos窗口内使用<code>set 你想修改的选项=gbk;</code>，这种修改在窗口关闭后将失效，也就是一次性修改。每次修改或许会很繁琐，所以也可以找到my.ini文件在里面进行修改，重启数据库系统，使修改配置生效   </p>
-<a id="more"></a>
-
-<h3 id="mysql备份与恢复命令-即导入和导出"><a href="#mysql备份与恢复命令-即导入和导出" class="headerlink" title="mysql备份与恢复命令(即导入和导出)"></a>mysql备份与恢复命令(即导入和导出)</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysqldump -uroot -proot mydb&gt;d:&#x2F;yzw.sql&#x2F;&#x2F;备份</span><br><span class="line">mysql -uroot -proot mydb&lt;d:&#x2F;yzw.sql&#x2F;&#x2F;恢复</span><br><span class="line">source d:&#x2F;yzw.sql&#x2F;&#x2F;在当前数据库恢复</span><br></pre></td></tr></table></figure>
-
-<h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h3><h4 id="主键约束-唯一标识"><a href="#主键约束-唯一标识" class="headerlink" title="主键约束(唯一标识)"></a>主键约束(唯一标识)</h4><p><strong>主键特点：非空、唯一、被引用(外键体现这一点)</strong><br>当表的某一列被指定为主键后，该列就不能为空，不能出现重复值</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;当创建表时指定主键的两种方式</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid		CHAR(6) PRIMARY KEY,</span><br><span class="line">	sname   VARCHAR(20),</span><br><span class="line">	sage    INT</span><br><span class="line">&#125;;</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid		CHAR(6),</span><br><span class="line">	sname   VARCHAR(20),</span><br><span class="line">	sage    INT,</span><br><span class="line">	PRIMARY KEY(sid)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;修改表时指定主键</span><br><span class="line">ALTER TABLE stu ADD PRIMARY KEY(sid);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;删除主键</span><br><span class="line">ALTER TABLE stu DROP PRIMARY KEY;</span><br></pre></td></tr></table></figure>
-
-<h4 id="主键自增长"><a href="#主键自增长" class="headerlink" title="主键自增长"></a>主键自增长</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;创建表时指定主键自增长</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid     INT PRIMARY KEY AUTO_INCREMENT,&#x2F;&#x2F;自增长，数据类型必须是int</span><br><span class="line">	sname   VARCHAR(20),</span><br><span class="line">	age     INT</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h4 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;sname设置非空约束</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid     INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	sname   VARCHAR(20) NOT NULL,</span><br><span class="line">	age     INT</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h4 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;sname设置唯一约束</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid     INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	sname   VARCHAR(20) UNIQUE,</span><br><span class="line">	age     INT</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h4 id="外键约束"><a href="#外键约束" class="headerlink" title="外键约束"></a>外键约束</h4><p><strong>外键必须引用主键，外键可以重复且可以为空，一张表中可以有多个外键</strong><br>对象模型：可以双向关联，而且引用的是对象，而不是一个主键<br>关系模型：只能多方引用一方，而且引用的只是主键，而不是一整行记录</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE dept&#123;</span><br><span class="line">	id		INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	dname 	VARCHAR(20)</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;设置外键两种方式</span><br><span class="line">&#x2F;&#x2F;创建表时设置外键</span><br><span class="line">CREATE TABLE emp&#123;</span><br><span class="line">	empno   INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	ename   VARCHAR(50),</span><br><span class="line">	dno		INT,</span><br><span class="line">	CONSTRAINT fk_emp_dept FOREIGN KEY(dno) REFERENCES dept(id)</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;修改表设置外键</span><br><span class="line">ALTER TABLE emp ADD CONSTRAINT fk_emp_dept FOREIGN KEY(dno) REFERENCES dept(id)</span><br></pre></td></tr></table></figure>
-
-<h3 id="三种关联关系"><a href="#三种关联关系" class="headerlink" title="三种关联关系"></a>三种关联关系</h3><h4 id="一对一"><a href="#一对一" class="headerlink" title="一对一"></a>一对一</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE hasband&#123;</span><br><span class="line">	hid 	INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	hname 	VARCHAR(25)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">CREATE TABLE wife&#123;</span><br><span class="line">	wid 	INT PRIMARY KEY AUTO_INCREMENT,&#x2F;&#x2F;wid即作主键又作外键，非空，唯一，引用hid</span><br><span class="line">	wname 	VARCHAR(25),</span><br><span class="line">	hid		INT,</span><br><span class="line">	CONSTRAINT fk_wife_hasband FOREIGN KEY(wid) REFERENCES hasband(hid)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="一对多"><a href="#一对多" class="headerlink" title="一对多"></a>一对多</h4><p>上面写外键约束用过，略</p>
-<h4 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE student&#123;</span><br><span class="line">	sid 	INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	sname 	VARCHAR(25),</span><br><span class="line">&#125;;</span><br><span class="line">CREATE TABLE teacher&#123;</span><br><span class="line">	tid 	INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	tname 	VARCHAR(25),</span><br><span class="line">&#125;;</span><br><span class="line">CREATE TABLE stu_tea&#123;</span><br><span class="line">	sid		INT,</span><br><span class="line">	tid		INT,</span><br><span class="line">	CONSTRAINT fk_sutdent FOREIGN KEY(sid) REFERENCES subject(sid),</span><br><span class="line">	CONSTRAINT fk_teacher FOREIGN KEY(tid) REFERENCES teacher(tid)</span><br><span class="line">&#125;;</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;刘德华&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;张学友&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;郭富城&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;黎明&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;梁朝伟&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;梁家辉&quot;);</span><br><span class="line"></span><br><span class="line">INSERT INTO teacher VALUES(NULL,&quot;崔老师&quot;);</span><br><span class="line">INSERT INTO teacher VALUES(NULL,&quot;史老师&quot;);</span><br><span class="line">INSERT INTO teacher VALUES(NULL,&quot;王老师&quot;);</span><br><span class="line"></span><br><span class="line">INSERT INTO stu_tea VALUES(1,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(2,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(3,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(4,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(5,1);</span><br><span class="line"></span><br><span class="line">INSERT INTO stu_tea VALUES(1,2);</span><br><span class="line">INSERT INTO stu_tea VALUES(2,2);</span><br><span class="line">INSERT INTO stu_tea VALUES(3,2);</span><br><span class="line"></span><br><span class="line">INSERT INTO stu_tea VALUES(3,3);</span><br><span class="line">INSERT INTO stu_tea VALUES(4,3);</span><br><span class="line">INSERT INTO stu_tea VALUES(6,3);</span><br></pre></td></tr></table></figure>
-
-<h3 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h3><h4 id="合并结果集-合并两张表格"><a href="#合并结果集-合并两张表格" class="headerlink" title="合并结果集(合并两张表格)"></a>合并结果集(合并两张表格)</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE ab&#123;a INT,b VARCHAR(11)&#125;;</span><br><span class="line">INSERT INTO ab VALUES(1,&quot;1&quot;);</span><br><span class="line">INSERT INTO ab VALUES(2,&quot;2&quot;);</span><br><span class="line">INSERT INTO ab VALUES(3,&quot;3&quot;);</span><br><span class="line"></span><br><span class="line">CREATE TABLE ab2&#123;c INT,d VARCHAR(11)&#125;;</span><br><span class="line">INSERT INTO ab2 VALUES(3,&quot;3&quot;);</span><br><span class="line">INSERT INTO ab2 VALUES(4,&quot;4&quot;);</span><br><span class="line">INSERT INTO ab2 VALUES(5,&quot;5&quot;);</span><br><span class="line"></span><br><span class="line">SELECT * FROM ab </span><br><span class="line">UNION ALL 		  &#x2F;&#x2F;ALL去掉的话，完全相同的行将保留1个</span><br><span class="line">SELECT * FROM ab2;&#x2F;&#x2F;要求两张表结果集完全相同（即要查询的列类型相同）</span><br></pre></td></tr></table></figure>
-
-<h4 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h4><h5 id="连接查询之内连接"><a href="#连接查询之内连接" class="headerlink" title="连接查询之内连接"></a>连接查询之内连接</h5><p>方言：<code>SELECT * FROM 表1 别名1,表2 别名2 WHERE 别名1.xx=别名2.xx</code><br>标准：<code>SELECT * FROM 表1 别名1 INNER JOIN 表2 别名2 ON 别名1.xx=别名2.xx</code><br>自然：<code>SELECT * FROM 表1 别名1 NATURAL JOIN 表2 别名2</code></p>
-<h5 id="连接查询之外连接"><a href="#连接查询之外连接" class="headerlink" title="连接查询之外连接"></a>连接查询之外连接</h5><p>左外连接：外连接一主一次，左外部左表为主，主表所有记录无论满足条件与否，都打印出来，不满足字段内容为null</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM 表1 别名1 LEFT OUTER JOIN 表2 别名2 ON 别名1.xx&#x3D;别名2.xx</span><br><span class="line">&#x2F;&#x2F;示例：</span><br><span class="line">SELECT e.ename,e.sal,IFNULL(d.dname,&quot;无内容&quot;) AS dname</span><br><span class="line">FROM emp e LEFT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br></pre></td></tr></table></figure>
-
-<p>右外连接：与左连接理解类似</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM 表1 别名1 RIGHT OUTER JOIN 表2 别名2 ON 别名1.xx&#x3D;别名2.xx</span><br><span class="line">&#x2F;&#x2F;示例：</span><br><span class="line">SELECT e.ename,e.sal,d.dname</span><br><span class="line">FROM emp e RIGHT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br></pre></td></tr></table></figure>
-
-<p>全外连接：<code>SELECT * FROM 表1 别名1 FULL OUTER JOIN 表2 别名2 ON 别名1.xx=别名2.xx</code><em>mysql不支持</em></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">解决方式：</span><br><span class="line">SELECT e.ename,e.sal,IFNULL(d.dname,&quot;无内容&quot;) AS dname</span><br><span class="line">FROM emp e LEFT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br><span class="line">UNION &#x2F;&#x2F;去除结果集实现全连接 </span><br><span class="line">SELECT e.ename,e.sal,d.dname</span><br><span class="line">FROM emp e RIGHT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br></pre></td></tr></table></figure>
-
-<h4 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h4><p>子查询就是查询中有查询（即出现多个select关键字）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;示例1：</span><br><span class="line">SELECT * FROM emp WHERE sal&#x3D;(SELECT MAX(sal) FROM emp);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例2：</span><br><span class="line">SELECT e.empno,e.ename </span><br><span class="line">FROM (SELECT * FROM emp WHERE deptno&#x3D;30) e</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例3：</span><br><span class="line">SELECT * FROM emp WHERE sal &gt; ALL (SELECT sal FROM emp WHERE deptno&#x3D;30)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例4：</span><br><span class="line">SELECT * FROM emp WHERE sal &gt; ANY (SELECT sal FROM emp WHERE deptno&#x3D;20)</span><br></pre></td></tr></table></figure>
-
-<p>总结：<br>1.单行单列：<code>SELECT * FROM 表1 别名1 WHERE 列1 [=、&gt;、&lt;、&lt;=、&gt;=、!=] (SELECT 列 FROM 表2 别名2 WHERE 条件)</code><br>2.多行单列：<code>SELECT * FROM 表1 别名1 WHERE 列1 [IN、ALL、ANY] (SELECT 列 FROM 表2 别名2 WHERE 条件)</code><br>3.单行多列：<code>SELECT * FROM 表1 别名1 WHERE (列1,列2) IN (SELECT 列1 列2 FROM 表2 别名2 WHERE 条件)</code><br>4.多行多列；<code>SELECT * FROM 表1 别名1 , (SELECT ...) 别名2 WHERE 条件</code></p>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>SQL</tag>
-        <tag>MySQL</tag>
+        <tag>HTML</tag>
       </tags>
   </entry>
   <entry>
@@ -469,97 +365,138 @@
       </tags>
   </entry>
   <entry>
-    <title>JAXP</title>
-    <url>/2020/04/17/JAXP/</url>
-    <content><![CDATA[<h3 id="JAXP"><a href="#JAXP" class="headerlink" title="JAXP"></a>JAXP</h3><h4 id="xml的解析-将用到JAVA代码-重点内容"><a href="#xml的解析-将用到JAVA代码-重点内容" class="headerlink" title="xml的解析(将用到JAVA代码)重点内容"></a>xml的解析(<em>将用到JAVA代码</em>)<em><strong>重点内容</strong></em></h4><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>xml为标记下语言，JS使用dom解析标记型文档，根据html的层级结构，在内存中分配一个树型结构，把html中的标签、属性、对象都封装成对象，例如：document对象、element对象、属性对象、文本对象、Node节点对象</p>
-<p><strong>xml的解析方式有两种：dom和sax</strong></p>
+    <title>SQL进阶</title>
+    <url>/2020/02/20/SQL%E8%BF%9B%E9%98%B6/</url>
+    <content><![CDATA[<h2 id="SQL进阶"><a href="#SQL进阶" class="headerlink" title="SQL进阶"></a>SQL进阶</h2><h3 id="SQL编码问题"><a href="#SQL编码问题" class="headerlink" title="SQL编码问题"></a>SQL编码问题</h3><p>使用<code>SHOW VARIABLES LIKE &#39;char%&#39;;</code>可以查看当前窗口sql相关编码,在dos窗口内使用<code>set 你想修改的选项=gbk;</code>，这种修改在窗口关闭后将失效，也就是一次性修改。每次修改或许会很繁琐，所以也可以找到my.ini文件在里面进行修改，重启数据库系统，使修改配置生效   </p>
 <a id="more"></a>
-<p><img src="/images/xml_pic.png" alt="解析图" title="xml的解析"><br><em>上图是dom的解析过程，该方式好处是很方便实现数据的增删改操作，但是如果文件过大，容易造成内存溢出。至于sax解析采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回，不会造成内存溢出，查询操作方便，但不能实现增删改操作</em><br><strong>总结：</strong><br>   <strong>-dom方式解析：根据xml的层级结构在内存中分配一个树状结构，把xml标签，属性和文本都封装成对象</strong><br>   <strong>-使用dom弊端：如果文件过大，容易造成溢出</strong><br>   <strong>-sax方式解析：采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回</strong><br>   <strong>-使用sax弊端：不能实现增删改操作</strong></p>
-<h5 id="解析器"><a href="#解析器" class="headerlink" title="解析器"></a>解析器</h5><p><strong>不同的公司和组织提供了针对dom和sax方式的解析器，通过api方式提供，sun公司提供了针对dom和sax的解析器jaxp，dom4j组织提供的解析器就叫dom4j，同样还有jdom组织的解析器jdom</strong></p>
-<h5 id="JAXP的API"><a href="#JAXP的API" class="headerlink" title="JAXP的API"></a>JAXP的API</h5><p><strong>jaxp解析器在jdk的javax.xml.parsers包里面，包里四个类主要针对dom和sax解析使用，针对dom有DocumentBuilder（解析器类）和DocumentBuilderFactory（解析器工厂）两个类，而sax有SAXParser和SAXParserFactory</strong></p>
-<h4 id="jaxp使用"><a href="#jaxp使用" class="headerlink" title="jaxp使用"></a>jaxp使用</h4><p>xml文件内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
 
-<h5 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void selectAll() throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;1.创建解析器工厂</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.根据工厂创建解析器</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.解析xml返回的document</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);&#x2F;&#x2F;括号内填写你xml文件所在位置</span><br><span class="line">&#x2F;&#x2F;4.得到所有元素</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;name&quot;);&#x2F;&#x2F;这里得到的是上面xml中name标签</span><br><span class="line">&#x2F;&#x2F;5.遍历集合</span><br><span class="line">	for(int i &#x3D; 0; i&lt;list.getLength();i++)&#123;</span><br><span class="line">		Node name &#x3D; list.item(i);&#x2F;&#x2F;得到每一个name元素</span><br><span class="line">		&#x2F;&#x2F;得到name元素里面的值</span><br><span class="line">		String s &#x3D; name1.getTextContent();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public void selectSin() throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.同上</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;name&quot;);</span><br><span class="line">&#x2F;&#x2F;5.得到第一个name元素</span><br><span class="line">	Node name1 &#x3D; list.item(0);</span><br><span class="line">&#x2F;&#x2F;6.得到name里面的值</span><br><span class="line">	String s &#x3D; name1.getTextContent();</span><br><span class="line">	System.out.println(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="mysql备份与恢复命令-即导入和导出"><a href="#mysql备份与恢复命令-即导入和导出" class="headerlink" title="mysql备份与恢复命令(即导入和导出)"></a>mysql备份与恢复命令(即导入和导出)</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysqldump -uroot -proot mydb&gt;d:&#x2F;yzw.sql&#x2F;&#x2F;备份</span><br><span class="line">mysql -uroot -proot mydb&lt;d:&#x2F;yzw.sql&#x2F;&#x2F;恢复</span><br><span class="line">source d:&#x2F;yzw.sql&#x2F;&#x2F;在当前数据库恢复</span><br></pre></td></tr></table></figure>
 
-<h5 id="增加操作"><a href="#增加操作" class="headerlink" title="增加操作"></a>增加操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void add() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.同上</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;p1&quot;);</span><br><span class="line">&#x2F;&#x2F;5.得到第一个p1</span><br><span class="line">	Node p1 &#x3D; list.item(0);</span><br><span class="line">&#x2F;&#x2F;6.创建标签</span><br><span class="line">	Element sex1 &#x3D; document.createElement(&quot;sex&quot;);</span><br><span class="line">&#x2F;&#x2F;7.创建文本</span><br><span class="line">	Text text1 &#x3D; document.createTextNode(&quot;男&quot;);</span><br><span class="line">&#x2F;&#x2F;8.把文本添加到sex1下面</span><br><span class="line">	sex1.appendChild(text1);</span><br><span class="line">&#x2F;&#x2F;9.把sex1添加到p1下面</span><br><span class="line">	p1.appendChild(sex1);</span><br><span class="line">&#x2F;&#x2F;10.回写xml</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h3><h4 id="主键约束-唯一标识"><a href="#主键约束-唯一标识" class="headerlink" title="主键约束(唯一标识)"></a>主键约束(唯一标识)</h4><p><strong>主键特点：非空、唯一、被引用(外键体现这一点)</strong><br>当表的某一列被指定为主键后，该列就不能为空，不能出现重复值</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;当创建表时指定主键的两种方式</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid		CHAR(6) PRIMARY KEY,</span><br><span class="line">	sname   VARCHAR(20),</span><br><span class="line">	sage    INT</span><br><span class="line">&#125;;</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid		CHAR(6),</span><br><span class="line">	sname   VARCHAR(20),</span><br><span class="line">	sage    INT,</span><br><span class="line">	PRIMARY KEY(sid)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;修改表时指定主键</span><br><span class="line">ALTER TABLE stu ADD PRIMARY KEY(sid);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;删除主键</span><br><span class="line">ALTER TABLE stu DROP PRIMARY KEY;</span><br></pre></td></tr></table></figure>
 
-<h5 id="修改操作"><a href="#修改操作" class="headerlink" title="修改操作"></a>修改操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void fix() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.得到sex元素</span><br><span class="line">	Node sex1 &#x3D; document.getElementsByTagName(&quot;sex&quot;).item(0);</span><br><span class="line">&#x2F;&#x2F;5.修改sex的内容</span><br><span class="line">	sex1.setTextContent(&quot;man&quot;);</span><br><span class="line">&#x2F;&#x2F;6.回写</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="主键自增长"><a href="#主键自增长" class="headerlink" title="主键自增长"></a>主键自增长</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;创建表时指定主键自增长</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid     INT PRIMARY KEY AUTO_INCREMENT,&#x2F;&#x2F;自增长，数据类型必须是int</span><br><span class="line">	sname   VARCHAR(20),</span><br><span class="line">	age     INT</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h5 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void delete() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.得到sex元素</span><br><span class="line">	Node sex1 &#x3D; NodeList list&#x3D;document.getElementsByTagName(&quot;sex&quot;).item(0);</span><br><span class="line">&#x2F;&#x2F;5.得到它的父节点p1</span><br><span class="line">	Node p1 &#x3D; sex1.getParentNode();</span><br><span class="line">&#x2F;&#x2F;6.删除sex</span><br><span class="line">	p1.removeChild(sex1);</span><br><span class="line">&#x2F;&#x2F;7.回写	</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
+<h4 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;sname设置非空约束</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid     INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	sname   VARCHAR(20) NOT NULL,</span><br><span class="line">	age     INT</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h5 id="遍历节点-把所有元素名称打印出来"><a href="#遍历节点-把所有元素名称打印出来" class="headerlink" title="遍历节点(把所有元素名称打印出来)"></a>遍历节点(<em>把所有元素名称打印出来</em>)</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void listElement() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;5.调用递归方法</span><br><span class="line">	list1(document);</span><br><span class="line">&#125;</span><br><span class="line">4.编写一个递归方法实现遍历</span><br><span class="line">public static void list1(Node node)&#123;</span><br><span class="line">	if(node.getNodeType &#x3D;&#x3D; Node.ELEMENT_NODE)&#123;&#x2F;&#x2F;避免将标签内容中不必要的空格和tab打印出来</span><br><span class="line">		System.out.println(node.getNodeName());&#x2F;&#x2F;获取节点名称</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;得到一层子节点</span><br><span class="line">	NodeList list &#x3D; node.getChildNodes();</span><br><span class="line">	for(int i&#x3D;0;i&lt;list.getLength();i++)&#123;</span><br><span class="line">		Node temp &#x3D; list.item(i);</span><br><span class="line">		&#x2F;&#x2F;继续得到temp的子节点</span><br><span class="line">		list1.(temp);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;sname设置唯一约束</span><br><span class="line">CREATE TABLE stu&#123;</span><br><span class="line">	sid     INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	sname   VARCHAR(20) UNIQUE,</span><br><span class="line">	age     INT</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h4 id="JAXP实现sax操作"><a href="#JAXP实现sax操作" class="headerlink" title="JAXP实现sax操作"></a>JAXP实现sax操作</h4><p><strong>由于sax不能执行增删改操作，所以以下是实现它的查询操作</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class MyDefault1 extends DefaultHandler&#123;&#x2F;&#x2F;以下三个方法自动执行</span><br><span class="line">	@Override</span><br><span class="line">	public void startElement(String uri,String localName,String qName,Attributes attributes)throws SAXException&#123;</span><br><span class="line">		super.startElement(uri,localName,qName,attributes);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void characters(char[] ch,int start,int length)throws SAXException&#123;</span><br><span class="line">		super.characters(ch,start,length);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void endElement(String uri,String localName,String qName)throws SAXException&#123;</span><br><span class="line">		super.endElement(uri,localName,qName);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MyDefault2 extends DefaultHandler&#123;&#x2F;&#x2F;获取所有name元素的值</span><br><span class="line">	boolean flag &#x3D; false;</span><br><span class="line">	@Override</span><br><span class="line">	public void startElement(String uri,String localName,String qName,Attributes attributes)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;判断qName是否是name元素</span><br><span class="line">		if(&quot;name&quot;.equals(qName))&#123;</span><br><span class="line">			flag &#x3D; true;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void characters(char[] ch,int start,int length)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;当flag值是true时表示解析到name元素</span><br><span class="line">		if(flag &#x3D;&#x3D; true)&#123;</span><br><span class="line">			System.out.println(new String(ch,start,length));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void endElement(String uri,String localName,String qName)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;将flag设置为false,表示name元素结束</span><br><span class="line">		if(&quot;name&quot;.equals(qName))&#123;</span><br><span class="line">			flag &#x3D; false;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="外键约束"><a href="#外键约束" class="headerlink" title="外键约束"></a>外键约束</h4><p><strong>外键必须引用主键，外键可以重复且可以为空，一张表中可以有多个外键</strong><br>对象模型：可以双向关联，而且引用的是对象，而不是一个主键<br>关系模型：只能多方引用一方，而且引用的只是主键，而不是一整行记录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE dept&#123;</span><br><span class="line">	id		INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	dname 	VARCHAR(20)</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;设置外键两种方式</span><br><span class="line">&#x2F;&#x2F;创建表时设置外键</span><br><span class="line">CREATE TABLE emp&#123;</span><br><span class="line">	empno   INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	ename   VARCHAR(50),</span><br><span class="line">	dno		INT,</span><br><span class="line">	CONSTRAINT fk_emp_dept FOREIGN KEY(dno) REFERENCES dept(id)</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;修改表设置外键</span><br><span class="line">ALTER TABLE emp ADD CONSTRAINT fk_emp_dept FOREIGN KEY(dno) REFERENCES dept(id)</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void main (String[] args)&#123;</span><br><span class="line">&#x2F;&#x2F;1.创建解析器工厂</span><br><span class="line">	SAXParserFactory saxParserFactory &#x3D; SAXParserFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.创建解析器</span><br><span class="line">	SAXParser saxParser &#x3D; SAXParserFactory.newSAXParser();</span><br><span class="line">&#x2F;&#x2F;3.执行parse方法</span><br><span class="line">	saxParser.parse(&quot;src&#x2F;p1.xml&quot;,new MyDefault2());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="三种关联关系"><a href="#三种关联关系" class="headerlink" title="三种关联关系"></a>三种关联关系</h3><h4 id="一对一"><a href="#一对一" class="headerlink" title="一对一"></a>一对一</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE hasband&#123;</span><br><span class="line">	hid 	INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	hname 	VARCHAR(25)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">CREATE TABLE wife&#123;</span><br><span class="line">	wid 	INT PRIMARY KEY AUTO_INCREMENT,&#x2F;&#x2F;wid即作主键又作外键，非空，唯一，引用hid</span><br><span class="line">	wname 	VARCHAR(25),</span><br><span class="line">	hid		INT,</span><br><span class="line">	CONSTRAINT fk_wife_hasband FOREIGN KEY(wid) REFERENCES hasband(hid)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="一对多"><a href="#一对多" class="headerlink" title="一对多"></a>一对多</h4><p>上面写外键约束用过，略</p>
+<h4 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE student&#123;</span><br><span class="line">	sid 	INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	sname 	VARCHAR(25),</span><br><span class="line">&#125;;</span><br><span class="line">CREATE TABLE teacher&#123;</span><br><span class="line">	tid 	INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	tname 	VARCHAR(25),</span><br><span class="line">&#125;;</span><br><span class="line">CREATE TABLE stu_tea&#123;</span><br><span class="line">	sid		INT,</span><br><span class="line">	tid		INT,</span><br><span class="line">	CONSTRAINT fk_sutdent FOREIGN KEY(sid) REFERENCES subject(sid),</span><br><span class="line">	CONSTRAINT fk_teacher FOREIGN KEY(tid) REFERENCES teacher(tid)</span><br><span class="line">&#125;;</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;刘德华&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;张学友&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;郭富城&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;黎明&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;梁朝伟&quot;);</span><br><span class="line">INSERT INTO student VALUES(NULL,&quot;梁家辉&quot;);</span><br><span class="line"></span><br><span class="line">INSERT INTO teacher VALUES(NULL,&quot;崔老师&quot;);</span><br><span class="line">INSERT INTO teacher VALUES(NULL,&quot;史老师&quot;);</span><br><span class="line">INSERT INTO teacher VALUES(NULL,&quot;王老师&quot;);</span><br><span class="line"></span><br><span class="line">INSERT INTO stu_tea VALUES(1,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(2,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(3,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(4,1);</span><br><span class="line">INSERT INTO stu_tea VALUES(5,1);</span><br><span class="line"></span><br><span class="line">INSERT INTO stu_tea VALUES(1,2);</span><br><span class="line">INSERT INTO stu_tea VALUES(2,2);</span><br><span class="line">INSERT INTO stu_tea VALUES(3,2);</span><br><span class="line"></span><br><span class="line">INSERT INTO stu_tea VALUES(3,3);</span><br><span class="line">INSERT INTO stu_tea VALUES(4,3);</span><br><span class="line">INSERT INTO stu_tea VALUES(6,3);</span><br></pre></td></tr></table></figure>
 
+<h3 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h3><h4 id="合并结果集-合并两张表格"><a href="#合并结果集-合并两张表格" class="headerlink" title="合并结果集(合并两张表格)"></a>合并结果集(合并两张表格)</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE ab&#123;a INT,b VARCHAR(11)&#125;;</span><br><span class="line">INSERT INTO ab VALUES(1,&quot;1&quot;);</span><br><span class="line">INSERT INTO ab VALUES(2,&quot;2&quot;);</span><br><span class="line">INSERT INTO ab VALUES(3,&quot;3&quot;);</span><br><span class="line"></span><br><span class="line">CREATE TABLE ab2&#123;c INT,d VARCHAR(11)&#125;;</span><br><span class="line">INSERT INTO ab2 VALUES(3,&quot;3&quot;);</span><br><span class="line">INSERT INTO ab2 VALUES(4,&quot;4&quot;);</span><br><span class="line">INSERT INTO ab2 VALUES(5,&quot;5&quot;);</span><br><span class="line"></span><br><span class="line">SELECT * FROM ab </span><br><span class="line">UNION ALL 		  &#x2F;&#x2F;ALL去掉的话，完全相同的行将保留1个</span><br><span class="line">SELECT * FROM ab2;&#x2F;&#x2F;要求两张表结果集完全相同（即要查询的列类型相同）</span><br></pre></td></tr></table></figure>
 
+<h4 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h4><h5 id="连接查询之内连接"><a href="#连接查询之内连接" class="headerlink" title="连接查询之内连接"></a>连接查询之内连接</h5><p>方言：<code>SELECT * FROM 表1 别名1,表2 别名2 WHERE 别名1.xx=别名2.xx</code><br>标准：<code>SELECT * FROM 表1 别名1 INNER JOIN 表2 别名2 ON 别名1.xx=别名2.xx</code><br>自然：<code>SELECT * FROM 表1 别名1 NATURAL JOIN 表2 别名2</code></p>
+<h5 id="连接查询之外连接"><a href="#连接查询之外连接" class="headerlink" title="连接查询之外连接"></a>连接查询之外连接</h5><p>左外连接：外连接一主一次，左外部左表为主，主表所有记录无论满足条件与否，都打印出来，不满足字段内容为null</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM 表1 别名1 LEFT OUTER JOIN 表2 别名2 ON 别名1.xx&#x3D;别名2.xx</span><br><span class="line">&#x2F;&#x2F;示例：</span><br><span class="line">SELECT e.ename,e.sal,IFNULL(d.dname,&quot;无内容&quot;) AS dname</span><br><span class="line">FROM emp e LEFT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br></pre></td></tr></table></figure>
 
+<p>右外连接：与左连接理解类似</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * FROM 表1 别名1 RIGHT OUTER JOIN 表2 别名2 ON 别名1.xx&#x3D;别名2.xx</span><br><span class="line">&#x2F;&#x2F;示例：</span><br><span class="line">SELECT e.ename,e.sal,d.dname</span><br><span class="line">FROM emp e RIGHT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br></pre></td></tr></table></figure>
 
+<p>全外连接：<code>SELECT * FROM 表1 别名1 FULL OUTER JOIN 表2 别名2 ON 别名1.xx=别名2.xx</code><em>mysql不支持</em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">解决方式：</span><br><span class="line">SELECT e.ename,e.sal,IFNULL(d.dname,&quot;无内容&quot;) AS dname</span><br><span class="line">FROM emp e LEFT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br><span class="line">UNION &#x2F;&#x2F;去除结果集实现全连接 </span><br><span class="line">SELECT e.ename,e.sal,d.dname</span><br><span class="line">FROM emp e RIGHT OUTER JOIN dept d</span><br><span class="line">ON e.deptno &#x3D; d.deptno;</span><br></pre></td></tr></table></figure>
 
+<h4 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h4><p>子查询就是查询中有查询（即出现多个select关键字）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;示例1：</span><br><span class="line">SELECT * FROM emp WHERE sal&#x3D;(SELECT MAX(sal) FROM emp);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例2：</span><br><span class="line">SELECT e.empno,e.ename </span><br><span class="line">FROM (SELECT * FROM emp WHERE deptno&#x3D;30) e</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例3：</span><br><span class="line">SELECT * FROM emp WHERE sal &gt; ALL (SELECT sal FROM emp WHERE deptno&#x3D;30)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例4：</span><br><span class="line">SELECT * FROM emp WHERE sal &gt; ANY (SELECT sal FROM emp WHERE deptno&#x3D;20)</span><br></pre></td></tr></table></figure>
 
-
-
-
-
-
+<p>总结：<br>1.单行单列：<code>SELECT * FROM 表1 别名1 WHERE 列1 [=、&gt;、&lt;、&lt;=、&gt;=、!=] (SELECT 列 FROM 表2 别名2 WHERE 条件)</code><br>2.多行单列：<code>SELECT * FROM 表1 别名1 WHERE 列1 [IN、ALL、ANY] (SELECT 列 FROM 表2 别名2 WHERE 条件)</code><br>3.单行多列：<code>SELECT * FROM 表1 别名1 WHERE (列1,列2) IN (SELECT 列1 列2 FROM 表2 别名2 WHERE 条件)</code><br>4.多行多列；<code>SELECT * FROM 表1 别名1 , (SELECT ...) 别名2 WHERE 条件</code></p>
 ]]></content>
       <categories>
-        <category>JavaWeb</category>
+        <category>数据库</category>
       </categories>
       <tags>
-        <tag>标记语言</tag>
-        <tag>XML</tag>
-        <tag>XML解析</tag>
+        <tag>SQL</tag>
+        <tag>MySQL</tag>
       </tags>
   </entry>
   <entry>
-    <title>TED的一篇演讲</title>
-    <url>/2021/09/26/TED%E7%9A%84%E4%B8%80%E7%AF%87%E6%BC%94%E8%AE%B2/</url>
-    <content><![CDATA[<h3 id="《不要让别人打乱你的人生节奏》"><a href="#《不要让别人打乱你的人生节奏》" class="headerlink" title="《不要让别人打乱你的人生节奏》"></a>《不要让别人打乱你的人生节奏》</h3><p><strong>我挺喜欢TED的演讲视频，各国各领域的人用他们优秀的口才，来传达给人们他们的思想和认知。你可以完全认同他们的观点，也可以认同其中一部分，或者全盘否定。观点无对错，你可以认为今天很冷，他可以认为一般，或者有点热。我们再别人的演讲中，其实也是对认知的进一步改观，思想的放开，从中收获，思考。我之所以分享这一篇演讲，其一，源于喜欢。其二，这也算是我们有时感到人生迷茫时的“鸡汤”，再次抄录，还是那句话，不一样的人，不一样的感受，一千个人眼中有一千个哈姆雷特。</strong></p>
+    <title>Linux常用命令</title>
+    <url>/2022/02/26/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h1 id="Linux常用命令"><a href="#Linux常用命令" class="headerlink" title="Linux常用命令"></a>Linux常用命令</h1><h2 id="文件处理命令"><a href="#文件处理命令" class="headerlink" title="文件处理命令"></a>文件处理命令</h2><h3 id="目录处理命令"><a href="#目录处理命令" class="headerlink" title="目录处理命令"></a>目录处理命令</h3><p><code>ls -a(显示所有文件，包括隐藏文件) -l(详细信息显示) -d(查看目录属性) -i(查看文件唯一标识ID) -lh</code></p>
+<p><code>ls -l</code>查询出来结果首项，如果：<br><code>-</code>打头表示文件<br><code>d</code>打头表示目录<br><code>l</code>打头表示软链接  </p>
+<blockquote>
+<p>-rw-r–r–<br>  u g o<br>  u所有者 g所属组 o其他人<br>  r读 w写 x执行</p>
+</blockquote>
+<p><code>mkdir -p(递归创建)</code><br><code>cd /tmp/bin(切换到指定目录) ..(回到上一级目录)</code><br><code>pwd(查看当前所在目录)</code><br><code>rmdir(删除空目录)</code><br><code>cp -rp -r(复制目录) -p(保留文件属性) 复制文件不需要加选项r</code><br><code>mv(剪切、改名)</code><br><code>rm -rf(文件或目录) -r(删除目录) -f(强制) -i(询问是否删除)</code></p>
 <a id="more"></a>
-<p><strong>有的人21岁毕业，到27岁才找到工作</strong>  </p>
-<p><strong>有点人25岁毕业，但马上就找到了工作</strong>  </p>
-<p><strong>有的人没上过大学，却在18岁就找到了热爱的事</strong>  </p>
-<p><strong>有的人一毕业就找到好工作，赚很多钱，却过的不开心</strong>  </p>
-<p><strong>有的人选择间隔年，去寻找自我</strong>  </p>
-<p><strong>有的人16岁就清楚知道自己要什么，但在26岁时改变了想法</strong>  </p>
-<p><strong>有的人有了孩子，却还是单身</strong>  </p>
-<p><strong>有的人结了婚，却等了10年才生孩子</strong>  </p>
-<p><strong>有的人身处一段感情，爱的却是别人</strong>  </p>
-<p><strong>有的人明明彼此相爱，却没有在一起</strong>  </p>
-<p><strong>我想说的是，人生中的每一件事都取决于我们自己的时间</strong>  </p>
-<p><strong>你身边有些朋友也许遥遥领先于你</strong>  </p>
-<p><strong>有些朋友也许落后于你，但凡事都有它自己的节奏</strong>  </p>
-<p><strong>他们有他们的节奏，你有你自己的</strong>  </p>
-<p><strong>耐心一点</strong>  </p>
-<p><strong>Mark Cuban 25岁的时候还在酒吧做酒保</strong>    </p>
-<p><strong>在被拒12次后，JK罗琳到32岁才出版了哈利波特</strong>  </p>
-<p><strong>Otega到39岁才创办了Zara</strong>  </p>
-<p><strong>马云35岁才建立了阿里巴巴</strong>  </p>
-<p><strong>Morgan Freeman 到52岁的时候才迎来他演艺事业的大爆发</strong></p>
-<p><strong>Steve Carell 40岁才红</strong>  </p>
-<p><strong>Rinchard Branson 34岁才创办维珍航空</strong>  </p>
-<p><strong>25岁后才拿到文凭，依然值得骄傲</strong>  </p>
-<p><strong>30岁没结婚，但过得快乐也是一种成功</strong>  </p>
-<p><strong>35岁之后成家也完全可以</strong>  </p>
-<p><strong>40岁买房也没什么丢脸的</strong>  </p>
-<p><strong>不要让任何人扰乱你的时间表</strong>    </p>
-<p><strong>因为爱因斯坦曾经说过，</strong>  </p>
-<p><strong>并不是每一件算的出来的事都有意义</strong>  </p>
-<p><strong>也不是每一件有意义的事，都能够被算出来</strong>  </p>
-<p><strong>这才是最重要的事</strong></p>
-<p><strong>我希望你们可以创造属于自己的充满意义的人生</strong>  </p>
-<p><strong>学会用这些去影响点亮他人的生活</strong>  </p>
-<p><strong>这才是真正的成功</strong>     </p>
+<h3 id="文件处理命令-1"><a href="#文件处理命令-1" class="headerlink" title="文件处理命令"></a>文件处理命令</h3><p><code>touch(创建文件)</code><br><code>cat(显示文件内容) -n(显示行号)</code><br><code>tac(倒显文件内容)</code><br><code>more(分页显示文件内容，空格或f进行翻页，回车进行换行，q退出)</code><br><code>less(可以向上翻页) pgup向上翻页，用/可以搜索关键词，n查看下一个匹配关键词</code><br><code>head(显示文件前面10行内容) -n(指定显示行数)</code><br><code>tail(显示文件末尾10行内容) -n(指定显示行数) -f(动态实时显示)</code></p>
+<h3 id="链接命令"><a href="#链接命令" class="headerlink" title="链接命令"></a>链接命令</h3><p><code>ln(生成硬链接) -s(创建软链接)</code><br><strong>软链接相当于win系统下的快捷方式，软链接文件权限都是rwx</strong><br><strong>硬链接相当<code>cp-p+同步更新</code>，可以通过<code>ls-i</code>节点识别硬链接，硬链接不能跨分区，硬链接不能针对目录来设置</strong>  </p>
+<h2 id="权限管理命令"><a href="#权限管理命令" class="headerlink" title="权限管理命令"></a>权限管理命令</h2><p><strong>一个文件权限，只能是文件所有者或root管理员可以更改</strong></p>
+<h3 id="权限管理命令chmod"><a href="#权限管理命令chmod" class="headerlink" title="权限管理命令chmod"></a>权限管理命令chmod</h3><p><code>chmod(改变文件或目录权限 ) [{ugoa}{+-=}{rwx}][文件或目录][mode=42][文件或目录] -R(递归修改)</code>  </p>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p><code>chmod u+x hello.list</code>给hello.list文件所有者增加x执行权限<br><code>chmod g=rwx yzw.java</code>给yzw.java文件所属组赋予rwx权限<br><code>chmod g=rwx,o-r yzw.java</code>修改多个权限可以用逗号分隔</p>
+</blockquote>
+<p><strong>权限的数字表示：r用4表示，w用2表示，x用1表示，来实现权限修改</strong></p>
+<blockquote>
+<p><code>rwxrw-r--</code>对应7 6 4<br><code>r-x-wx-w-</code>对应5 3 2<br><code>chmod 640 yzw.java</code>通过数字表示实现了yzw.java文件权限更改</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">代表字符</th>
+<th align="center">权限</th>
+<th align="center">对文件的含义</th>
+<th align="center">对<font color="red">目录</font>的含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>r</strong></td>
+<td align="center">读权限</td>
+<td align="center">可以查看文件内容</td>
+<td align="center">可以列出目录中的内容</td>
+</tr>
+<tr>
+<td align="center"><strong>w</strong></td>
+<td align="center">写权限</td>
+<td align="center">可以修改文件内容</td>
+<td align="center">可以在目录中创建、删除文件</td>
+</tr>
+<tr>
+<td align="center"><strong>x</strong></td>
+<td align="center">执行权限</td>
+<td align="center">可以执行文件</td>
+<td align="center">可以进入目录</td>
+</tr>
+</tbody></table>
+<h3 id="其他权限管理命令"><a href="#其他权限管理命令" class="headerlink" title="其他权限管理命令"></a>其他权限管理命令</h3><p><code>chown(改变文件或目录的所有者，只有管理员root可以操作) [用户][文件或目录]</code><br><code>chgrp(改变文件或目录的所属组) [用户组][文件或目录]</code><br><code>umask(显示、设置文件的缺省权限) -S(以rwx形式显示新建文件缺省权限)</code></p>
+<h2 id="文件搜索命令"><a href="#文件搜索命令" class="headerlink" title="文件搜索命令"></a>文件搜索命令</h2><h3 id="文件搜索命令find"><a href="#文件搜索命令find" class="headerlink" title="文件搜索命令find"></a>文件搜索命令find</h3><p><code>find(执行权限：所有用户) [搜索范围][匹配条件]</code><br><strong>示例：</strong></p>
+<blockquote>
+<p><code>find /etc -name init</code>(在etc目录下面搜索名字为init的文件或目录，注意：这里是精准查询)<br><code>find /etc -name *init*</code>(模糊查询，这里<code>*</code>表示任意字符)<br><code>find /etc -name init*</code>(找到init开头的文件或目录)<br><code>find /etc -name init???</code>(找到init后面三个字符的文件或目录，这里?表示单个字符)<br><code>find -iname(不区分大小写) init</code><br><code>find -size(根据文件大小查找) +204800</code>(+n表示大于，-n表示小于，n表示等于，这里204800换算：204800数据块=102400KB=100MB)<br><code>find /home -user yzw</code>(找所有者yzw在home目录的所有文件)<br><code>find /etc -cmin -5</code>(在etc目录下查找5分钟内被修改过属性的文件和目录，<code>-amin</code>表示访问时间access，<code>-cmin</code>表示文件属性，<code>-mmin</code>表示文件内容)<br><code>find -size +163840 -a -size -204800</code>(在etc下查找大于80MB小于100MB的文件，<code>-a</code>是and的意思)<br><code>find -size +163840 -o -size -204800</code>(<code>-o</code>是or的意思)<br><code>find /etc -name init* -a -type f</code>(查看etc目录下名以init开头的文件，<code>f</code>表示文件，<code>d</code>表示目录，<code>l</code>表示软链接)<br><code>find /etc -name yzw -exec ls -l {} \;(在etc目录下查找yzw文件并显示其详细信息)</code><br><code>find /home -user jack -ok rm {} \;</code>(<code>-ok</code>对结果多了询问)<br><code>find -inum 10086 -exec rm {} \;</code>(根据i节点查找到ID为10086文件进行删除)  </p>
+</blockquote>
+<h3 id="其他搜索命令"><a href="#其他搜索命令" class="headerlink" title="其他搜索命令"></a>其他搜索命令</h3><p><code>locate(在文件资料库里面查找) -i(不区分大小写)</code><br><code>updatedb</code>(更新文件资料库)<br><code>which</code>(搜索命令所在目录及别名信息)<br><code>whereis</code>(搜索命令所在目录及帮助文档路径)<br><code>grep(在文件内容中查找) -i(不区分大小写) -v(排查指定字符串)</code><br><code>grep -v ^# /etc/inittab</code>(排除以#开头的注释)</p>
+<h2 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h2><p><code>man</code>(获取帮助信息)<br><code>man 5 passwd</code>(查看配置文件帮助文档，1表示命令，5表示配置文件，默认查看命令帮助文档)<br><code>whatis</code>(查看命令简单信息)<br><code>apropos</code>(查看配置文件简单信息)<br><code>ls --help</code>(查看常见选项)<br><code>info</code>(同<code>man</code>差不多)<br><code>help</code>(查看内置命令帮助信息)</p>
+<h2 id="用户管理命令"><a href="#用户管理命令" class="headerlink" title="用户管理命令"></a>用户管理命令</h2><p><code>useradd</code>(添加新用户)<br><code>passwd</code>(新增或修改密码，用户只能更改自身密码，管理员root可以更改任何用户密码)<br><code>who</code>(查看登录用户信息,tty表示本地终端，pts表示远程终端)<br><code>w</code>(查看登录用户详细信息)</p>
+<h2 id="压缩解压命令"><a href="#压缩解压命令" class="headerlink" title="压缩解压命令"></a>压缩解压命令</h2><p><code>gzip</code>(压缩成.gz文件且不保留原文件，不能压缩目录)<br><code>gunzip或gzip -d</code>(解压.gz文件)<br><code>tar(打包目录) -zcvf [压缩后文件名][目录]</code>(压缩格式.tar.gz)  </p>
+<blockquote>
+<p><code>-c</code>打包<br><code>-v</code>显示详细信息<br><code>-f</code>指定文件名<br><code>-z</code>打包同时压缩  </p>
+</blockquote>
+<p><code>tar -zxvf</code>(解压)</p>
+<blockquote>
+<p><code>-x</code>解包<br><code>-v</code>显示信息<br><code>-f</code>指定解压文件<br><code>-z</code>解压缩  </p>
+</blockquote>
+<p><code>zip -r(压缩目录)[压缩后文件名][文件或目录]</code>(能保留原文件，压缩格式.zip)<br><code>unzip</code>(解压.zip文件)<br><code>bzip2 -k(保留原文件)</code>(gzip升级版可以保留原文件，压缩格式.bz2)<br><code>tar -cjf</code>(将z换成j可以生成.tar.bz2压缩格式)，例:<code>tar -cjf yzw.tar.bz2 yzw</code><br><code>bunzip2或bzip -d</code>(解压.bz2)<br><code>tar -xjf</code>(解压.tar.bz2)  </p>
+<h2 id="网络命令"><a href="#网络命令" class="headerlink" title="网络命令"></a>网络命令</h2><p><code>write</code>(给指定用户发信息，以Ctrl+D保存结束)<br><code>wall(write all，给所有用户发送信息)</code><br><code>ping -c(指定发送次数)</code>(测试网络连通性)<br><code>ifconfig</code>(查看和设置网卡信息)，例:<code>ifconfig eth0 192.168.8.8</code>(临时更改ip)<br><code>mail</code>(查看发送电子邮件)<br><code>last</code>(列出目前与过去登入系统的用户信息)<br><code>lastlog -u uid</code>(检查某特定用户上次登录时间，不加选项列出所有用户)<br><code>traceroute</code>(跟踪路由，即显示数据包到主机间的路径)，例：<code>traceroute www.baidu.com</code><br><code>netstat(显示网络相关信息) -t(查询TCP协议) -u(查询UDP协议) -l(查看监听端口) -r(查看路由网关) -n(显示ip地址和端口号)</code>  </p>
+<blockquote>
+<p>netstat -tlun 查看本机监听的端口<br>netstat -an 查看本机所有网络连接<br>netstat -rn 查看本机路由表  </p>
+</blockquote>
+<p><code>setup</code>(配置网络，redhat专有命令)<br><code>mount -t</code>(挂载命令，即分配盘符)例：<code>mount -t iso9660 /dev/sr0 /mnt/cdrom</code><br><code>umount</code>(挂载卸载命令)</p>
+<h2 id="关机重启命令"><a href="#关机重启命令" class="headerlink" title="关机重启命令"></a>关机重启命令</h2><p><code>shutdown -h now</code>(立刻关键)<br><code>shutdown -h 20:30</code>(20:30关机)<br><code>shutdown -r now</code>(立刻重启)<br><code>shutdown -r 20:30</code>(20:30重启)<br><code>shutdown -c</code>(取消前一个关机命令)<br><code>halt</code>(关机命令)<br><code>poweroff</code>(关机命令)<br><code>init 0</code>(关机命令)<br><code>reboot</code>(重启命令)<br><code>init 6</code>(重启命令)</p>
+<blockquote>
+<p><strong>系统运行级别：0代表关机 1代表单用户 2代表不完全多用户，不含NFS服务 3代表完全多用户 4代表未分配 5代表图形界面 6代表重启</strong></p>
+</blockquote>
+<p><code>runlevel</code>(查询当时运行级别)<br><code>logout</code>(退出登录)</p>
 ]]></content>
       <categories>
-        <category>分享</category>
+        <category>Linux</category>
       </categories>
       <tags>
-        <tag>演讲</tag>
+        <tag>命令</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -642,8 +579,111 @@
         <category>JavaWeb</category>
       </categories>
       <tags>
-        <tag>标记语言</tag>
         <tag>XML</tag>
+        <tag>标记语言</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Effctive 90条经验法则</title>
+    <url>/2022/02/25/90%E6%9D%A1%E7%BB%8F%E9%AA%8C%E6%B3%95%E5%88%99/</url>
+    <content><![CDATA[<blockquote>
+<h4 id="第1条：用静态工厂方法代替构造器"><a href="#第1条：用静态工厂方法代替构造器" class="headerlink" title="第1条：用静态工厂方法代替构造器"></a>第1条：用静态工厂方法代替构造器</h4><h4 id="第2条：遇到多个构造器参数时要考虑使用构建器"><a href="#第2条：遇到多个构造器参数时要考虑使用构建器" class="headerlink" title="第2条：遇到多个构造器参数时要考虑使用构建器"></a>第2条：遇到多个构造器参数时要考虑使用构建器</h4><h4 id="第3条：用私有构造器或者枚举类型强化Singleton属性"><a href="#第3条：用私有构造器或者枚举类型强化Singleton属性" class="headerlink" title="第3条：用私有构造器或者枚举类型强化Singleton属性"></a>第3条：用私有构造器或者枚举类型强化Singleton属性</h4><h4 id="第4条：通过私有构造器强化不可实例化的能力"><a href="#第4条：通过私有构造器强化不可实例化的能力" class="headerlink" title="第4条：通过私有构造器强化不可实例化的能力"></a>第4条：通过私有构造器强化不可实例化的能力</h4><h4 id="第5条：优先考虑依赖注入来引用资源"><a href="#第5条：优先考虑依赖注入来引用资源" class="headerlink" title="第5条：优先考虑依赖注入来引用资源"></a>第5条：优先考虑依赖注入来引用资源</h4><h4 id="第6条：避免创建不必要的对象"><a href="#第6条：避免创建不必要的对象" class="headerlink" title="第6条：避免创建不必要的对象"></a>第6条：避免创建不必要的对象</h4><h4 id="第7条：消除过期的对象引用"><a href="#第7条：消除过期的对象引用" class="headerlink" title="第7条：消除过期的对象引用"></a>第7条：消除过期的对象引用</h4><h4 id="第8条：避免使用终结方法和清除方法"><a href="#第8条：避免使用终结方法和清除方法" class="headerlink" title="第8条：避免使用终结方法和清除方法"></a>第8条：避免使用终结方法和清除方法</h4></blockquote>
+<a id="more"></a>
+<blockquote>
+<h4 id="第9条：try-with-resources优先于try-finally"><a href="#第9条：try-with-resources优先于try-finally" class="headerlink" title="第9条：try-with-resources优先于try-finally"></a>第9条：try-with-resources优先于try-finally</h4><h4 id="第10条：覆盖equals时请遵循通用约定"><a href="#第10条：覆盖equals时请遵循通用约定" class="headerlink" title="第10条：覆盖equals时请遵循通用约定"></a>第10条：覆盖equals时请遵循通用约定</h4><h4 id="第11条：覆盖equals时总要覆盖hashCode"><a href="#第11条：覆盖equals时总要覆盖hashCode" class="headerlink" title="第11条：覆盖equals时总要覆盖hashCode"></a>第11条：覆盖equals时总要覆盖hashCode</h4><h4 id="第12条：始终要覆盖toString"><a href="#第12条：始终要覆盖toString" class="headerlink" title="第12条：始终要覆盖toString"></a>第12条：始终要覆盖toString</h4><h4 id="第13条：谨慎地覆盖clone"><a href="#第13条：谨慎地覆盖clone" class="headerlink" title="第13条：谨慎地覆盖clone"></a>第13条：谨慎地覆盖clone</h4><h4 id="第14条：考虑实现Comparable接口"><a href="#第14条：考虑实现Comparable接口" class="headerlink" title="第14条：考虑实现Comparable接口"></a>第14条：考虑实现Comparable接口</h4><h4 id="第15条：使类和成员的可访问性最小化"><a href="#第15条：使类和成员的可访问性最小化" class="headerlink" title="第15条：使类和成员的可访问性最小化"></a>第15条：使类和成员的可访问性最小化</h4><h4 id="第16条：要在公有类中使用访问方法而非公有域"><a href="#第16条：要在公有类中使用访问方法而非公有域" class="headerlink" title="第16条：要在公有类中使用访问方法而非公有域"></a>第16条：要在公有类中使用访问方法而非公有域</h4><h4 id="第17条：使可变性最小化"><a href="#第17条：使可变性最小化" class="headerlink" title="第17条：使可变性最小化"></a>第17条：使可变性最小化</h4><h4 id="第18条：复合优先于继承"><a href="#第18条：复合优先于继承" class="headerlink" title="第18条：复合优先于继承"></a>第18条：复合优先于继承</h4><h4 id="第19条：要么设计继承并提供文档说明，要么禁止继承"><a href="#第19条：要么设计继承并提供文档说明，要么禁止继承" class="headerlink" title="第19条：要么设计继承并提供文档说明，要么禁止继承"></a>第19条：要么设计继承并提供文档说明，要么禁止继承</h4><h4 id="第20条：接口优于抽象类"><a href="#第20条：接口优于抽象类" class="headerlink" title="第20条：接口优于抽象类"></a>第20条：接口优于抽象类</h4><h4 id="第21条：为后代设计接口"><a href="#第21条：为后代设计接口" class="headerlink" title="第21条：为后代设计接口"></a>第21条：为后代设计接口</h4><h4 id="第22条：接口只用于定义类型"><a href="#第22条：接口只用于定义类型" class="headerlink" title="第22条：接口只用于定义类型"></a>第22条：接口只用于定义类型</h4><h4 id="第23条：类层次优于标签类"><a href="#第23条：类层次优于标签类" class="headerlink" title="第23条：类层次优于标签类"></a>第23条：类层次优于标签类</h4><h4 id="第24条：静态成员类优于非静态成员类"><a href="#第24条：静态成员类优于非静态成员类" class="headerlink" title="第24条：静态成员类优于非静态成员类"></a>第24条：静态成员类优于非静态成员类</h4><h4 id="第25条：限制源文件为单个顶级类"><a href="#第25条：限制源文件为单个顶级类" class="headerlink" title="第25条：限制源文件为单个顶级类"></a>第25条：限制源文件为单个顶级类</h4><h4 id="第26条：请不要使用原生态类型"><a href="#第26条：请不要使用原生态类型" class="headerlink" title="第26条：请不要使用原生态类型"></a>第26条：请不要使用原生态类型</h4><h4 id="第27条：消除非受检的警告"><a href="#第27条：消除非受检的警告" class="headerlink" title="第27条：消除非受检的警告"></a>第27条：消除非受检的警告</h4><h4 id="第28条：列表优于数组"><a href="#第28条：列表优于数组" class="headerlink" title="第28条：列表优于数组"></a>第28条：列表优于数组</h4><h4 id="第29条：优先考虑泛型"><a href="#第29条：优先考虑泛型" class="headerlink" title="第29条：优先考虑泛型"></a>第29条：优先考虑泛型</h4><h4 id="第30条：优先考虑泛型方法"><a href="#第30条：优先考虑泛型方法" class="headerlink" title="第30条：优先考虑泛型方法"></a>第30条：优先考虑泛型方法</h4><h4 id="第31条：利用有限制通配符来提升API的灵活性"><a href="#第31条：利用有限制通配符来提升API的灵活性" class="headerlink" title="第31条：利用有限制通配符来提升API的灵活性"></a>第31条：利用有限制通配符来提升API的灵活性</h4><h4 id="第32条：谨慎并用泛型和可变参数"><a href="#第32条：谨慎并用泛型和可变参数" class="headerlink" title="第32条：谨慎并用泛型和可变参数"></a>第32条：谨慎并用泛型和可变参数</h4><h4 id="第33条：优先考虑类型安全的异构容器"><a href="#第33条：优先考虑类型安全的异构容器" class="headerlink" title="第33条：优先考虑类型安全的异构容器"></a>第33条：优先考虑类型安全的异构容器</h4><h4 id="第34条：用enum代替int常量"><a href="#第34条：用enum代替int常量" class="headerlink" title="第34条：用enum代替int常量"></a>第34条：用enum代替int常量</h4><h4 id="第35条：用实例域代替序数"><a href="#第35条：用实例域代替序数" class="headerlink" title="第35条：用实例域代替序数"></a>第35条：用实例域代替序数</h4><h4 id="第36条：用EnumSet代替位域"><a href="#第36条：用EnumSet代替位域" class="headerlink" title="第36条：用EnumSet代替位域"></a>第36条：用EnumSet代替位域</h4><h4 id="第37条：用EnumMap代替序数索引"><a href="#第37条：用EnumMap代替序数索引" class="headerlink" title="第37条：用EnumMap代替序数索引"></a>第37条：用EnumMap代替序数索引</h4><h4 id="第38条：用接口模拟可扩展的枚举"><a href="#第38条：用接口模拟可扩展的枚举" class="headerlink" title="第38条：用接口模拟可扩展的枚举"></a>第38条：用接口模拟可扩展的枚举</h4><h4 id="第39条：注解优先于命名模式"><a href="#第39条：注解优先于命名模式" class="headerlink" title="第39条：注解优先于命名模式"></a>第39条：注解优先于命名模式</h4><h4 id="第40条：坚持使用Override注解"><a href="#第40条：坚持使用Override注解" class="headerlink" title="第40条：坚持使用Override注解"></a>第40条：坚持使用Override注解</h4><h4 id="第41条：用标记接口定义类型"><a href="#第41条：用标记接口定义类型" class="headerlink" title="第41条：用标记接口定义类型"></a>第41条：用标记接口定义类型</h4><h4 id="第42条：Lambda优先于匿名类"><a href="#第42条：Lambda优先于匿名类" class="headerlink" title="第42条：Lambda优先于匿名类"></a>第42条：Lambda优先于匿名类</h4><h4 id="第43条：方法引用优先于Lambda"><a href="#第43条：方法引用优先于Lambda" class="headerlink" title="第43条：方法引用优先于Lambda"></a>第43条：方法引用优先于Lambda</h4><h4 id="第44条：坚持使用标准的函数接口"><a href="#第44条：坚持使用标准的函数接口" class="headerlink" title="第44条：坚持使用标准的函数接口"></a>第44条：坚持使用标准的函数接口</h4><h4 id="第45条：谨慎使用Stream"><a href="#第45条：谨慎使用Stream" class="headerlink" title="第45条：谨慎使用Stream"></a>第45条：谨慎使用Stream</h4><h4 id="第46条：优先选择Stream中无副作用的函数"><a href="#第46条：优先选择Stream中无副作用的函数" class="headerlink" title="第46条：优先选择Stream中无副作用的函数"></a>第46条：优先选择Stream中无副作用的函数</h4><h4 id="第47条：Stream要优先用Collection作为返回类型"><a href="#第47条：Stream要优先用Collection作为返回类型" class="headerlink" title="第47条：Stream要优先用Collection作为返回类型"></a>第47条：Stream要优先用Collection作为返回类型</h4><h4 id="第48条：谨慎使用Stream并行"><a href="#第48条：谨慎使用Stream并行" class="headerlink" title="第48条：谨慎使用Stream并行"></a>第48条：谨慎使用Stream并行</h4><h4 id="第49条：检查参数的有效性"><a href="#第49条：检查参数的有效性" class="headerlink" title="第49条：检查参数的有效性"></a>第49条：检查参数的有效性</h4><h4 id="第50条：必要时进行保护性拷贝"><a href="#第50条：必要时进行保护性拷贝" class="headerlink" title="第50条：必要时进行保护性拷贝"></a>第50条：必要时进行保护性拷贝</h4><h4 id="第51条：谨慎设计方法签名"><a href="#第51条：谨慎设计方法签名" class="headerlink" title="第51条：谨慎设计方法签名"></a>第51条：谨慎设计方法签名</h4><h4 id="第52条：慎用重载"><a href="#第52条：慎用重载" class="headerlink" title="第52条：慎用重载"></a>第52条：慎用重载</h4><h4 id="第53条：慎用可变参数"><a href="#第53条：慎用可变参数" class="headerlink" title="第53条：慎用可变参数"></a>第53条：慎用可变参数</h4><h4 id="第54条：返回零长度的数组或者集合，而不是null"><a href="#第54条：返回零长度的数组或者集合，而不是null" class="headerlink" title="第54条：返回零长度的数组或者集合，而不是null"></a>第54条：返回零长度的数组或者集合，而不是null</h4><h4 id="第55条：谨慎返回optional"><a href="#第55条：谨慎返回optional" class="headerlink" title="第55条：谨慎返回optional"></a>第55条：谨慎返回optional</h4><h4 id="第56条：为所有导出API元素编写文档注释"><a href="#第56条：为所有导出API元素编写文档注释" class="headerlink" title="第56条：为所有导出API元素编写文档注释"></a>第56条：为所有导出API元素编写文档注释</h4><h4 id="第57条：将局部变量的作用域最小化"><a href="#第57条：将局部变量的作用域最小化" class="headerlink" title="第57条：将局部变量的作用域最小化"></a>第57条：将局部变量的作用域最小化</h4><h4 id="第58条：for-each循环优先于传统的for循环"><a href="#第58条：for-each循环优先于传统的for循环" class="headerlink" title="第58条：for-each循环优先于传统的for循环"></a>第58条：for-each循环优先于传统的for循环</h4><h4 id="第59条：了解和使用类库"><a href="#第59条：了解和使用类库" class="headerlink" title="第59条：了解和使用类库"></a>第59条：了解和使用类库</h4><h4 id="第60条：如果需要精确的答案，请避免使用float和double"><a href="#第60条：如果需要精确的答案，请避免使用float和double" class="headerlink" title="第60条：如果需要精确的答案，请避免使用float和double"></a>第60条：如果需要精确的答案，请避免使用float和double</h4><h4 id="第61条：基本类型优先于装箱基本类型"><a href="#第61条：基本类型优先于装箱基本类型" class="headerlink" title="第61条：基本类型优先于装箱基本类型"></a>第61条：基本类型优先于装箱基本类型</h4><h4 id="第62条：如果其他类型更适合，则尽量避免使用字符串"><a href="#第62条：如果其他类型更适合，则尽量避免使用字符串" class="headerlink" title="第62条：如果其他类型更适合，则尽量避免使用字符串"></a>第62条：如果其他类型更适合，则尽量避免使用字符串</h4><h4 id="第63条：了解字符串连接的性能"><a href="#第63条：了解字符串连接的性能" class="headerlink" title="第63条：了解字符串连接的性能"></a>第63条：了解字符串连接的性能</h4><h4 id="第64条：通过接口引用对象"><a href="#第64条：通过接口引用对象" class="headerlink" title="第64条：通过接口引用对象"></a>第64条：通过接口引用对象</h4><h4 id="第65条：接口优先于反射机制"><a href="#第65条：接口优先于反射机制" class="headerlink" title="第65条：接口优先于反射机制"></a>第65条：接口优先于反射机制</h4><h4 id="第66条：谨慎地使用本地方法"><a href="#第66条：谨慎地使用本地方法" class="headerlink" title="第66条：谨慎地使用本地方法"></a>第66条：谨慎地使用本地方法</h4><h4 id="第67条：谨慎地进行优化"><a href="#第67条：谨慎地进行优化" class="headerlink" title="第67条：谨慎地进行优化"></a>第67条：谨慎地进行优化</h4><h4 id="第68条：遵守普遍接受的命名惯例"><a href="#第68条：遵守普遍接受的命名惯例" class="headerlink" title="第68条：遵守普遍接受的命名惯例"></a>第68条：遵守普遍接受的命名惯例</h4><h4 id="第69条：只针对异常的情况才使用异常"><a href="#第69条：只针对异常的情况才使用异常" class="headerlink" title="第69条：只针对异常的情况才使用异常"></a>第69条：只针对异常的情况才使用异常</h4><h4 id="第70条：对可恢复的情况使用受检异常，对编程错误使用运行时异常"><a href="#第70条：对可恢复的情况使用受检异常，对编程错误使用运行时异常" class="headerlink" title="第70条：对可恢复的情况使用受检异常，对编程错误使用运行时异常"></a>第70条：对可恢复的情况使用受检异常，对编程错误使用运行时异常</h4><h4 id="第71条：避免不必要地使用受检异常"><a href="#第71条：避免不必要地使用受检异常" class="headerlink" title="第71条：避免不必要地使用受检异常"></a>第71条：避免不必要地使用受检异常</h4><h4 id="第72条：优先使用标准的异常"><a href="#第72条：优先使用标准的异常" class="headerlink" title="第72条：优先使用标准的异常"></a>第72条：优先使用标准的异常</h4><h4 id="第73条：抛出与抽象对应的异常"><a href="#第73条：抛出与抽象对应的异常" class="headerlink" title="第73条：抛出与抽象对应的异常"></a>第73条：抛出与抽象对应的异常</h4><h4 id="第74条：每个方法抛出的所有异常都要建立文档"><a href="#第74条：每个方法抛出的所有异常都要建立文档" class="headerlink" title="第74条：每个方法抛出的所有异常都要建立文档"></a>第74条：每个方法抛出的所有异常都要建立文档</h4><h4 id="第75条：在细节消息中包含失败-捕获信息"><a href="#第75条：在细节消息中包含失败-捕获信息" class="headerlink" title="第75条：在细节消息中包含失败-捕获信息"></a>第75条：在细节消息中包含失败-捕获信息</h4><h4 id="第76条：努力使失败保持原子性"><a href="#第76条：努力使失败保持原子性" class="headerlink" title="第76条：努力使失败保持原子性"></a>第76条：努力使失败保持原子性</h4><h4 id="第77条：不要忽略异常"><a href="#第77条：不要忽略异常" class="headerlink" title="第77条：不要忽略异常"></a>第77条：不要忽略异常</h4><h4 id="第78条：同步访问共享的可变数据"><a href="#第78条：同步访问共享的可变数据" class="headerlink" title="第78条：同步访问共享的可变数据"></a>第78条：同步访问共享的可变数据</h4><h4 id="第79条：避免过度同步"><a href="#第79条：避免过度同步" class="headerlink" title="第79条：避免过度同步"></a>第79条：避免过度同步</h4><h4 id="第80条：executor、task和stream优先于线程"><a href="#第80条：executor、task和stream优先于线程" class="headerlink" title="第80条：executor、task和stream优先于线程"></a>第80条：executor、task和stream优先于线程</h4><h4 id="第81条：并发工具优先于wait和notify"><a href="#第81条：并发工具优先于wait和notify" class="headerlink" title="第81条：并发工具优先于wait和notify"></a>第81条：并发工具优先于wait和notify</h4><h4 id="第82条：线程安全性的文档化"><a href="#第82条：线程安全性的文档化" class="headerlink" title="第82条：线程安全性的文档化"></a>第82条：线程安全性的文档化</h4><h4 id="第83条：慎用延迟初始化"><a href="#第83条：慎用延迟初始化" class="headerlink" title="第83条：慎用延迟初始化"></a>第83条：慎用延迟初始化</h4><h4 id="第84条：不要依赖于线程调度器"><a href="#第84条：不要依赖于线程调度器" class="headerlink" title="第84条：不要依赖于线程调度器"></a>第84条：不要依赖于线程调度器</h4><h4 id="第85条：其他方法优先于Java序列化"><a href="#第85条：其他方法优先于Java序列化" class="headerlink" title="第85条：其他方法优先于Java序列化"></a>第85条：其他方法优先于Java序列化</h4><h4 id="第86条：谨慎地实现Serializable接口"><a href="#第86条：谨慎地实现Serializable接口" class="headerlink" title="第86条：谨慎地实现Serializable接口"></a>第86条：谨慎地实现Serializable接口</h4><h4 id="第87条：考虑使用自定义的序列化形式"><a href="#第87条：考虑使用自定义的序列化形式" class="headerlink" title="第87条：考虑使用自定义的序列化形式"></a>第87条：考虑使用自定义的序列化形式</h4><h4 id="第88条：保护性地编写readObject方法"><a href="#第88条：保护性地编写readObject方法" class="headerlink" title="第88条：保护性地编写readObject方法"></a>第88条：保护性地编写readObject方法</h4><h4 id="第89条：对于实例控制，枚举类型优先于readResolve"><a href="#第89条：对于实例控制，枚举类型优先于readResolve" class="headerlink" title="第89条：对于实例控制，枚举类型优先于readResolve"></a>第89条：对于实例控制，枚举类型优先于readResolve</h4><h4 id="第90条：考虑用序列化代理代替序列化实例"><a href="#第90条：考虑用序列化代理代替序列化实例" class="headerlink" title="第90条：考虑用序列化代理代替序列化实例"></a>第90条：考虑用序列化代理代替序列化实例</h4></blockquote>
+]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>dom4j</title>
+    <url>/2020/04/21/dom4j/</url>
+    <content><![CDATA[<h3 id="dom4j"><a href="#dom4j" class="headerlink" title="dom4j"></a>dom4j</h3><p><strong>dom4j组织提供了针对xml解析的解析器dom4j,其是由jdom组织分裂出来后出现的,其优于jdom。dom4j不是javase的一部分</strong></p>
+<a id="more"></a>
+
+<h4 id="dom4j使用"><a href="#dom4j使用" class="headerlink" title="dom4j使用"></a>dom4j使用</h4><p><em>使用前需要在项目中导入dom4j的jar包</em><br>xml文件如下:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1 id1&#x3D;&quot;01&quot;&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现查询xml中元素操作"><a href="#dom4j实现查询xml中元素操作" class="headerlink" title="dom4j实现查询xml中元素操作"></a>dom4j实现查询xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查询所有name元素里的值</span><br><span class="line">	public static void selectName() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到p1</span><br><span class="line">		List&lt;Element&gt; list &#x3D; root.elements(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.遍历List</span><br><span class="line">		for(Element temp:list)&#123;</span><br><span class="line">			&#x2F;&#x2F;这里temp得到每一个p1元素</span><br><span class="line">			Element name1 &#x3D; temp.element(&quot;name&quot;);&#x2F;&#x2F;得到p1下面的name元素</span><br><span class="line">			&#x2F;&#x2F;得到name里面的值</span><br><span class="line">			String s &#x3D; name1.getText();</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;查询第一个name元素的值</span><br><span class="line">	public static void selectSin() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到p1下第一个name</span><br><span class="line">		Element name1 &#x3D; p1.element(&quot;name&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.得到name的值</span><br><span class="line">		String s1 &#x3D; name1.getText();</span><br><span class="line">		System.out.println(s1);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#x2F;&#x2F;查询第二个name元素的值	</span><br><span class="line">	public static void selectSecond() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到所有p1</span><br><span class="line">		List&lt;Element&gt; list &#x3D; root.elements(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到第二个p1</span><br><span class="line">		Element p2 &#x3D; list.get(1);</span><br><span class="line">		&#x2F;&#x2F;6.得到p1下面name</span><br><span class="line">		Element name2 &#x3D; p2.element(&quot;name&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.得到name的值</span><br><span class="line">		String s2 &#x3D; name2.getText();</span><br><span class="line">		System.out.println(s2);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现添加xml中元素操作"><a href="#dom4j实现添加xml中元素操作" class="headerlink" title="dom4j实现添加xml中元素操作"></a>dom4j实现添加xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;在第一个p1标签末尾添加一个sex标签</span><br><span class="line">	public static addSex() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.获取第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.p1下面添加sex元素</span><br><span class="line">		Element sex1 &#x3D; p1.addElement(&quot;sex&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.在sex里添加内容</span><br><span class="line">		sex1.setText(&quot;男&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="在特定位置实现元素添加"><a href="#在特定位置实现元素添加" class="headerlink" title="在特定位置实现元素添加"></a>在特定位置实现元素添加</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;在第一个p1标签中age标签前添加一个&lt;school&gt;cqgcxy.edu.cn&lt;&#x2F;school&gt;</span><br><span class="line">	public static void addAgeBefore() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();		</span><br><span class="line">		&#x2F;&#x2F;4.获取第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.获取p1下面的所有元素</span><br><span class="line">		List&lt;Element&gt; list &#x3D; p1.elements();</span><br><span class="line">		&#x2F;&#x2F;6.创建要添加元素</span><br><span class="line">		Element school &#x3D; DocumentHelper.createElement(&quot;school&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.给标签添加内容</span><br><span class="line">		school.setText(&quot;eqgcxy.edu.cn&quot;);</span><br><span class="line">		&#x2F;&#x2F;8.在特定位置添加元素</span><br><span class="line">		list.add(1,school);</span><br><span class="line">		&#x2F;&#x2F;9.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现修改xml中元素操作"><a href="#dom4j实现修改xml中元素操作" class="headerlink" title="dom4j实现修改xml中元素操作"></a>dom4j实现修改xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;修改第一个p1中age元素内容</span><br><span class="line">	public static void fixAge() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();	</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到age</span><br><span class="line">		Element age &#x3D; p1.element(&quot;age&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.修改age的值</span><br><span class="line">		age.setText(&quot;250&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现删除xml中元素操作"><a href="#dom4j实现删除xml中元素操作" class="headerlink" title="dom4j实现删除xml中元素操作"></a>dom4j实现删除xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;删除第一个p1下school节点</span><br><span class="line">	public static void deleteSchool() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;*使用工具类替换1、2步</span><br><span class="line">		Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);*&#x2F;</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();	</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到school</span><br><span class="line">		Element school &#x3D; p1.element(&quot;school&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.删除school(通过父节点实现删除)</span><br><span class="line">		p1.remove(school);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">		&#x2F;*使用工具类替换回写操作</span><br><span class="line">		Dom4jUtils.xmlWriter(PATH,document)*&#x2F;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现获取xml中元素属性值操作"><a href="#dom4j实现获取xml中元素属性值操作" class="headerlink" title="dom4j实现获取xml中元素属性值操作"></a>dom4j实现获取xml中元素属性值操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取第一个p1属性id1的值</span><br><span class="line">	public static void getValue() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.获取p1的属性id1值</span><br><span class="line">		String value &#x3D; p1.attributeValue(&quot;id1&quot;);</span><br><span class="line">		System.out.println(value);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j工具类"><a href="#dom4j工具类" class="headerlink" title="dom4j工具类"></a>dom4j工具类</h5><p><strong>由于什么的CRUD代码中存在大量重复使用的代码，因此我们可以建立一个工具类来封装这些重复代码，实现调用工具类，来减少代码冗余</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Dom4jUtils&#123;</span><br><span class="line">	public state final String PATH &#x3D; &quot;src&#x2F;person.xml&quot;;</span><br><span class="line">	&#x2F;&#x2F;返回document</span><br><span class="line">	public static Document getDocument(String path)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			&#x2F;&#x2F;1.创建解析器</span><br><span class="line">			SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">			&#x2F;&#x2F;2.得到document</span><br><span class="line">			Document document &#x3D; saxReader.read(path);</span><br><span class="line">			return document;</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		return null;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;回写xml</span><br><span class="line">	public static void xmlWriter(String path,Document document)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">			XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">			writer.write(document);</span><br><span class="line">			writer.close();</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="dom4j支持XPATH操作"><a href="#dom4j支持XPATH操作" class="headerlink" title="dom4j支持XPATH操作"></a>dom4j支持XPATH操作</h4><p><strong>可以直接获取某一个元素，不必按照一层一层解析的方式</strong></p>
+<h5 id="语法形式"><a href="#语法形式" class="headerlink" title="语法形式"></a>语法形式</h5><p>第一种形式：<code>/a/b/c</code>来表示a里面的b里面的c<br>第二种形式：<code>//A</code>表示选择所有A元素<br>第三种形式：<code>/AAA/CCC/DDD/*</code>表示/AAA/CCC/DDD/里面的所有元素<br>第四种形式：<code>/*/*/*/</code>DDD表示选择所有第四层所有DDD元素<br>第五种形式；<code>//*</code>所有元素<br>第六种形式：<code>/a/b[1]</code>选择a标签中第一个b标签，/a/b[last()]选择a标签中最后一个b标签<br>第七种形式：<code>//@id</code>表示选择所有id属性，//BBB[@id]表示选择所有含id属性的BBB元素<br>第八种形式；<code>//BBB[@id=&#39;b1&#39;]</code>选择含Id属性且值为b1的所有BBB标签,b1如果左右有空格将不会被选取*</p>
+<h5 id="如何在dom4j中使用XPATH"><a href="#如何在dom4j中使用XPATH" class="headerlink" title="如何在dom4j中使用XPATH"></a>如何在dom4j中使用XPATH</h5><p><strong>默认的情况下，dom4j不支持XPATH，如果想使用，需要引入XPATH的jar包，在文件中找到jaxen-1.1-beta-6.jar，将其复制进eclipse构建的项目中lib下，右击项目Build Path选择Add to Build Path</strong><br><strong>在dom4j中提供了两个方法支持XPATH,它们分别是：selectNodes(“XPATH表达式”)和selectSingleNode(“XPATH表达式”)，第一个方法获取多个节点，第二个则获取单一节点</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查询xml中所有name元素的值</span><br><span class="line">public static void getValue()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到所有name</span><br><span class="line">	List&lt;Node&gt; list&#x3D;document.selectNodes(&quot;&#x2F;&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.遍历集合</span><br><span class="line">	for(Node note:list)&#123;&#x2F;&#x2F;node是每一个name元素</span><br><span class="line">		&#x2F;&#x2F;获取name元素里面的值</span><br><span class="line">		String s &#x3D; node.getText();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取第一个p1下面name的值</span><br><span class="line">public static void getValue1()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到name元素</span><br><span class="line">	Node name1&#x3D;document.和selectSingleNode(&quot;&#x2F;&#x2F;p1[@id1&#x3D;&quot;01&quot;]&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.得到name里面内容</span><br><span class="line">	String s1 &#x3D; name1.getText();</span><br><span class="line">	System.out.println(s1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>JavaWeb</category>
+      </categories>
+      <tags>
+        <tag>XML</tag>
+        <tag>标记语言</tag>
+        <tag>XML解析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TED的一篇演讲</title>
+    <url>/2021/09/26/TED%E7%9A%84%E4%B8%80%E7%AF%87%E6%BC%94%E8%AE%B2/</url>
+    <content><![CDATA[<h3 id="《不要让别人打乱你的人生节奏》"><a href="#《不要让别人打乱你的人生节奏》" class="headerlink" title="《不要让别人打乱你的人生节奏》"></a>《不要让别人打乱你的人生节奏》</h3><p><strong>我挺喜欢TED的演讲视频，各国各领域的人用他们优秀的口才，来传达给人们他们的思想和认知。你可以完全认同他们的观点，也可以认同其中一部分，或者全盘否定。观点无对错，你可以认为今天很冷，他可以认为一般，或者有点热。我们再别人的演讲中，其实也是对认知的进一步改观，思想的放开，从中收获，思考。我之所以分享这一篇演讲，其一，源于喜欢。其二，这也算是我们有时感到人生迷茫时的“鸡汤”，再次抄录，还是那句话，不一样的人，不一样的感受，一千个人眼中有一千个哈姆雷特。</strong></p>
+<a id="more"></a>
+<p><strong>有的人21岁毕业，到27岁才找到工作</strong>  </p>
+<p><strong>有点人25岁毕业，但马上就找到了工作</strong>  </p>
+<p><strong>有的人没上过大学，却在18岁就找到了热爱的事</strong>  </p>
+<p><strong>有的人一毕业就找到好工作，赚很多钱，却过的不开心</strong>  </p>
+<p><strong>有的人选择间隔年，去寻找自我</strong>  </p>
+<p><strong>有的人16岁就清楚知道自己要什么，但在26岁时改变了想法</strong>  </p>
+<p><strong>有的人有了孩子，却还是单身</strong>  </p>
+<p><strong>有的人结了婚，却等了10年才生孩子</strong>  </p>
+<p><strong>有的人身处一段感情，爱的却是别人</strong>  </p>
+<p><strong>有的人明明彼此相爱，却没有在一起</strong>  </p>
+<p><strong>我想说的是，人生中的每一件事都取决于我们自己的时间</strong>  </p>
+<p><strong>你身边有些朋友也许遥遥领先于你</strong>  </p>
+<p><strong>有些朋友也许落后于你，但凡事都有它自己的节奏</strong>  </p>
+<p><strong>他们有他们的节奏，你有你自己的</strong>  </p>
+<p><strong>耐心一点</strong>  </p>
+<p><strong>Mark Cuban 25岁的时候还在酒吧做酒保</strong>    </p>
+<p><strong>在被拒12次后，JK罗琳到32岁才出版了哈利波特</strong>  </p>
+<p><strong>Otega到39岁才创办了Zara</strong>  </p>
+<p><strong>马云35岁才建立了阿里巴巴</strong>  </p>
+<p><strong>Morgan Freeman 到52岁的时候才迎来他演艺事业的大爆发</strong></p>
+<p><strong>Steve Carell 40岁才红</strong>  </p>
+<p><strong>Rinchard Branson 34岁才创办维珍航空</strong>  </p>
+<p><strong>25岁后才拿到文凭，依然值得骄傲</strong>  </p>
+<p><strong>30岁没结婚，但过得快乐也是一种成功</strong>  </p>
+<p><strong>35岁之后成家也完全可以</strong>  </p>
+<p><strong>40岁买房也没什么丢脸的</strong>  </p>
+<p><strong>不要让任何人扰乱你的时间表</strong>    </p>
+<p><strong>因为爱因斯坦曾经说过，</strong>  </p>
+<p><strong>并不是每一件算的出来的事都有意义</strong>  </p>
+<p><strong>也不是每一件有意义的事，都能够被算出来</strong>  </p>
+<p><strong>这才是最重要的事</strong></p>
+<p><strong>我希望你们可以创造属于自己的充满意义的人生</strong>  </p>
+<p><strong>学会用这些去影响点亮他人的生活</strong>  </p>
+<p><strong>这才是真正的成功</strong>     </p>
+]]></content>
+      <categories>
+        <category>分享</category>
+      </categories>
+      <tags>
+        <tag>演讲</tag>
       </tags>
   </entry>
   <entry>
@@ -709,161 +749,26 @@
       </tags>
   </entry>
   <entry>
-    <title>dom4j</title>
-    <url>/2020/04/21/dom4j/</url>
-    <content><![CDATA[<h3 id="dom4j"><a href="#dom4j" class="headerlink" title="dom4j"></a>dom4j</h3><p><strong>dom4j组织提供了针对xml解析的解析器dom4j,其是由jdom组织分裂出来后出现的,其优于jdom。dom4j不是javase的一部分</strong></p>
+    <title>Hello World</title>
+    <url>/2019/04/01/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <a id="more"></a>
 
-<h4 id="dom4j使用"><a href="#dom4j使用" class="headerlink" title="dom4j使用"></a>dom4j使用</h4><p><em>使用前需要在项目中导入dom4j的jar包</em><br>xml文件如下:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1 id1&#x3D;&quot;01&quot;&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 
-<h5 id="dom4j实现查询xml中元素操作"><a href="#dom4j实现查询xml中元素操作" class="headerlink" title="dom4j实现查询xml中元素操作"></a>dom4j实现查询xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查询所有name元素里的值</span><br><span class="line">	public static void selectName() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到p1</span><br><span class="line">		List&lt;Element&gt; list &#x3D; root.elements(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.遍历List</span><br><span class="line">		for(Element temp:list)&#123;</span><br><span class="line">			&#x2F;&#x2F;这里temp得到每一个p1元素</span><br><span class="line">			Element name1 &#x3D; temp.element(&quot;name&quot;);&#x2F;&#x2F;得到p1下面的name元素</span><br><span class="line">			&#x2F;&#x2F;得到name里面的值</span><br><span class="line">			String s &#x3D; name1.getText();</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;查询第一个name元素的值</span><br><span class="line">	public static void selectSin() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到p1下第一个name</span><br><span class="line">		Element name1 &#x3D; p1.element(&quot;name&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.得到name的值</span><br><span class="line">		String s1 &#x3D; name1.getText();</span><br><span class="line">		System.out.println(s1);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#x2F;&#x2F;查询第二个name元素的值	</span><br><span class="line">	public static void selectSecond() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到所有p1</span><br><span class="line">		List&lt;Element&gt; list &#x3D; root.elements(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到第二个p1</span><br><span class="line">		Element p2 &#x3D; list.get(1);</span><br><span class="line">		&#x2F;&#x2F;6.得到p1下面name</span><br><span class="line">		Element name2 &#x3D; p2.element(&quot;name&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.得到name的值</span><br><span class="line">		String s2 &#x3D; name2.getText();</span><br><span class="line">		System.out.println(s2);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 
-<h5 id="dom4j实现添加xml中元素操作"><a href="#dom4j实现添加xml中元素操作" class="headerlink" title="dom4j实现添加xml中元素操作"></a>dom4j实现添加xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;在第一个p1标签末尾添加一个sex标签</span><br><span class="line">	public static addSex() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.获取第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.p1下面添加sex元素</span><br><span class="line">		Element sex1 &#x3D; p1.addElement(&quot;sex&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.在sex里添加内容</span><br><span class="line">		sex1.setText(&quot;男&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
-<h5 id="在特定位置实现元素添加"><a href="#在特定位置实现元素添加" class="headerlink" title="在特定位置实现元素添加"></a>在特定位置实现元素添加</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;在第一个p1标签中age标签前添加一个&lt;school&gt;cqgcxy.edu.cn&lt;&#x2F;school&gt;</span><br><span class="line">	public static void addAgeBefore() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();		</span><br><span class="line">		&#x2F;&#x2F;4.获取第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.获取p1下面的所有元素</span><br><span class="line">		List&lt;Element&gt; list &#x3D; p1.elements();</span><br><span class="line">		&#x2F;&#x2F;6.创建要添加元素</span><br><span class="line">		Element school &#x3D; DocumentHelper.createElement(&quot;school&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.给标签添加内容</span><br><span class="line">		school.setText(&quot;eqgcxy.edu.cn&quot;);</span><br><span class="line">		&#x2F;&#x2F;8.在特定位置添加元素</span><br><span class="line">		list.add(1,school);</span><br><span class="line">		&#x2F;&#x2F;9.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
-<h5 id="dom4j实现修改xml中元素操作"><a href="#dom4j实现修改xml中元素操作" class="headerlink" title="dom4j实现修改xml中元素操作"></a>dom4j实现修改xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;修改第一个p1中age元素内容</span><br><span class="line">	public static void fixAge() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();	</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到age</span><br><span class="line">		Element age &#x3D; p1.element(&quot;age&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.修改age的值</span><br><span class="line">		age.setText(&quot;250&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j实现删除xml中元素操作"><a href="#dom4j实现删除xml中元素操作" class="headerlink" title="dom4j实现删除xml中元素操作"></a>dom4j实现删除xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;删除第一个p1下school节点</span><br><span class="line">	public static void deleteSchool() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;*使用工具类替换1、2步</span><br><span class="line">		Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);*&#x2F;</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();	</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到school</span><br><span class="line">		Element school &#x3D; p1.element(&quot;school&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.删除school(通过父节点实现删除)</span><br><span class="line">		p1.remove(school);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">		&#x2F;*使用工具类替换回写操作</span><br><span class="line">		Dom4jUtils.xmlWriter(PATH,document)*&#x2F;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j实现获取xml中元素属性值操作"><a href="#dom4j实现获取xml中元素属性值操作" class="headerlink" title="dom4j实现获取xml中元素属性值操作"></a>dom4j实现获取xml中元素属性值操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取第一个p1属性id1的值</span><br><span class="line">	public static void getValue() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.获取p1的属性id1值</span><br><span class="line">		String value &#x3D; p1.attributeValue(&quot;id1&quot;);</span><br><span class="line">		System.out.println(value);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j工具类"><a href="#dom4j工具类" class="headerlink" title="dom4j工具类"></a>dom4j工具类</h5><p><strong>由于什么的CRUD代码中存在大量重复使用的代码，因此我们可以建立一个工具类来封装这些重复代码，实现调用工具类，来减少代码冗余</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Dom4jUtils&#123;</span><br><span class="line">	public state final String PATH &#x3D; &quot;src&#x2F;person.xml&quot;;</span><br><span class="line">	&#x2F;&#x2F;返回document</span><br><span class="line">	public static Document getDocument(String path)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			&#x2F;&#x2F;1.创建解析器</span><br><span class="line">			SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">			&#x2F;&#x2F;2.得到document</span><br><span class="line">			Document document &#x3D; saxReader.read(path);</span><br><span class="line">			return document;</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		return null;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;回写xml</span><br><span class="line">	public static void xmlWriter(String path,Document document)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">			XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">			writer.write(document);</span><br><span class="line">			writer.close();</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="dom4j支持XPATH操作"><a href="#dom4j支持XPATH操作" class="headerlink" title="dom4j支持XPATH操作"></a>dom4j支持XPATH操作</h4><p><strong>可以直接获取某一个元素，不必按照一层一层解析的方式</strong></p>
-<h5 id="语法形式"><a href="#语法形式" class="headerlink" title="语法形式"></a>语法形式</h5><p>第一种形式：<code>/a/b/c</code>来表示a里面的b里面的c<br>第二种形式：<code>//A</code>表示选择所有A元素<br>第三种形式：<code>/AAA/CCC/DDD/*</code>表示/AAA/CCC/DDD/里面的所有元素<br>第四种形式：<code>/*/*/*/</code>DDD表示选择所有第四层所有DDD元素<br>第五种形式；<code>//*</code>所有元素<br>第六种形式：<code>/a/b[1]</code>选择a标签中第一个b标签，/a/b[last()]选择a标签中最后一个b标签<br>第七种形式：<code>//@id</code>表示选择所有id属性，//BBB[@id]表示选择所有含id属性的BBB元素<br>第八种形式；<code>//BBB[@id=&#39;b1&#39;]</code>选择含Id属性且值为b1的所有BBB标签,b1如果左右有空格将不会被选取*</p>
-<h5 id="如何在dom4j中使用XPATH"><a href="#如何在dom4j中使用XPATH" class="headerlink" title="如何在dom4j中使用XPATH"></a>如何在dom4j中使用XPATH</h5><p><strong>默认的情况下，dom4j不支持XPATH，如果想使用，需要引入XPATH的jar包，在文件中找到jaxen-1.1-beta-6.jar，将其复制进eclipse构建的项目中lib下，右击项目Build Path选择Add to Build Path</strong><br><strong>在dom4j中提供了两个方法支持XPATH,它们分别是：selectNodes(“XPATH表达式”)和selectSingleNode(“XPATH表达式”)，第一个方法获取多个节点，第二个则获取单一节点</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查询xml中所有name元素的值</span><br><span class="line">public static void getValue()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到所有name</span><br><span class="line">	List&lt;Node&gt; list&#x3D;document.selectNodes(&quot;&#x2F;&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.遍历集合</span><br><span class="line">	for(Node note:list)&#123;&#x2F;&#x2F;node是每一个name元素</span><br><span class="line">		&#x2F;&#x2F;获取name元素里面的值</span><br><span class="line">		String s &#x3D; node.getText();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取第一个p1下面name的值</span><br><span class="line">public static void getValue1()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到name元素</span><br><span class="line">	Node name1&#x3D;document.和selectSingleNode(&quot;&#x2F;&#x2F;p1[@id1&#x3D;&quot;01&quot;]&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.得到name里面内容</span><br><span class="line">	String s1 &#x3D; name1.getText();</span><br><span class="line">	System.out.println(s1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
-      <categories>
-        <category>JavaWeb</category>
-      </categories>
       <tags>
-        <tag>标记语言</tag>
-        <tag>XML</tag>
-        <tag>XML解析</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SVN版本控制</title>
-    <url>/2020/03/18/SVN%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</url>
-    <content><![CDATA[<h2 id="SVN版本控制"><a href="#SVN版本控制" class="headerlink" title="SVN版本控制"></a>SVN版本控制</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><strong>SVN是subversion的缩写，是一个开放源代码的版本控制系统（CMS），通过采用分支管理系统的高效管理，简而言之就是用于多个人共同开发同一个项目，实现共享资源，实现最终集中式的管理，它是最初版本控制工具CVS的升级版</strong></p>
-<a id="more"></a>
-
-<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p><strong>由于实际项目开发是多人进行开发，就会出现项目代码提交的冲突，这时候使用项目版本控制工具可以有效地解决冲突以及代码的管理</strong></p>
-<h3 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h3><p><strong>在SVN中所保存的代码只能被本地进行管理，这一局限性也导致Linux之父林纳斯·托瓦兹开发了其替代产品Git。而且SVN使用了客户端服务器模式，也是说如果使用SVN一定要搭建服务其，还要单独配置客户端，也就是说，SVN如果脱离了网络，那么将无法进行版本控制</strong></p>
-<h3 id="SVN服务器的搭建"><a href="#SVN服务器的搭建" class="headerlink" title="SVN服务器的搭建"></a>SVN服务器的搭建</h3><p><em>注意：如果想要用自己电脑搭建SVN服务器一定要关闭防火墙，有360的需要卸载，否则可能出现连接不上</em><br><strong>满足上述要求以后，下载SVN服务器端软件自行选择，有apache的<a href="http://subversion.apache.org/packages.html" target="_blank" rel="noopener">subversion</a>,还有<a href="https://www.visualsvn.com/" target="_blank" rel="noopener">VisualSVN</a>等，这里提到的前一个配置相对麻烦，而VisualSVN适合新手，傻瓜式安装，具体安装不详细说明，网上有很多安装步骤详细讲解</strong></p>
-<h3 id="SVN客户端的配置"><a href="#SVN客户端的配置" class="headerlink" title="SVN客户端的配置"></a>SVN客户端的配置</h3><p><strong>至于客户端，则是<a href="https://tortoisesvn.net/" target="_blank" rel="noopener">TortoiseSVN</a>,页面进去是最新版客户端SVN，想要老版本下面文章有进入链接，至于对自己英语水平不自信的，比如我，最好还是下一语言包，安装也很简单不再赘述</strong></p>
-<h3 id="项目的发布与检出"><a href="#项目的发布与检出" class="headerlink" title="项目的发布与检出"></a>项目的发布与检出</h3><p><strong>喜欢用命令的用命令，当然下载了TortoiseSVN用命令感觉多此一举，因为我们是服务器与客户端都在自己本机，首先应当是确定自己的服务端是否启动，这很关键，在就是搭建自己的版本库，因为都是可视化界面，什么创建项目，创建组，创建用户啊都很容易，然后就是自己客户端操作，实现项目检入与检出，这里提醒一下汉化后其实导出就是检出，但检入和检出与导入和导出是不同概念。检入字面意思理解就是让你本地项目交给服务端管理，接受版本控制。而导入则不然，相当于复制入服务端，但不受其控制，就是两者没内在联系。导出和检出同理</strong></p>
-<h3 id="解决冲突问题"><a href="#解决冲突问题" class="headerlink" title="解决冲突问题"></a>解决冲突问题</h3><p><strong>项目提交难免会发生冲突，SVN提供了很好解决方案，当你与另一人提交的同一文件发生冲突，会提醒你，然后你打开文件，会查看到你修改的与另一个人的代码同时存在，这时需要你自己判断两者都要保留，然后合并。还是删除其一的修改，这就是你自己的判断了。因为本人比较懒不想截图，所以全篇没有图片参考，字面意思自认为该讲的都讲了。当然SVN插件在eclipse、IntelliJ IDEA等工具的使用自行体会网上教程很多。</strong></p>
-]]></content>
-      <categories>
-        <category>开发工具</category>
-      </categories>
-      <tags>
-        <tag>版本控制</tag>
-        <tag>SVN</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>dynasties</title>
-    <url>/2020/04/01/dynasties/</url>
-    <content><![CDATA[<a id="more"></a>
-<p><img src="http://img.xixik.net/cimg/083/xixik_c53006a681fc4200.jpeg" alt="尧舜禹→夏" title="尧舜禹→夏"><br><img src="http://img.xixik.net/cimg/083/xixik_87512603bf7f461e.jpeg" alt="商" title="商"><br><img src="http://img.xixik.net/cimg/083/xixik_a1523ca6228beae4.jpeg" alt="周" title="周"><br><img src="http://img.xixik.net/cimg/083/xixik_87c9e06af0d51132.jpeg" alt="秦" title="秦"><br><img src="http://img.xixik.net/cimg/083/xixik_01848d23bc3c0496.jpeg" alt="汉" title="汉"><br><img src="http://img.xixik.net/cimg/083/xixik_2a93308ddfd78f78.jpeg" alt="魏" title="魏"><br><img src="http://img.xixik.net/cimg/083/xixik_34ae3a4f7693d9ea.jpeg" alt="蜀" title="蜀"><br><img src="http://img.xixik.net/cimg/083/xixik_bafe42d5cde82df4.jpeg" alt="吴" title="吴"><br><img src="http://img.xixik.net/cimg/083/xixik_20b47e2887f23ecf.jpeg" alt="晋" title="晋"><br><img src="http://img.xixik.net/cimg/083/xixik_57f8d17ebfdb1a85.jpeg" alt="隋" title="隋"><br><img src="http://img.xixik.net/cimg/083/xixik_04c8ec9fff83c2f9.jpeg" alt="唐" title="唐"><br><img src="http://img.xixik.net/cimg/083/xixik_6bc06e9bb6ef708c.jpeg" alt="辽" title="辽"><br><img src="http://img.xixik.net/cimg/083/xixik_6e40141c5eb849ea.jpeg" alt="宋" title="宋"><br><img src="http://img.xixik.net/cimg/083/xixik_74a385004d03fc0a.jpeg" alt="西夏" title="西夏"><br><img src="http://img.xixik.net/cimg/083/xixik_d209b6d3983aaf85.jpeg" alt="金" title="金"><br><img src="http://img.xixik.net/cimg/083/xixik_1f2382bcdab86fe9.jpeg" alt="元" title="元"><br><img src="http://img.xixik.net/cimg/083/xixik_a160592906ace6ec.jpeg" alt="明" title="明"><br><img src="http://img.xixik.net/cimg/083/xixik_633a17f15265a0ef.jpeg" alt="清" title="清"><br><em><strong>注意：转载自嘻嘻网图片，切勿商用</strong></em></p>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>历史</tag>
-        <tag>纯图片</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>网络安全与防火墙</title>
-    <url>/2020/02/17/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%B8%8E%E9%98%B2%E7%81%AB%E5%A2%99/</url>
-    <content><![CDATA[<p><strong>在关于防火墙的叙述前，我们需要了解什么是网络安全，网络安全的兴起以及网络不安全带来的困扰。本章将上半部分讲述网络安全，下半部分对防火墙的定义及弊端进行浅谈</strong></p>
-<a id="more"></a>
-
-<h2 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2><h3 id="究竟什么是网络安全？"><a href="#究竟什么是网络安全？" class="headerlink" title="究竟什么是网络安全？"></a>究竟什么是网络安全？</h3><blockquote>
-<p>有人曾说过:网络的神奇在于你可以使用其他任何人的资源；<strong>可怕在其他人可以用你的资源</strong>。<br>因此，网络安全则是为了对计算机软硬件及系统中的数据地保护</p>
-</blockquote>
-<h3 id="什么让网络不安全？"><a href="#什么让网络不安全？" class="headerlink" title="什么让网络不安全？"></a>什么让网络不安全？</h3><h4 id="1-网络的缺陷"><a href="#1-网络的缺陷" class="headerlink" title="1.网络的缺陷"></a>1.网络的缺陷</h4><p>  因特网在设计之初对共享性和开放性的强调，而导致其先天的安全缺陷。然而其赖以生存的TCP/IP协议族在设计理念上更多是考虑该网络不会因局部故障而影响信息的传输，基本没有考虑安全问题。因此它在控制不可信连接、分辨非法访问、辨别身份伪装等方面存在很大缺陷，从而导致网络安全隐患。</p>
-<blockquote>
-<p>多数底层协议为广播方式，多数应用层协议为明文传输，缺乏保密与认证机制，因此容易遭受欺骗和窃听</p>
-</blockquote>
-<h4 id="2-软件与系统的漏洞及后门"><a href="#2-软件与系统的漏洞及后门" class="headerlink" title="2.软件与系统的漏洞及后门"></a>2.软件与系统的漏洞及后门</h4><p>  随着软件与网络系统规模不断增大，大多数的信息系统和网络存在着先天性的安全漏洞和安全威胁。软件的后门是编程人员为了自便而设置的，一般不为人知。<br>  比如，我们常用的操作系统，无论是 Windows 还是 Linux 几乎都存在或多或少的安全漏洞，众多的服务器、浏览器、桌面软件等都被发现存在安全隐患。任何一个软件系统都可能会因为程序员的一个疏忽或设计中的一个缺陷等原因留下漏洞。 </p>
-<h4 id="3-病毒和木马"><a href="#3-病毒和木马" class="headerlink" title="3.病毒和木马"></a>3.病毒和木马</h4><p>  <strong>病毒：</strong>一种人为蓄意制造、以破坏为主的程序，其寄生于其他应用程序或系统可执行文件，通过部分修改或移动程序，通过自我复制或占据宿主查询的部分而隐藏起来(类比我们的生物病毒),是计算机系统最直接的安全威胁。而Internet是网络滋生和传播的温床。<br>  <strong>木马：</strong>与病毒不同不会传染，主要是窃取用户信息，木马入侵不会想病毒那样入侵后立马有感觉，而是通过秘密破坏，完成非授权用户无法完成的功能，施种者可以任意破坏窃取被种者的文件，甚至远程操控被种者电脑。</p>
-<h4 id="4-黑客攻击"><a href="#4-黑客攻击" class="headerlink" title="4.黑客攻击"></a>4.黑客攻击</h4><p>  黑客都是些熟练使用计算机的能人，但标题所说黑客攻击是指为得利益不择手段(通过网路非法进入他人系统、截获或篡改计算机数据、危害信息安全)的人，通常这类黑客以骇客称之，像黑客的另一分支红客与蓝客就是正义的一方，相比破坏者，这些守护者的技术水平更高，不是有那么一句”打天下容守天下难”吗。</p>
-<h4 id="5，网络安全建设滞后"><a href="#5，网络安全建设滞后" class="headerlink" title="5，网络安全建设滞后"></a>5，网络安全建设滞后</h4><p>  网络硬件建设如火如荼了，网络安全管理滞后，用户安全意识不强，即使应用了最好的安全设备也经常达不到预期效果。<br>  也就是说一个国家的百姓衣食住行都安顿下来了，可是约束百姓的法律才颁布出来，百姓法律意识薄弱，仍会出茬子。</p>
-<h3 id="网络安全工作目的"><a href="#网络安全工作目的" class="headerlink" title="网络安全工作目的"></a>网络安全工作目的</h3><p><strong>用简洁的三字词概括就是：进不来、拿不走、改不了、看不懂、跑不了、可审查</strong><br>所以，虚拟专用网、访问控制、入侵检测、防病毒软件、防火墙等就出现了</p>
-<hr>
-<h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><h3 id="防火墙是什么？"><a href="#防火墙是什么？" class="headerlink" title="防火墙是什么？"></a>防火墙是什么？</h3><blockquote>
-<p>在建筑设计专业术语，用于分隔不同区域，能将火灾有效限制在一定空间内，阻断火灾在防火墙的一侧蔓延到另一侧，对于减少火灾造成损失有着重要作用</p>
-</blockquote>
-<p><strong>而对于网络防火墙就是在两个网络之间实现访问控制的一个或一组软件或硬件系统，是实现网络和信息安全的基础设施(类似一堵城墙将外部和内部进行隔离，并在此基础上实现数据包的访问控制等功能)</strong></p>
-<h3 id="防火墙功能"><a href="#防火墙功能" class="headerlink" title="防火墙功能"></a>防火墙功能</h3><p>防火墙主要功能是对流经它的网路通信进行扫描，过滤危险的数据或访问请求，以免在目标计算机上被执行。防火墙还可以关闭不使用的端口、禁止特定端口的通信、封锁木马、禁止来自特殊站点的访问，从而防止入侵者的所有通道。<br>这里我们也可以做一个比喻，把因特网比喻成为现实生活中的大街，内网比作一所别墅，数据比喻来往与大街的人，防火墙则是将别墅围起来的高墙，房子的主人及亲朋好友（正常进出网络数据）通过防火墙大门人脸识别，允许进入。而那些企图进入的不法分子（恶意数据包），则被拒之墙外。</p>
-<h3 id="防火墙的分类"><a href="#防火墙的分类" class="headerlink" title="防火墙的分类"></a>防火墙的分类</h3><ul>
-<li><strong>防火墙可分为软件防火墙、硬件防火墙</strong></li>
-<li><strong>防火墙也可以分为个人防火墙、网路防火墙</strong></li>
-</ul>
-<p><em>一般情况下，个人防火墙是软件防火墙(比如Windows自带的防火墙)，网络防火墙有硬件防火墙，也有软件防火墙</em></p>
-<h3 id="防火墙不足之处"><a href="#防火墙不足之处" class="headerlink" title="防火墙不足之处"></a>防火墙不足之处</h3><p><strong>无法保护内部用户之间的攻击，防外不防内</strong><br><strong>无法防护基本操作系统漏洞的攻击</strong><br><strong>一般无法防护病毒的侵袭</strong><br><strong>对网络性能有影响</strong></p>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>网络安全</tag>
-        <tag>防火墙</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>病毒浅谈</title>
-    <url>/2020/02/17/%E7%97%85%E6%AF%92%E6%B5%85%E8%B0%88/</url>
-    <content><![CDATA[<p><strong>病毒在生物上的危害就不多说，最近的COVID-19病毒就知道其可怕。本篇主要来谈谈计算机的病毒</strong></p>
-<h2 id="计算机病毒"><a href="#计算机病毒" class="headerlink" title="计算机病毒"></a>计算机病毒</h2><h3 id="什么是计算机病毒？"><a href="#什么是计算机病毒？" class="headerlink" title="什么是计算机病毒？"></a>什么是计算机病毒？</h3><p><strong>计算机病毒简单来讲，是一种人为制造，在计算机运行中对其信息或系统起破坏作用的程序</strong></p>
-<a id="more"></a>
-
-<h3 id="计算机病毒的特点是什么？"><a href="#计算机病毒的特点是什么？" class="headerlink" title="计算机病毒的特点是什么？"></a>计算机病毒的特点是什么？</h3><p><em><strong>破坏性、传染性、寄生性、潜伏性、隐蔽性</strong></em><br>不多解释，从字面意思，看就是类似于生物病毒</p>
-<h3 id="计算机中病毒的表现形式"><a href="#计算机中病毒的表现形式" class="headerlink" title="计算机中病毒的表现形式"></a>计算机中病毒的表现形式</h3><p><strong>计算机中病毒会出现哪些症状（表现）呢？</strong><br>1)程序运行速度明显变慢甚至死机<br>2)出现莫名其妙的信息，比如没有用网络资源而网卡指示灯一直闪烁；插入U盘后，无法正常退出；提示一些不相干的话，发出一段音乐，产生特定的图像，鼠标自个儿在动，自动链接到一些陌生的网站<br>3)外部设备工作异常<br>4)程序运行出现不合理的结果</p>
-<h3 id="病毒能破坏硬件吗？"><a href="#病毒能破坏硬件吗？" class="headerlink" title="病毒能破坏硬件吗？"></a>病毒能破坏硬件吗？</h3><p><strong>病毒本身就是程序，所以它不可能直接破坏硬件。但它可以通过破坏程序导致硬件不能正常工作</strong></p>
-<h3 id="病毒的传播介质"><a href="#病毒的传播介质" class="headerlink" title="病毒的传播介质"></a>病毒的传播介质</h3><p>1)U盘等可移动存储设备<br>2)随着网络的飞速发展，网络成为最主要的病毒传播途径</p>
-<p><strong>来个笑话</strong></p>
-<blockquote>
-<p>某天表妹和她的表哥在一起聊天，她们聊到了关于电脑的话题<br>表妹：表哥，去年我买了一台电脑。<br>表哥：怎么都没看你用过？<br>表妹：刚买就中病毒了<br>表哥：你没有叫人修理吗？<br>表妹得意地说：一年都不开机，病毒还不被饿死！</p>
-</blockquote>
-<p>  蛮好笑的，让我想起我小学时候，我的一同学作文，内容跟这笑话差不多，说的是每到夏天蚊子特别的多，蚊子盯地他很难受，于是他灵机一动，拿出了酒。他爸妈回来看着他拿着酒瓶，整个人迷迷糊糊的，就焦急地问他：你为什么喝酒啊？他说：”我把自己灌醉，这样蚊子吸我的血，就会跟着醉，他们醉倒了就不会盯我了”，把他爸妈都逗乐了。跟上面这笑话真是”英雄所见略同”啊</p>
-<h3 id="病毒的防治"><a href="#病毒的防治" class="headerlink" title="病毒的防治"></a>病毒的防治</h3><p><strong>每台计算机应安装杀毒软件及防火墙，并注意及时升级杀毒软件，以防止或及时发现计算机病毒的入侵一旦发现计算机系统染上病毒后，要立即使用杀毒软件进行清除。对于外来数据要严格检查，对重要数据记得做好备份</strong><br><em><strong>特别注意：</strong></em><br>观察任务栏上杀毒软件图标异常，杀毒软件检测没有病毒不一定真的没有病毒。如果怀疑有病毒，可以换个杀毒软件试试。磁盘格式化可以删除所有文件，包括病毒，这是一种玉石俱焚的方法</p>
-<p>下面给出一个防蠕虫配置</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ip access-list extended worm</span><br><span class="line">deny tcp any any eq 135</span><br><span class="line">deny tcp any any eq 137</span><br><span class="line">deny tcp any any eq 138</span><br><span class="line">deny tcp any any eq 139</span><br><span class="line">deny udp any any eq 135</span><br><span class="line">deny tcp any any eq 445</span><br><span class="line">deny udp any any eq 445</span><br><span class="line">permit ip any any </span><br><span class="line">interface GigabitEthernet 2&#x2F;1</span><br><span class="line">ip access-group worm in</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>网络安全</tag>
-        <tag>病毒</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>电影推荐</title>
-    <url>/2021/05/09/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90/</url>
-    <content><![CDATA[<p><strong>作为一个阅片无数的过来人，七七八八的电影看过很多，好的不少，烂的也多。因此，想推荐一些我喜欢的电影。相比电视剧，我偏好电影，因为电影以较短时间，呈现给我们精彩的内容，节省时间同时，给我们带来不错的观影体验（仅限好电影）。电影有很多种类，喜剧、恐怖、惊悚、科幻、战争、历史等。也分地区，不同地区电影也有其不同特点。在此，我想把我看过的，自认为觉得不错的电影分享出来，当然有些好电影，我没看过的，就不会列出来。所有影片只列名字，不作影评，我觉得自己写不好或者写的很烂，反而影响推荐，我觉得不同电影，不同人有不同观感，我不能融入我的主观色彩。</strong></p>
-<p><strong>顺序无先后，想起哪部写哪部</strong></p>
-<h3 id="内地"><a href="#内地" class="headerlink" title="内地"></a>内地</h3><p><strong>《蓝风筝》、《活着》、《霸王别姬》、《茶馆》、《鬼子来了》、《阳光灿烂的日子》、《让子弹飞》、《盲山》、《盲井》、《过年》、《甲方乙方》、《大腕》、《疯狂的石头》、《疯狂的赛车》、《杀生》、《斗牛》、《Hello，树先生》、《落叶归根》、《人在囧途》、《我不是药神》、《夏洛特烦恼》、《无名之辈》、《三毛从军记》、《无人区》、《天下无贼》、《背靠背，脸对脸》</strong></p>
-<h3 id="港片"><a href="#港片" class="headerlink" title="港片"></a>港片</h3><p><strong>《监狱风云》、《英雄本色》、《纵情四海》、《黑社会》、《黑社会2：以和为贵》、《黑狱断肠歌之砌生猪肉》、《至尊三十六计之偷天换日》、《火烧岛》、《跛豪》、《五亿探长雷洛传》、《黑金》、《门徒》、《无间道三部曲》、《金钱帝国》、《机动部队》、《警察故事》、《A计划》、《快餐车》、《奇迹》、《城市猎人》、《杀破狼》、《东邪西毒》、《东成西就》、《新龙门客栈1992》、《赌神》、《赌神2》、《棋王》、《无双》、《黄飞鸿》、《方世玉》、《太极张三丰》、《精武英雄》、《导火线》、《笑林小子2：新乌龙院》、《新少林五祖》、《山村老尸》、《三五成群》、《人肉叉烧包黄秋生版》、《打蛇》、《狗咬狗》、《垂帘听政》、《倩女幽魂三部曲》、《半斤八两》、《摩登保镖》、《鬼马双星》、《卖身契》、《鸡同鸭讲》、《抢钱夫妻》、《钱作怪》、《福星系列》、《审死官》、《九品芝麻官》、《喜剧之王》、《大话西游周星驰版》、《功夫》、《少林足球》、《食神》、《逃学威龙》、《国产凌凌漆》、《鹿鼎记》、《家有喜事》、《回魂夜》、《情圣》、《整蛊专家》、《百变星君》、《武状元苏乞儿》</strong></p>
-<h3 id="国外"><a href="#国外" class="headerlink" title="国外"></a>国外</h3><p><strong>《肖申克的救赎》、《猫鼠游戏》、《泰坦尼克号》、《盗梦空间》、《西西里的美丽传说》、《末代皇帝》、《何以为家》、《小偷家族》、《阿甘正传》、《看不见的客人》、《我是谁：没有绝对安全的系统》、《非常嫌疑犯》、《两杆大烟枪》、《偷拐抢骗》、《闪灵》、《恐怖游轮》、《楚门的世界》、《教父》、《这个杀手不太冷》、《辛德勒的名单》、《蝙蝠侠：黑暗骑士》、《小丑》、《复仇者联盟》、《银河护卫队》、《死侍》、《X战警》、《变形金刚》、《星球大战》、《终结者》、《碟中谍》、《黑客帝国》、《谍影重重》、《生化危机》、《古墓丽影》、《木乃伊》、《加勒比海盗》、《哈利波特》、《指环王》、《霍比特人》、《阿凡达》、《死神来了》、《速度与激情》、《死亡飞车》、《电锯惊魂》、《三傻大闹宝莱坞》、《摔跤吧，爸爸》、《寄生虫》、《恶魔的艺术2：邪降》、《风雨哈佛路》、《千与千寻》、《菊次郎的夏天》、《热血高校》、《突袭》、《突袭2：暴徒》、《摩登时代》、《城市之光》、《大独裁者》、《淘金记》、《马戏团》、《憨豆的黄金周》、《死寂》、《咒怨》、《孤儿怨》</strong></p>
-]]></content>
-      <categories>
-        <category>分享</category>
-      </categories>
-      <tags>
-        <tag>电影</tag>
+        <tag>奥利给</tag>
       </tags>
   </entry>
   <entry>
@@ -1619,26 +1524,121 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2019/04/01/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+    <title>SVN版本控制</title>
+    <url>/2020/03/18/SVN%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</url>
+    <content><![CDATA[<h2 id="SVN版本控制"><a href="#SVN版本控制" class="headerlink" title="SVN版本控制"></a>SVN版本控制</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><strong>SVN是subversion的缩写，是一个开放源代码的版本控制系统（CMS），通过采用分支管理系统的高效管理，简而言之就是用于多个人共同开发同一个项目，实现共享资源，实现最终集中式的管理，它是最初版本控制工具CVS的升级版</strong></p>
 <a id="more"></a>
 
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p><strong>由于实际项目开发是多人进行开发，就会出现项目代码提交的冲突，这时候使用项目版本控制工具可以有效地解决冲突以及代码的管理</strong></p>
+<h3 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h3><p><strong>在SVN中所保存的代码只能被本地进行管理，这一局限性也导致Linux之父林纳斯·托瓦兹开发了其替代产品Git。而且SVN使用了客户端服务器模式，也是说如果使用SVN一定要搭建服务其，还要单独配置客户端，也就是说，SVN如果脱离了网络，那么将无法进行版本控制</strong></p>
+<h3 id="SVN服务器的搭建"><a href="#SVN服务器的搭建" class="headerlink" title="SVN服务器的搭建"></a>SVN服务器的搭建</h3><p><em>注意：如果想要用自己电脑搭建SVN服务器一定要关闭防火墙，有360的需要卸载，否则可能出现连接不上</em><br><strong>满足上述要求以后，下载SVN服务器端软件自行选择，有apache的<a href="http://subversion.apache.org/packages.html" target="_blank" rel="noopener">subversion</a>,还有<a href="https://www.visualsvn.com/" target="_blank" rel="noopener">VisualSVN</a>等，这里提到的前一个配置相对麻烦，而VisualSVN适合新手，傻瓜式安装，具体安装不详细说明，网上有很多安装步骤详细讲解</strong></p>
+<h3 id="SVN客户端的配置"><a href="#SVN客户端的配置" class="headerlink" title="SVN客户端的配置"></a>SVN客户端的配置</h3><p><strong>至于客户端，则是<a href="https://tortoisesvn.net/" target="_blank" rel="noopener">TortoiseSVN</a>,页面进去是最新版客户端SVN，想要老版本下面文章有进入链接，至于对自己英语水平不自信的，比如我，最好还是下一语言包，安装也很简单不再赘述</strong></p>
+<h3 id="项目的发布与检出"><a href="#项目的发布与检出" class="headerlink" title="项目的发布与检出"></a>项目的发布与检出</h3><p><strong>喜欢用命令的用命令，当然下载了TortoiseSVN用命令感觉多此一举，因为我们是服务器与客户端都在自己本机，首先应当是确定自己的服务端是否启动，这很关键，在就是搭建自己的版本库，因为都是可视化界面，什么创建项目，创建组，创建用户啊都很容易，然后就是自己客户端操作，实现项目检入与检出，这里提醒一下汉化后其实导出就是检出，但检入和检出与导入和导出是不同概念。检入字面意思理解就是让你本地项目交给服务端管理，接受版本控制。而导入则不然，相当于复制入服务端，但不受其控制，就是两者没内在联系。导出和检出同理</strong></p>
+<h3 id="解决冲突问题"><a href="#解决冲突问题" class="headerlink" title="解决冲突问题"></a>解决冲突问题</h3><p><strong>项目提交难免会发生冲突，SVN提供了很好解决方案，当你与另一人提交的同一文件发生冲突，会提醒你，然后你打开文件，会查看到你修改的与另一个人的代码同时存在，这时需要你自己判断两者都要保留，然后合并。还是删除其一的修改，这就是你自己的判断了。因为本人比较懒不想截图，所以全篇没有图片参考，字面意思自认为该讲的都讲了。当然SVN插件在eclipse、IntelliJ IDEA等工具的使用自行体会网上教程很多。</strong></p>
 ]]></content>
+      <categories>
+        <category>开发工具</category>
+      </categories>
       <tags>
-        <tag>奥利给</tag>
+        <tag>版本控制</tag>
+        <tag>SVN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>dynasties</title>
+    <url>/2020/04/01/dynasties/</url>
+    <content><![CDATA[<a id="more"></a>
+<p><img src="http://img.xixik.net/cimg/083/xixik_c53006a681fc4200.jpeg" alt="尧舜禹→夏" title="尧舜禹→夏"><br><img src="http://img.xixik.net/cimg/083/xixik_87512603bf7f461e.jpeg" alt="商" title="商"><br><img src="http://img.xixik.net/cimg/083/xixik_a1523ca6228beae4.jpeg" alt="周" title="周"><br><img src="http://img.xixik.net/cimg/083/xixik_87c9e06af0d51132.jpeg" alt="秦" title="秦"><br><img src="http://img.xixik.net/cimg/083/xixik_01848d23bc3c0496.jpeg" alt="汉" title="汉"><br><img src="http://img.xixik.net/cimg/083/xixik_2a93308ddfd78f78.jpeg" alt="魏" title="魏"><br><img src="http://img.xixik.net/cimg/083/xixik_34ae3a4f7693d9ea.jpeg" alt="蜀" title="蜀"><br><img src="http://img.xixik.net/cimg/083/xixik_bafe42d5cde82df4.jpeg" alt="吴" title="吴"><br><img src="http://img.xixik.net/cimg/083/xixik_20b47e2887f23ecf.jpeg" alt="晋" title="晋"><br><img src="http://img.xixik.net/cimg/083/xixik_57f8d17ebfdb1a85.jpeg" alt="隋" title="隋"><br><img src="http://img.xixik.net/cimg/083/xixik_04c8ec9fff83c2f9.jpeg" alt="唐" title="唐"><br><img src="http://img.xixik.net/cimg/083/xixik_6bc06e9bb6ef708c.jpeg" alt="辽" title="辽"><br><img src="http://img.xixik.net/cimg/083/xixik_6e40141c5eb849ea.jpeg" alt="宋" title="宋"><br><img src="http://img.xixik.net/cimg/083/xixik_74a385004d03fc0a.jpeg" alt="西夏" title="西夏"><br><img src="http://img.xixik.net/cimg/083/xixik_d209b6d3983aaf85.jpeg" alt="金" title="金"><br><img src="http://img.xixik.net/cimg/083/xixik_1f2382bcdab86fe9.jpeg" alt="元" title="元"><br><img src="http://img.xixik.net/cimg/083/xixik_a160592906ace6ec.jpeg" alt="明" title="明"><br><img src="http://img.xixik.net/cimg/083/xixik_633a17f15265a0ef.jpeg" alt="清" title="清"><br><em><strong>注意：转载自嘻嘻网图片，切勿商用</strong></em></p>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>历史</tag>
+        <tag>纯图片</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>病毒浅谈</title>
+    <url>/2020/02/17/%E7%97%85%E6%AF%92%E6%B5%85%E8%B0%88/</url>
+    <content><![CDATA[<p><strong>病毒在生物上的危害就不多说，最近的COVID-19病毒就知道其可怕。本篇主要来谈谈计算机的病毒</strong></p>
+<h2 id="计算机病毒"><a href="#计算机病毒" class="headerlink" title="计算机病毒"></a>计算机病毒</h2><h3 id="什么是计算机病毒？"><a href="#什么是计算机病毒？" class="headerlink" title="什么是计算机病毒？"></a>什么是计算机病毒？</h3><p><strong>计算机病毒简单来讲，是一种人为制造，在计算机运行中对其信息或系统起破坏作用的程序</strong></p>
+<a id="more"></a>
+
+<h3 id="计算机病毒的特点是什么？"><a href="#计算机病毒的特点是什么？" class="headerlink" title="计算机病毒的特点是什么？"></a>计算机病毒的特点是什么？</h3><p><em><strong>破坏性、传染性、寄生性、潜伏性、隐蔽性</strong></em><br>不多解释，从字面意思，看就是类似于生物病毒</p>
+<h3 id="计算机中病毒的表现形式"><a href="#计算机中病毒的表现形式" class="headerlink" title="计算机中病毒的表现形式"></a>计算机中病毒的表现形式</h3><p><strong>计算机中病毒会出现哪些症状（表现）呢？</strong><br>1)程序运行速度明显变慢甚至死机<br>2)出现莫名其妙的信息，比如没有用网络资源而网卡指示灯一直闪烁；插入U盘后，无法正常退出；提示一些不相干的话，发出一段音乐，产生特定的图像，鼠标自个儿在动，自动链接到一些陌生的网站<br>3)外部设备工作异常<br>4)程序运行出现不合理的结果</p>
+<h3 id="病毒能破坏硬件吗？"><a href="#病毒能破坏硬件吗？" class="headerlink" title="病毒能破坏硬件吗？"></a>病毒能破坏硬件吗？</h3><p><strong>病毒本身就是程序，所以它不可能直接破坏硬件。但它可以通过破坏程序导致硬件不能正常工作</strong></p>
+<h3 id="病毒的传播介质"><a href="#病毒的传播介质" class="headerlink" title="病毒的传播介质"></a>病毒的传播介质</h3><p>1)U盘等可移动存储设备<br>2)随着网络的飞速发展，网络成为最主要的病毒传播途径</p>
+<p><strong>来个笑话</strong></p>
+<blockquote>
+<p>某天表妹和她的表哥在一起聊天，她们聊到了关于电脑的话题<br>表妹：表哥，去年我买了一台电脑。<br>表哥：怎么都没看你用过？<br>表妹：刚买就中病毒了<br>表哥：你没有叫人修理吗？<br>表妹得意地说：一年都不开机，病毒还不被饿死！</p>
+</blockquote>
+<p>  蛮好笑的，让我想起我小学时候，我的一同学作文，内容跟这笑话差不多，说的是每到夏天蚊子特别的多，蚊子盯地他很难受，于是他灵机一动，拿出了酒。他爸妈回来看着他拿着酒瓶，整个人迷迷糊糊的，就焦急地问他：你为什么喝酒啊？他说：”我把自己灌醉，这样蚊子吸我的血，就会跟着醉，他们醉倒了就不会盯我了”，把他爸妈都逗乐了。跟上面这笑话真是”英雄所见略同”啊</p>
+<h3 id="病毒的防治"><a href="#病毒的防治" class="headerlink" title="病毒的防治"></a>病毒的防治</h3><p><strong>每台计算机应安装杀毒软件及防火墙，并注意及时升级杀毒软件，以防止或及时发现计算机病毒的入侵一旦发现计算机系统染上病毒后，要立即使用杀毒软件进行清除。对于外来数据要严格检查，对重要数据记得做好备份</strong><br><em><strong>特别注意：</strong></em><br>观察任务栏上杀毒软件图标异常，杀毒软件检测没有病毒不一定真的没有病毒。如果怀疑有病毒，可以换个杀毒软件试试。磁盘格式化可以删除所有文件，包括病毒，这是一种玉石俱焚的方法</p>
+<p>下面给出一个防蠕虫配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ip access-list extended worm</span><br><span class="line">deny tcp any any eq 135</span><br><span class="line">deny tcp any any eq 137</span><br><span class="line">deny tcp any any eq 138</span><br><span class="line">deny tcp any any eq 139</span><br><span class="line">deny udp any any eq 135</span><br><span class="line">deny tcp any any eq 445</span><br><span class="line">deny udp any any eq 445</span><br><span class="line">permit ip any any </span><br><span class="line">interface GigabitEthernet 2&#x2F;1</span><br><span class="line">ip access-group worm in</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>病毒</tag>
+        <tag>网络安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>网络安全与防火墙</title>
+    <url>/2020/02/17/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%B8%8E%E9%98%B2%E7%81%AB%E5%A2%99/</url>
+    <content><![CDATA[<p><strong>在关于防火墙的叙述前，我们需要了解什么是网络安全，网络安全的兴起以及网络不安全带来的困扰。本章将上半部分讲述网络安全，下半部分对防火墙的定义及弊端进行浅谈</strong></p>
+<a id="more"></a>
+
+<h2 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2><h3 id="究竟什么是网络安全？"><a href="#究竟什么是网络安全？" class="headerlink" title="究竟什么是网络安全？"></a>究竟什么是网络安全？</h3><blockquote>
+<p>有人曾说过:网络的神奇在于你可以使用其他任何人的资源；<strong>可怕在其他人可以用你的资源</strong>。<br>因此，网络安全则是为了对计算机软硬件及系统中的数据地保护</p>
+</blockquote>
+<h3 id="什么让网络不安全？"><a href="#什么让网络不安全？" class="headerlink" title="什么让网络不安全？"></a>什么让网络不安全？</h3><h4 id="1-网络的缺陷"><a href="#1-网络的缺陷" class="headerlink" title="1.网络的缺陷"></a>1.网络的缺陷</h4><p>  因特网在设计之初对共享性和开放性的强调，而导致其先天的安全缺陷。然而其赖以生存的TCP/IP协议族在设计理念上更多是考虑该网络不会因局部故障而影响信息的传输，基本没有考虑安全问题。因此它在控制不可信连接、分辨非法访问、辨别身份伪装等方面存在很大缺陷，从而导致网络安全隐患。</p>
+<blockquote>
+<p>多数底层协议为广播方式，多数应用层协议为明文传输，缺乏保密与认证机制，因此容易遭受欺骗和窃听</p>
+</blockquote>
+<h4 id="2-软件与系统的漏洞及后门"><a href="#2-软件与系统的漏洞及后门" class="headerlink" title="2.软件与系统的漏洞及后门"></a>2.软件与系统的漏洞及后门</h4><p>  随着软件与网络系统规模不断增大，大多数的信息系统和网络存在着先天性的安全漏洞和安全威胁。软件的后门是编程人员为了自便而设置的，一般不为人知。<br>  比如，我们常用的操作系统，无论是 Windows 还是 Linux 几乎都存在或多或少的安全漏洞，众多的服务器、浏览器、桌面软件等都被发现存在安全隐患。任何一个软件系统都可能会因为程序员的一个疏忽或设计中的一个缺陷等原因留下漏洞。 </p>
+<h4 id="3-病毒和木马"><a href="#3-病毒和木马" class="headerlink" title="3.病毒和木马"></a>3.病毒和木马</h4><p>  <strong>病毒：</strong>一种人为蓄意制造、以破坏为主的程序，其寄生于其他应用程序或系统可执行文件，通过部分修改或移动程序，通过自我复制或占据宿主查询的部分而隐藏起来(类比我们的生物病毒),是计算机系统最直接的安全威胁。而Internet是网络滋生和传播的温床。<br>  <strong>木马：</strong>与病毒不同不会传染，主要是窃取用户信息，木马入侵不会想病毒那样入侵后立马有感觉，而是通过秘密破坏，完成非授权用户无法完成的功能，施种者可以任意破坏窃取被种者的文件，甚至远程操控被种者电脑。</p>
+<h4 id="4-黑客攻击"><a href="#4-黑客攻击" class="headerlink" title="4.黑客攻击"></a>4.黑客攻击</h4><p>  黑客都是些熟练使用计算机的能人，但标题所说黑客攻击是指为得利益不择手段(通过网路非法进入他人系统、截获或篡改计算机数据、危害信息安全)的人，通常这类黑客以骇客称之，像黑客的另一分支红客与蓝客就是正义的一方，相比破坏者，这些守护者的技术水平更高，不是有那么一句”打天下容守天下难”吗。</p>
+<h4 id="5，网络安全建设滞后"><a href="#5，网络安全建设滞后" class="headerlink" title="5，网络安全建设滞后"></a>5，网络安全建设滞后</h4><p>  网络硬件建设如火如荼了，网络安全管理滞后，用户安全意识不强，即使应用了最好的安全设备也经常达不到预期效果。<br>  也就是说一个国家的百姓衣食住行都安顿下来了，可是约束百姓的法律才颁布出来，百姓法律意识薄弱，仍会出茬子。</p>
+<h3 id="网络安全工作目的"><a href="#网络安全工作目的" class="headerlink" title="网络安全工作目的"></a>网络安全工作目的</h3><p><strong>用简洁的三字词概括就是：进不来、拿不走、改不了、看不懂、跑不了、可审查</strong><br>所以，虚拟专用网、访问控制、入侵检测、防病毒软件、防火墙等就出现了</p>
+<hr>
+<h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><h3 id="防火墙是什么？"><a href="#防火墙是什么？" class="headerlink" title="防火墙是什么？"></a>防火墙是什么？</h3><blockquote>
+<p>在建筑设计专业术语，用于分隔不同区域，能将火灾有效限制在一定空间内，阻断火灾在防火墙的一侧蔓延到另一侧，对于减少火灾造成损失有着重要作用</p>
+</blockquote>
+<p><strong>而对于网络防火墙就是在两个网络之间实现访问控制的一个或一组软件或硬件系统，是实现网络和信息安全的基础设施(类似一堵城墙将外部和内部进行隔离，并在此基础上实现数据包的访问控制等功能)</strong></p>
+<h3 id="防火墙功能"><a href="#防火墙功能" class="headerlink" title="防火墙功能"></a>防火墙功能</h3><p>防火墙主要功能是对流经它的网路通信进行扫描，过滤危险的数据或访问请求，以免在目标计算机上被执行。防火墙还可以关闭不使用的端口、禁止特定端口的通信、封锁木马、禁止来自特殊站点的访问，从而防止入侵者的所有通道。<br>这里我们也可以做一个比喻，把因特网比喻成为现实生活中的大街，内网比作一所别墅，数据比喻来往与大街的人，防火墙则是将别墅围起来的高墙，房子的主人及亲朋好友（正常进出网络数据）通过防火墙大门人脸识别，允许进入。而那些企图进入的不法分子（恶意数据包），则被拒之墙外。</p>
+<h3 id="防火墙的分类"><a href="#防火墙的分类" class="headerlink" title="防火墙的分类"></a>防火墙的分类</h3><ul>
+<li><strong>防火墙可分为软件防火墙、硬件防火墙</strong></li>
+<li><strong>防火墙也可以分为个人防火墙、网路防火墙</strong></li>
+</ul>
+<p><em>一般情况下，个人防火墙是软件防火墙(比如Windows自带的防火墙)，网络防火墙有硬件防火墙，也有软件防火墙</em></p>
+<h3 id="防火墙不足之处"><a href="#防火墙不足之处" class="headerlink" title="防火墙不足之处"></a>防火墙不足之处</h3><p><strong>无法保护内部用户之间的攻击，防外不防内</strong><br><strong>无法防护基本操作系统漏洞的攻击</strong><br><strong>一般无法防护病毒的侵袭</strong><br><strong>对网络性能有影响</strong></p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>网络安全</tag>
+        <tag>防火墙</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>电影推荐</title>
+    <url>/2021/05/09/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90/</url>
+    <content><![CDATA[<p><strong>作为一个阅片无数的过来人，七七八八的电影看过很多，好的不少，烂的也多。因此，想推荐一些我喜欢的电影。相比电视剧，我偏好电影，因为电影以较短时间，呈现给我们精彩的内容，节省时间同时，给我们带来不错的观影体验（仅限好电影）。电影有很多种类，喜剧、恐怖、惊悚、科幻、战争、历史等。也分地区，不同地区电影也有其不同特点。在此，我想把我看过的，自认为觉得不错的电影分享出来，当然有些好电影，我没看过的，就不会列出来。所有影片只列名字，不作影评，我觉得自己写不好或者写的很烂，反而影响推荐，我觉得不同电影，不同人有不同观感，我不能融入我的主观色彩。</strong></p>
+<p><strong>顺序无先后，想起哪部写哪部</strong></p>
+<h3 id="内地"><a href="#内地" class="headerlink" title="内地"></a>内地</h3><p><strong>《蓝风筝》、《活着》、《霸王别姬》、《茶馆》、《鬼子来了》、《阳光灿烂的日子》、《让子弹飞》、《盲山》、《盲井》、《过年》、《甲方乙方》、《大腕》、《疯狂的石头》、《疯狂的赛车》、《杀生》、《斗牛》、《Hello，树先生》、《落叶归根》、《人在囧途》、《我不是药神》、《夏洛特烦恼》、《无名之辈》、《三毛从军记》、《无人区》、《天下无贼》、《背靠背，脸对脸》、《黑炮事件》</strong></p>
+<h3 id="港片"><a href="#港片" class="headerlink" title="港片"></a>港片</h3><p><strong>《监狱风云》、《英雄本色》、《纵情四海》、《黑社会》、《黑社会2：以和为贵》、《黑狱断肠歌之砌生猪肉》、《至尊三十六计之偷天换日》、《火烧岛》、《跛豪》、《五亿探长雷洛传》、《黑金》、《门徒》、《无间道三部曲》、《金钱帝国》、《机动部队》、《警察故事》、《A计划》、《快餐车》、《奇迹》、《城市猎人》、《杀破狼》、《东邪西毒》、《东成西就》、《新龙门客栈1992》、《赌神》、《赌神2》、《棋王》、《无双》、《黄飞鸿》、《方世玉》、《太极张三丰》、《精武英雄》、《导火线》、《笑林小子2：新乌龙院》、《新少林五祖》、《山村老尸》、《三五成群》、《人肉叉烧包黄秋生版》、《打蛇》、《狗咬狗》、《垂帘听政》、《倩女幽魂三部曲》、《半斤八两》、《摩登保镖》、《鬼马双星》、《卖身契》、《鸡同鸭讲》、《抢钱夫妻》、《钱作怪》、《福星系列》、《审死官》、《九品芝麻官》、《喜剧之王》、《大话西游周星驰版》、《功夫》、《少林足球》、《食神》、《逃学威龙》、《国产凌凌漆》、《鹿鼎记》、《家有喜事》、《回魂夜》、《情圣》、《整蛊专家》、《百变星君》、《武状元苏乞儿》</strong></p>
+<h3 id="国外"><a href="#国外" class="headerlink" title="国外"></a>国外</h3><p><strong>《肖申克的救赎》、《猫鼠游戏》、《泰坦尼克号》、《盗梦空间》、《西西里的美丽传说》、《末代皇帝》、《何以为家》、《小偷家族》、《阿甘正传》、《看不见的客人》、《我是谁：没有绝对安全的系统》、《非常嫌疑犯》、《两杆大烟枪》、《偷拐抢骗》、《闪灵》、《恐怖游轮》、《楚门的世界》、《教父》、《这个杀手不太冷》、《辛德勒的名单》、《蝙蝠侠：黑暗骑士》、《小丑》、《复仇者联盟》、《银河护卫队》、《死侍》、《X战警》、《变形金刚》、《星球大战》、《终结者》、《碟中谍》、《黑客帝国》、《谍影重重》、《生化危机》、《古墓丽影》、《木乃伊》、《加勒比海盗》、《哈利波特》、《指环王》、《霍比特人》、《阿凡达》、《死神来了》、《速度与激情》、《死亡飞车》、《电锯惊魂》、《三傻大闹宝莱坞》、《摔跤吧，爸爸》、《寄生虫》、《恶魔的艺术2：邪降》、《风雨哈佛路》、《千与千寻》、《菊次郎的夏天》、《热血高校》、《突袭》、《突袭2：暴徒》、《摩登时代》、《城市之光》、《大独裁者》、《淘金记》、《马戏团》、《憨豆的黄金周》、《死寂》、《咒怨》、《孤儿怨》</strong></p>
+]]></content>
+      <categories>
+        <category>分享</category>
+      </categories>
+      <tags>
+        <tag>电影</tag>
       </tags>
   </entry>
   <entry>
