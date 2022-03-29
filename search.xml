@@ -1,48 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Docker命令</title>
-    <url>/2022/03/06/Docker%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<h3 id="docker安装"><a href="#docker安装" class="headerlink" title="docker安装"></a>docker安装</h3><p>首先，简单说下docker容器安装步骤。<br><strong>第一步，我们需要移除旧版本的docker命令：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-selinux \</span><br><span class="line">                  docker-engine-selinux \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-
-<p><strong>第二步，安装所需依赖包：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum install -y yum-utils \</span><br><span class="line">  device-mapper-persistent-data \</span><br><span class="line">  lvm2</span><br></pre></td></tr></table></figure>
-
-<p><strong>第三步，由于访问国外网站网速限制，我们需要配置镜像源，这里我用的是阿里云镜像：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo</span><br></pre></td></tr></table></figure>
-
-<p><strong>第四步，配置缓存：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum makecache fast</span><br></pre></td></tr></table></figure>
-
-<p><strong>第五步，执行docker安装命令：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum install -y docker-ce（这里docker-ce指的是社区版）</span><br></pre></td></tr></table></figure>
-
-<p><strong>第六步，配置镜像加速器，我用的是 <a href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors" target="_blank" rel="noopener">阿里云镜像加速器</a>，登录自己阿里云账号获得自己专属镜像加速器地址：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">suco mkdir -p &#x2F;etc&#x2F;docker(若没有该目录，则执行这条命令进行创建，有则跳过)</span><br><span class="line">sudo tee &#x2F;etc&#x2F;docker&#x2F;daemon.json &lt;&lt;-&#39;EOF&#39;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [这里输入你的阿里云镜像加速器地址]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-
-<p><strong>第七步，加载daemon配置文件：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-
-<p><strong>第八步，重启docker</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
-
-<h3 id="docker命令"><a href="#docker命令" class="headerlink" title="docker命令"></a>docker命令</h3><p><code>docker version</code>查看docker版本，用来检验docker是否安装成功<br><code>docker info</code>查看docker的信息，可以用来查看docker镜像加速器是否配置成功<br><code>systemctl start docker</code>开启docker<br><code>systemctl restart docker</code>重启docker<br><code>systemctl enable docker</code>设置docker自启动  </p>
-<h4 id="docker镜像相关命令"><a href="#docker镜像相关命令" class="headerlink" title="docker镜像相关命令"></a>docker镜像相关命令</h4><p><code>docker images</code>或<code>docker images ls</code>查看当前存在的镜像<br><code>docker pull [镜像名]:[版本号]</code>获取镜像，不给版本号，默认最新latest<br><code>docker rmi [镜像ID]或[镜像名]</code>删除镜像，删除镜像时需确保该镜像没有创建容器<br><code>docker images -q</code>查看镜像ID<br><code>docker history [镜像名称]</code>查看一个镜像的制作历程  </p>
-<h4 id="docker容器相关命令"><a href="#docker容器相关命令" class="headerlink" title="docker容器相关命令"></a>docker容器相关命令</h4><p><code>docker ps</code>查看运行的容器<br><code>docker ps -a</code>查看所有的容器(包含运行和退出)<br><code>docker ps -a -q</code>查看所有容器的ID<br><code>docker run -i -t(-i -t用来作容器的交互) -d(后台运行容器) --rm(容器在启动后，执行完成命令或程序后自动销毁) --name(给容器自定义一个名字) -p(宿主机：内部端口)</code>运行容器<br>实例：<code>docker run --rm -d --name tomcat123 -p 8081:8080 tomcat</code><br><code>docker stop $(docker ps -a -q)</code>停掉所有容器<br><code>docker rm -f(强制)</code>删除容器<br><code>docker start</code>启动容器<br><code>docker restart</code>重启容器<br><code>docker exec</code>进入容器<br>实例：<code>docker exec -it tomcat-8080 bash</code><br><code>exit</code>退出容器<br><code>docker cp</code>实现宿主机与容器之间文件交换<br><code>docker logs -f(查看实时日志) -t(查看日志产生日期) --tail=5(查看日志最后5行)</code>查看指定容器日志  </p>
-<h4 id="docker数据卷"><a href="#docker数据卷" class="headerlink" title="docker数据卷"></a>docker数据卷</h4><p>数据卷可以在容器之间共享和重用，对数据卷的修改会立马生效，对数据卷的更新，不会影响镜像，数据卷具有持久化，即使容器被删除，也会一直存在，数据卷的两种创建方式<br><code>docker run -v(数据卷名称)</code><br><code>docker run -v(路径)</code><br>例：<code>docker run -d --name tomcat-8080 -p 8080:8080 -v /home/yzw/docker-volumn/:/usr/local/tomcat/webapps/volumn tomcat</code><br>`</p>
-]]></content>
-      <categories>
-        <category>Docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-        <tag>命令</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Ajax</title>
     <url>/2020/04/25/Ajax/</url>
     <content><![CDATA[<h3 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h3><p><strong>Ajax全称：Asynchronous Javascript And XML(异步 JS和XML)，它能使用JS实现异步访问服务器。众所周知，服务器给客户端传过去的是整个html完整页面，而Ajax局部刷新，服务器不再响应整个页面，只是传递数据，数据交换可以是txt、xml、json</strong></p>
@@ -204,6 +162,22 @@
       <tags>
         <tag>标记语言</tag>
         <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Effctive 90条经验法则</title>
+    <url>/2022/02/25/90%E6%9D%A1%E7%BB%8F%E9%AA%8C%E6%B3%95%E5%88%99/</url>
+    <content><![CDATA[<blockquote>
+<h4 id="第1条：用静态工厂方法代替构造器"><a href="#第1条：用静态工厂方法代替构造器" class="headerlink" title="第1条：用静态工厂方法代替构造器"></a>第1条：用静态工厂方法代替构造器</h4><h4 id="第2条：遇到多个构造器参数时要考虑使用构建器"><a href="#第2条：遇到多个构造器参数时要考虑使用构建器" class="headerlink" title="第2条：遇到多个构造器参数时要考虑使用构建器"></a>第2条：遇到多个构造器参数时要考虑使用构建器</h4><h4 id="第3条：用私有构造器或者枚举类型强化Singleton属性"><a href="#第3条：用私有构造器或者枚举类型强化Singleton属性" class="headerlink" title="第3条：用私有构造器或者枚举类型强化Singleton属性"></a>第3条：用私有构造器或者枚举类型强化Singleton属性</h4><h4 id="第4条：通过私有构造器强化不可实例化的能力"><a href="#第4条：通过私有构造器强化不可实例化的能力" class="headerlink" title="第4条：通过私有构造器强化不可实例化的能力"></a>第4条：通过私有构造器强化不可实例化的能力</h4><h4 id="第5条：优先考虑依赖注入来引用资源"><a href="#第5条：优先考虑依赖注入来引用资源" class="headerlink" title="第5条：优先考虑依赖注入来引用资源"></a>第5条：优先考虑依赖注入来引用资源</h4><h4 id="第6条：避免创建不必要的对象"><a href="#第6条：避免创建不必要的对象" class="headerlink" title="第6条：避免创建不必要的对象"></a>第6条：避免创建不必要的对象</h4><h4 id="第7条：消除过期的对象引用"><a href="#第7条：消除过期的对象引用" class="headerlink" title="第7条：消除过期的对象引用"></a>第7条：消除过期的对象引用</h4><h4 id="第8条：避免使用终结方法和清除方法"><a href="#第8条：避免使用终结方法和清除方法" class="headerlink" title="第8条：避免使用终结方法和清除方法"></a>第8条：避免使用终结方法和清除方法</h4></blockquote>
+<a id="more"></a>
+<blockquote>
+<h4 id="第9条：try-with-resources优先于try-finally"><a href="#第9条：try-with-resources优先于try-finally" class="headerlink" title="第9条：try-with-resources优先于try-finally"></a>第9条：try-with-resources优先于try-finally</h4><h4 id="第10条：覆盖equals时请遵循通用约定"><a href="#第10条：覆盖equals时请遵循通用约定" class="headerlink" title="第10条：覆盖equals时请遵循通用约定"></a>第10条：覆盖equals时请遵循通用约定</h4><h4 id="第11条：覆盖equals时总要覆盖hashCode"><a href="#第11条：覆盖equals时总要覆盖hashCode" class="headerlink" title="第11条：覆盖equals时总要覆盖hashCode"></a>第11条：覆盖equals时总要覆盖hashCode</h4><h4 id="第12条：始终要覆盖toString"><a href="#第12条：始终要覆盖toString" class="headerlink" title="第12条：始终要覆盖toString"></a>第12条：始终要覆盖toString</h4><h4 id="第13条：谨慎地覆盖clone"><a href="#第13条：谨慎地覆盖clone" class="headerlink" title="第13条：谨慎地覆盖clone"></a>第13条：谨慎地覆盖clone</h4><h4 id="第14条：考虑实现Comparable接口"><a href="#第14条：考虑实现Comparable接口" class="headerlink" title="第14条：考虑实现Comparable接口"></a>第14条：考虑实现Comparable接口</h4><h4 id="第15条：使类和成员的可访问性最小化"><a href="#第15条：使类和成员的可访问性最小化" class="headerlink" title="第15条：使类和成员的可访问性最小化"></a>第15条：使类和成员的可访问性最小化</h4><h4 id="第16条：要在公有类中使用访问方法而非公有域"><a href="#第16条：要在公有类中使用访问方法而非公有域" class="headerlink" title="第16条：要在公有类中使用访问方法而非公有域"></a>第16条：要在公有类中使用访问方法而非公有域</h4><h4 id="第17条：使可变性最小化"><a href="#第17条：使可变性最小化" class="headerlink" title="第17条：使可变性最小化"></a>第17条：使可变性最小化</h4><h4 id="第18条：复合优先于继承"><a href="#第18条：复合优先于继承" class="headerlink" title="第18条：复合优先于继承"></a>第18条：复合优先于继承</h4><h4 id="第19条：要么设计继承并提供文档说明，要么禁止继承"><a href="#第19条：要么设计继承并提供文档说明，要么禁止继承" class="headerlink" title="第19条：要么设计继承并提供文档说明，要么禁止继承"></a>第19条：要么设计继承并提供文档说明，要么禁止继承</h4><h4 id="第20条：接口优于抽象类"><a href="#第20条：接口优于抽象类" class="headerlink" title="第20条：接口优于抽象类"></a>第20条：接口优于抽象类</h4><h4 id="第21条：为后代设计接口"><a href="#第21条：为后代设计接口" class="headerlink" title="第21条：为后代设计接口"></a>第21条：为后代设计接口</h4><h4 id="第22条：接口只用于定义类型"><a href="#第22条：接口只用于定义类型" class="headerlink" title="第22条：接口只用于定义类型"></a>第22条：接口只用于定义类型</h4><h4 id="第23条：类层次优于标签类"><a href="#第23条：类层次优于标签类" class="headerlink" title="第23条：类层次优于标签类"></a>第23条：类层次优于标签类</h4><h4 id="第24条：静态成员类优于非静态成员类"><a href="#第24条：静态成员类优于非静态成员类" class="headerlink" title="第24条：静态成员类优于非静态成员类"></a>第24条：静态成员类优于非静态成员类</h4><h4 id="第25条：限制源文件为单个顶级类"><a href="#第25条：限制源文件为单个顶级类" class="headerlink" title="第25条：限制源文件为单个顶级类"></a>第25条：限制源文件为单个顶级类</h4><h4 id="第26条：请不要使用原生态类型"><a href="#第26条：请不要使用原生态类型" class="headerlink" title="第26条：请不要使用原生态类型"></a>第26条：请不要使用原生态类型</h4><h4 id="第27条：消除非受检的警告"><a href="#第27条：消除非受检的警告" class="headerlink" title="第27条：消除非受检的警告"></a>第27条：消除非受检的警告</h4><h4 id="第28条：列表优于数组"><a href="#第28条：列表优于数组" class="headerlink" title="第28条：列表优于数组"></a>第28条：列表优于数组</h4><h4 id="第29条：优先考虑泛型"><a href="#第29条：优先考虑泛型" class="headerlink" title="第29条：优先考虑泛型"></a>第29条：优先考虑泛型</h4><h4 id="第30条：优先考虑泛型方法"><a href="#第30条：优先考虑泛型方法" class="headerlink" title="第30条：优先考虑泛型方法"></a>第30条：优先考虑泛型方法</h4><h4 id="第31条：利用有限制通配符来提升API的灵活性"><a href="#第31条：利用有限制通配符来提升API的灵活性" class="headerlink" title="第31条：利用有限制通配符来提升API的灵活性"></a>第31条：利用有限制通配符来提升API的灵活性</h4><h4 id="第32条：谨慎并用泛型和可变参数"><a href="#第32条：谨慎并用泛型和可变参数" class="headerlink" title="第32条：谨慎并用泛型和可变参数"></a>第32条：谨慎并用泛型和可变参数</h4><h4 id="第33条：优先考虑类型安全的异构容器"><a href="#第33条：优先考虑类型安全的异构容器" class="headerlink" title="第33条：优先考虑类型安全的异构容器"></a>第33条：优先考虑类型安全的异构容器</h4><h4 id="第34条：用enum代替int常量"><a href="#第34条：用enum代替int常量" class="headerlink" title="第34条：用enum代替int常量"></a>第34条：用enum代替int常量</h4><h4 id="第35条：用实例域代替序数"><a href="#第35条：用实例域代替序数" class="headerlink" title="第35条：用实例域代替序数"></a>第35条：用实例域代替序数</h4><h4 id="第36条：用EnumSet代替位域"><a href="#第36条：用EnumSet代替位域" class="headerlink" title="第36条：用EnumSet代替位域"></a>第36条：用EnumSet代替位域</h4><h4 id="第37条：用EnumMap代替序数索引"><a href="#第37条：用EnumMap代替序数索引" class="headerlink" title="第37条：用EnumMap代替序数索引"></a>第37条：用EnumMap代替序数索引</h4><h4 id="第38条：用接口模拟可扩展的枚举"><a href="#第38条：用接口模拟可扩展的枚举" class="headerlink" title="第38条：用接口模拟可扩展的枚举"></a>第38条：用接口模拟可扩展的枚举</h4><h4 id="第39条：注解优先于命名模式"><a href="#第39条：注解优先于命名模式" class="headerlink" title="第39条：注解优先于命名模式"></a>第39条：注解优先于命名模式</h4><h4 id="第40条：坚持使用Override注解"><a href="#第40条：坚持使用Override注解" class="headerlink" title="第40条：坚持使用Override注解"></a>第40条：坚持使用Override注解</h4><h4 id="第41条：用标记接口定义类型"><a href="#第41条：用标记接口定义类型" class="headerlink" title="第41条：用标记接口定义类型"></a>第41条：用标记接口定义类型</h4><h4 id="第42条：Lambda优先于匿名类"><a href="#第42条：Lambda优先于匿名类" class="headerlink" title="第42条：Lambda优先于匿名类"></a>第42条：Lambda优先于匿名类</h4><h4 id="第43条：方法引用优先于Lambda"><a href="#第43条：方法引用优先于Lambda" class="headerlink" title="第43条：方法引用优先于Lambda"></a>第43条：方法引用优先于Lambda</h4><h4 id="第44条：坚持使用标准的函数接口"><a href="#第44条：坚持使用标准的函数接口" class="headerlink" title="第44条：坚持使用标准的函数接口"></a>第44条：坚持使用标准的函数接口</h4><h4 id="第45条：谨慎使用Stream"><a href="#第45条：谨慎使用Stream" class="headerlink" title="第45条：谨慎使用Stream"></a>第45条：谨慎使用Stream</h4><h4 id="第46条：优先选择Stream中无副作用的函数"><a href="#第46条：优先选择Stream中无副作用的函数" class="headerlink" title="第46条：优先选择Stream中无副作用的函数"></a>第46条：优先选择Stream中无副作用的函数</h4><h4 id="第47条：Stream要优先用Collection作为返回类型"><a href="#第47条：Stream要优先用Collection作为返回类型" class="headerlink" title="第47条：Stream要优先用Collection作为返回类型"></a>第47条：Stream要优先用Collection作为返回类型</h4><h4 id="第48条：谨慎使用Stream并行"><a href="#第48条：谨慎使用Stream并行" class="headerlink" title="第48条：谨慎使用Stream并行"></a>第48条：谨慎使用Stream并行</h4><h4 id="第49条：检查参数的有效性"><a href="#第49条：检查参数的有效性" class="headerlink" title="第49条：检查参数的有效性"></a>第49条：检查参数的有效性</h4><h4 id="第50条：必要时进行保护性拷贝"><a href="#第50条：必要时进行保护性拷贝" class="headerlink" title="第50条：必要时进行保护性拷贝"></a>第50条：必要时进行保护性拷贝</h4><h4 id="第51条：谨慎设计方法签名"><a href="#第51条：谨慎设计方法签名" class="headerlink" title="第51条：谨慎设计方法签名"></a>第51条：谨慎设计方法签名</h4><h4 id="第52条：慎用重载"><a href="#第52条：慎用重载" class="headerlink" title="第52条：慎用重载"></a>第52条：慎用重载</h4><h4 id="第53条：慎用可变参数"><a href="#第53条：慎用可变参数" class="headerlink" title="第53条：慎用可变参数"></a>第53条：慎用可变参数</h4><h4 id="第54条：返回零长度的数组或者集合，而不是null"><a href="#第54条：返回零长度的数组或者集合，而不是null" class="headerlink" title="第54条：返回零长度的数组或者集合，而不是null"></a>第54条：返回零长度的数组或者集合，而不是null</h4><h4 id="第55条：谨慎返回optional"><a href="#第55条：谨慎返回optional" class="headerlink" title="第55条：谨慎返回optional"></a>第55条：谨慎返回optional</h4><h4 id="第56条：为所有导出API元素编写文档注释"><a href="#第56条：为所有导出API元素编写文档注释" class="headerlink" title="第56条：为所有导出API元素编写文档注释"></a>第56条：为所有导出API元素编写文档注释</h4><h4 id="第57条：将局部变量的作用域最小化"><a href="#第57条：将局部变量的作用域最小化" class="headerlink" title="第57条：将局部变量的作用域最小化"></a>第57条：将局部变量的作用域最小化</h4><h4 id="第58条：for-each循环优先于传统的for循环"><a href="#第58条：for-each循环优先于传统的for循环" class="headerlink" title="第58条：for-each循环优先于传统的for循环"></a>第58条：for-each循环优先于传统的for循环</h4><h4 id="第59条：了解和使用类库"><a href="#第59条：了解和使用类库" class="headerlink" title="第59条：了解和使用类库"></a>第59条：了解和使用类库</h4><h4 id="第60条：如果需要精确的答案，请避免使用float和double"><a href="#第60条：如果需要精确的答案，请避免使用float和double" class="headerlink" title="第60条：如果需要精确的答案，请避免使用float和double"></a>第60条：如果需要精确的答案，请避免使用float和double</h4><h4 id="第61条：基本类型优先于装箱基本类型"><a href="#第61条：基本类型优先于装箱基本类型" class="headerlink" title="第61条：基本类型优先于装箱基本类型"></a>第61条：基本类型优先于装箱基本类型</h4><h4 id="第62条：如果其他类型更适合，则尽量避免使用字符串"><a href="#第62条：如果其他类型更适合，则尽量避免使用字符串" class="headerlink" title="第62条：如果其他类型更适合，则尽量避免使用字符串"></a>第62条：如果其他类型更适合，则尽量避免使用字符串</h4><h4 id="第63条：了解字符串连接的性能"><a href="#第63条：了解字符串连接的性能" class="headerlink" title="第63条：了解字符串连接的性能"></a>第63条：了解字符串连接的性能</h4><h4 id="第64条：通过接口引用对象"><a href="#第64条：通过接口引用对象" class="headerlink" title="第64条：通过接口引用对象"></a>第64条：通过接口引用对象</h4><h4 id="第65条：接口优先于反射机制"><a href="#第65条：接口优先于反射机制" class="headerlink" title="第65条：接口优先于反射机制"></a>第65条：接口优先于反射机制</h4><h4 id="第66条：谨慎地使用本地方法"><a href="#第66条：谨慎地使用本地方法" class="headerlink" title="第66条：谨慎地使用本地方法"></a>第66条：谨慎地使用本地方法</h4><h4 id="第67条：谨慎地进行优化"><a href="#第67条：谨慎地进行优化" class="headerlink" title="第67条：谨慎地进行优化"></a>第67条：谨慎地进行优化</h4><h4 id="第68条：遵守普遍接受的命名惯例"><a href="#第68条：遵守普遍接受的命名惯例" class="headerlink" title="第68条：遵守普遍接受的命名惯例"></a>第68条：遵守普遍接受的命名惯例</h4><h4 id="第69条：只针对异常的情况才使用异常"><a href="#第69条：只针对异常的情况才使用异常" class="headerlink" title="第69条：只针对异常的情况才使用异常"></a>第69条：只针对异常的情况才使用异常</h4><h4 id="第70条：对可恢复的情况使用受检异常，对编程错误使用运行时异常"><a href="#第70条：对可恢复的情况使用受检异常，对编程错误使用运行时异常" class="headerlink" title="第70条：对可恢复的情况使用受检异常，对编程错误使用运行时异常"></a>第70条：对可恢复的情况使用受检异常，对编程错误使用运行时异常</h4><h4 id="第71条：避免不必要地使用受检异常"><a href="#第71条：避免不必要地使用受检异常" class="headerlink" title="第71条：避免不必要地使用受检异常"></a>第71条：避免不必要地使用受检异常</h4><h4 id="第72条：优先使用标准的异常"><a href="#第72条：优先使用标准的异常" class="headerlink" title="第72条：优先使用标准的异常"></a>第72条：优先使用标准的异常</h4><h4 id="第73条：抛出与抽象对应的异常"><a href="#第73条：抛出与抽象对应的异常" class="headerlink" title="第73条：抛出与抽象对应的异常"></a>第73条：抛出与抽象对应的异常</h4><h4 id="第74条：每个方法抛出的所有异常都要建立文档"><a href="#第74条：每个方法抛出的所有异常都要建立文档" class="headerlink" title="第74条：每个方法抛出的所有异常都要建立文档"></a>第74条：每个方法抛出的所有异常都要建立文档</h4><h4 id="第75条：在细节消息中包含失败-捕获信息"><a href="#第75条：在细节消息中包含失败-捕获信息" class="headerlink" title="第75条：在细节消息中包含失败-捕获信息"></a>第75条：在细节消息中包含失败-捕获信息</h4><h4 id="第76条：努力使失败保持原子性"><a href="#第76条：努力使失败保持原子性" class="headerlink" title="第76条：努力使失败保持原子性"></a>第76条：努力使失败保持原子性</h4><h4 id="第77条：不要忽略异常"><a href="#第77条：不要忽略异常" class="headerlink" title="第77条：不要忽略异常"></a>第77条：不要忽略异常</h4><h4 id="第78条：同步访问共享的可变数据"><a href="#第78条：同步访问共享的可变数据" class="headerlink" title="第78条：同步访问共享的可变数据"></a>第78条：同步访问共享的可变数据</h4><h4 id="第79条：避免过度同步"><a href="#第79条：避免过度同步" class="headerlink" title="第79条：避免过度同步"></a>第79条：避免过度同步</h4><h4 id="第80条：executor、task和stream优先于线程"><a href="#第80条：executor、task和stream优先于线程" class="headerlink" title="第80条：executor、task和stream优先于线程"></a>第80条：executor、task和stream优先于线程</h4><h4 id="第81条：并发工具优先于wait和notify"><a href="#第81条：并发工具优先于wait和notify" class="headerlink" title="第81条：并发工具优先于wait和notify"></a>第81条：并发工具优先于wait和notify</h4><h4 id="第82条：线程安全性的文档化"><a href="#第82条：线程安全性的文档化" class="headerlink" title="第82条：线程安全性的文档化"></a>第82条：线程安全性的文档化</h4><h4 id="第83条：慎用延迟初始化"><a href="#第83条：慎用延迟初始化" class="headerlink" title="第83条：慎用延迟初始化"></a>第83条：慎用延迟初始化</h4><h4 id="第84条：不要依赖于线程调度器"><a href="#第84条：不要依赖于线程调度器" class="headerlink" title="第84条：不要依赖于线程调度器"></a>第84条：不要依赖于线程调度器</h4><h4 id="第85条：其他方法优先于Java序列化"><a href="#第85条：其他方法优先于Java序列化" class="headerlink" title="第85条：其他方法优先于Java序列化"></a>第85条：其他方法优先于Java序列化</h4><h4 id="第86条：谨慎地实现Serializable接口"><a href="#第86条：谨慎地实现Serializable接口" class="headerlink" title="第86条：谨慎地实现Serializable接口"></a>第86条：谨慎地实现Serializable接口</h4><h4 id="第87条：考虑使用自定义的序列化形式"><a href="#第87条：考虑使用自定义的序列化形式" class="headerlink" title="第87条：考虑使用自定义的序列化形式"></a>第87条：考虑使用自定义的序列化形式</h4><h4 id="第88条：保护性地编写readObject方法"><a href="#第88条：保护性地编写readObject方法" class="headerlink" title="第88条：保护性地编写readObject方法"></a>第88条：保护性地编写readObject方法</h4><h4 id="第89条：对于实例控制，枚举类型优先于readResolve"><a href="#第89条：对于实例控制，枚举类型优先于readResolve" class="headerlink" title="第89条：对于实例控制，枚举类型优先于readResolve"></a>第89条：对于实例控制，枚举类型优先于readResolve</h4><h4 id="第90条：考虑用序列化代理代替序列化实例"><a href="#第90条：考虑用序列化代理代替序列化实例" class="headerlink" title="第90条：考虑用序列化代理代替序列化实例"></a>第90条：考虑用序列化代理代替序列化实例</h4></blockquote>
+]]></content>
+      <categories>
+        <category>后端</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -495,8 +469,739 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>命令</tag>
         <tag>Linux</tag>
+        <tag>命令</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vim使用</title>
+    <url>/2022/03/24/Vim%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>vim四种模式分别为普通模式、命令模式、编辑模式、视图模式</p>
+<table>
+<thead>
+<tr>
+<th align="center">键位</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>j</strong></td>
+<td align="center">向下移动光标</td>
+</tr>
+<tr>
+<td align="center"><strong>k</strong></td>
+<td align="center">向上移动光标</td>
+</tr>
+<tr>
+<td align="center"><strong>h</strong></td>
+<td align="center">向左移动光标</td>
+</tr>
+<tr>
+<td align="center"><strong>l</strong></td>
+<td align="center">向右移动光标</td>
+</tr>
+<tr>
+<td align="center"><strong>0</strong></td>
+<td align="center">移动行首</td>
+</tr>
+<tr>
+<td align="center"><strong>^</strong></td>
+<td align="center">移动行首第一个非空白字符</td>
+</tr>
+<tr>
+<td align="center"><strong>$</strong></td>
+<td align="center">移动行尾</td>
+</tr>
+<tr>
+<td align="center"><strong>g_</strong></td>
+<td align="center">移动到行尾非空白字符</td>
+</tr>
+<tr>
+<td align="center"><strong>w/W</strong></td>
+<td align="center">正向移动到下一个单词词首</td>
+</tr>
+<tr>
+<td align="center"><strong>b/B</strong></td>
+<td align="center">反向移动到上一个单词词首</td>
+</tr>
+<tr>
+<td align="center"><strong>e/E</strong></td>
+<td align="center">正向移动到下一个单词词尾</td>
+</tr>
+<tr>
+<td align="center"><strong>ge</strong></td>
+<td align="center">反向移动到上一个单词词首</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+f(forward)</strong></td>
+<td align="center">向下翻页</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+b(back)</strong></td>
+<td align="center">向上翻页</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+d</strong></td>
+<td align="center">向下翻半页</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+u</strong></td>
+<td align="center">向上翻半页</td>
+</tr>
+<tr>
+<td align="center"><strong>zz</strong></td>
+<td align="center">把屏幕至于中间</td>
+</tr>
+<tr>
+<td align="center"><strong>H/M/L</strong></td>
+<td align="center">跳转到文本开头/中间/结尾</td>
+</tr>
+<tr>
+<td align="center"><strong>gg</strong></td>
+<td align="center">回到第一行行首</td>
+</tr>
+<tr>
+<td align="center"><strong>数字+gg/G</strong></td>
+<td align="center">移动到指定行行首</td>
+</tr>
+<tr>
+<td align="center"><strong>G</strong></td>
+<td align="center">移动到最后一行行首</td>
+</tr>
+<tr>
+<td align="center"><strong>g+ctrl+g</strong></td>
+<td align="center">光标所在行信息</td>
+</tr>
+<tr>
+<td align="center"><strong>j+ctrl+g</strong></td>
+<td align="center">获取文件名所在行数</td>
+</tr>
+<tr>
+<td align="center"><strong>&gt;&gt;/:&gt;</strong></td>
+<td align="center">右缩进</td>
+</tr>
+<tr>
+<td align="center"><strong>&lt;&lt;/:&lt;</strong></td>
+<td align="center">左缩进</td>
+</tr>
+<tr>
+<td align="center"><strong>m,n&gt;/:m&gt;(n-m+1)</strong></td>
+<td align="center">m到n行右缩进</td>
+</tr>
+<tr>
+<td align="center"><strong>&gt;+数字</strong></td>
+<td align="center">当前光标下几行进行缩进</td>
+</tr>
+<tr>
+<td align="center"><strong>:m&gt;n</strong></td>
+<td align="center">指定m位置下n行进行缩进</td>
+</tr>
+<tr>
+<td align="center"><strong>dd</strong></td>
+<td align="center">剪切整行</td>
+</tr>
+<tr>
+<td align="center"><strong>yy</strong></td>
+<td align="center">复制整行</td>
+</tr>
+<tr>
+<td align="center"><strong>p/P</strong></td>
+<td align="center">粘贴</td>
+</tr>
+<tr>
+<td align="center"><strong>u</strong></td>
+<td align="center">撤销</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+r</strong></td>
+<td align="center">重做/恢复之前操作</td>
+</tr>
+<tr>
+<td align="center"><strong>yw</strong></td>
+<td align="center">当前光标单个单词</td>
+</tr>
+<tr>
+<td align="center"><strong>y+数字+w</strong></td>
+<td align="center">复制正向多个单词</td>
+</tr>
+<tr>
+<td align="center"><strong>x/X</strong></td>
+<td align="center">剪切当前字符/剪切前一个字符</td>
+</tr>
+<tr>
+<td align="center"><strong>dw</strong></td>
+<td align="center">删除一个单词</td>
+</tr>
+<tr>
+<td align="center"><strong>dj</strong></td>
+<td align="center">删除当前行以及下一行</td>
+</tr>
+<tr>
+<td align="center"><strong>dk</strong></td>
+<td align="center">删除当前行以及上一行</td>
+</tr>
+<tr>
+<td align="center"><strong>dh</strong></td>
+<td align="center">删除前一个字符</td>
+</tr>
+<tr>
+<td align="center"><strong>dl</strong></td>
+<td align="center">删除当前字符</td>
+</tr>
+<tr>
+<td align="center"><strong>d$/D</strong></td>
+<td align="center">删除光标到行尾字符</td>
+</tr>
+<tr>
+<td align="center"><strong>d^</strong></td>
+<td align="center">删除光标当行首字符</td>
+</tr>
+<tr>
+<td align="center"><strong>数字+dd</strong></td>
+<td align="center">删除向下几行</td>
+</tr>
+<tr>
+<td align="center"><strong>m+d+w</strong></td>
+<td align="center">删除正向单词m次</td>
+</tr>
+<tr>
+<td align="center"><strong>d+n+w</strong></td>
+<td align="center">正向删除nw动作</td>
+</tr>
+<tr>
+<td align="center"><strong>m+d+n+w</strong></td>
+<td align="center">正向删除nw动作m次</td>
+</tr>
+<tr>
+<td align="center"><strong>数字+w</strong></td>
+<td align="center">正向移动几个单词</td>
+</tr>
+<tr>
+<td align="center"><strong>shift+i/A</strong></td>
+<td align="center">插入行首/行尾</td>
+</tr>
+<tr>
+<td align="center"><strong>i</strong></td>
+<td align="center">光标前插入</td>
+</tr>
+<tr>
+<td align="center"><strong>a</strong></td>
+<td align="center">光标后插入</td>
+</tr>
+<tr>
+<td align="center"><strong>o/O</strong></td>
+<td align="center">下一行/上一行插入</td>
+</tr>
+<tr>
+<td align="center"><strong>数字+o</strong></td>
+<td align="center">向下插入几行</td>
+</tr>
+<tr>
+<td align="center"><strong>~</strong></td>
+<td align="center">当个字符大小写转换</td>
+</tr>
+<tr>
+<td align="center"><strong>g~W</strong></td>
+<td align="center">单词大小写转换</td>
+</tr>
+<tr>
+<td align="center"><strong>g<del>$/g</del></strong></td>
+<td align="center">整行大小写转换</td>
+</tr>
+<tr>
+<td align="center"><strong>g+U/u+w</strong></td>
+<td align="center">单词转换成大/小写</td>
+</tr>
+<tr>
+<td align="center"><strong>g+U/u+n</strong></td>
+<td align="center">转换大/小写n行</td>
+</tr>
+<tr>
+<td align="center"><strong>.</strong></td>
+<td align="center">重复上一个操作</td>
+</tr>
+<tr>
+<td align="center"><strong>F/f{char}</strong></td>
+<td align="center">当前行反向/正向查找单个字符，<code>;</code>匹配下一个字符</td>
+</tr>
+<tr>
+<td align="center"><strong>t{char}</strong></td>
+<td align="center">查找到前一个字符，<code>;</code>匹配下一个字符</td>
+</tr>
+<tr>
+<td align="center"><strong>df{space}</strong></td>
+<td align="center">当前光标到一个单词词首的所有字符</td>
+</tr>
+<tr>
+<td align="center"><strong>/{char}</strong></td>
+<td align="center">全局搜索（n下一个，N上一个）</td>
+</tr>
+<tr>
+<td align="center"><strong>:s/原/替/g</strong></td>
+<td align="center">当前行所有目标替换</td>
+</tr>
+<tr>
+<td align="center"><strong>:%s/原/替/g</strong></td>
+<td align="center">%匹配所有范围</td>
+</tr>
+<tr>
+<td align="center"><strong>shift+r</strong></td>
+<td align="center">当前行进行替换</td>
+</tr>
+<tr>
+<td align="center"><strong>r</strong></td>
+<td align="center">对单个字符替换</td>
+</tr>
+<tr>
+<td align="center"><strong>cw</strong></td>
+<td align="center">修改单个单词</td>
+</tr>
+<tr>
+<td align="center"><strong>c$/C</strong></td>
+<td align="center">修改光标之后行内内容</td>
+</tr>
+<tr>
+<td align="center"><strong>c+数字+w</strong></td>
+<td align="center">修改多个单词</td>
+</tr>
+<tr>
+<td align="center"><strong>:files/buffers/ls</strong></td>
+<td align="center">查看缓冲区</td>
+</tr>
+<tr>
+<td align="center"><strong>:bp[previous]</strong></td>
+<td align="center">上一个缓冲区</td>
+</tr>
+<tr>
+<td align="center"><strong>:bn[next]</strong></td>
+<td align="center">下一个缓冲区</td>
+</tr>
+<tr>
+<td align="center"><strong>:bf[first]</strong></td>
+<td align="center">到第一个缓冲区</td>
+</tr>
+<tr>
+<td align="center"><strong>:bl[last]</strong></td>
+<td align="center">到最后一个缓冲区</td>
+</tr>
+<tr>
+<td align="center"><strong>:b Number/File_name</strong></td>
+<td align="center">指定缓冲区</td>
+</tr>
+<tr>
+<td align="center"><strong>:ball</strong></td>
+<td align="center">编辑所有缓冲区(:qall退出所有)</td>
+</tr>
+<tr>
+<td align="center"><strong>Ctrl+^/b#</strong></td>
+<td align="center">切换到前一个buffer(交换buffer)</td>
+</tr>
+<tr>
+<td align="center"><strong>badd</strong></td>
+<td align="center">打开新缓冲区</td>
+</tr>
+<tr>
+<td align="center"><strong>bd</strong></td>
+<td align="center">删除缓冲区</td>
+</tr>
+<tr>
+<td align="center"><strong>%bd</strong></td>
+<td align="center">删除所有缓冲区</td>
+</tr>
+<tr>
+<td align="center"><strong>:bufdo set number?</strong></td>
+<td align="center">查看所有缓冲区是否设置number</td>
+</tr>
+<tr>
+<td align="center"><strong>vim -O/on</strong></td>
+<td align="center">水平/垂直分屏，n:数字,o:Open</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w c/q</strong></td>
+<td align="center">关闭当前窗口/最后一个窗口时退出</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w s</strong></td>
+<td align="center">上下分割当前打开的文件</td>
+</tr>
+<tr>
+<td align="center"><strong>:sp filename</strong></td>
+<td align="center">上下分割，并打开一个新的文件</td>
+</tr>
+<tr>
+<td align="center"><strong>:vs filename</strong></td>
+<td align="center">左右分割，并打开一个新的文件</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w v</strong></td>
+<td align="center">左右分割当前打开的文件</td>
+</tr>
+<tr>
+<td align="center"><strong>:vsp filename</strong></td>
+<td align="center">左右分割，并打开一个新的文件</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w K</strong></td>
+<td align="center">光标移动上一个分屏</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w J</strong></td>
+<td align="center">光标移动下一个分屏</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w L</strong></td>
+<td align="center">光标移动右一个分屏</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w H</strong></td>
+<td align="center">光标移动左一个分屏</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w+</strong></td>
+<td align="center">增加当前光标所在屏高度</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w-</strong></td>
+<td align="center">减少当前光标所在屏高度</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w=</strong></td>
+<td align="center">让所有屏的高度一致</td>
+</tr>
+<tr>
+<td align="center"><strong>:tabnew</strong></td>
+<td align="center">新建标签页</td>
+</tr>
+<tr>
+<td align="center"><strong>:tabfind</strong></td>
+<td align="center">查找并在新标签页中打开文件</td>
+</tr>
+<tr>
+<td align="center"><strong>:tabs</strong></td>
+<td align="center">显示已打开标签页的列表</td>
+</tr>
+<tr>
+<td align="center"><strong>:tabclose</strong></td>
+<td align="center">关闭当前标签页</td>
+</tr>
+<tr>
+<td align="center"><strong>:tabonly</strong></td>
+<td align="center">仅保留当前标签页打开</td>
+</tr>
+<tr>
+<td align="center"><strong>:tabn/p/first/last</strong></td>
+<td align="center">移动到下/上/第一/最后一个标签页</td>
+</tr>
+<tr>
+<td align="center"><strong>gt/T</strong></td>
+<td align="center">移动到下/上一个标签</td>
+</tr>
+<tr>
+<td align="center"><strong>{i}gt</strong></td>
+<td align="center">移动到i位置的标签</td>
+</tr>
+<tr>
+<td align="center"><strong>:tabe</strong></td>
+<td align="center">编辑标签中的某个文件</td>
+</tr>
+<tr>
+<td align="center"><strong>:tabm 0/tabm</strong></td>
+<td align="center">移动当前tab到第一个/最后一个</td>
+</tr>
+<tr>
+<td align="center"><strong>:tabm{i}</strong></td>
+<td align="center">移动当前tab到i+1位置</td>
+</tr>
+<tr>
+<td align="center"><strong>qa</strong></td>
+<td align="center">开始录制宏存到寄存器a中</td>
+</tr>
+<tr>
+<td align="center"><strong>qA</strong></td>
+<td align="center">追加宏在a寄存器中追加</td>
+</tr>
+<tr>
+<td align="center"><strong>n@a</strong></td>
+<td align="center">执行n遍a寄存器中的操作</td>
+</tr>
+<tr>
+<td align="center"><strong>@@</strong></td>
+<td align="center">再执行一遍上一次操作</td>
+</tr>
+<tr>
+<td align="center"><strong>:n,mnormal @a</strong></td>
+<td align="center">n到m行执行寄存器a宏操作</td>
+</tr>
+<tr>
+<td align="center"><strong>:let @a=’</strong></td>
+<td align="center">编辑宏a寄存器</td>
+</tr>
+<tr>
+<td align="center"><strong>v</strong></td>
+<td align="center">激活面向字符的可视化模式</td>
+</tr>
+<tr>
+<td align="center"><strong>V/shift+v</strong></td>
+<td align="center">激活面向行的可视化模式</td>
+</tr>
+<tr>
+<td align="center"><strong>Ctrl+v</strong></td>
+<td align="center">激活面向列块的可视化模式</td>
+</tr>
+<tr>
+<td align="center"><strong>gv</strong></td>
+<td align="center">重选上次的高亮选区</td>
+</tr>
+<tr>
+<td align="center"><strong>o</strong></td>
+<td align="center">切换选取边界</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+h</strong></td>
+<td align="center">插入模式删除上一个字符</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w</strong></td>
+<td align="center">插入模式删除上一个单词</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+u</strong></td>
+<td align="center">插入模式删除当前行</td>
+</tr>
+<tr>
+<td align="center"><strong>gi</strong></td>
+<td align="center">快速移动到之前光标所在位置并进入插入模式</td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+]]></content>
+  </entry>
+  <entry>
+    <title>Vue笔记</title>
+    <url>/2022/03/18/Vue%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>TED的一篇演讲</title>
+    <url>/2021/09/26/TED%E7%9A%84%E4%B8%80%E7%AF%87%E6%BC%94%E8%AE%B2/</url>
+    <content><![CDATA[<h3 id="《不要让别人打乱你的人生节奏》"><a href="#《不要让别人打乱你的人生节奏》" class="headerlink" title="《不要让别人打乱你的人生节奏》"></a>《不要让别人打乱你的人生节奏》</h3><p><strong>我挺喜欢TED的演讲视频，各国各领域的人用他们优秀的口才，来传达给人们他们的思想和认知。你可以完全认同他们的观点，也可以认同其中一部分，或者全盘否定。观点无对错，你可以认为今天很冷，他可以认为一般，或者有点热。我们再别人的演讲中，其实也是对认知的进一步改观，思想的放开，从中收获，思考。我之所以分享这一篇演讲，其一，源于喜欢。其二，这也算是我们有时感到人生迷茫时的“鸡汤”，再次抄录，还是那句话，不一样的人，不一样的感受，一千个人眼中有一千个哈姆雷特。</strong></p>
+<a id="more"></a>
+<p><strong>有的人21岁毕业，到27岁才找到工作</strong>  </p>
+<p><strong>有点人25岁毕业，但马上就找到了工作</strong>  </p>
+<p><strong>有的人没上过大学，却在18岁就找到了热爱的事</strong>  </p>
+<p><strong>有的人一毕业就找到好工作，赚很多钱，却过的不开心</strong>  </p>
+<p><strong>有的人选择间隔年，去寻找自我</strong>  </p>
+<p><strong>有的人16岁就清楚知道自己要什么，但在26岁时改变了想法</strong>  </p>
+<p><strong>有的人有了孩子，却还是单身</strong>  </p>
+<p><strong>有的人结了婚，却等了10年才生孩子</strong>  </p>
+<p><strong>有的人身处一段感情，爱的却是别人</strong>  </p>
+<p><strong>有的人明明彼此相爱，却没有在一起</strong>  </p>
+<p><strong>我想说的是，人生中的每一件事都取决于我们自己的时间</strong>  </p>
+<p><strong>你身边有些朋友也许遥遥领先于你</strong>  </p>
+<p><strong>有些朋友也许落后于你，但凡事都有它自己的节奏</strong>  </p>
+<p><strong>他们有他们的节奏，你有你自己的</strong>  </p>
+<p><strong>耐心一点</strong>  </p>
+<p><strong>Mark Cuban 25岁的时候还在酒吧做酒保</strong>    </p>
+<p><strong>在被拒12次后，JK罗琳到32岁才出版了哈利波特</strong>  </p>
+<p><strong>Otega到39岁才创办了Zara</strong>  </p>
+<p><strong>马云35岁才建立了阿里巴巴</strong>  </p>
+<p><strong>Morgan Freeman 到52岁的时候才迎来他演艺事业的大爆发</strong></p>
+<p><strong>Steve Carell 40岁才红</strong>  </p>
+<p><strong>Rinchard Branson 34岁才创办维珍航空</strong>  </p>
+<p><strong>25岁后才拿到文凭，依然值得骄傲</strong>  </p>
+<p><strong>30岁没结婚，但过得快乐也是一种成功</strong>  </p>
+<p><strong>35岁之后成家也完全可以</strong>  </p>
+<p><strong>40岁买房也没什么丢脸的</strong>  </p>
+<p><strong>不要让任何人扰乱你的时间表</strong>    </p>
+<p><strong>因为爱因斯坦曾经说过，</strong>  </p>
+<p><strong>并不是每一件算的出来的事都有意义</strong>  </p>
+<p><strong>也不是每一件有意义的事，都能够被算出来</strong>  </p>
+<p><strong>这才是最重要的事</strong></p>
+<p><strong>我希望你们可以创造属于自己的充满意义的人生</strong>  </p>
+<p><strong>学会用这些去影响点亮他人的生活</strong>  </p>
+<p><strong>这才是真正的成功</strong>     </p>
+]]></content>
+      <categories>
+        <category>分享</category>
+      </categories>
+      <tags>
+        <tag>演讲</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>dom4j</title>
+    <url>/2020/04/21/dom4j/</url>
+    <content><![CDATA[<h3 id="dom4j"><a href="#dom4j" class="headerlink" title="dom4j"></a>dom4j</h3><p><strong>dom4j组织提供了针对xml解析的解析器dom4j,其是由jdom组织分裂出来后出现的,其优于jdom。dom4j不是javase的一部分</strong></p>
+<a id="more"></a>
+
+<h4 id="dom4j使用"><a href="#dom4j使用" class="headerlink" title="dom4j使用"></a>dom4j使用</h4><p><em>使用前需要在项目中导入dom4j的jar包</em><br>xml文件如下:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1 id1&#x3D;&quot;01&quot;&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现查询xml中元素操作"><a href="#dom4j实现查询xml中元素操作" class="headerlink" title="dom4j实现查询xml中元素操作"></a>dom4j实现查询xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查询所有name元素里的值</span><br><span class="line">	public static void selectName() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到p1</span><br><span class="line">		List&lt;Element&gt; list &#x3D; root.elements(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.遍历List</span><br><span class="line">		for(Element temp:list)&#123;</span><br><span class="line">			&#x2F;&#x2F;这里temp得到每一个p1元素</span><br><span class="line">			Element name1 &#x3D; temp.element(&quot;name&quot;);&#x2F;&#x2F;得到p1下面的name元素</span><br><span class="line">			&#x2F;&#x2F;得到name里面的值</span><br><span class="line">			String s &#x3D; name1.getText();</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;查询第一个name元素的值</span><br><span class="line">	public static void selectSin() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到p1下第一个name</span><br><span class="line">		Element name1 &#x3D; p1.element(&quot;name&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.得到name的值</span><br><span class="line">		String s1 &#x3D; name1.getText();</span><br><span class="line">		System.out.println(s1);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#x2F;&#x2F;查询第二个name元素的值	</span><br><span class="line">	public static void selectSecond() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到所有p1</span><br><span class="line">		List&lt;Element&gt; list &#x3D; root.elements(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到第二个p1</span><br><span class="line">		Element p2 &#x3D; list.get(1);</span><br><span class="line">		&#x2F;&#x2F;6.得到p1下面name</span><br><span class="line">		Element name2 &#x3D; p2.element(&quot;name&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.得到name的值</span><br><span class="line">		String s2 &#x3D; name2.getText();</span><br><span class="line">		System.out.println(s2);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现添加xml中元素操作"><a href="#dom4j实现添加xml中元素操作" class="headerlink" title="dom4j实现添加xml中元素操作"></a>dom4j实现添加xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;在第一个p1标签末尾添加一个sex标签</span><br><span class="line">	public static addSex() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.获取第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.p1下面添加sex元素</span><br><span class="line">		Element sex1 &#x3D; p1.addElement(&quot;sex&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.在sex里添加内容</span><br><span class="line">		sex1.setText(&quot;男&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="在特定位置实现元素添加"><a href="#在特定位置实现元素添加" class="headerlink" title="在特定位置实现元素添加"></a>在特定位置实现元素添加</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;在第一个p1标签中age标签前添加一个&lt;school&gt;cqgcxy.edu.cn&lt;&#x2F;school&gt;</span><br><span class="line">	public static void addAgeBefore() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();		</span><br><span class="line">		&#x2F;&#x2F;4.获取第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.获取p1下面的所有元素</span><br><span class="line">		List&lt;Element&gt; list &#x3D; p1.elements();</span><br><span class="line">		&#x2F;&#x2F;6.创建要添加元素</span><br><span class="line">		Element school &#x3D; DocumentHelper.createElement(&quot;school&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.给标签添加内容</span><br><span class="line">		school.setText(&quot;eqgcxy.edu.cn&quot;);</span><br><span class="line">		&#x2F;&#x2F;8.在特定位置添加元素</span><br><span class="line">		list.add(1,school);</span><br><span class="line">		&#x2F;&#x2F;9.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现修改xml中元素操作"><a href="#dom4j实现修改xml中元素操作" class="headerlink" title="dom4j实现修改xml中元素操作"></a>dom4j实现修改xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;修改第一个p1中age元素内容</span><br><span class="line">	public static void fixAge() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();	</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到age</span><br><span class="line">		Element age &#x3D; p1.element(&quot;age&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.修改age的值</span><br><span class="line">		age.setText(&quot;250&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现删除xml中元素操作"><a href="#dom4j实现删除xml中元素操作" class="headerlink" title="dom4j实现删除xml中元素操作"></a>dom4j实现删除xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;删除第一个p1下school节点</span><br><span class="line">	public static void deleteSchool() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;*使用工具类替换1、2步</span><br><span class="line">		Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);*&#x2F;</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();	</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到school</span><br><span class="line">		Element school &#x3D; p1.element(&quot;school&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.删除school(通过父节点实现删除)</span><br><span class="line">		p1.remove(school);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">		&#x2F;*使用工具类替换回写操作</span><br><span class="line">		Dom4jUtils.xmlWriter(PATH,document)*&#x2F;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现获取xml中元素属性值操作"><a href="#dom4j实现获取xml中元素属性值操作" class="headerlink" title="dom4j实现获取xml中元素属性值操作"></a>dom4j实现获取xml中元素属性值操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取第一个p1属性id1的值</span><br><span class="line">	public static void getValue() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.获取p1的属性id1值</span><br><span class="line">		String value &#x3D; p1.attributeValue(&quot;id1&quot;);</span><br><span class="line">		System.out.println(value);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j工具类"><a href="#dom4j工具类" class="headerlink" title="dom4j工具类"></a>dom4j工具类</h5><p><strong>由于什么的CRUD代码中存在大量重复使用的代码，因此我们可以建立一个工具类来封装这些重复代码，实现调用工具类，来减少代码冗余</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Dom4jUtils&#123;</span><br><span class="line">	public state final String PATH &#x3D; &quot;src&#x2F;person.xml&quot;;</span><br><span class="line">	&#x2F;&#x2F;返回document</span><br><span class="line">	public static Document getDocument(String path)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			&#x2F;&#x2F;1.创建解析器</span><br><span class="line">			SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">			&#x2F;&#x2F;2.得到document</span><br><span class="line">			Document document &#x3D; saxReader.read(path);</span><br><span class="line">			return document;</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		return null;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;回写xml</span><br><span class="line">	public static void xmlWriter(String path,Document document)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">			XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">			writer.write(document);</span><br><span class="line">			writer.close();</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="dom4j支持XPATH操作"><a href="#dom4j支持XPATH操作" class="headerlink" title="dom4j支持XPATH操作"></a>dom4j支持XPATH操作</h4><p><strong>可以直接获取某一个元素，不必按照一层一层解析的方式</strong></p>
+<h5 id="语法形式"><a href="#语法形式" class="headerlink" title="语法形式"></a>语法形式</h5><p>第一种形式：<code>/a/b/c</code>来表示a里面的b里面的c<br>第二种形式：<code>//A</code>表示选择所有A元素<br>第三种形式：<code>/AAA/CCC/DDD/*</code>表示/AAA/CCC/DDD/里面的所有元素<br>第四种形式：<code>/*/*/*/</code>DDD表示选择所有第四层所有DDD元素<br>第五种形式；<code>//*</code>所有元素<br>第六种形式：<code>/a/b[1]</code>选择a标签中第一个b标签，/a/b[last()]选择a标签中最后一个b标签<br>第七种形式：<code>//@id</code>表示选择所有id属性，//BBB[@id]表示选择所有含id属性的BBB元素<br>第八种形式；<code>//BBB[@id=&#39;b1&#39;]</code>选择含Id属性且值为b1的所有BBB标签,b1如果左右有空格将不会被选取*</p>
+<h5 id="如何在dom4j中使用XPATH"><a href="#如何在dom4j中使用XPATH" class="headerlink" title="如何在dom4j中使用XPATH"></a>如何在dom4j中使用XPATH</h5><p><strong>默认的情况下，dom4j不支持XPATH，如果想使用，需要引入XPATH的jar包，在文件中找到jaxen-1.1-beta-6.jar，将其复制进eclipse构建的项目中lib下，右击项目Build Path选择Add to Build Path</strong><br><strong>在dom4j中提供了两个方法支持XPATH,它们分别是：selectNodes(“XPATH表达式”)和selectSingleNode(“XPATH表达式”)，第一个方法获取多个节点，第二个则获取单一节点</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查询xml中所有name元素的值</span><br><span class="line">public static void getValue()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到所有name</span><br><span class="line">	List&lt;Node&gt; list&#x3D;document.selectNodes(&quot;&#x2F;&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.遍历集合</span><br><span class="line">	for(Node note:list)&#123;&#x2F;&#x2F;node是每一个name元素</span><br><span class="line">		&#x2F;&#x2F;获取name元素里面的值</span><br><span class="line">		String s &#x3D; node.getText();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取第一个p1下面name的值</span><br><span class="line">public static void getValue1()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到name元素</span><br><span class="line">	Node name1&#x3D;document.和selectSingleNode(&quot;&#x2F;&#x2F;p1[@id1&#x3D;&quot;01&quot;]&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.得到name里面内容</span><br><span class="line">	String s1 &#x3D; name1.getText();</span><br><span class="line">	System.out.println(s1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>JavaWeb</category>
+      </categories>
+      <tags>
+        <tag>XML</tag>
+        <tag>标记语言</tag>
+        <tag>XML解析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVN版本控制</title>
+    <url>/2020/03/18/SVN%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</url>
+    <content><![CDATA[<h2 id="SVN版本控制"><a href="#SVN版本控制" class="headerlink" title="SVN版本控制"></a>SVN版本控制</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><strong>SVN是subversion的缩写，是一个开放源代码的版本控制系统（CMS），通过采用分支管理系统的高效管理，简而言之就是用于多个人共同开发同一个项目，实现共享资源，实现最终集中式的管理，它是最初版本控制工具CVS的升级版</strong></p>
+<a id="more"></a>
+
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p><strong>由于实际项目开发是多人进行开发，就会出现项目代码提交的冲突，这时候使用项目版本控制工具可以有效地解决冲突以及代码的管理</strong></p>
+<h3 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h3><p><strong>在SVN中所保存的代码只能被本地进行管理，这一局限性也导致Linux之父林纳斯·托瓦兹开发了其替代产品Git。而且SVN使用了客户端服务器模式，也是说如果使用SVN一定要搭建服务其，还要单独配置客户端，也就是说，SVN如果脱离了网络，那么将无法进行版本控制</strong></p>
+<h3 id="SVN服务器的搭建"><a href="#SVN服务器的搭建" class="headerlink" title="SVN服务器的搭建"></a>SVN服务器的搭建</h3><p><em>注意：如果想要用自己电脑搭建SVN服务器一定要关闭防火墙，有360的需要卸载，否则可能出现连接不上</em><br><strong>满足上述要求以后，下载SVN服务器端软件自行选择，有apache的<a href="http://subversion.apache.org/packages.html" target="_blank" rel="noopener">subversion</a>,还有<a href="https://www.visualsvn.com/" target="_blank" rel="noopener">VisualSVN</a>等，这里提到的前一个配置相对麻烦，而VisualSVN适合新手，傻瓜式安装，具体安装不详细说明，网上有很多安装步骤详细讲解</strong></p>
+<h3 id="SVN客户端的配置"><a href="#SVN客户端的配置" class="headerlink" title="SVN客户端的配置"></a>SVN客户端的配置</h3><p><strong>至于客户端，则是<a href="https://tortoisesvn.net/" target="_blank" rel="noopener">TortoiseSVN</a>,页面进去是最新版客户端SVN，想要老版本下面文章有进入链接，至于对自己英语水平不自信的，比如我，最好还是下一语言包，安装也很简单不再赘述</strong></p>
+<h3 id="项目的发布与检出"><a href="#项目的发布与检出" class="headerlink" title="项目的发布与检出"></a>项目的发布与检出</h3><p><strong>喜欢用命令的用命令，当然下载了TortoiseSVN用命令感觉多此一举，因为我们是服务器与客户端都在自己本机，首先应当是确定自己的服务端是否启动，这很关键，在就是搭建自己的版本库，因为都是可视化界面，什么创建项目，创建组，创建用户啊都很容易，然后就是自己客户端操作，实现项目检入与检出，这里提醒一下汉化后其实导出就是检出，但检入和检出与导入和导出是不同概念。检入字面意思理解就是让你本地项目交给服务端管理，接受版本控制。而导入则不然，相当于复制入服务端，但不受其控制，就是两者没内在联系。导出和检出同理</strong></p>
+<h3 id="解决冲突问题"><a href="#解决冲突问题" class="headerlink" title="解决冲突问题"></a>解决冲突问题</h3><p><strong>项目提交难免会发生冲突，SVN提供了很好解决方案，当你与另一人提交的同一文件发生冲突，会提醒你，然后你打开文件，会查看到你修改的与另一个人的代码同时存在，这时需要你自己判断两者都要保留，然后合并。还是删除其一的修改，这就是你自己的判断了。因为本人比较懒不想截图，所以全篇没有图片参考，字面意思自认为该讲的都讲了。当然SVN插件在eclipse、IntelliJ IDEA等工具的使用自行体会网上教程很多。</strong></p>
+]]></content>
+      <categories>
+        <category>开发工具</category>
+      </categories>
+      <tags>
+        <tag>SVN</tag>
+        <tag>版本控制</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>dynasties</title>
+    <url>/2020/04/01/dynasties/</url>
+    <content><![CDATA[<a id="more"></a>
+<p><img src="http://img.xixik.net/cimg/083/xixik_c53006a681fc4200.jpeg" alt="尧舜禹→夏" title="尧舜禹→夏"><br><img src="http://img.xixik.net/cimg/083/xixik_87512603bf7f461e.jpeg" alt="商" title="商"><br><img src="http://img.xixik.net/cimg/083/xixik_a1523ca6228beae4.jpeg" alt="周" title="周"><br><img src="http://img.xixik.net/cimg/083/xixik_87c9e06af0d51132.jpeg" alt="秦" title="秦"><br><img src="http://img.xixik.net/cimg/083/xixik_01848d23bc3c0496.jpeg" alt="汉" title="汉"><br><img src="http://img.xixik.net/cimg/083/xixik_2a93308ddfd78f78.jpeg" alt="魏" title="魏"><br><img src="http://img.xixik.net/cimg/083/xixik_34ae3a4f7693d9ea.jpeg" alt="蜀" title="蜀"><br><img src="http://img.xixik.net/cimg/083/xixik_bafe42d5cde82df4.jpeg" alt="吴" title="吴"><br><img src="http://img.xixik.net/cimg/083/xixik_20b47e2887f23ecf.jpeg" alt="晋" title="晋"><br><img src="http://img.xixik.net/cimg/083/xixik_57f8d17ebfdb1a85.jpeg" alt="隋" title="隋"><br><img src="http://img.xixik.net/cimg/083/xixik_04c8ec9fff83c2f9.jpeg" alt="唐" title="唐"><br><img src="http://img.xixik.net/cimg/083/xixik_6bc06e9bb6ef708c.jpeg" alt="辽" title="辽"><br><img src="http://img.xixik.net/cimg/083/xixik_6e40141c5eb849ea.jpeg" alt="宋" title="宋"><br><img src="http://img.xixik.net/cimg/083/xixik_74a385004d03fc0a.jpeg" alt="西夏" title="西夏"><br><img src="http://img.xixik.net/cimg/083/xixik_d209b6d3983aaf85.jpeg" alt="金" title="金"><br><img src="http://img.xixik.net/cimg/083/xixik_1f2382bcdab86fe9.jpeg" alt="元" title="元"><br><img src="http://img.xixik.net/cimg/083/xixik_a160592906ace6ec.jpeg" alt="明" title="明"><br><img src="http://img.xixik.net/cimg/083/xixik_633a17f15265a0ef.jpeg" alt="清" title="清"><br><em><strong>注意：转载自嘻嘻网图片，切勿商用</strong></em></p>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>历史</tag>
+        <tag>纯图片</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git的使用</title>
+    <url>/2020/03/18/git%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="git的使用"><a href="#git的使用" class="headerlink" title="git的使用"></a>git的使用</h2><p><strong>可以说是一个很牛×的开发工具，是Linux之父开发出来的，据说只花了一周时间，打扰了。git是一个开源的分布式版本控制系统，当时开发目的是为了管理Linux内核开发，毕竟开源项目管理，懒人都会用聪明的方法方便自身偷懒，也体现林纳斯·托瓦兹觉得当时版本控制工具不能满足自身需求而得以git的问世。git的竞争力主要在于它拥有分布式，以及自己的暂存区，可支持离线操作</strong></p>
+<a id="more"></a>
+
+<h3 id="git的安装"><a href="#git的安装" class="headerlink" title="git的安装"></a>git的安装</h3><p><strong>点击<a href="http://git-scm.com/downloads" target="_blank" rel="noopener">git</a>安装地址进行安装即可，不必赘述。以及<a href="https://tortoisegit.org/download/" target="_blank" rel="noopener">TortoiseGit</a></strong></p>
+<h3 id="git的常用命令"><a href="#git的常用命令" class="headerlink" title="git的常用命令"></a>git的常用命令</h3><p><strong>git有很多基于Linux命令涉及，不过下载了TortoiseGit，或者Git自带的Git GUI，也可以不使用git命令，不过我习惯了觉得操作还是蛮方便的</strong><br>鼠标右击选择Git Bash进入命令操作界面，再第一次使用git的时候你需要先设置自己的用户名和邮箱地址，当然你可以设置局部配置和全局配置，局部配置则只针对一个指定仓库进行设置你的邮箱和用户名，我是直接全局配置，没必要那么麻烦。</p>
+<h4 id="全局配置命令"><a href="#全局配置命令" class="headerlink" title="全局配置命令"></a>全局配置命令</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git config --global user.name &quot;admin&quot;&#x2F;&#x2F;设置你的用户名，自己取，建议最好英文，中文我没试过</span><br><span class="line">$ git config --global user.email test@admin.com&#x2F;&#x2F;设置你的邮箱地址</span><br></pre></td></tr></table></figure>
+<p>如果是局部配置，只要去掉 <del>–global</del> 选项重新配置即可，新的设定保存在当前项目的 .git/config 文件里。</p>
+<h4 id="查看配置信息"><a href="#查看配置信息" class="headerlink" title="查看配置信息"></a>查看配置信息</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git config --list&#x2F;&#x2F;检查已有的配置信息所有信息</span><br><span class="line">$ git config user.name&#x2F;&#x2F;查看你的用户名</span><br><span class="line">$ git config user.email&#x2F;&#x2F;查看你的邮箱</span><br></pre></td></tr></table></figure>
+
+<h4 id="初始化仓库"><a href="#初始化仓库" class="headerlink" title="初始化仓库"></a>初始化仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git init&#x2F;&#x2F;当前文件被git接管了</span><br><span class="line">$ git init newrepo&#x2F;&#x2F;指定仓库为newrepo</span><br></pre></td></tr></table></figure>
+
+<h4 id="克隆仓库"><a href="#克隆仓库" class="headerlink" title="克隆仓库"></a>克隆仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git clone &lt;仓库所在地址&gt;</span><br><span class="line">$ git clone &lt;仓库所在地址&gt; &lt;克隆地址&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="将该文件添加到缓存"><a href="#将该文件添加到缓存" class="headerlink" title="将该文件添加到缓存"></a>将该文件添加到缓存</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add .&#x2F;&#x2F;添加当前所有为被版本控制的文件入暂存区</span><br><span class="line">$ git add text.txt&#x2F;&#x2F;添加指定文件到暂存区</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看版本库文件项目状态"><a href="#查看版本库文件项目状态" class="headerlink" title="查看版本库文件项目状态"></a>查看版本库文件项目状态</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git status </span><br><span class="line">$ git diff&#x2F;&#x2F;查看执行 git status 的结果的详细信息</span><br></pre></td></tr></table></figure>
+
+<h4 id="将缓冲区内容提交至版本库"><a href="#将缓冲区内容提交至版本库" class="headerlink" title="将缓冲区内容提交至版本库"></a>将缓冲区内容提交至版本库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git commit -m &#39;第一次版本提交&#39;&#x2F;&#x2F;-m后是对你本次提交的描述</span><br></pre></td></tr></table></figure>
+
+<h4 id="推送到远程仓库"><a href="#推送到远程仓库" class="headerlink" title="推送到远程仓库"></a>推送到远程仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git push</span><br></pre></td></tr></table></figure>
+
+<h4 id="远程仓库拉取更新本地版本库"><a href="#远程仓库拉取更新本地版本库" class="headerlink" title="远程仓库拉取更新本地版本库"></a>远程仓库拉取更新本地版本库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
+
+<h4 id="日志的查看"><a href="#日志的查看" class="headerlink" title="日志的查看"></a>日志的查看</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git log</span><br></pre></td></tr></table></figure>
+<p><em>一般与回滚操作关联</em></p>
+<h4 id="新建分支与分支切换"><a href="#新建分支与分支切换" class="headerlink" title="新建分支与分支切换"></a>新建分支与分支切换</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git branch (分支名)&#x2F;&#x2F;创建一支分支</span><br><span class="line">$ git checkout -b (分支名)&#x2F;&#x2F;切换至指定分支</span><br><span class="line">$ git branch -d (branchname)&#x2F;&#x2F;删除分支</span><br></pre></td></tr></table></figure>
+<p><em>当然涉及到分支就会有合并分支，解决冲突的命令，这里不详细说明，我也是半灌水，建议自己看官方文档深入学习</em></p>
+<h4 id="git标签标注"><a href="#git标签标注" class="headerlink" title="git标签标注"></a>git标签标注</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git tag -a v1.0&#x2F;&#x2F;就是做记号，觉得这个版本很重要，标记一下，方便以后回退</span><br></pre></td></tr></table></figure>
+
+<h3 id="Git-远程仓库-Github"><a href="#Git-远程仓库-Github" class="headerlink" title="Git 远程仓库(Github)"></a>Git 远程仓库(Github)</h3><p><strong>就是使用git将你本地项目提交至github，方便今后的管理，两则建立连接的意思，没必要多说，网上很多参考，唯一要说的最好用SSH密钥连接</strong></p>
+<h3 id="git相关概要"><a href="#git相关概要" class="headerlink" title="git相关概要"></a>git相关概要</h3><p><strong>git基本包含工作区(本地项目)，暂存区，版本库，以及远程仓库，然后根据命令实现之间的互联互通，版本控制，项目管理。此处该有图，以后再说</strong></p>
+<h3 id="git服务器搭建"><a href="#git服务器搭建" class="headerlink" title="git服务器搭建"></a>git服务器搭建</h3><h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-devel</span><br><span class="line">$ yum install git</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建一个git用户组和用户，用来运行git服务"><a href="#创建一个git用户组和用户，用来运行git服务" class="headerlink" title="创建一个git用户组和用户，用来运行git服务"></a>创建一个git用户组和用户，用来运行git服务</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ groupadd git</span><br><span class="line">$ adduser git -g git</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建证书登录"><a href="#创建证书登录" class="headerlink" title="创建证书登录"></a>创建证书登录</h4><p>收集所有需要登录的用户的公钥，公钥位于id_rsa.pub文件中，把我们的公钥导入到/home/git/.ssh/authorized_keys文件里，一行一个。<br>如果没有该文件创建它：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd &#x2F;home&#x2F;git&#x2F;$ mkdir .ssh</span><br><span class="line">$ chmod 700 .ssh</span><br><span class="line">$ touch .ssh&#x2F;authorized_keys</span><br><span class="line">$ chmod 600 .ssh&#x2F;authorized_keys</span><br></pre></td></tr></table></figure>
+
+<h4 id="初始化仓库-1"><a href="#初始化仓库-1" class="headerlink" title="初始化仓库"></a>初始化仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd &#x2F;home</span><br><span class="line">$ mkdir gitrepo</span><br><span class="line">$ chown git:git gitrepo&#x2F;$ cd gitrepo</span><br><span class="line"></span><br><span class="line">$ git init --bare runoob.gitInitialized empty Git repository in &#x2F;home&#x2F;gitrepo&#x2F;runoob.git&#x2F;</span><br><span class="line"></span><br><span class="line">$ chown -R git:git runoob.git&#x2F;&#x2F;以上命令Git创建一个空仓库，服务器上的Git仓库通常都以.git结尾。然后，把仓库所属用户改为git</span><br></pre></td></tr></table></figure>
+
+<h4 id="克隆仓库-1"><a href="#克隆仓库-1" class="headerlink" title="克隆仓库"></a>克隆仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git clone git@192.168.45.4:&#x2F;home&#x2F;gitrepo&#x2F;runoob.gitCloning into &#39;runoob&#39;...warning: You appear to have cloned an empty repository.Checking connectivity... done.</span><br></pre></td></tr></table></figure>
+<p>192.168.45.4 为 Git 所在服务器 ip ，你需要将其修改为你自己的 Git 服务 ip。</p>
+<p>这样我们的 Git 服务器安装就完成了，接下来我们可以禁用 git 用户通过shell登录，可以通过编辑/etc/passwd文件完成。找到类似下面的一行：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git:x:503:503::&#x2F;home&#x2F;git:&#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
+
+<p>改为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git:x:503:503::&#x2F;home&#x2F;git:&#x2F;sbin&#x2F;nologin</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>开发工具</category>
+      </categories>
+      <tags>
+        <tag>版本控制</tag>
+        <tag>git</tag>
+        <tag>分布式</tag>
       </tags>
   </entry>
   <entry>
@@ -584,171 +1289,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Effctive 90条经验法则</title>
-    <url>/2022/02/25/90%E6%9D%A1%E7%BB%8F%E9%AA%8C%E6%B3%95%E5%88%99/</url>
-    <content><![CDATA[<blockquote>
-<h4 id="第1条：用静态工厂方法代替构造器"><a href="#第1条：用静态工厂方法代替构造器" class="headerlink" title="第1条：用静态工厂方法代替构造器"></a>第1条：用静态工厂方法代替构造器</h4><h4 id="第2条：遇到多个构造器参数时要考虑使用构建器"><a href="#第2条：遇到多个构造器参数时要考虑使用构建器" class="headerlink" title="第2条：遇到多个构造器参数时要考虑使用构建器"></a>第2条：遇到多个构造器参数时要考虑使用构建器</h4><h4 id="第3条：用私有构造器或者枚举类型强化Singleton属性"><a href="#第3条：用私有构造器或者枚举类型强化Singleton属性" class="headerlink" title="第3条：用私有构造器或者枚举类型强化Singleton属性"></a>第3条：用私有构造器或者枚举类型强化Singleton属性</h4><h4 id="第4条：通过私有构造器强化不可实例化的能力"><a href="#第4条：通过私有构造器强化不可实例化的能力" class="headerlink" title="第4条：通过私有构造器强化不可实例化的能力"></a>第4条：通过私有构造器强化不可实例化的能力</h4><h4 id="第5条：优先考虑依赖注入来引用资源"><a href="#第5条：优先考虑依赖注入来引用资源" class="headerlink" title="第5条：优先考虑依赖注入来引用资源"></a>第5条：优先考虑依赖注入来引用资源</h4><h4 id="第6条：避免创建不必要的对象"><a href="#第6条：避免创建不必要的对象" class="headerlink" title="第6条：避免创建不必要的对象"></a>第6条：避免创建不必要的对象</h4><h4 id="第7条：消除过期的对象引用"><a href="#第7条：消除过期的对象引用" class="headerlink" title="第7条：消除过期的对象引用"></a>第7条：消除过期的对象引用</h4><h4 id="第8条：避免使用终结方法和清除方法"><a href="#第8条：避免使用终结方法和清除方法" class="headerlink" title="第8条：避免使用终结方法和清除方法"></a>第8条：避免使用终结方法和清除方法</h4></blockquote>
-<a id="more"></a>
-<blockquote>
-<h4 id="第9条：try-with-resources优先于try-finally"><a href="#第9条：try-with-resources优先于try-finally" class="headerlink" title="第9条：try-with-resources优先于try-finally"></a>第9条：try-with-resources优先于try-finally</h4><h4 id="第10条：覆盖equals时请遵循通用约定"><a href="#第10条：覆盖equals时请遵循通用约定" class="headerlink" title="第10条：覆盖equals时请遵循通用约定"></a>第10条：覆盖equals时请遵循通用约定</h4><h4 id="第11条：覆盖equals时总要覆盖hashCode"><a href="#第11条：覆盖equals时总要覆盖hashCode" class="headerlink" title="第11条：覆盖equals时总要覆盖hashCode"></a>第11条：覆盖equals时总要覆盖hashCode</h4><h4 id="第12条：始终要覆盖toString"><a href="#第12条：始终要覆盖toString" class="headerlink" title="第12条：始终要覆盖toString"></a>第12条：始终要覆盖toString</h4><h4 id="第13条：谨慎地覆盖clone"><a href="#第13条：谨慎地覆盖clone" class="headerlink" title="第13条：谨慎地覆盖clone"></a>第13条：谨慎地覆盖clone</h4><h4 id="第14条：考虑实现Comparable接口"><a href="#第14条：考虑实现Comparable接口" class="headerlink" title="第14条：考虑实现Comparable接口"></a>第14条：考虑实现Comparable接口</h4><h4 id="第15条：使类和成员的可访问性最小化"><a href="#第15条：使类和成员的可访问性最小化" class="headerlink" title="第15条：使类和成员的可访问性最小化"></a>第15条：使类和成员的可访问性最小化</h4><h4 id="第16条：要在公有类中使用访问方法而非公有域"><a href="#第16条：要在公有类中使用访问方法而非公有域" class="headerlink" title="第16条：要在公有类中使用访问方法而非公有域"></a>第16条：要在公有类中使用访问方法而非公有域</h4><h4 id="第17条：使可变性最小化"><a href="#第17条：使可变性最小化" class="headerlink" title="第17条：使可变性最小化"></a>第17条：使可变性最小化</h4><h4 id="第18条：复合优先于继承"><a href="#第18条：复合优先于继承" class="headerlink" title="第18条：复合优先于继承"></a>第18条：复合优先于继承</h4><h4 id="第19条：要么设计继承并提供文档说明，要么禁止继承"><a href="#第19条：要么设计继承并提供文档说明，要么禁止继承" class="headerlink" title="第19条：要么设计继承并提供文档说明，要么禁止继承"></a>第19条：要么设计继承并提供文档说明，要么禁止继承</h4><h4 id="第20条：接口优于抽象类"><a href="#第20条：接口优于抽象类" class="headerlink" title="第20条：接口优于抽象类"></a>第20条：接口优于抽象类</h4><h4 id="第21条：为后代设计接口"><a href="#第21条：为后代设计接口" class="headerlink" title="第21条：为后代设计接口"></a>第21条：为后代设计接口</h4><h4 id="第22条：接口只用于定义类型"><a href="#第22条：接口只用于定义类型" class="headerlink" title="第22条：接口只用于定义类型"></a>第22条：接口只用于定义类型</h4><h4 id="第23条：类层次优于标签类"><a href="#第23条：类层次优于标签类" class="headerlink" title="第23条：类层次优于标签类"></a>第23条：类层次优于标签类</h4><h4 id="第24条：静态成员类优于非静态成员类"><a href="#第24条：静态成员类优于非静态成员类" class="headerlink" title="第24条：静态成员类优于非静态成员类"></a>第24条：静态成员类优于非静态成员类</h4><h4 id="第25条：限制源文件为单个顶级类"><a href="#第25条：限制源文件为单个顶级类" class="headerlink" title="第25条：限制源文件为单个顶级类"></a>第25条：限制源文件为单个顶级类</h4><h4 id="第26条：请不要使用原生态类型"><a href="#第26条：请不要使用原生态类型" class="headerlink" title="第26条：请不要使用原生态类型"></a>第26条：请不要使用原生态类型</h4><h4 id="第27条：消除非受检的警告"><a href="#第27条：消除非受检的警告" class="headerlink" title="第27条：消除非受检的警告"></a>第27条：消除非受检的警告</h4><h4 id="第28条：列表优于数组"><a href="#第28条：列表优于数组" class="headerlink" title="第28条：列表优于数组"></a>第28条：列表优于数组</h4><h4 id="第29条：优先考虑泛型"><a href="#第29条：优先考虑泛型" class="headerlink" title="第29条：优先考虑泛型"></a>第29条：优先考虑泛型</h4><h4 id="第30条：优先考虑泛型方法"><a href="#第30条：优先考虑泛型方法" class="headerlink" title="第30条：优先考虑泛型方法"></a>第30条：优先考虑泛型方法</h4><h4 id="第31条：利用有限制通配符来提升API的灵活性"><a href="#第31条：利用有限制通配符来提升API的灵活性" class="headerlink" title="第31条：利用有限制通配符来提升API的灵活性"></a>第31条：利用有限制通配符来提升API的灵活性</h4><h4 id="第32条：谨慎并用泛型和可变参数"><a href="#第32条：谨慎并用泛型和可变参数" class="headerlink" title="第32条：谨慎并用泛型和可变参数"></a>第32条：谨慎并用泛型和可变参数</h4><h4 id="第33条：优先考虑类型安全的异构容器"><a href="#第33条：优先考虑类型安全的异构容器" class="headerlink" title="第33条：优先考虑类型安全的异构容器"></a>第33条：优先考虑类型安全的异构容器</h4><h4 id="第34条：用enum代替int常量"><a href="#第34条：用enum代替int常量" class="headerlink" title="第34条：用enum代替int常量"></a>第34条：用enum代替int常量</h4><h4 id="第35条：用实例域代替序数"><a href="#第35条：用实例域代替序数" class="headerlink" title="第35条：用实例域代替序数"></a>第35条：用实例域代替序数</h4><h4 id="第36条：用EnumSet代替位域"><a href="#第36条：用EnumSet代替位域" class="headerlink" title="第36条：用EnumSet代替位域"></a>第36条：用EnumSet代替位域</h4><h4 id="第37条：用EnumMap代替序数索引"><a href="#第37条：用EnumMap代替序数索引" class="headerlink" title="第37条：用EnumMap代替序数索引"></a>第37条：用EnumMap代替序数索引</h4><h4 id="第38条：用接口模拟可扩展的枚举"><a href="#第38条：用接口模拟可扩展的枚举" class="headerlink" title="第38条：用接口模拟可扩展的枚举"></a>第38条：用接口模拟可扩展的枚举</h4><h4 id="第39条：注解优先于命名模式"><a href="#第39条：注解优先于命名模式" class="headerlink" title="第39条：注解优先于命名模式"></a>第39条：注解优先于命名模式</h4><h4 id="第40条：坚持使用Override注解"><a href="#第40条：坚持使用Override注解" class="headerlink" title="第40条：坚持使用Override注解"></a>第40条：坚持使用Override注解</h4><h4 id="第41条：用标记接口定义类型"><a href="#第41条：用标记接口定义类型" class="headerlink" title="第41条：用标记接口定义类型"></a>第41条：用标记接口定义类型</h4><h4 id="第42条：Lambda优先于匿名类"><a href="#第42条：Lambda优先于匿名类" class="headerlink" title="第42条：Lambda优先于匿名类"></a>第42条：Lambda优先于匿名类</h4><h4 id="第43条：方法引用优先于Lambda"><a href="#第43条：方法引用优先于Lambda" class="headerlink" title="第43条：方法引用优先于Lambda"></a>第43条：方法引用优先于Lambda</h4><h4 id="第44条：坚持使用标准的函数接口"><a href="#第44条：坚持使用标准的函数接口" class="headerlink" title="第44条：坚持使用标准的函数接口"></a>第44条：坚持使用标准的函数接口</h4><h4 id="第45条：谨慎使用Stream"><a href="#第45条：谨慎使用Stream" class="headerlink" title="第45条：谨慎使用Stream"></a>第45条：谨慎使用Stream</h4><h4 id="第46条：优先选择Stream中无副作用的函数"><a href="#第46条：优先选择Stream中无副作用的函数" class="headerlink" title="第46条：优先选择Stream中无副作用的函数"></a>第46条：优先选择Stream中无副作用的函数</h4><h4 id="第47条：Stream要优先用Collection作为返回类型"><a href="#第47条：Stream要优先用Collection作为返回类型" class="headerlink" title="第47条：Stream要优先用Collection作为返回类型"></a>第47条：Stream要优先用Collection作为返回类型</h4><h4 id="第48条：谨慎使用Stream并行"><a href="#第48条：谨慎使用Stream并行" class="headerlink" title="第48条：谨慎使用Stream并行"></a>第48条：谨慎使用Stream并行</h4><h4 id="第49条：检查参数的有效性"><a href="#第49条：检查参数的有效性" class="headerlink" title="第49条：检查参数的有效性"></a>第49条：检查参数的有效性</h4><h4 id="第50条：必要时进行保护性拷贝"><a href="#第50条：必要时进行保护性拷贝" class="headerlink" title="第50条：必要时进行保护性拷贝"></a>第50条：必要时进行保护性拷贝</h4><h4 id="第51条：谨慎设计方法签名"><a href="#第51条：谨慎设计方法签名" class="headerlink" title="第51条：谨慎设计方法签名"></a>第51条：谨慎设计方法签名</h4><h4 id="第52条：慎用重载"><a href="#第52条：慎用重载" class="headerlink" title="第52条：慎用重载"></a>第52条：慎用重载</h4><h4 id="第53条：慎用可变参数"><a href="#第53条：慎用可变参数" class="headerlink" title="第53条：慎用可变参数"></a>第53条：慎用可变参数</h4><h4 id="第54条：返回零长度的数组或者集合，而不是null"><a href="#第54条：返回零长度的数组或者集合，而不是null" class="headerlink" title="第54条：返回零长度的数组或者集合，而不是null"></a>第54条：返回零长度的数组或者集合，而不是null</h4><h4 id="第55条：谨慎返回optional"><a href="#第55条：谨慎返回optional" class="headerlink" title="第55条：谨慎返回optional"></a>第55条：谨慎返回optional</h4><h4 id="第56条：为所有导出API元素编写文档注释"><a href="#第56条：为所有导出API元素编写文档注释" class="headerlink" title="第56条：为所有导出API元素编写文档注释"></a>第56条：为所有导出API元素编写文档注释</h4><h4 id="第57条：将局部变量的作用域最小化"><a href="#第57条：将局部变量的作用域最小化" class="headerlink" title="第57条：将局部变量的作用域最小化"></a>第57条：将局部变量的作用域最小化</h4><h4 id="第58条：for-each循环优先于传统的for循环"><a href="#第58条：for-each循环优先于传统的for循环" class="headerlink" title="第58条：for-each循环优先于传统的for循环"></a>第58条：for-each循环优先于传统的for循环</h4><h4 id="第59条：了解和使用类库"><a href="#第59条：了解和使用类库" class="headerlink" title="第59条：了解和使用类库"></a>第59条：了解和使用类库</h4><h4 id="第60条：如果需要精确的答案，请避免使用float和double"><a href="#第60条：如果需要精确的答案，请避免使用float和double" class="headerlink" title="第60条：如果需要精确的答案，请避免使用float和double"></a>第60条：如果需要精确的答案，请避免使用float和double</h4><h4 id="第61条：基本类型优先于装箱基本类型"><a href="#第61条：基本类型优先于装箱基本类型" class="headerlink" title="第61条：基本类型优先于装箱基本类型"></a>第61条：基本类型优先于装箱基本类型</h4><h4 id="第62条：如果其他类型更适合，则尽量避免使用字符串"><a href="#第62条：如果其他类型更适合，则尽量避免使用字符串" class="headerlink" title="第62条：如果其他类型更适合，则尽量避免使用字符串"></a>第62条：如果其他类型更适合，则尽量避免使用字符串</h4><h4 id="第63条：了解字符串连接的性能"><a href="#第63条：了解字符串连接的性能" class="headerlink" title="第63条：了解字符串连接的性能"></a>第63条：了解字符串连接的性能</h4><h4 id="第64条：通过接口引用对象"><a href="#第64条：通过接口引用对象" class="headerlink" title="第64条：通过接口引用对象"></a>第64条：通过接口引用对象</h4><h4 id="第65条：接口优先于反射机制"><a href="#第65条：接口优先于反射机制" class="headerlink" title="第65条：接口优先于反射机制"></a>第65条：接口优先于反射机制</h4><h4 id="第66条：谨慎地使用本地方法"><a href="#第66条：谨慎地使用本地方法" class="headerlink" title="第66条：谨慎地使用本地方法"></a>第66条：谨慎地使用本地方法</h4><h4 id="第67条：谨慎地进行优化"><a href="#第67条：谨慎地进行优化" class="headerlink" title="第67条：谨慎地进行优化"></a>第67条：谨慎地进行优化</h4><h4 id="第68条：遵守普遍接受的命名惯例"><a href="#第68条：遵守普遍接受的命名惯例" class="headerlink" title="第68条：遵守普遍接受的命名惯例"></a>第68条：遵守普遍接受的命名惯例</h4><h4 id="第69条：只针对异常的情况才使用异常"><a href="#第69条：只针对异常的情况才使用异常" class="headerlink" title="第69条：只针对异常的情况才使用异常"></a>第69条：只针对异常的情况才使用异常</h4><h4 id="第70条：对可恢复的情况使用受检异常，对编程错误使用运行时异常"><a href="#第70条：对可恢复的情况使用受检异常，对编程错误使用运行时异常" class="headerlink" title="第70条：对可恢复的情况使用受检异常，对编程错误使用运行时异常"></a>第70条：对可恢复的情况使用受检异常，对编程错误使用运行时异常</h4><h4 id="第71条：避免不必要地使用受检异常"><a href="#第71条：避免不必要地使用受检异常" class="headerlink" title="第71条：避免不必要地使用受检异常"></a>第71条：避免不必要地使用受检异常</h4><h4 id="第72条：优先使用标准的异常"><a href="#第72条：优先使用标准的异常" class="headerlink" title="第72条：优先使用标准的异常"></a>第72条：优先使用标准的异常</h4><h4 id="第73条：抛出与抽象对应的异常"><a href="#第73条：抛出与抽象对应的异常" class="headerlink" title="第73条：抛出与抽象对应的异常"></a>第73条：抛出与抽象对应的异常</h4><h4 id="第74条：每个方法抛出的所有异常都要建立文档"><a href="#第74条：每个方法抛出的所有异常都要建立文档" class="headerlink" title="第74条：每个方法抛出的所有异常都要建立文档"></a>第74条：每个方法抛出的所有异常都要建立文档</h4><h4 id="第75条：在细节消息中包含失败-捕获信息"><a href="#第75条：在细节消息中包含失败-捕获信息" class="headerlink" title="第75条：在细节消息中包含失败-捕获信息"></a>第75条：在细节消息中包含失败-捕获信息</h4><h4 id="第76条：努力使失败保持原子性"><a href="#第76条：努力使失败保持原子性" class="headerlink" title="第76条：努力使失败保持原子性"></a>第76条：努力使失败保持原子性</h4><h4 id="第77条：不要忽略异常"><a href="#第77条：不要忽略异常" class="headerlink" title="第77条：不要忽略异常"></a>第77条：不要忽略异常</h4><h4 id="第78条：同步访问共享的可变数据"><a href="#第78条：同步访问共享的可变数据" class="headerlink" title="第78条：同步访问共享的可变数据"></a>第78条：同步访问共享的可变数据</h4><h4 id="第79条：避免过度同步"><a href="#第79条：避免过度同步" class="headerlink" title="第79条：避免过度同步"></a>第79条：避免过度同步</h4><h4 id="第80条：executor、task和stream优先于线程"><a href="#第80条：executor、task和stream优先于线程" class="headerlink" title="第80条：executor、task和stream优先于线程"></a>第80条：executor、task和stream优先于线程</h4><h4 id="第81条：并发工具优先于wait和notify"><a href="#第81条：并发工具优先于wait和notify" class="headerlink" title="第81条：并发工具优先于wait和notify"></a>第81条：并发工具优先于wait和notify</h4><h4 id="第82条：线程安全性的文档化"><a href="#第82条：线程安全性的文档化" class="headerlink" title="第82条：线程安全性的文档化"></a>第82条：线程安全性的文档化</h4><h4 id="第83条：慎用延迟初始化"><a href="#第83条：慎用延迟初始化" class="headerlink" title="第83条：慎用延迟初始化"></a>第83条：慎用延迟初始化</h4><h4 id="第84条：不要依赖于线程调度器"><a href="#第84条：不要依赖于线程调度器" class="headerlink" title="第84条：不要依赖于线程调度器"></a>第84条：不要依赖于线程调度器</h4><h4 id="第85条：其他方法优先于Java序列化"><a href="#第85条：其他方法优先于Java序列化" class="headerlink" title="第85条：其他方法优先于Java序列化"></a>第85条：其他方法优先于Java序列化</h4><h4 id="第86条：谨慎地实现Serializable接口"><a href="#第86条：谨慎地实现Serializable接口" class="headerlink" title="第86条：谨慎地实现Serializable接口"></a>第86条：谨慎地实现Serializable接口</h4><h4 id="第87条：考虑使用自定义的序列化形式"><a href="#第87条：考虑使用自定义的序列化形式" class="headerlink" title="第87条：考虑使用自定义的序列化形式"></a>第87条：考虑使用自定义的序列化形式</h4><h4 id="第88条：保护性地编写readObject方法"><a href="#第88条：保护性地编写readObject方法" class="headerlink" title="第88条：保护性地编写readObject方法"></a>第88条：保护性地编写readObject方法</h4><h4 id="第89条：对于实例控制，枚举类型优先于readResolve"><a href="#第89条：对于实例控制，枚举类型优先于readResolve" class="headerlink" title="第89条：对于实例控制，枚举类型优先于readResolve"></a>第89条：对于实例控制，枚举类型优先于readResolve</h4><h4 id="第90条：考虑用序列化代理代替序列化实例"><a href="#第90条：考虑用序列化代理代替序列化实例" class="headerlink" title="第90条：考虑用序列化代理代替序列化实例"></a>第90条：考虑用序列化代理代替序列化实例</h4></blockquote>
-]]></content>
-      <categories>
-        <category>后端</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>dom4j</title>
-    <url>/2020/04/21/dom4j/</url>
-    <content><![CDATA[<h3 id="dom4j"><a href="#dom4j" class="headerlink" title="dom4j"></a>dom4j</h3><p><strong>dom4j组织提供了针对xml解析的解析器dom4j,其是由jdom组织分裂出来后出现的,其优于jdom。dom4j不是javase的一部分</strong></p>
-<a id="more"></a>
-
-<h4 id="dom4j使用"><a href="#dom4j使用" class="headerlink" title="dom4j使用"></a>dom4j使用</h4><p><em>使用前需要在项目中导入dom4j的jar包</em><br>xml文件如下:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1 id1&#x3D;&quot;01&quot;&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j实现查询xml中元素操作"><a href="#dom4j实现查询xml中元素操作" class="headerlink" title="dom4j实现查询xml中元素操作"></a>dom4j实现查询xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查询所有name元素里的值</span><br><span class="line">	public static void selectName() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到p1</span><br><span class="line">		List&lt;Element&gt; list &#x3D; root.elements(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.遍历List</span><br><span class="line">		for(Element temp:list)&#123;</span><br><span class="line">			&#x2F;&#x2F;这里temp得到每一个p1元素</span><br><span class="line">			Element name1 &#x3D; temp.element(&quot;name&quot;);&#x2F;&#x2F;得到p1下面的name元素</span><br><span class="line">			&#x2F;&#x2F;得到name里面的值</span><br><span class="line">			String s &#x3D; name1.getText();</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;查询第一个name元素的值</span><br><span class="line">	public static void selectSin() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到p1下第一个name</span><br><span class="line">		Element name1 &#x3D; p1.element(&quot;name&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.得到name的值</span><br><span class="line">		String s1 &#x3D; name1.getText();</span><br><span class="line">		System.out.println(s1);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#x2F;&#x2F;查询第二个name元素的值	</span><br><span class="line">	public static void selectSecond() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到所有p1</span><br><span class="line">		List&lt;Element&gt; list &#x3D; root.elements(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到第二个p1</span><br><span class="line">		Element p2 &#x3D; list.get(1);</span><br><span class="line">		&#x2F;&#x2F;6.得到p1下面name</span><br><span class="line">		Element name2 &#x3D; p2.element(&quot;name&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.得到name的值</span><br><span class="line">		String s2 &#x3D; name2.getText();</span><br><span class="line">		System.out.println(s2);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j实现添加xml中元素操作"><a href="#dom4j实现添加xml中元素操作" class="headerlink" title="dom4j实现添加xml中元素操作"></a>dom4j实现添加xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;在第一个p1标签末尾添加一个sex标签</span><br><span class="line">	public static addSex() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.获取第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.p1下面添加sex元素</span><br><span class="line">		Element sex1 &#x3D; p1.addElement(&quot;sex&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.在sex里添加内容</span><br><span class="line">		sex1.setText(&quot;男&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="在特定位置实现元素添加"><a href="#在特定位置实现元素添加" class="headerlink" title="在特定位置实现元素添加"></a>在特定位置实现元素添加</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;在第一个p1标签中age标签前添加一个&lt;school&gt;cqgcxy.edu.cn&lt;&#x2F;school&gt;</span><br><span class="line">	public static void addAgeBefore() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();		</span><br><span class="line">		&#x2F;&#x2F;4.获取第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.获取p1下面的所有元素</span><br><span class="line">		List&lt;Element&gt; list &#x3D; p1.elements();</span><br><span class="line">		&#x2F;&#x2F;6.创建要添加元素</span><br><span class="line">		Element school &#x3D; DocumentHelper.createElement(&quot;school&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.给标签添加内容</span><br><span class="line">		school.setText(&quot;eqgcxy.edu.cn&quot;);</span><br><span class="line">		&#x2F;&#x2F;8.在特定位置添加元素</span><br><span class="line">		list.add(1,school);</span><br><span class="line">		&#x2F;&#x2F;9.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j实现修改xml中元素操作"><a href="#dom4j实现修改xml中元素操作" class="headerlink" title="dom4j实现修改xml中元素操作"></a>dom4j实现修改xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;修改第一个p1中age元素内容</span><br><span class="line">	public static void fixAge() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();	</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到age</span><br><span class="line">		Element age &#x3D; p1.element(&quot;age&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.修改age的值</span><br><span class="line">		age.setText(&quot;250&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j实现删除xml中元素操作"><a href="#dom4j实现删除xml中元素操作" class="headerlink" title="dom4j实现删除xml中元素操作"></a>dom4j实现删除xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;删除第一个p1下school节点</span><br><span class="line">	public static void deleteSchool() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;*使用工具类替换1、2步</span><br><span class="line">		Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);*&#x2F;</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();	</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到school</span><br><span class="line">		Element school &#x3D; p1.element(&quot;school&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.删除school(通过父节点实现删除)</span><br><span class="line">		p1.remove(school);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">		&#x2F;*使用工具类替换回写操作</span><br><span class="line">		Dom4jUtils.xmlWriter(PATH,document)*&#x2F;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j实现获取xml中元素属性值操作"><a href="#dom4j实现获取xml中元素属性值操作" class="headerlink" title="dom4j实现获取xml中元素属性值操作"></a>dom4j实现获取xml中元素属性值操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取第一个p1属性id1的值</span><br><span class="line">	public static void getValue() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.获取p1的属性id1值</span><br><span class="line">		String value &#x3D; p1.attributeValue(&quot;id1&quot;);</span><br><span class="line">		System.out.println(value);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j工具类"><a href="#dom4j工具类" class="headerlink" title="dom4j工具类"></a>dom4j工具类</h5><p><strong>由于什么的CRUD代码中存在大量重复使用的代码，因此我们可以建立一个工具类来封装这些重复代码，实现调用工具类，来减少代码冗余</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Dom4jUtils&#123;</span><br><span class="line">	public state final String PATH &#x3D; &quot;src&#x2F;person.xml&quot;;</span><br><span class="line">	&#x2F;&#x2F;返回document</span><br><span class="line">	public static Document getDocument(String path)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			&#x2F;&#x2F;1.创建解析器</span><br><span class="line">			SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">			&#x2F;&#x2F;2.得到document</span><br><span class="line">			Document document &#x3D; saxReader.read(path);</span><br><span class="line">			return document;</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		return null;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;回写xml</span><br><span class="line">	public static void xmlWriter(String path,Document document)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">			XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">			writer.write(document);</span><br><span class="line">			writer.close();</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="dom4j支持XPATH操作"><a href="#dom4j支持XPATH操作" class="headerlink" title="dom4j支持XPATH操作"></a>dom4j支持XPATH操作</h4><p><strong>可以直接获取某一个元素，不必按照一层一层解析的方式</strong></p>
-<h5 id="语法形式"><a href="#语法形式" class="headerlink" title="语法形式"></a>语法形式</h5><p>第一种形式：<code>/a/b/c</code>来表示a里面的b里面的c<br>第二种形式：<code>//A</code>表示选择所有A元素<br>第三种形式：<code>/AAA/CCC/DDD/*</code>表示/AAA/CCC/DDD/里面的所有元素<br>第四种形式：<code>/*/*/*/</code>DDD表示选择所有第四层所有DDD元素<br>第五种形式；<code>//*</code>所有元素<br>第六种形式：<code>/a/b[1]</code>选择a标签中第一个b标签，/a/b[last()]选择a标签中最后一个b标签<br>第七种形式：<code>//@id</code>表示选择所有id属性，//BBB[@id]表示选择所有含id属性的BBB元素<br>第八种形式；<code>//BBB[@id=&#39;b1&#39;]</code>选择含Id属性且值为b1的所有BBB标签,b1如果左右有空格将不会被选取*</p>
-<h5 id="如何在dom4j中使用XPATH"><a href="#如何在dom4j中使用XPATH" class="headerlink" title="如何在dom4j中使用XPATH"></a>如何在dom4j中使用XPATH</h5><p><strong>默认的情况下，dom4j不支持XPATH，如果想使用，需要引入XPATH的jar包，在文件中找到jaxen-1.1-beta-6.jar，将其复制进eclipse构建的项目中lib下，右击项目Build Path选择Add to Build Path</strong><br><strong>在dom4j中提供了两个方法支持XPATH,它们分别是：selectNodes(“XPATH表达式”)和selectSingleNode(“XPATH表达式”)，第一个方法获取多个节点，第二个则获取单一节点</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查询xml中所有name元素的值</span><br><span class="line">public static void getValue()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到所有name</span><br><span class="line">	List&lt;Node&gt; list&#x3D;document.selectNodes(&quot;&#x2F;&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.遍历集合</span><br><span class="line">	for(Node note:list)&#123;&#x2F;&#x2F;node是每一个name元素</span><br><span class="line">		&#x2F;&#x2F;获取name元素里面的值</span><br><span class="line">		String s &#x3D; node.getText();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取第一个p1下面name的值</span><br><span class="line">public static void getValue1()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到name元素</span><br><span class="line">	Node name1&#x3D;document.和selectSingleNode(&quot;&#x2F;&#x2F;p1[@id1&#x3D;&quot;01&quot;]&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.得到name里面内容</span><br><span class="line">	String s1 &#x3D; name1.getText();</span><br><span class="line">	System.out.println(s1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>JavaWeb</category>
-      </categories>
-      <tags>
-        <tag>XML</tag>
-        <tag>标记语言</tag>
-        <tag>XML解析</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>TED的一篇演讲</title>
-    <url>/2021/09/26/TED%E7%9A%84%E4%B8%80%E7%AF%87%E6%BC%94%E8%AE%B2/</url>
-    <content><![CDATA[<h3 id="《不要让别人打乱你的人生节奏》"><a href="#《不要让别人打乱你的人生节奏》" class="headerlink" title="《不要让别人打乱你的人生节奏》"></a>《不要让别人打乱你的人生节奏》</h3><p><strong>我挺喜欢TED的演讲视频，各国各领域的人用他们优秀的口才，来传达给人们他们的思想和认知。你可以完全认同他们的观点，也可以认同其中一部分，或者全盘否定。观点无对错，你可以认为今天很冷，他可以认为一般，或者有点热。我们再别人的演讲中，其实也是对认知的进一步改观，思想的放开，从中收获，思考。我之所以分享这一篇演讲，其一，源于喜欢。其二，这也算是我们有时感到人生迷茫时的“鸡汤”，再次抄录，还是那句话，不一样的人，不一样的感受，一千个人眼中有一千个哈姆雷特。</strong></p>
-<a id="more"></a>
-<p><strong>有的人21岁毕业，到27岁才找到工作</strong>  </p>
-<p><strong>有点人25岁毕业，但马上就找到了工作</strong>  </p>
-<p><strong>有的人没上过大学，却在18岁就找到了热爱的事</strong>  </p>
-<p><strong>有的人一毕业就找到好工作，赚很多钱，却过的不开心</strong>  </p>
-<p><strong>有的人选择间隔年，去寻找自我</strong>  </p>
-<p><strong>有的人16岁就清楚知道自己要什么，但在26岁时改变了想法</strong>  </p>
-<p><strong>有的人有了孩子，却还是单身</strong>  </p>
-<p><strong>有的人结了婚，却等了10年才生孩子</strong>  </p>
-<p><strong>有的人身处一段感情，爱的却是别人</strong>  </p>
-<p><strong>有的人明明彼此相爱，却没有在一起</strong>  </p>
-<p><strong>我想说的是，人生中的每一件事都取决于我们自己的时间</strong>  </p>
-<p><strong>你身边有些朋友也许遥遥领先于你</strong>  </p>
-<p><strong>有些朋友也许落后于你，但凡事都有它自己的节奏</strong>  </p>
-<p><strong>他们有他们的节奏，你有你自己的</strong>  </p>
-<p><strong>耐心一点</strong>  </p>
-<p><strong>Mark Cuban 25岁的时候还在酒吧做酒保</strong>    </p>
-<p><strong>在被拒12次后，JK罗琳到32岁才出版了哈利波特</strong>  </p>
-<p><strong>Otega到39岁才创办了Zara</strong>  </p>
-<p><strong>马云35岁才建立了阿里巴巴</strong>  </p>
-<p><strong>Morgan Freeman 到52岁的时候才迎来他演艺事业的大爆发</strong></p>
-<p><strong>Steve Carell 40岁才红</strong>  </p>
-<p><strong>Rinchard Branson 34岁才创办维珍航空</strong>  </p>
-<p><strong>25岁后才拿到文凭，依然值得骄傲</strong>  </p>
-<p><strong>30岁没结婚，但过得快乐也是一种成功</strong>  </p>
-<p><strong>35岁之后成家也完全可以</strong>  </p>
-<p><strong>40岁买房也没什么丢脸的</strong>  </p>
-<p><strong>不要让任何人扰乱你的时间表</strong>    </p>
-<p><strong>因为爱因斯坦曾经说过，</strong>  </p>
-<p><strong>并不是每一件算的出来的事都有意义</strong>  </p>
-<p><strong>也不是每一件有意义的事，都能够被算出来</strong>  </p>
-<p><strong>这才是最重要的事</strong></p>
-<p><strong>我希望你们可以创造属于自己的充满意义的人生</strong>  </p>
-<p><strong>学会用这些去影响点亮他人的生活</strong>  </p>
-<p><strong>这才是真正的成功</strong>     </p>
-]]></content>
-      <categories>
-        <category>分享</category>
-      </categories>
-      <tags>
-        <tag>演讲</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>git的使用</title>
-    <url>/2020/03/18/git%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h2 id="git的使用"><a href="#git的使用" class="headerlink" title="git的使用"></a>git的使用</h2><p><strong>可以说是一个很牛×的开发工具，是Linux之父开发出来的，据说只花了一周时间，打扰了。git是一个开源的分布式版本控制系统，当时开发目的是为了管理Linux内核开发，毕竟开源项目管理，懒人都会用聪明的方法方便自身偷懒，也体现林纳斯·托瓦兹觉得当时版本控制工具不能满足自身需求而得以git的问世。git的竞争力主要在于它拥有分布式，以及自己的暂存区，可支持离线操作</strong></p>
-<a id="more"></a>
-
-<h3 id="git的安装"><a href="#git的安装" class="headerlink" title="git的安装"></a>git的安装</h3><p><strong>点击<a href="http://git-scm.com/downloads" target="_blank" rel="noopener">git</a>安装地址进行安装即可，不必赘述。以及<a href="https://tortoisegit.org/download/" target="_blank" rel="noopener">TortoiseGit</a></strong></p>
-<h3 id="git的常用命令"><a href="#git的常用命令" class="headerlink" title="git的常用命令"></a>git的常用命令</h3><p><strong>git有很多基于Linux命令涉及，不过下载了TortoiseGit，或者Git自带的Git GUI，也可以不使用git命令，不过我习惯了觉得操作还是蛮方便的</strong><br>鼠标右击选择Git Bash进入命令操作界面，再第一次使用git的时候你需要先设置自己的用户名和邮箱地址，当然你可以设置局部配置和全局配置，局部配置则只针对一个指定仓库进行设置你的邮箱和用户名，我是直接全局配置，没必要那么麻烦。</p>
-<h4 id="全局配置命令"><a href="#全局配置命令" class="headerlink" title="全局配置命令"></a>全局配置命令</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git config --global user.name &quot;admin&quot;&#x2F;&#x2F;设置你的用户名，自己取，建议最好英文，中文我没试过</span><br><span class="line">$ git config --global user.email test@admin.com&#x2F;&#x2F;设置你的邮箱地址</span><br></pre></td></tr></table></figure>
-<p>如果是局部配置，只要去掉 <del>–global</del> 选项重新配置即可，新的设定保存在当前项目的 .git/config 文件里。</p>
-<h4 id="查看配置信息"><a href="#查看配置信息" class="headerlink" title="查看配置信息"></a>查看配置信息</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git config --list&#x2F;&#x2F;检查已有的配置信息所有信息</span><br><span class="line">$ git config user.name&#x2F;&#x2F;查看你的用户名</span><br><span class="line">$ git config user.email&#x2F;&#x2F;查看你的邮箱</span><br></pre></td></tr></table></figure>
-
-<h4 id="初始化仓库"><a href="#初始化仓库" class="headerlink" title="初始化仓库"></a>初始化仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git init&#x2F;&#x2F;当前文件被git接管了</span><br><span class="line">$ git init newrepo&#x2F;&#x2F;指定仓库为newrepo</span><br></pre></td></tr></table></figure>
-
-<h4 id="克隆仓库"><a href="#克隆仓库" class="headerlink" title="克隆仓库"></a>克隆仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git clone &lt;仓库所在地址&gt;</span><br><span class="line">$ git clone &lt;仓库所在地址&gt; &lt;克隆地址&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="将该文件添加到缓存"><a href="#将该文件添加到缓存" class="headerlink" title="将该文件添加到缓存"></a>将该文件添加到缓存</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add .&#x2F;&#x2F;添加当前所有为被版本控制的文件入暂存区</span><br><span class="line">$ git add text.txt&#x2F;&#x2F;添加指定文件到暂存区</span><br></pre></td></tr></table></figure>
-
-<h4 id="查看版本库文件项目状态"><a href="#查看版本库文件项目状态" class="headerlink" title="查看版本库文件项目状态"></a>查看版本库文件项目状态</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git status </span><br><span class="line">$ git diff&#x2F;&#x2F;查看执行 git status 的结果的详细信息</span><br></pre></td></tr></table></figure>
-
-<h4 id="将缓冲区内容提交至版本库"><a href="#将缓冲区内容提交至版本库" class="headerlink" title="将缓冲区内容提交至版本库"></a>将缓冲区内容提交至版本库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git commit -m &#39;第一次版本提交&#39;&#x2F;&#x2F;-m后是对你本次提交的描述</span><br></pre></td></tr></table></figure>
-
-<h4 id="推送到远程仓库"><a href="#推送到远程仓库" class="headerlink" title="推送到远程仓库"></a>推送到远程仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git push</span><br></pre></td></tr></table></figure>
-
-<h4 id="远程仓库拉取更新本地版本库"><a href="#远程仓库拉取更新本地版本库" class="headerlink" title="远程仓库拉取更新本地版本库"></a>远程仓库拉取更新本地版本库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
-
-<h4 id="日志的查看"><a href="#日志的查看" class="headerlink" title="日志的查看"></a>日志的查看</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git log</span><br></pre></td></tr></table></figure>
-<p><em>一般与回滚操作关联</em></p>
-<h4 id="新建分支与分支切换"><a href="#新建分支与分支切换" class="headerlink" title="新建分支与分支切换"></a>新建分支与分支切换</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git branch (分支名)&#x2F;&#x2F;创建一支分支</span><br><span class="line">$ git checkout -b (分支名)&#x2F;&#x2F;切换至指定分支</span><br><span class="line">$ git branch -d (branchname)&#x2F;&#x2F;删除分支</span><br></pre></td></tr></table></figure>
-<p><em>当然涉及到分支就会有合并分支，解决冲突的命令，这里不详细说明，我也是半灌水，建议自己看官方文档深入学习</em></p>
-<h4 id="git标签标注"><a href="#git标签标注" class="headerlink" title="git标签标注"></a>git标签标注</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git tag -a v1.0&#x2F;&#x2F;就是做记号，觉得这个版本很重要，标记一下，方便以后回退</span><br></pre></td></tr></table></figure>
-
-<h3 id="Git-远程仓库-Github"><a href="#Git-远程仓库-Github" class="headerlink" title="Git 远程仓库(Github)"></a>Git 远程仓库(Github)</h3><p><strong>就是使用git将你本地项目提交至github，方便今后的管理，两则建立连接的意思，没必要多说，网上很多参考，唯一要说的最好用SSH密钥连接</strong></p>
-<h3 id="git相关概要"><a href="#git相关概要" class="headerlink" title="git相关概要"></a>git相关概要</h3><p><strong>git基本包含工作区(本地项目)，暂存区，版本库，以及远程仓库，然后根据命令实现之间的互联互通，版本控制，项目管理。此处该有图，以后再说</strong></p>
-<h3 id="git服务器搭建"><a href="#git服务器搭建" class="headerlink" title="git服务器搭建"></a>git服务器搭建</h3><h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-devel</span><br><span class="line">$ yum install git</span><br></pre></td></tr></table></figure>
-
-<h4 id="创建一个git用户组和用户，用来运行git服务"><a href="#创建一个git用户组和用户，用来运行git服务" class="headerlink" title="创建一个git用户组和用户，用来运行git服务"></a>创建一个git用户组和用户，用来运行git服务</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ groupadd git</span><br><span class="line">$ adduser git -g git</span><br></pre></td></tr></table></figure>
-
-<h4 id="创建证书登录"><a href="#创建证书登录" class="headerlink" title="创建证书登录"></a>创建证书登录</h4><p>收集所有需要登录的用户的公钥，公钥位于id_rsa.pub文件中，把我们的公钥导入到/home/git/.ssh/authorized_keys文件里，一行一个。<br>如果没有该文件创建它：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd &#x2F;home&#x2F;git&#x2F;$ mkdir .ssh</span><br><span class="line">$ chmod 700 .ssh</span><br><span class="line">$ touch .ssh&#x2F;authorized_keys</span><br><span class="line">$ chmod 600 .ssh&#x2F;authorized_keys</span><br></pre></td></tr></table></figure>
-
-<h4 id="初始化仓库-1"><a href="#初始化仓库-1" class="headerlink" title="初始化仓库"></a>初始化仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd &#x2F;home</span><br><span class="line">$ mkdir gitrepo</span><br><span class="line">$ chown git:git gitrepo&#x2F;$ cd gitrepo</span><br><span class="line"></span><br><span class="line">$ git init --bare runoob.gitInitialized empty Git repository in &#x2F;home&#x2F;gitrepo&#x2F;runoob.git&#x2F;</span><br><span class="line"></span><br><span class="line">$ chown -R git:git runoob.git&#x2F;&#x2F;以上命令Git创建一个空仓库，服务器上的Git仓库通常都以.git结尾。然后，把仓库所属用户改为git</span><br></pre></td></tr></table></figure>
-
-<h4 id="克隆仓库-1"><a href="#克隆仓库-1" class="headerlink" title="克隆仓库"></a>克隆仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git clone git@192.168.45.4:&#x2F;home&#x2F;gitrepo&#x2F;runoob.gitCloning into &#39;runoob&#39;...warning: You appear to have cloned an empty repository.Checking connectivity... done.</span><br></pre></td></tr></table></figure>
-<p>192.168.45.4 为 Git 所在服务器 ip ，你需要将其修改为你自己的 Git 服务 ip。</p>
-<p>这样我们的 Git 服务器安装就完成了，接下来我们可以禁用 git 用户通过shell登录，可以通过编辑/etc/passwd文件完成。找到类似下面的一行：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git:x:503:503::&#x2F;home&#x2F;git:&#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
-
-<p>改为：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git:x:503:503::&#x2F;home&#x2F;git:&#x2F;sbin&#x2F;nologin</span><br></pre></td></tr></table></figure>
-
-
-]]></content>
-      <categories>
-        <category>开发工具</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
-        <tag>版本控制</tag>
-        <tag>分布式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hello World</title>
     <url>/2019/04/01/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
@@ -769,6 +1309,388 @@
 ]]></content>
       <tags>
         <tag>奥利给</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>病毒浅谈</title>
+    <url>/2020/02/17/%E7%97%85%E6%AF%92%E6%B5%85%E8%B0%88/</url>
+    <content><![CDATA[<p><strong>病毒在生物上的危害就不多说，最近的COVID-19病毒就知道其可怕。本篇主要来谈谈计算机的病毒</strong></p>
+<h2 id="计算机病毒"><a href="#计算机病毒" class="headerlink" title="计算机病毒"></a>计算机病毒</h2><h3 id="什么是计算机病毒？"><a href="#什么是计算机病毒？" class="headerlink" title="什么是计算机病毒？"></a>什么是计算机病毒？</h3><p><strong>计算机病毒简单来讲，是一种人为制造，在计算机运行中对其信息或系统起破坏作用的程序</strong></p>
+<a id="more"></a>
+
+<h3 id="计算机病毒的特点是什么？"><a href="#计算机病毒的特点是什么？" class="headerlink" title="计算机病毒的特点是什么？"></a>计算机病毒的特点是什么？</h3><p><em><strong>破坏性、传染性、寄生性、潜伏性、隐蔽性</strong></em><br>不多解释，从字面意思，看就是类似于生物病毒</p>
+<h3 id="计算机中病毒的表现形式"><a href="#计算机中病毒的表现形式" class="headerlink" title="计算机中病毒的表现形式"></a>计算机中病毒的表现形式</h3><p><strong>计算机中病毒会出现哪些症状（表现）呢？</strong><br>1)程序运行速度明显变慢甚至死机<br>2)出现莫名其妙的信息，比如没有用网络资源而网卡指示灯一直闪烁；插入U盘后，无法正常退出；提示一些不相干的话，发出一段音乐，产生特定的图像，鼠标自个儿在动，自动链接到一些陌生的网站<br>3)外部设备工作异常<br>4)程序运行出现不合理的结果</p>
+<h3 id="病毒能破坏硬件吗？"><a href="#病毒能破坏硬件吗？" class="headerlink" title="病毒能破坏硬件吗？"></a>病毒能破坏硬件吗？</h3><p><strong>病毒本身就是程序，所以它不可能直接破坏硬件。但它可以通过破坏程序导致硬件不能正常工作</strong></p>
+<h3 id="病毒的传播介质"><a href="#病毒的传播介质" class="headerlink" title="病毒的传播介质"></a>病毒的传播介质</h3><p>1)U盘等可移动存储设备<br>2)随着网络的飞速发展，网络成为最主要的病毒传播途径</p>
+<p><strong>来个笑话</strong></p>
+<blockquote>
+<p>某天表妹和她的表哥在一起聊天，她们聊到了关于电脑的话题<br>表妹：表哥，去年我买了一台电脑。<br>表哥：怎么都没看你用过？<br>表妹：刚买就中病毒了<br>表哥：你没有叫人修理吗？<br>表妹得意地说：一年都不开机，病毒还不被饿死！</p>
+</blockquote>
+<p>  蛮好笑的，让我想起我小学时候，我的一同学作文，内容跟这笑话差不多，说的是每到夏天蚊子特别的多，蚊子盯地他很难受，于是他灵机一动，拿出了酒。他爸妈回来看着他拿着酒瓶，整个人迷迷糊糊的，就焦急地问他：你为什么喝酒啊？他说：”我把自己灌醉，这样蚊子吸我的血，就会跟着醉，他们醉倒了就不会盯我了”，把他爸妈都逗乐了。跟上面这笑话真是”英雄所见略同”啊</p>
+<h3 id="病毒的防治"><a href="#病毒的防治" class="headerlink" title="病毒的防治"></a>病毒的防治</h3><p><strong>每台计算机应安装杀毒软件及防火墙，并注意及时升级杀毒软件，以防止或及时发现计算机病毒的入侵一旦发现计算机系统染上病毒后，要立即使用杀毒软件进行清除。对于外来数据要严格检查，对重要数据记得做好备份</strong><br><em><strong>特别注意：</strong></em><br>观察任务栏上杀毒软件图标异常，杀毒软件检测没有病毒不一定真的没有病毒。如果怀疑有病毒，可以换个杀毒软件试试。磁盘格式化可以删除所有文件，包括病毒，这是一种玉石俱焚的方法</p>
+<p>下面给出一个防蠕虫配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ip access-list extended worm</span><br><span class="line">deny tcp any any eq 135</span><br><span class="line">deny tcp any any eq 137</span><br><span class="line">deny tcp any any eq 138</span><br><span class="line">deny tcp any any eq 139</span><br><span class="line">deny udp any any eq 135</span><br><span class="line">deny tcp any any eq 445</span><br><span class="line">deny udp any any eq 445</span><br><span class="line">permit ip any any </span><br><span class="line">interface GigabitEthernet 2&#x2F;1</span><br><span class="line">ip access-group worm in</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>病毒</tag>
+        <tag>网络安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>网络安全与防火墙</title>
+    <url>/2020/02/17/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%B8%8E%E9%98%B2%E7%81%AB%E5%A2%99/</url>
+    <content><![CDATA[<p><strong>在关于防火墙的叙述前，我们需要了解什么是网络安全，网络安全的兴起以及网络不安全带来的困扰。本章将上半部分讲述网络安全，下半部分对防火墙的定义及弊端进行浅谈</strong></p>
+<a id="more"></a>
+
+<h2 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2><h3 id="究竟什么是网络安全？"><a href="#究竟什么是网络安全？" class="headerlink" title="究竟什么是网络安全？"></a>究竟什么是网络安全？</h3><blockquote>
+<p>有人曾说过:网络的神奇在于你可以使用其他任何人的资源；<strong>可怕在其他人可以用你的资源</strong>。<br>因此，网络安全则是为了对计算机软硬件及系统中的数据地保护</p>
+</blockquote>
+<h3 id="什么让网络不安全？"><a href="#什么让网络不安全？" class="headerlink" title="什么让网络不安全？"></a>什么让网络不安全？</h3><h4 id="1-网络的缺陷"><a href="#1-网络的缺陷" class="headerlink" title="1.网络的缺陷"></a>1.网络的缺陷</h4><p>  因特网在设计之初对共享性和开放性的强调，而导致其先天的安全缺陷。然而其赖以生存的TCP/IP协议族在设计理念上更多是考虑该网络不会因局部故障而影响信息的传输，基本没有考虑安全问题。因此它在控制不可信连接、分辨非法访问、辨别身份伪装等方面存在很大缺陷，从而导致网络安全隐患。</p>
+<blockquote>
+<p>多数底层协议为广播方式，多数应用层协议为明文传输，缺乏保密与认证机制，因此容易遭受欺骗和窃听</p>
+</blockquote>
+<h4 id="2-软件与系统的漏洞及后门"><a href="#2-软件与系统的漏洞及后门" class="headerlink" title="2.软件与系统的漏洞及后门"></a>2.软件与系统的漏洞及后门</h4><p>  随着软件与网络系统规模不断增大，大多数的信息系统和网络存在着先天性的安全漏洞和安全威胁。软件的后门是编程人员为了自便而设置的，一般不为人知。<br>  比如，我们常用的操作系统，无论是 Windows 还是 Linux 几乎都存在或多或少的安全漏洞，众多的服务器、浏览器、桌面软件等都被发现存在安全隐患。任何一个软件系统都可能会因为程序员的一个疏忽或设计中的一个缺陷等原因留下漏洞。 </p>
+<h4 id="3-病毒和木马"><a href="#3-病毒和木马" class="headerlink" title="3.病毒和木马"></a>3.病毒和木马</h4><p>  <strong>病毒：</strong>一种人为蓄意制造、以破坏为主的程序，其寄生于其他应用程序或系统可执行文件，通过部分修改或移动程序，通过自我复制或占据宿主查询的部分而隐藏起来(类比我们的生物病毒),是计算机系统最直接的安全威胁。而Internet是网络滋生和传播的温床。<br>  <strong>木马：</strong>与病毒不同不会传染，主要是窃取用户信息，木马入侵不会想病毒那样入侵后立马有感觉，而是通过秘密破坏，完成非授权用户无法完成的功能，施种者可以任意破坏窃取被种者的文件，甚至远程操控被种者电脑。</p>
+<h4 id="4-黑客攻击"><a href="#4-黑客攻击" class="headerlink" title="4.黑客攻击"></a>4.黑客攻击</h4><p>  黑客都是些熟练使用计算机的能人，但标题所说黑客攻击是指为得利益不择手段(通过网路非法进入他人系统、截获或篡改计算机数据、危害信息安全)的人，通常这类黑客以骇客称之，像黑客的另一分支红客与蓝客就是正义的一方，相比破坏者，这些守护者的技术水平更高，不是有那么一句”打天下容守天下难”吗。</p>
+<h4 id="5，网络安全建设滞后"><a href="#5，网络安全建设滞后" class="headerlink" title="5，网络安全建设滞后"></a>5，网络安全建设滞后</h4><p>  网络硬件建设如火如荼了，网络安全管理滞后，用户安全意识不强，即使应用了最好的安全设备也经常达不到预期效果。<br>  也就是说一个国家的百姓衣食住行都安顿下来了，可是约束百姓的法律才颁布出来，百姓法律意识薄弱，仍会出茬子。</p>
+<h3 id="网络安全工作目的"><a href="#网络安全工作目的" class="headerlink" title="网络安全工作目的"></a>网络安全工作目的</h3><p><strong>用简洁的三字词概括就是：进不来、拿不走、改不了、看不懂、跑不了、可审查</strong><br>所以，虚拟专用网、访问控制、入侵检测、防病毒软件、防火墙等就出现了</p>
+<hr>
+<h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><h3 id="防火墙是什么？"><a href="#防火墙是什么？" class="headerlink" title="防火墙是什么？"></a>防火墙是什么？</h3><blockquote>
+<p>在建筑设计专业术语，用于分隔不同区域，能将火灾有效限制在一定空间内，阻断火灾在防火墙的一侧蔓延到另一侧，对于减少火灾造成损失有着重要作用</p>
+</blockquote>
+<p><strong>而对于网络防火墙就是在两个网络之间实现访问控制的一个或一组软件或硬件系统，是实现网络和信息安全的基础设施(类似一堵城墙将外部和内部进行隔离，并在此基础上实现数据包的访问控制等功能)</strong></p>
+<h3 id="防火墙功能"><a href="#防火墙功能" class="headerlink" title="防火墙功能"></a>防火墙功能</h3><p>防火墙主要功能是对流经它的网路通信进行扫描，过滤危险的数据或访问请求，以免在目标计算机上被执行。防火墙还可以关闭不使用的端口、禁止特定端口的通信、封锁木马、禁止来自特殊站点的访问，从而防止入侵者的所有通道。<br>这里我们也可以做一个比喻，把因特网比喻成为现实生活中的大街，内网比作一所别墅，数据比喻来往与大街的人，防火墙则是将别墅围起来的高墙，房子的主人及亲朋好友（正常进出网络数据）通过防火墙大门人脸识别，允许进入。而那些企图进入的不法分子（恶意数据包），则被拒之墙外。</p>
+<h3 id="防火墙的分类"><a href="#防火墙的分类" class="headerlink" title="防火墙的分类"></a>防火墙的分类</h3><ul>
+<li><strong>防火墙可分为软件防火墙、硬件防火墙</strong></li>
+<li><strong>防火墙也可以分为个人防火墙、网路防火墙</strong></li>
+</ul>
+<p><em>一般情况下，个人防火墙是软件防火墙(比如Windows自带的防火墙)，网络防火墙有硬件防火墙，也有软件防火墙</em></p>
+<h3 id="防火墙不足之处"><a href="#防火墙不足之处" class="headerlink" title="防火墙不足之处"></a>防火墙不足之处</h3><p><strong>无法保护内部用户之间的攻击，防外不防内</strong><br><strong>无法防护基本操作系统漏洞的攻击</strong><br><strong>一般无法防护病毒的侵袭</strong><br><strong>对网络性能有影响</strong></p>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>网络安全</tag>
+        <tag>防火墙</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>电影推荐</title>
+    <url>/2021/05/09/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90/</url>
+    <content><![CDATA[<p><strong>作为一个阅片无数的过来人，七七八八的电影看过很多，好的不少，烂的也多。因此，想推荐一些我喜欢的电影。相比电视剧，我偏好电影，因为电影以较短时间，呈现给我们精彩的内容，节省时间同时，给我们带来不错的观影体验（仅限好电影）。电影有很多种类，喜剧、恐怖、惊悚、科幻、战争、历史等。也分地区，不同地区电影也有其不同特点。在此，我想把我看过的，自认为觉得不错的电影分享出来，当然有些好电影，我没看过的，就不会列出来。所有影片只列名字，不作影评，我觉得自己写不好或者写的很烂，反而影响推荐，我觉得不同电影，不同人有不同观感，我不能融入我的主观色彩。</strong></p>
+<p><strong>顺序无先后，想起哪部写哪部</strong></p>
+<h3 id="内地"><a href="#内地" class="headerlink" title="内地"></a>内地</h3><p><strong>《蓝风筝》、《活着》、《霸王别姬》、《茶馆》、《鬼子来了》、《阳光灿烂的日子》、《让子弹飞》、《盲山》、《盲井》、《过年》、《甲方乙方》、《大腕》、《疯狂的石头》、《疯狂的赛车》、《杀生》、《斗牛》、《Hello，树先生》、《落叶归根》、《人在囧途》、《我不是药神》、《夏洛特烦恼》、《无名之辈》、《三毛从军记》、《无人区》、《天下无贼》、《背靠背，脸对脸》、《黑炮事件》</strong></p>
+<h3 id="港片"><a href="#港片" class="headerlink" title="港片"></a>港片</h3><p><strong>《监狱风云》、《英雄本色》、《纵情四海》、《黑社会》、《黑社会2：以和为贵》、《黑狱断肠歌之砌生猪肉》、《至尊三十六计之偷天换日》、《火烧岛》、《跛豪》、《五亿探长雷洛传》、《黑金》、《门徒》、《无间道三部曲》、《金钱帝国》、《机动部队》、《警察故事》、《A计划》、《快餐车》、《奇迹》、《城市猎人》、《杀破狼》、《东邪西毒》、《东成西就》、《新龙门客栈1992》、《赌神》、《赌神2》、《棋王》、《无双》、《黄飞鸿》、《方世玉》、《太极张三丰》、《精武英雄》、《导火线》、《笑林小子2：新乌龙院》、《新少林五祖》、《山村老尸》、《三五成群》、《人肉叉烧包黄秋生版》、《打蛇》、《狗咬狗》、《垂帘听政》、《倩女幽魂三部曲》、《半斤八两》、《摩登保镖》、《鬼马双星》、《卖身契》、《鸡同鸭讲》、《抢钱夫妻》、《钱作怪》、《福星系列》、《审死官》、《九品芝麻官》、《喜剧之王》、《大话西游周星驰版》、《功夫》、《少林足球》、《食神》、《逃学威龙》、《国产凌凌漆》、《鹿鼎记》、《家有喜事》、《回魂夜》、《情圣》、《整蛊专家》、《百变星君》、《武状元苏乞儿》</strong></p>
+<h3 id="国外"><a href="#国外" class="headerlink" title="国外"></a>国外</h3><p><strong>《肖申克的救赎》、《猫鼠游戏》、《泰坦尼克号》、《盗梦空间》、《西西里的美丽传说》、《末代皇帝》、《何以为家》、《小偷家族》、《阿甘正传》、《看不见的客人》、《我是谁：没有绝对安全的系统》、《非常嫌疑犯》、《两杆大烟枪》、《偷拐抢骗》、《闪灵》、《恐怖游轮》、《楚门的世界》、《教父》、《这个杀手不太冷》、《辛德勒的名单》、《蝙蝠侠：黑暗骑士》、《小丑》、《复仇者联盟》、《银河护卫队》、《死侍》、《X战警》、《变形金刚》、《星球大战》、《终结者》、《碟中谍》、《黑客帝国》、《谍影重重》、《生化危机》、《古墓丽影》、《木乃伊》、《加勒比海盗》、《哈利波特》、《指环王》、《霍比特人》、《阿凡达》、《死神来了》、《速度与激情》、《死亡飞车》、《电锯惊魂》、《三傻大闹宝莱坞》、《摔跤吧，爸爸》、《寄生虫》、《恶魔的艺术2：邪降》、《风雨哈佛路》、《千与千寻》、《菊次郎的夏天》、《热血高校》、《突袭》、《突袭2：暴徒》、《摩登时代》、《城市之光》、《大独裁者》、《淘金记》、《马戏团》、《憨豆的黄金周》、《死寂》、《咒怨》、《孤儿怨》</strong></p>
+]]></content>
+      <categories>
+        <category>分享</category>
+      </categories>
+      <tags>
+        <tag>电影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker命令</title>
+    <url>/2022/03/06/Docker%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h3 id="docker安装"><a href="#docker安装" class="headerlink" title="docker安装"></a>docker安装</h3><p>首先，简单说下docker容器安装步骤。<br><strong>第一步，我们需要移除旧版本的docker命令：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-selinux \</span><br><span class="line">                  docker-engine-selinux \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p><strong>第二步，安装所需依赖包：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum install -y yum-utils \</span><br><span class="line">  device-mapper-persistent-data \</span><br><span class="line">  lvm2</span><br></pre></td></tr></table></figure>
+
+<p><strong>第三步，由于访问国外网站网速限制，我们需要配置镜像源，这里我用的是阿里云镜像：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo</span><br></pre></td></tr></table></figure>
+
+<p><strong>第四步，配置缓存：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum makecache fast</span><br></pre></td></tr></table></figure>
+
+<p><strong>第五步，执行docker安装命令：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum install -y docker-ce（这里docker-ce指的是社区版）</span><br></pre></td></tr></table></figure>
+
+<p><strong>第六步，配置镜像加速器，我用的是 <a href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors" target="_blank" rel="noopener">阿里云镜像加速器</a>，登录自己阿里云账号获得自己专属镜像加速器地址：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">suco mkdir -p &#x2F;etc&#x2F;docker(若没有该目录，则执行这条命令进行创建，有则跳过)</span><br><span class="line">sudo tee &#x2F;etc&#x2F;docker&#x2F;daemon.json &lt;&lt;-&#39;EOF&#39;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [这里输入你的阿里云镜像加速器地址]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p><strong>第七步，加载daemon配置文件：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+
+<p><strong>第八步，重启docker</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="docker命令"><a href="#docker命令" class="headerlink" title="docker命令"></a>docker命令</h3><p><code>docker version</code>查看docker版本，用来检验docker是否安装成功<br><code>docker info</code>查看docker的信息，可以用来查看docker镜像加速器是否配置成功<br><code>systemctl start docker</code>开启docker<br><code>systemctl restart docker</code>重启docker<br><code>systemctl enable docker</code>设置docker自启动  </p>
+<h4 id="docker镜像相关命令"><a href="#docker镜像相关命令" class="headerlink" title="docker镜像相关命令"></a>docker镜像相关命令</h4><p><code>docker images</code>或<code>docker images ls</code>查看当前存在的镜像<br><code>docker pull [镜像名]:[版本号]</code>获取镜像，不给版本号，默认最新latest<br><code>docker rmi [镜像ID]或[镜像名]</code>删除镜像，删除镜像时需确保该镜像没有创建容器<br><code>docker images -q</code>查看镜像ID<br><code>docker history [镜像名称]</code>查看一个镜像的制作历程  </p>
+<h4 id="docker容器相关命令"><a href="#docker容器相关命令" class="headerlink" title="docker容器相关命令"></a>docker容器相关命令</h4><p><code>docker ps</code>查看运行的容器<br><code>docker ps -a</code>查看所有的容器(包含运行和退出)<br><code>docker ps -a -q</code>查看所有容器的ID<br><code>docker run -i -t(-i -t用来作容器的交互) -d(后台运行容器) --rm(容器在启动后，执行完成命令或程序后自动销毁) --name(给容器自定义一个名字) -p(宿主机：内部端口)</code>运行容器<br>实例：<code>docker run --rm -d --name tomcat123 -p 8081:8080 tomcat</code><br><code>docker stop $(docker ps -a -q)</code>停掉所有容器<br><code>docker rm -f(强制)</code>删除容器<br><code>docker start</code>启动容器<br><code>docker restart</code>重启容器<br><code>docker exec</code>进入容器<br>实例：<code>docker exec -it tomcat-8080 bash</code><br><code>exit</code>退出容器<br><code>docker cp</code>实现宿主机与容器之间文件交换<br><code>docker logs -f(查看实时日志) -t(查看日志产生日期) --tail=5(查看日志最后5行)</code>查看指定容器日志  </p>
+<h4 id="docker数据卷"><a href="#docker数据卷" class="headerlink" title="docker数据卷"></a>docker数据卷</h4><p>数据卷可以在容器之间共享和重用，对数据卷的修改会立马生效，对数据卷的更新，不会影响镜像，数据卷具有持久化，即使容器被删除，也会一直存在，数据卷的两种创建方式<br><code>docker run -v(数据卷名称)</code><br><code>docker run -v(路径)</code><br>例：<code>docker run -d --name tomcat-8080 -p 8080:8080 -v /home/yzw/docker-volumn/:/usr/local/tomcat/webapps/volumn tomcat</code><br>`</p>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>命令</tag>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>道德经原文</title>
+    <url>/2020/03/28/%E9%81%93%E5%BE%B7%E7%BB%8F%E5%8E%9F%E6%96%87/</url>
+    <content><![CDATA[<h3 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h3><blockquote>
+<p>道，可道，非常道；名，可名，非常名。无名，天地始；有名，万物母。常无，欲观其妙；常有，欲观其徼。此两者同出而异名，同谓之玄，玄之又玄，众妙之门。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h3><blockquote>
+<p>天下皆知美之为美，斯恶已；皆知善之为善，斯不善已。故有无相生，难易相成，长短相形，高下相倾，音声相和，前后相随。是以圣人处无为之事，行不言之教。万物作而不辞，生而不有，为而不恃，成功不居。夫唯不居，是以不去。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h3><blockquote>
+<p>不上贤，使民不争；不贵难得之货，使民不盗；不见可欲，使心不乱。圣人治：虚其心，实其腹，弱其志，强其骨。常使民无知无欲，使知者不敢为，则无不治。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四章"><a href="#第四章" class="headerlink" title="第四章"></a>第四章</h3><blockquote>
+<p>道冲，而用之久不盈。深乎!万物宗。挫其锐，解其忿，和其光，同其尘。湛常存。吾不知谁子?象帝之先。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a>第五章</h3><blockquote>
+<p>天地不仁，以万物为刍狗；圣人不仁，以百姓为刍狗。天地之间，其犹橐蘥。虚而不屈，动而俞出。多言数穷，不如守中。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h3><blockquote>
+<p>谷神不死，是谓玄牝。玄牝门，天地根。绵绵若存，用之不勤。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h3><blockquote>
+<p>天长地久。天地所以能长久者，以其不自生，故能长久。是以圣人后其身而身先，外其身而身存。以其无私，故能成其私。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第八章"><a href="#第八章" class="headerlink" title="第八章"></a>第八章</h3><blockquote>
+<p>上善若水。水善利万物，又不争，处众人之所恶，故几于道。居善地，心善渊，与善人，言善信，政善治，事善能，动善时。夫唯不争，故无尤。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第九章"><a href="#第九章" class="headerlink" title="第九章"></a>第九章</h3><blockquote>
+<p>持而盈之，不若其以。揣而锐之，不可长保。金玉满堂，莫之能守。富贵而骄，自遗其咎。功成、名遂、身退、天之道。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十章"><a href="#第十章" class="headerlink" title="第十章"></a>第十章</h3><blockquote>
+<p>载营魄抱一，能无离?专气致柔，能婴儿?涤除玄览，能无疵?爱人治国，能无为?天门开阖，能为雌?明白四达，能无知?<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十一章"><a href="#第十一章" class="headerlink" title="第十一章"></a>第十一章</h3><blockquote>
+<p>三十辐共一毂，当其无有，车之用。埏埴以为器，当其无有，器之用。凿户牖以为室，当其无有，室之用。有之以为利，无之以为用。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十二章"><a href="#第十二章" class="headerlink" title="第十二章"></a>第十二章</h3><blockquote>
+<p>五色令人目盲；五音令人耳聋；五味令人口爽；驰骋田猎，令人心发狂；难得之货，令人行妨。是以圣人为腹不为目。故去彼取此。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十三章"><a href="#第十三章" class="headerlink" title="第十三章"></a>第十三章</h3><blockquote>
+<p>宠辱若惊，贵大患若身。何谓宠辱?辱为下。得之若惊，失之若惊，是谓宠辱若惊。何谓贵大患若身?吾所以有大患，为我有身。及我无身，吾有何患!故贵身于天下，若可托天下；爱以身为天下者，若可寄天下。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十四章"><a href="#第十四章" class="headerlink" title="第十四章"></a>第十四章</h3><blockquote>
+<p>视之不见，名曰夷；听之不闻，名曰希；搏之不得，名曰微。此三者不可致诘，故混而为一。其上不曒，在下不昧。绳绳兮不可名，复归于无物。是谓无状之状，无物之象，是谓忽恍。迎不见其首，随不见其后。执古之道，以语今之有。以知古始，是谓道已。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十五章"><a href="#第十五章" class="headerlink" title="第十五章"></a>第十五章</h3><blockquote>
+<p>古之善为士者，微妙玄通，深不可识。夫唯不可识，故强为之容：豫若冬涉川，犹若畏四邻，俨若客，涣若水将释，敦若朴，混若浊，旷若谷，孰能浊以静之?徐清。安以动之?徐生。保此道者，不欲盈。夫唯不盈，能弊复成。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十六章"><a href="#第十六章" class="headerlink" title="第十六章"></a>第十六章</h3><blockquote>
+<p>致虚极，守静笃。万物并作，吾以观其复。夫物云云，各归其根。归根曰静，静曰复命，复命曰常，知常曰明。不知常，忘作，凶。知常容，容能公，公能王，王能天，天能道，道能久，没身不殆。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十七章"><a href="#第十七章" class="headerlink" title="第十七章"></a>第十七章</h3><blockquote>
+<p>太上，下知有之；其次，亲之豫之；其次，畏之侮之。信不足，有不信!由其贵言。成功事遂，百姓谓我自然。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十八章"><a href="#第十八章" class="headerlink" title="第十八章"></a>第十八章</h3><blockquote>
+<p>大道废，有人义。智慧出，有大伪。六亲不和，有孝慈。国家昏乱，有忠臣。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第十九章"><a href="#第十九章" class="headerlink" title="第十九章"></a>第十九章</h3><blockquote>
+<p>绝圣弃智，民利百倍；绝民弃义，民复孝慈；绝巧弃利，盗贼无有。此三者，为文不足，故令有所属：见素抱朴，少私寡欲。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十章"><a href="#第二十章" class="headerlink" title="第二十章"></a>第二十章</h3><blockquote>
+<p>绝学无忧。唯之与阿，相去几何?善之与恶，相去何若?人之所畏，不可不畏。忙兮其未央!众人熙熙，若享太牢，若春登台。我魄未兆，若婴儿未孩。乘乘无所归!众人皆有馀，我独若遗。我愚人之心，纯纯。俗人昭昭，我独若昏。俗人察察，我独闷闷。淡若海，漂无所止。众人皆有已，我独顽似鄙。我独异于人，而贵食母。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十一章"><a href="#第二十一章" class="headerlink" title="第二十一章"></a>第二十一章</h3><blockquote>
+<p>孔得之容，唯道是从。道之为物，唯恍唯忽。忽恍中有象，恍忽中有物。窈冥中有精，其精甚真，其中有信。自古及今，其名不去，以阅众甫。吾何以知众甫之然?以此。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十二章"><a href="#第二十二章" class="headerlink" title="第二十二章"></a>第二十二章</h3><blockquote>
+<p>曲则全，枉则正；洼则盈，敝则新；少则得，多则或。是以圣人抱一为天下式。不自见，故明；不自是，故彰；不自伐，故有功；不自矜，故长。夫惟不争，故天下莫能与之争。古之所谓“曲则全”，岂虚语?故成全而归之。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十三章"><a href="#第二十三章" class="headerlink" title="第二十三章"></a>第二十三章</h3><blockquote>
+<p>希言自然。飘风不终朝，骤雨不终日。孰为此?天地。天地上不能久，而况于人?故从事而道者，道德之；同于德者，德德之；同于失者，道失之。信不足，有不信。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十四章"><a href="#第二十四章" class="headerlink" title="第二十四章"></a>第二十四章</h3><blockquote>
+<p>企者不久，跨者不行，自见不明，自是不彰，自伐无功，自矜不长。其在道，日馀食赘行。物或有恶之，故有道不处。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十五章"><a href="#第二十五章" class="headerlink" title="第二十五章"></a>第二十五章</h3><blockquote>
+<p>有物混成，先天地生。寂漠!独立不改，周行不殆，可以为天下母。吾不知其名，字之曰道，吾强为之名曰大。大曰逝，逝曰远，远曰返。道大，天大，地大，王大。域中有四大，而王处一。人法地，地法天，天法道，道法自然。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十六章"><a href="#第二十六章" class="headerlink" title="第二十六章"></a>第二十六章</h3><blockquote>
+<p>重为轻根，静为躁君。是以君子终日行，不离辎重，虽有荣观，燕处超然。如何万乘之主，以身轻天下?轻则失臣，躁则失君。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十七章"><a href="#第二十七章" class="headerlink" title="第二十七章"></a>第二十七章</h3><blockquote>
+<p>善行，无辙迹；善言，无瑕谪；善计，不用筹策；善闭，无关键不可开；善结，无绳约不可解。是以圣人常善救人，而无弃人；常善救物，而无弃物。是谓袭明。善人，不善人之师；不善人，善人之资。不贵其师，不爱其资，虽知大迷，是谓要妙。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十八章"><a href="#第二十八章" class="headerlink" title="第二十八章"></a>第二十八章</h3><blockquote>
+<p>知其雄，守其雌，为天下溪。为天下溪，常德不离，复归于婴儿。知其白，守其黑，为天下式。常得不忒，复归于无极。知其荣，守其辱，为天下谷。为天下谷，常得乃足，复归于朴。朴散则为器，圣人用为官长，是以大制无割。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第二十九章"><a href="#第二十九章" class="headerlink" title="第二十九章"></a>第二十九章</h3><blockquote>
+<p>将欲取天下而为之，吾见其不得已。天下神器，不可为。为者败之，执者失之。夫物或行或随，或嘘或吹，或强或赢，或接或隳。是以圣人去甚，去奢，去泰。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十章"><a href="#第三十章" class="headerlink" title="第三十章"></a>第三十章</h3><blockquote>
+<p>以道作人主者，不以兵强天下，其事好远：师之所处，荆棘生。故善者果而已，不以取强。果而勿骄，果而勿矜，果而勿伐，果而不得以，是果而勿强。物壮则老，谓之非道，非道早已。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十一章"><a href="#第三十一章" class="headerlink" title="第三十一章"></a>第三十一章</h3><blockquote>
+<p>夫佳兵者，不祥之器，物或恶之，故有道不处。君子居则贵左，用兵则贵右。兵者不祥之器，非君子之器，不得已而用之，恬惔为上，故不美，若美之，是乐煞人。夫乐煞者，不可得意于天下。故吉事尚左，凶事尚右。是以偏将军居左，上将军居右。煞人众多，以悲哀泣之；战胜，以哀礼处之。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十二章"><a href="#第三十二章" class="headerlink" title="第三十二章"></a>第三十二章</h3><blockquote>
+<p>道常无名。朴虽小，天下不敢臣。王侯若能守，万物将自宾。天地相合，以降甘露，人莫之令而自均。始制有名。名亦既有，天将知止。知止不殆。譬道在天下，犹川谷与江海。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十三章"><a href="#第三十三章" class="headerlink" title="第三十三章"></a>第三十三章</h3><blockquote>
+<p>知人者智，自知者明。胜人有力，自胜者强。知足者富，强行有志。不失其所者久，死而不亡者寿。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十四章"><a href="#第三十四章" class="headerlink" title="第三十四章"></a>第三十四章</h3><blockquote>
+<p>大道汜，其可左右。万物恃之以生而不辞，成功不名有。爱养万物不为主，可名于大。是以圣人终不为大，故能成其大。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十五章"><a href="#第三十五章" class="headerlink" title="第三十五章"></a>第三十五章</h3><blockquote>
+<p>执大象，天下往。往而不害，安平太。乐与饵，过客止。道出言，淡无味，视不足见，听不足闻，用不可既。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十六章"><a href="#第三十六章" class="headerlink" title="第三十六章"></a>第三十六章</h3><blockquote>
+<p>将欲翕之，必故张之；将欲弱之，必故强之；将欲废之，必故兴之；将欲夺之，必故与之。是谓微明。柔胜刚，弱胜强。鱼不可脱于渊，国有利器，不可示人。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十七章"><a href="#第三十七章" class="headerlink" title="第三十七章"></a>第三十七章</h3><blockquote>
+<p>道常无为而无不为。侯王若能守，万物将自化。化而欲作，吾将镇之以无名之朴。无名之朴，亦将不欲。不欲以静，天下将自正。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十八章"><a href="#第三十八章" class="headerlink" title="第三十八章"></a>第三十八章</h3><blockquote>
+<p>上德不德，是以有德。下德不失德，是以无德。上德无为而无以为，下德无为而有以为。上仁为之而无以为，上义为之而有以为。上礼为之而莫之应，则攘臂而仍之。故失道而后德，失德而后仁，失仁而后义，失义而后礼。夫礼者，忠信之薄，而乱之首。前识者，道之华，而愚之始。是以大丈夫处其厚不处其薄，居其实不居其华。故去彼取此。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第三十九章"><a href="#第三十九章" class="headerlink" title="第三十九章"></a>第三十九章</h3><blockquote>
+<p>昔之得一者：天得一以清，地得一以宁，神得一以灵，谷得一以盈，万物得一以生，侯王得一以为天下正。天无以清，将恐裂；地无以宁，将恐废；神无以灵，将恐歇；谷无以盈，将恐竭；万物无以生，将恐灭；侯王无以贵高，将恐蹶。故贵以贱为本，高以下为基。是以侯王自谓孤、寡、不谷。此其以贱为本耶非?故致数车无车。不欲琭琭如玉，落落如石。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四十章"><a href="#第四十章" class="headerlink" title="第四十章"></a>第四十章</h3><blockquote>
+<p>反者道之动，弱者道之用。天下万物生于有，有生于无。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四十一章"><a href="#第四十一章" class="headerlink" title="第四十一章"></a>第四十一章</h3><blockquote>
+<p>上士闻道，勤而行之；中士闻道，若存若亡；下士闻道，大咲之。不咲不足以为道。故建言有之：明道若昧，进道若退，夷道若类，上德若谷，大白若辱，广德若不足，建德若偷，质真若渝，大方无隅，大器晚成，大音希声，大象无形。道隐无名。夫唯道，善贷且善。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四十二章"><a href="#第四十二章" class="headerlink" title="第四十二章"></a>第四十二章</h3><blockquote>
+<p>道生一，一生二，二生三，三生万物。万物负阴而抱阳，冲气以为和。人之所恶，唯孤、寡、不谷，而王公以为称。故物或损之而益，或益之而损。人之所教，我亦教之：强梁者不得其死，吾将以为教父。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四十三章"><a href="#第四十三章" class="headerlink" title="第四十三章"></a>第四十三章</h3><blockquote>
+<p>天下之至柔，驰骋天下之至坚。无有入于无闻。是以知无为有益。不言之教，无为之益，天下希及之。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四十四章"><a href="#第四十四章" class="headerlink" title="第四十四章"></a>第四十四章</h3><blockquote>
+<p>名与身熟亲?身与货熟多?得与亡熟病?是故甚爱必大费，多藏必厚亡。故知足不辱，知止不殆，可以长久。</p>
+</blockquote>
+<h3 id="第四十五章"><a href="#第四十五章" class="headerlink" title="第四十五章"></a>第四十五章</h3><blockquote>
+<p>大成若缺，其用不弊。大盈若冲，其用不穷。大直若屈，大巧若拙，大辩若讷。躁胜塞，静胜热，清静以为天下正。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四十六章"><a href="#第四十六章" class="headerlink" title="第四十六章"></a>第四十六章</h3><blockquote>
+<p>天下有道，却走马以粪；天下无道，戎马生于郊。罪莫大于可欲，祸莫大于不知足，咎莫大于欲得。故知足之足，常足。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四十七章"><a href="#第四十七章" class="headerlink" title="第四十七章"></a>第四十七章</h3><blockquote>
+<p>不出户，知天下；不窥牖，见天道。其出弥远，其知弥近。是以圣人不行而知，不见而名，不为而成。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四十八章"><a href="#第四十八章" class="headerlink" title="第四十八章"></a>第四十八章</h3><blockquote>
+<p>为学日益，为道日损，损之又损之，以至于无为。无为无不为。取天下常以无事，及其有事，不足以取天下。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第四十九章"><a href="#第四十九章" class="headerlink" title="第四十九章"></a>第四十九章</h3><blockquote>
+<p>圣人无心，以百姓心为心。善者吾善之，不善者吾亦善之，得善。信者吾信之，不信者吾亦信之，得信。圣人在天下，怵怵；为天下，浑其心。百姓皆注其耳目，圣人皆孩之。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五十章"><a href="#第五十章" class="headerlink" title="第五十章"></a>第五十章</h3><blockquote>
+<p>出生入死。生之徒十有三，死之徒十有三，人之生，动之死地，十有三。夫何故?以其生生之厚。盖闻善摄生者，路行不遇兕虎，入军不被甲兵。兕无所投其角，虎无所揩其爪，兵无所容其刃。夫何故?以其无死地。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五十一章"><a href="#第五十一章" class="headerlink" title="第五十一章"></a>第五十一章</h3><blockquote>
+<p>道生之，德畜之，物形之，势成之。是以万物莫不尊道而贵德。道之尊，德之贵，夫莫之命而常自然。故道生之，德畜之，长之育之，成之熟之，养之覆之。生而不有，为而不恃，长而不宰，是谓玄德。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五十二章"><a href="#第五十二章" class="headerlink" title="第五十二章"></a>第五十二章</h3><blockquote>
+<p>天下有始，以为天下母。既知其母，又知其子。既知其子，复守其母。没身不殆。塞其兑，闭其门。终身不勤。开其兑，济其事，终身不救。见小曰明，守柔曰强。用其光，复归其明，无遗身殃，是谓习常。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五十三章"><a href="#第五十三章" class="headerlink" title="第五十三章"></a>第五十三章</h3><blockquote>
+<p>使我介然有知，行于大道，唯施是畏。大道甚夷，而人好径。朝甚除，田甚芜，仓甚虚，服文彩，带利剑，厌饮食，财货有馀，是谓盗夸。非道也哉!<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五十四章"><a href="#第五十四章" class="headerlink" title="第五十四章"></a>第五十四章</h3><blockquote>
+<p>善建者不拔，善抱者不脱，子孙祭祀不辍。修之身，其德乃真；修之家，其德有馀；修之乡，其德乃长；修之于国，其德乃丰；修之于天下，其德乃普。故以身观身，以家观家，以乡观乡，以国观国，以天下观天下。吾何以知天下之然?以此。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五十五章"><a href="#第五十五章" class="headerlink" title="第五十五章"></a>第五十五章</h3><blockquote>
+<p>含德之厚，比于赤子。毒虫不螫，猛兽不据，玃鸟不搏。骨弱筋柔而握固。未知牝牡之合而脧作，精之至。终日号而不嗄，和之至。知和曰常，知常曰明，益生曰祥，心使气曰强。物壮则老，谓之不道，不道早已。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五十六章"><a href="#第五十六章" class="headerlink" title="第五十六章"></a>第五十六章</h3><blockquote>
+<p>知者不言，言者不知。塞其兑，闭其门，挫其锐，解其忿，和其光，同其尘，是谓玄同。故不可得而亲，不可得而疏；不可得而利，不可得而害；不可得而贵，亦不可得而贱。故为天下贵。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五十七章"><a href="#第五十七章" class="headerlink" title="第五十七章"></a>第五十七章</h3><blockquote>
+<p>以正治国，以奇用兵，以无事取天下。吾何以知其然?以此。天下多忌讳，而人弥贫；人多利器，国家滋昏；人多伎巧，奇物滋起；法物滋彰，盗贼多有。故圣人云：“我无为，人自化；我好静，人自正；我无事，人自富；我无欲，人自朴。”</p>
+</blockquote>
+<h3 id="第五十八章"><a href="#第五十八章" class="headerlink" title="第五十八章"></a>第五十八章</h3><blockquote>
+<p>其政闷闷，其人醇醇；其政察察，其人缺缺。祸，福之所倚；福，祸之所伏。熟知其极?其无正。政复为奇，善复为妖。人之迷，其日固久。是以圣人方而不割，廉而不害，直而不肆，光而不曜。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第五十九章"><a href="#第五十九章" class="headerlink" title="第五十九章"></a>第五十九章</h3><blockquote>
+<p>治人事天，莫若啬。夫唯啬，是谓早服。早服谓之重积德。重积德则无不克，无不克则莫知其极。莫知其极，可以有国。有国之母，可以长久。是谓深根、固蒂、长生、久视之道。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十章"><a href="#第六十章" class="headerlink" title="第六十章"></a>第六十章</h3><blockquote>
+<p>治大国若亨小鲜。以道莅天下，其鬼不神。非其鬼不神，其神不伤人。非其神不伤人，圣人亦不伤人。夫两不相伤，故得交归。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十一章"><a href="#第六十一章" class="headerlink" title="第六十一章"></a>第六十一章</h3><blockquote>
+<p>大国者下流，天下之交，天下之牝。牡常以静胜牝，以静为下。故大国以下小国，则取小国；小国以下大国，则取大国。故或下以取，或下如取。大国不过欲兼畜人，小国不过欲入事人。此两者各得其所欲，大者宜为下。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十二章"><a href="#第六十二章" class="headerlink" title="第六十二章"></a>第六十二章</h3><blockquote>
+<p>道者，万物之奥。善，人之宝；不善，人之所不保。美言可以市尊，行可以加人。人之不善，何弃之有?故立天子，置三公，虽有拱璧以先驷马，不如坐进此道。古之所以贵此道者何?不曰求以得，有罪以勉，故为天下贵。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十三章"><a href="#第六十三章" class="headerlink" title="第六十三章"></a>第六十三章</h3><blockquote>
+<p>为无为，事无事，味无味。大小多少，报怨以德。图难于易，为大于细。天下难事，必作于易；天下大事，必作于细。是以圣人终不为大，故能成其大。夫轻诺必寡信，多易必多难，是以圣人犹难之，故终无难。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十四章"><a href="#第六十四章" class="headerlink" title="第六十四章"></a>第六十四章</h3><blockquote>
+<p>其安易持，其未兆易谋，其脆易破，其微易散。为之于未有，治之于未乱。合抱之木，生于毫末；九层之台，起于累土；千里之行，始于足下。为者败之，执者失之。是以圣人无为，故无败；无执，故无失。民之从事，常于几成而败之。慎终如始，则无败事。是以圣人欲不欲，不贵难得之货；学不学，复众人之所过。以辅万物之自然而不敢为。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十五章"><a href="#第六十五章" class="headerlink" title="第六十五章"></a>第六十五章</h3><blockquote>
+<p>古之善为道者，非以明人，将以愚之。民之难治，以其多智。以智治国，国之贼；不以智治国，国之福。知此两者，亦揩式。常知揩式，是谓玄德。玄德深远，与物反，然后乃至大顺。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十六章"><a href="#第六十六章" class="headerlink" title="第六十六章"></a>第六十六章</h3><blockquote>
+<p>江海所以能为百谷王，以其善下之，故能为百谷王。是以圣人欲上人，必以言下之；欲先人，必以身后之。是以圣人处上而人不重，处前而人不害，是以天下乐推而不厌。以其不争，故天下莫与之争。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十七章"><a href="#第六十七章" class="headerlink" title="第六十七章"></a>第六十七章</h3><blockquote>
+<p>天下皆谓我大，不肖。夫唯大，故不肖。若肖，久矣其细!我有三宝，持而保之：一曰慈，二曰俭，三曰不敢为天下先。夫慈，故能勇；俭，故能广；不敢为天下先，故能成器长。今舍慈且勇，舍俭且广，舍后且先，死矣。夫慈，以战则胜，以守则固。天将救之，以慈卫之。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十八章"><a href="#第六十八章" class="headerlink" title="第六十八章"></a>第六十八章</h3><blockquote>
+<p>古之善为士者不武，善战者不怒，善胜敌者不争，善用仁者为下。是谓不争之德，是以用人之力，是谓配天古之极。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第六十九章"><a href="#第六十九章" class="headerlink" title="第六十九章"></a>第六十九章</h3><blockquote>
+<p>用兵有言：“吾不敢为主而为客，不敢进寸而退尺。”是谓行无行，攘无臂，仍无敌，执无兵。祸莫大于轻敌，轻敌几丧吾宝。故抗兵相加，则哀者胜。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十章"><a href="#第七十章" class="headerlink" title="第七十章"></a>第七十章</h3><blockquote>
+<p>吾言甚易知，甚易行。天下莫能知，莫能行。言有宗，事有君。夫唯无知，是以不我知。知我者希，则我者贵。是以圣人被褐怀玉。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十一章"><a href="#第七十一章" class="headerlink" title="第七十一章"></a>第七十一章</h3><blockquote>
+<p>知不知上，不知知，病。是以圣人不病。以其病病，是以不病。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十二章"><a href="#第七十二章" class="headerlink" title="第七十二章"></a>第七十二章</h3><blockquote>
+<p>民不畏威，大威至。无狭其所居，无厌其所生。夫唯不厌，是以不厌。是以圣人自知不自见，自爱不自贵。故去彼取此。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十三章"><a href="#第七十三章" class="headerlink" title="第七十三章"></a>第七十三章</h3><blockquote>
+<p>勇于敢则杀，勇于不敢则活，知此两者或利或害。天之所恶，孰知其故?天之道，不争而善胜，不言而善应，不召而自来，坦然而善谋。天网恢恢，疏而不漏。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十四章"><a href="#第七十四章" class="headerlink" title="第七十四章"></a>第七十四章</h3><blockquote>
+<p>民不畏死，奈何以死惧之?若使常畏死，而为奇者，吾执得而煞之，熟敢?常有司煞者煞。夫代司煞者，是谓代大匠斲，夫代大匠斲，希有不伤其手。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十五章"><a href="#第七十五章" class="headerlink" title="第七十五章"></a>第七十五章</h3><blockquote>
+<p>民之饥，以其上食税之多，是以饥。民之难治，以其上有为，是以难治。人之轻死，以其生生之厚，是以轻死。夫唯无以生为者，是贤于贵生。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十六章"><a href="#第七十六章" class="headerlink" title="第七十六章"></a>第七十六章</h3><blockquote>
+<p>人生之柔弱，其死坚强。万物草木生之柔脆，其死枯槁。故坚强者死之徒，柔弱者生之徒。是以兵强则不胜，木强则共。故坚强处下，柔弱处上。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十七章"><a href="#第七十七章" class="headerlink" title="第七十七章"></a>第七十七章</h3><blockquote>
+<p>天之道，其犹张弓!高者抑之，下者举之，有馀者损之，不足者与之。天之道，损有馀而补不足；人道则不然，损不足，奉有馀。熟能有馀以奉天下?其唯有道者。是以圣人为而不恃，功成不处，斯不见贤。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十八章"><a href="#第七十八章" class="headerlink" title="第七十八章"></a>第七十八章</h3><blockquote>
+<p>天下柔弱莫过于水，而攻坚；强莫之能先。其无以易之。故弱胜强，柔胜刚，天下莫能知，莫能行。故圣人云：“受国之垢，是谓社稷主；受国不祥，是谓天下王。”正言若反。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第七十九章"><a href="#第七十九章" class="headerlink" title="第七十九章"></a>第七十九章</h3><blockquote>
+<p>和大怨，必有馀怨，安可以为善?是以圣人执左契，不责于人。故有德司契，无德司彻。天道无亲，常与善人。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第八十章"><a href="#第八十章" class="headerlink" title="第八十章"></a>第八十章</h3><blockquote>
+<p>小国寡人，使有什佰之器而不用，使人重死而不远徙。虽有舟舆，无所乘之；虽有甲兵，无所陈之。使民复结绳而用之。甘其食，美其服，安其居，乐其俗，邻国相望，鸡狗之声相闻，民至老死，不相往来。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+<h3 id="第八十一章"><a href="#第八十一章" class="headerlink" title="第八十一章"></a>第八十一章</h3><blockquote>
+<p>信言不美，美言不信。善者不辩，辩者不善。知者不博，博者不知。圣人不积，既以为人己愈有，既以与人己愈多。天之道，利而不害。圣人之道，为而不争。<br><em><strong>批注：</strong></em></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>哲学</category>
+      </categories>
+      <tags>
+        <tag>老子</tag>
+        <tag>道家</tag>
       </tags>
   </entry>
   <entry>
@@ -1514,6 +2436,9 @@
 <blockquote>
 <p><strong>妙言至径，大道至简。</strong></p>
 </blockquote>
+<blockquote>
+<p><strong>不必太纠结于当下，也不必太忧虑未来。当你经历过一些事情之后，眼前的风景已经和从前不一样了。人生没有无用的经历，只要一直向前走，天都会亮的。</strong></p>
+</blockquote>
 ]]></content>
       <categories>
         <category>分享</category>
@@ -1521,381 +2446,6 @@
       <tags>
         <tag>诗句</tag>
         <tag>俗语</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SVN版本控制</title>
-    <url>/2020/03/18/SVN%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</url>
-    <content><![CDATA[<h2 id="SVN版本控制"><a href="#SVN版本控制" class="headerlink" title="SVN版本控制"></a>SVN版本控制</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><strong>SVN是subversion的缩写，是一个开放源代码的版本控制系统（CMS），通过采用分支管理系统的高效管理，简而言之就是用于多个人共同开发同一个项目，实现共享资源，实现最终集中式的管理，它是最初版本控制工具CVS的升级版</strong></p>
-<a id="more"></a>
-
-<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p><strong>由于实际项目开发是多人进行开发，就会出现项目代码提交的冲突，这时候使用项目版本控制工具可以有效地解决冲突以及代码的管理</strong></p>
-<h3 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h3><p><strong>在SVN中所保存的代码只能被本地进行管理，这一局限性也导致Linux之父林纳斯·托瓦兹开发了其替代产品Git。而且SVN使用了客户端服务器模式，也是说如果使用SVN一定要搭建服务其，还要单独配置客户端，也就是说，SVN如果脱离了网络，那么将无法进行版本控制</strong></p>
-<h3 id="SVN服务器的搭建"><a href="#SVN服务器的搭建" class="headerlink" title="SVN服务器的搭建"></a>SVN服务器的搭建</h3><p><em>注意：如果想要用自己电脑搭建SVN服务器一定要关闭防火墙，有360的需要卸载，否则可能出现连接不上</em><br><strong>满足上述要求以后，下载SVN服务器端软件自行选择，有apache的<a href="http://subversion.apache.org/packages.html" target="_blank" rel="noopener">subversion</a>,还有<a href="https://www.visualsvn.com/" target="_blank" rel="noopener">VisualSVN</a>等，这里提到的前一个配置相对麻烦，而VisualSVN适合新手，傻瓜式安装，具体安装不详细说明，网上有很多安装步骤详细讲解</strong></p>
-<h3 id="SVN客户端的配置"><a href="#SVN客户端的配置" class="headerlink" title="SVN客户端的配置"></a>SVN客户端的配置</h3><p><strong>至于客户端，则是<a href="https://tortoisesvn.net/" target="_blank" rel="noopener">TortoiseSVN</a>,页面进去是最新版客户端SVN，想要老版本下面文章有进入链接，至于对自己英语水平不自信的，比如我，最好还是下一语言包，安装也很简单不再赘述</strong></p>
-<h3 id="项目的发布与检出"><a href="#项目的发布与检出" class="headerlink" title="项目的发布与检出"></a>项目的发布与检出</h3><p><strong>喜欢用命令的用命令，当然下载了TortoiseSVN用命令感觉多此一举，因为我们是服务器与客户端都在自己本机，首先应当是确定自己的服务端是否启动，这很关键，在就是搭建自己的版本库，因为都是可视化界面，什么创建项目，创建组，创建用户啊都很容易，然后就是自己客户端操作，实现项目检入与检出，这里提醒一下汉化后其实导出就是检出，但检入和检出与导入和导出是不同概念。检入字面意思理解就是让你本地项目交给服务端管理，接受版本控制。而导入则不然，相当于复制入服务端，但不受其控制，就是两者没内在联系。导出和检出同理</strong></p>
-<h3 id="解决冲突问题"><a href="#解决冲突问题" class="headerlink" title="解决冲突问题"></a>解决冲突问题</h3><p><strong>项目提交难免会发生冲突，SVN提供了很好解决方案，当你与另一人提交的同一文件发生冲突，会提醒你，然后你打开文件，会查看到你修改的与另一个人的代码同时存在，这时需要你自己判断两者都要保留，然后合并。还是删除其一的修改，这就是你自己的判断了。因为本人比较懒不想截图，所以全篇没有图片参考，字面意思自认为该讲的都讲了。当然SVN插件在eclipse、IntelliJ IDEA等工具的使用自行体会网上教程很多。</strong></p>
-]]></content>
-      <categories>
-        <category>开发工具</category>
-      </categories>
-      <tags>
-        <tag>版本控制</tag>
-        <tag>SVN</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>dynasties</title>
-    <url>/2020/04/01/dynasties/</url>
-    <content><![CDATA[<a id="more"></a>
-<p><img src="http://img.xixik.net/cimg/083/xixik_c53006a681fc4200.jpeg" alt="尧舜禹→夏" title="尧舜禹→夏"><br><img src="http://img.xixik.net/cimg/083/xixik_87512603bf7f461e.jpeg" alt="商" title="商"><br><img src="http://img.xixik.net/cimg/083/xixik_a1523ca6228beae4.jpeg" alt="周" title="周"><br><img src="http://img.xixik.net/cimg/083/xixik_87c9e06af0d51132.jpeg" alt="秦" title="秦"><br><img src="http://img.xixik.net/cimg/083/xixik_01848d23bc3c0496.jpeg" alt="汉" title="汉"><br><img src="http://img.xixik.net/cimg/083/xixik_2a93308ddfd78f78.jpeg" alt="魏" title="魏"><br><img src="http://img.xixik.net/cimg/083/xixik_34ae3a4f7693d9ea.jpeg" alt="蜀" title="蜀"><br><img src="http://img.xixik.net/cimg/083/xixik_bafe42d5cde82df4.jpeg" alt="吴" title="吴"><br><img src="http://img.xixik.net/cimg/083/xixik_20b47e2887f23ecf.jpeg" alt="晋" title="晋"><br><img src="http://img.xixik.net/cimg/083/xixik_57f8d17ebfdb1a85.jpeg" alt="隋" title="隋"><br><img src="http://img.xixik.net/cimg/083/xixik_04c8ec9fff83c2f9.jpeg" alt="唐" title="唐"><br><img src="http://img.xixik.net/cimg/083/xixik_6bc06e9bb6ef708c.jpeg" alt="辽" title="辽"><br><img src="http://img.xixik.net/cimg/083/xixik_6e40141c5eb849ea.jpeg" alt="宋" title="宋"><br><img src="http://img.xixik.net/cimg/083/xixik_74a385004d03fc0a.jpeg" alt="西夏" title="西夏"><br><img src="http://img.xixik.net/cimg/083/xixik_d209b6d3983aaf85.jpeg" alt="金" title="金"><br><img src="http://img.xixik.net/cimg/083/xixik_1f2382bcdab86fe9.jpeg" alt="元" title="元"><br><img src="http://img.xixik.net/cimg/083/xixik_a160592906ace6ec.jpeg" alt="明" title="明"><br><img src="http://img.xixik.net/cimg/083/xixik_633a17f15265a0ef.jpeg" alt="清" title="清"><br><em><strong>注意：转载自嘻嘻网图片，切勿商用</strong></em></p>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>历史</tag>
-        <tag>纯图片</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>病毒浅谈</title>
-    <url>/2020/02/17/%E7%97%85%E6%AF%92%E6%B5%85%E8%B0%88/</url>
-    <content><![CDATA[<p><strong>病毒在生物上的危害就不多说，最近的COVID-19病毒就知道其可怕。本篇主要来谈谈计算机的病毒</strong></p>
-<h2 id="计算机病毒"><a href="#计算机病毒" class="headerlink" title="计算机病毒"></a>计算机病毒</h2><h3 id="什么是计算机病毒？"><a href="#什么是计算机病毒？" class="headerlink" title="什么是计算机病毒？"></a>什么是计算机病毒？</h3><p><strong>计算机病毒简单来讲，是一种人为制造，在计算机运行中对其信息或系统起破坏作用的程序</strong></p>
-<a id="more"></a>
-
-<h3 id="计算机病毒的特点是什么？"><a href="#计算机病毒的特点是什么？" class="headerlink" title="计算机病毒的特点是什么？"></a>计算机病毒的特点是什么？</h3><p><em><strong>破坏性、传染性、寄生性、潜伏性、隐蔽性</strong></em><br>不多解释，从字面意思，看就是类似于生物病毒</p>
-<h3 id="计算机中病毒的表现形式"><a href="#计算机中病毒的表现形式" class="headerlink" title="计算机中病毒的表现形式"></a>计算机中病毒的表现形式</h3><p><strong>计算机中病毒会出现哪些症状（表现）呢？</strong><br>1)程序运行速度明显变慢甚至死机<br>2)出现莫名其妙的信息，比如没有用网络资源而网卡指示灯一直闪烁；插入U盘后，无法正常退出；提示一些不相干的话，发出一段音乐，产生特定的图像，鼠标自个儿在动，自动链接到一些陌生的网站<br>3)外部设备工作异常<br>4)程序运行出现不合理的结果</p>
-<h3 id="病毒能破坏硬件吗？"><a href="#病毒能破坏硬件吗？" class="headerlink" title="病毒能破坏硬件吗？"></a>病毒能破坏硬件吗？</h3><p><strong>病毒本身就是程序，所以它不可能直接破坏硬件。但它可以通过破坏程序导致硬件不能正常工作</strong></p>
-<h3 id="病毒的传播介质"><a href="#病毒的传播介质" class="headerlink" title="病毒的传播介质"></a>病毒的传播介质</h3><p>1)U盘等可移动存储设备<br>2)随着网络的飞速发展，网络成为最主要的病毒传播途径</p>
-<p><strong>来个笑话</strong></p>
-<blockquote>
-<p>某天表妹和她的表哥在一起聊天，她们聊到了关于电脑的话题<br>表妹：表哥，去年我买了一台电脑。<br>表哥：怎么都没看你用过？<br>表妹：刚买就中病毒了<br>表哥：你没有叫人修理吗？<br>表妹得意地说：一年都不开机，病毒还不被饿死！</p>
-</blockquote>
-<p>  蛮好笑的，让我想起我小学时候，我的一同学作文，内容跟这笑话差不多，说的是每到夏天蚊子特别的多，蚊子盯地他很难受，于是他灵机一动，拿出了酒。他爸妈回来看着他拿着酒瓶，整个人迷迷糊糊的，就焦急地问他：你为什么喝酒啊？他说：”我把自己灌醉，这样蚊子吸我的血，就会跟着醉，他们醉倒了就不会盯我了”，把他爸妈都逗乐了。跟上面这笑话真是”英雄所见略同”啊</p>
-<h3 id="病毒的防治"><a href="#病毒的防治" class="headerlink" title="病毒的防治"></a>病毒的防治</h3><p><strong>每台计算机应安装杀毒软件及防火墙，并注意及时升级杀毒软件，以防止或及时发现计算机病毒的入侵一旦发现计算机系统染上病毒后，要立即使用杀毒软件进行清除。对于外来数据要严格检查，对重要数据记得做好备份</strong><br><em><strong>特别注意：</strong></em><br>观察任务栏上杀毒软件图标异常，杀毒软件检测没有病毒不一定真的没有病毒。如果怀疑有病毒，可以换个杀毒软件试试。磁盘格式化可以删除所有文件，包括病毒，这是一种玉石俱焚的方法</p>
-<p>下面给出一个防蠕虫配置</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ip access-list extended worm</span><br><span class="line">deny tcp any any eq 135</span><br><span class="line">deny tcp any any eq 137</span><br><span class="line">deny tcp any any eq 138</span><br><span class="line">deny tcp any any eq 139</span><br><span class="line">deny udp any any eq 135</span><br><span class="line">deny tcp any any eq 445</span><br><span class="line">deny udp any any eq 445</span><br><span class="line">permit ip any any </span><br><span class="line">interface GigabitEthernet 2&#x2F;1</span><br><span class="line">ip access-group worm in</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>病毒</tag>
-        <tag>网络安全</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>网络安全与防火墙</title>
-    <url>/2020/02/17/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%B8%8E%E9%98%B2%E7%81%AB%E5%A2%99/</url>
-    <content><![CDATA[<p><strong>在关于防火墙的叙述前，我们需要了解什么是网络安全，网络安全的兴起以及网络不安全带来的困扰。本章将上半部分讲述网络安全，下半部分对防火墙的定义及弊端进行浅谈</strong></p>
-<a id="more"></a>
-
-<h2 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2><h3 id="究竟什么是网络安全？"><a href="#究竟什么是网络安全？" class="headerlink" title="究竟什么是网络安全？"></a>究竟什么是网络安全？</h3><blockquote>
-<p>有人曾说过:网络的神奇在于你可以使用其他任何人的资源；<strong>可怕在其他人可以用你的资源</strong>。<br>因此，网络安全则是为了对计算机软硬件及系统中的数据地保护</p>
-</blockquote>
-<h3 id="什么让网络不安全？"><a href="#什么让网络不安全？" class="headerlink" title="什么让网络不安全？"></a>什么让网络不安全？</h3><h4 id="1-网络的缺陷"><a href="#1-网络的缺陷" class="headerlink" title="1.网络的缺陷"></a>1.网络的缺陷</h4><p>  因特网在设计之初对共享性和开放性的强调，而导致其先天的安全缺陷。然而其赖以生存的TCP/IP协议族在设计理念上更多是考虑该网络不会因局部故障而影响信息的传输，基本没有考虑安全问题。因此它在控制不可信连接、分辨非法访问、辨别身份伪装等方面存在很大缺陷，从而导致网络安全隐患。</p>
-<blockquote>
-<p>多数底层协议为广播方式，多数应用层协议为明文传输，缺乏保密与认证机制，因此容易遭受欺骗和窃听</p>
-</blockquote>
-<h4 id="2-软件与系统的漏洞及后门"><a href="#2-软件与系统的漏洞及后门" class="headerlink" title="2.软件与系统的漏洞及后门"></a>2.软件与系统的漏洞及后门</h4><p>  随着软件与网络系统规模不断增大，大多数的信息系统和网络存在着先天性的安全漏洞和安全威胁。软件的后门是编程人员为了自便而设置的，一般不为人知。<br>  比如，我们常用的操作系统，无论是 Windows 还是 Linux 几乎都存在或多或少的安全漏洞，众多的服务器、浏览器、桌面软件等都被发现存在安全隐患。任何一个软件系统都可能会因为程序员的一个疏忽或设计中的一个缺陷等原因留下漏洞。 </p>
-<h4 id="3-病毒和木马"><a href="#3-病毒和木马" class="headerlink" title="3.病毒和木马"></a>3.病毒和木马</h4><p>  <strong>病毒：</strong>一种人为蓄意制造、以破坏为主的程序，其寄生于其他应用程序或系统可执行文件，通过部分修改或移动程序，通过自我复制或占据宿主查询的部分而隐藏起来(类比我们的生物病毒),是计算机系统最直接的安全威胁。而Internet是网络滋生和传播的温床。<br>  <strong>木马：</strong>与病毒不同不会传染，主要是窃取用户信息，木马入侵不会想病毒那样入侵后立马有感觉，而是通过秘密破坏，完成非授权用户无法完成的功能，施种者可以任意破坏窃取被种者的文件，甚至远程操控被种者电脑。</p>
-<h4 id="4-黑客攻击"><a href="#4-黑客攻击" class="headerlink" title="4.黑客攻击"></a>4.黑客攻击</h4><p>  黑客都是些熟练使用计算机的能人，但标题所说黑客攻击是指为得利益不择手段(通过网路非法进入他人系统、截获或篡改计算机数据、危害信息安全)的人，通常这类黑客以骇客称之，像黑客的另一分支红客与蓝客就是正义的一方，相比破坏者，这些守护者的技术水平更高，不是有那么一句”打天下容守天下难”吗。</p>
-<h4 id="5，网络安全建设滞后"><a href="#5，网络安全建设滞后" class="headerlink" title="5，网络安全建设滞后"></a>5，网络安全建设滞后</h4><p>  网络硬件建设如火如荼了，网络安全管理滞后，用户安全意识不强，即使应用了最好的安全设备也经常达不到预期效果。<br>  也就是说一个国家的百姓衣食住行都安顿下来了，可是约束百姓的法律才颁布出来，百姓法律意识薄弱，仍会出茬子。</p>
-<h3 id="网络安全工作目的"><a href="#网络安全工作目的" class="headerlink" title="网络安全工作目的"></a>网络安全工作目的</h3><p><strong>用简洁的三字词概括就是：进不来、拿不走、改不了、看不懂、跑不了、可审查</strong><br>所以，虚拟专用网、访问控制、入侵检测、防病毒软件、防火墙等就出现了</p>
-<hr>
-<h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><h3 id="防火墙是什么？"><a href="#防火墙是什么？" class="headerlink" title="防火墙是什么？"></a>防火墙是什么？</h3><blockquote>
-<p>在建筑设计专业术语，用于分隔不同区域，能将火灾有效限制在一定空间内，阻断火灾在防火墙的一侧蔓延到另一侧，对于减少火灾造成损失有着重要作用</p>
-</blockquote>
-<p><strong>而对于网络防火墙就是在两个网络之间实现访问控制的一个或一组软件或硬件系统，是实现网络和信息安全的基础设施(类似一堵城墙将外部和内部进行隔离，并在此基础上实现数据包的访问控制等功能)</strong></p>
-<h3 id="防火墙功能"><a href="#防火墙功能" class="headerlink" title="防火墙功能"></a>防火墙功能</h3><p>防火墙主要功能是对流经它的网路通信进行扫描，过滤危险的数据或访问请求，以免在目标计算机上被执行。防火墙还可以关闭不使用的端口、禁止特定端口的通信、封锁木马、禁止来自特殊站点的访问，从而防止入侵者的所有通道。<br>这里我们也可以做一个比喻，把因特网比喻成为现实生活中的大街，内网比作一所别墅，数据比喻来往与大街的人，防火墙则是将别墅围起来的高墙，房子的主人及亲朋好友（正常进出网络数据）通过防火墙大门人脸识别，允许进入。而那些企图进入的不法分子（恶意数据包），则被拒之墙外。</p>
-<h3 id="防火墙的分类"><a href="#防火墙的分类" class="headerlink" title="防火墙的分类"></a>防火墙的分类</h3><ul>
-<li><strong>防火墙可分为软件防火墙、硬件防火墙</strong></li>
-<li><strong>防火墙也可以分为个人防火墙、网路防火墙</strong></li>
-</ul>
-<p><em>一般情况下，个人防火墙是软件防火墙(比如Windows自带的防火墙)，网络防火墙有硬件防火墙，也有软件防火墙</em></p>
-<h3 id="防火墙不足之处"><a href="#防火墙不足之处" class="headerlink" title="防火墙不足之处"></a>防火墙不足之处</h3><p><strong>无法保护内部用户之间的攻击，防外不防内</strong><br><strong>无法防护基本操作系统漏洞的攻击</strong><br><strong>一般无法防护病毒的侵袭</strong><br><strong>对网络性能有影响</strong></p>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>网络安全</tag>
-        <tag>防火墙</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>电影推荐</title>
-    <url>/2021/05/09/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90/</url>
-    <content><![CDATA[<p><strong>作为一个阅片无数的过来人，七七八八的电影看过很多，好的不少，烂的也多。因此，想推荐一些我喜欢的电影。相比电视剧，我偏好电影，因为电影以较短时间，呈现给我们精彩的内容，节省时间同时，给我们带来不错的观影体验（仅限好电影）。电影有很多种类，喜剧、恐怖、惊悚、科幻、战争、历史等。也分地区，不同地区电影也有其不同特点。在此，我想把我看过的，自认为觉得不错的电影分享出来，当然有些好电影，我没看过的，就不会列出来。所有影片只列名字，不作影评，我觉得自己写不好或者写的很烂，反而影响推荐，我觉得不同电影，不同人有不同观感，我不能融入我的主观色彩。</strong></p>
-<p><strong>顺序无先后，想起哪部写哪部</strong></p>
-<h3 id="内地"><a href="#内地" class="headerlink" title="内地"></a>内地</h3><p><strong>《蓝风筝》、《活着》、《霸王别姬》、《茶馆》、《鬼子来了》、《阳光灿烂的日子》、《让子弹飞》、《盲山》、《盲井》、《过年》、《甲方乙方》、《大腕》、《疯狂的石头》、《疯狂的赛车》、《杀生》、《斗牛》、《Hello，树先生》、《落叶归根》、《人在囧途》、《我不是药神》、《夏洛特烦恼》、《无名之辈》、《三毛从军记》、《无人区》、《天下无贼》、《背靠背，脸对脸》、《黑炮事件》</strong></p>
-<h3 id="港片"><a href="#港片" class="headerlink" title="港片"></a>港片</h3><p><strong>《监狱风云》、《英雄本色》、《纵情四海》、《黑社会》、《黑社会2：以和为贵》、《黑狱断肠歌之砌生猪肉》、《至尊三十六计之偷天换日》、《火烧岛》、《跛豪》、《五亿探长雷洛传》、《黑金》、《门徒》、《无间道三部曲》、《金钱帝国》、《机动部队》、《警察故事》、《A计划》、《快餐车》、《奇迹》、《城市猎人》、《杀破狼》、《东邪西毒》、《东成西就》、《新龙门客栈1992》、《赌神》、《赌神2》、《棋王》、《无双》、《黄飞鸿》、《方世玉》、《太极张三丰》、《精武英雄》、《导火线》、《笑林小子2：新乌龙院》、《新少林五祖》、《山村老尸》、《三五成群》、《人肉叉烧包黄秋生版》、《打蛇》、《狗咬狗》、《垂帘听政》、《倩女幽魂三部曲》、《半斤八两》、《摩登保镖》、《鬼马双星》、《卖身契》、《鸡同鸭讲》、《抢钱夫妻》、《钱作怪》、《福星系列》、《审死官》、《九品芝麻官》、《喜剧之王》、《大话西游周星驰版》、《功夫》、《少林足球》、《食神》、《逃学威龙》、《国产凌凌漆》、《鹿鼎记》、《家有喜事》、《回魂夜》、《情圣》、《整蛊专家》、《百变星君》、《武状元苏乞儿》</strong></p>
-<h3 id="国外"><a href="#国外" class="headerlink" title="国外"></a>国外</h3><p><strong>《肖申克的救赎》、《猫鼠游戏》、《泰坦尼克号》、《盗梦空间》、《西西里的美丽传说》、《末代皇帝》、《何以为家》、《小偷家族》、《阿甘正传》、《看不见的客人》、《我是谁：没有绝对安全的系统》、《非常嫌疑犯》、《两杆大烟枪》、《偷拐抢骗》、《闪灵》、《恐怖游轮》、《楚门的世界》、《教父》、《这个杀手不太冷》、《辛德勒的名单》、《蝙蝠侠：黑暗骑士》、《小丑》、《复仇者联盟》、《银河护卫队》、《死侍》、《X战警》、《变形金刚》、《星球大战》、《终结者》、《碟中谍》、《黑客帝国》、《谍影重重》、《生化危机》、《古墓丽影》、《木乃伊》、《加勒比海盗》、《哈利波特》、《指环王》、《霍比特人》、《阿凡达》、《死神来了》、《速度与激情》、《死亡飞车》、《电锯惊魂》、《三傻大闹宝莱坞》、《摔跤吧，爸爸》、《寄生虫》、《恶魔的艺术2：邪降》、《风雨哈佛路》、《千与千寻》、《菊次郎的夏天》、《热血高校》、《突袭》、《突袭2：暴徒》、《摩登时代》、《城市之光》、《大独裁者》、《淘金记》、《马戏团》、《憨豆的黄金周》、《死寂》、《咒怨》、《孤儿怨》</strong></p>
-]]></content>
-      <categories>
-        <category>分享</category>
-      </categories>
-      <tags>
-        <tag>电影</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经原文</title>
-    <url>/2020/03/28/%E9%81%93%E5%BE%B7%E7%BB%8F%E5%8E%9F%E6%96%87/</url>
-    <content><![CDATA[<h3 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h3><blockquote>
-<p>道，可道，非常道；名，可名，非常名。无名，天地始；有名，万物母。常无，欲观其妙；常有，欲观其徼。此两者同出而异名，同谓之玄，玄之又玄，众妙之门。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h3><blockquote>
-<p>天下皆知美之为美，斯恶已；皆知善之为善，斯不善已。故有无相生，难易相成，长短相形，高下相倾，音声相和，前后相随。是以圣人处无为之事，行不言之教。万物作而不辞，生而不有，为而不恃，成功不居。夫唯不居，是以不去。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<a id="more"></a>
-
-<h3 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h3><blockquote>
-<p>不上贤，使民不争；不贵难得之货，使民不盗；不见可欲，使心不乱。圣人治：虚其心，实其腹，弱其志，强其骨。常使民无知无欲，使知者不敢为，则无不治。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四章"><a href="#第四章" class="headerlink" title="第四章"></a>第四章</h3><blockquote>
-<p>道冲，而用之久不盈。深乎!万物宗。挫其锐，解其忿，和其光，同其尘。湛常存。吾不知谁子?象帝之先。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a>第五章</h3><blockquote>
-<p>天地不仁，以万物为刍狗；圣人不仁，以百姓为刍狗。天地之间，其犹橐蘥。虚而不屈，动而俞出。多言数穷，不如守中。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h3><blockquote>
-<p>谷神不死，是谓玄牝。玄牝门，天地根。绵绵若存，用之不勤。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h3><blockquote>
-<p>天长地久。天地所以能长久者，以其不自生，故能长久。是以圣人后其身而身先，外其身而身存。以其无私，故能成其私。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第八章"><a href="#第八章" class="headerlink" title="第八章"></a>第八章</h3><blockquote>
-<p>上善若水。水善利万物，又不争，处众人之所恶，故几于道。居善地，心善渊，与善人，言善信，政善治，事善能，动善时。夫唯不争，故无尤。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第九章"><a href="#第九章" class="headerlink" title="第九章"></a>第九章</h3><blockquote>
-<p>持而盈之，不若其以。揣而锐之，不可长保。金玉满堂，莫之能守。富贵而骄，自遗其咎。功成、名遂、身退、天之道。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十章"><a href="#第十章" class="headerlink" title="第十章"></a>第十章</h3><blockquote>
-<p>载营魄抱一，能无离?专气致柔，能婴儿?涤除玄览，能无疵?爱人治国，能无为?天门开阖，能为雌?明白四达，能无知?<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十一章"><a href="#第十一章" class="headerlink" title="第十一章"></a>第十一章</h3><blockquote>
-<p>三十辐共一毂，当其无有，车之用。埏埴以为器，当其无有，器之用。凿户牖以为室，当其无有，室之用。有之以为利，无之以为用。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十二章"><a href="#第十二章" class="headerlink" title="第十二章"></a>第十二章</h3><blockquote>
-<p>五色令人目盲；五音令人耳聋；五味令人口爽；驰骋田猎，令人心发狂；难得之货，令人行妨。是以圣人为腹不为目。故去彼取此。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十三章"><a href="#第十三章" class="headerlink" title="第十三章"></a>第十三章</h3><blockquote>
-<p>宠辱若惊，贵大患若身。何谓宠辱?辱为下。得之若惊，失之若惊，是谓宠辱若惊。何谓贵大患若身?吾所以有大患，为我有身。及我无身，吾有何患!故贵身于天下，若可托天下；爱以身为天下者，若可寄天下。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十四章"><a href="#第十四章" class="headerlink" title="第十四章"></a>第十四章</h3><blockquote>
-<p>视之不见，名曰夷；听之不闻，名曰希；搏之不得，名曰微。此三者不可致诘，故混而为一。其上不曒，在下不昧。绳绳兮不可名，复归于无物。是谓无状之状，无物之象，是谓忽恍。迎不见其首，随不见其后。执古之道，以语今之有。以知古始，是谓道已。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十五章"><a href="#第十五章" class="headerlink" title="第十五章"></a>第十五章</h3><blockquote>
-<p>古之善为士者，微妙玄通，深不可识。夫唯不可识，故强为之容：豫若冬涉川，犹若畏四邻，俨若客，涣若水将释，敦若朴，混若浊，旷若谷，孰能浊以静之?徐清。安以动之?徐生。保此道者，不欲盈。夫唯不盈，能弊复成。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十六章"><a href="#第十六章" class="headerlink" title="第十六章"></a>第十六章</h3><blockquote>
-<p>致虚极，守静笃。万物并作，吾以观其复。夫物云云，各归其根。归根曰静，静曰复命，复命曰常，知常曰明。不知常，忘作，凶。知常容，容能公，公能王，王能天，天能道，道能久，没身不殆。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十七章"><a href="#第十七章" class="headerlink" title="第十七章"></a>第十七章</h3><blockquote>
-<p>太上，下知有之；其次，亲之豫之；其次，畏之侮之。信不足，有不信!由其贵言。成功事遂，百姓谓我自然。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十八章"><a href="#第十八章" class="headerlink" title="第十八章"></a>第十八章</h3><blockquote>
-<p>大道废，有人义。智慧出，有大伪。六亲不和，有孝慈。国家昏乱，有忠臣。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第十九章"><a href="#第十九章" class="headerlink" title="第十九章"></a>第十九章</h3><blockquote>
-<p>绝圣弃智，民利百倍；绝民弃义，民复孝慈；绝巧弃利，盗贼无有。此三者，为文不足，故令有所属：见素抱朴，少私寡欲。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十章"><a href="#第二十章" class="headerlink" title="第二十章"></a>第二十章</h3><blockquote>
-<p>绝学无忧。唯之与阿，相去几何?善之与恶，相去何若?人之所畏，不可不畏。忙兮其未央!众人熙熙，若享太牢，若春登台。我魄未兆，若婴儿未孩。乘乘无所归!众人皆有馀，我独若遗。我愚人之心，纯纯。俗人昭昭，我独若昏。俗人察察，我独闷闷。淡若海，漂无所止。众人皆有已，我独顽似鄙。我独异于人，而贵食母。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十一章"><a href="#第二十一章" class="headerlink" title="第二十一章"></a>第二十一章</h3><blockquote>
-<p>孔得之容，唯道是从。道之为物，唯恍唯忽。忽恍中有象，恍忽中有物。窈冥中有精，其精甚真，其中有信。自古及今，其名不去，以阅众甫。吾何以知众甫之然?以此。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十二章"><a href="#第二十二章" class="headerlink" title="第二十二章"></a>第二十二章</h3><blockquote>
-<p>曲则全，枉则正；洼则盈，敝则新；少则得，多则或。是以圣人抱一为天下式。不自见，故明；不自是，故彰；不自伐，故有功；不自矜，故长。夫惟不争，故天下莫能与之争。古之所谓“曲则全”，岂虚语?故成全而归之。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十三章"><a href="#第二十三章" class="headerlink" title="第二十三章"></a>第二十三章</h3><blockquote>
-<p>希言自然。飘风不终朝，骤雨不终日。孰为此?天地。天地上不能久，而况于人?故从事而道者，道德之；同于德者，德德之；同于失者，道失之。信不足，有不信。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十四章"><a href="#第二十四章" class="headerlink" title="第二十四章"></a>第二十四章</h3><blockquote>
-<p>企者不久，跨者不行，自见不明，自是不彰，自伐无功，自矜不长。其在道，日馀食赘行。物或有恶之，故有道不处。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十五章"><a href="#第二十五章" class="headerlink" title="第二十五章"></a>第二十五章</h3><blockquote>
-<p>有物混成，先天地生。寂漠!独立不改，周行不殆，可以为天下母。吾不知其名，字之曰道，吾强为之名曰大。大曰逝，逝曰远，远曰返。道大，天大，地大，王大。域中有四大，而王处一。人法地，地法天，天法道，道法自然。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十六章"><a href="#第二十六章" class="headerlink" title="第二十六章"></a>第二十六章</h3><blockquote>
-<p>重为轻根，静为躁君。是以君子终日行，不离辎重，虽有荣观，燕处超然。如何万乘之主，以身轻天下?轻则失臣，躁则失君。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十七章"><a href="#第二十七章" class="headerlink" title="第二十七章"></a>第二十七章</h3><blockquote>
-<p>善行，无辙迹；善言，无瑕谪；善计，不用筹策；善闭，无关键不可开；善结，无绳约不可解。是以圣人常善救人，而无弃人；常善救物，而无弃物。是谓袭明。善人，不善人之师；不善人，善人之资。不贵其师，不爱其资，虽知大迷，是谓要妙。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十八章"><a href="#第二十八章" class="headerlink" title="第二十八章"></a>第二十八章</h3><blockquote>
-<p>知其雄，守其雌，为天下溪。为天下溪，常德不离，复归于婴儿。知其白，守其黑，为天下式。常得不忒，复归于无极。知其荣，守其辱，为天下谷。为天下谷，常得乃足，复归于朴。朴散则为器，圣人用为官长，是以大制无割。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第二十九章"><a href="#第二十九章" class="headerlink" title="第二十九章"></a>第二十九章</h3><blockquote>
-<p>将欲取天下而为之，吾见其不得已。天下神器，不可为。为者败之，执者失之。夫物或行或随，或嘘或吹，或强或赢，或接或隳。是以圣人去甚，去奢，去泰。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十章"><a href="#第三十章" class="headerlink" title="第三十章"></a>第三十章</h3><blockquote>
-<p>以道作人主者，不以兵强天下，其事好远：师之所处，荆棘生。故善者果而已，不以取强。果而勿骄，果而勿矜，果而勿伐，果而不得以，是果而勿强。物壮则老，谓之非道，非道早已。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十一章"><a href="#第三十一章" class="headerlink" title="第三十一章"></a>第三十一章</h3><blockquote>
-<p>夫佳兵者，不祥之器，物或恶之，故有道不处。君子居则贵左，用兵则贵右。兵者不祥之器，非君子之器，不得已而用之，恬惔为上，故不美，若美之，是乐煞人。夫乐煞者，不可得意于天下。故吉事尚左，凶事尚右。是以偏将军居左，上将军居右。煞人众多，以悲哀泣之；战胜，以哀礼处之。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十二章"><a href="#第三十二章" class="headerlink" title="第三十二章"></a>第三十二章</h3><blockquote>
-<p>道常无名。朴虽小，天下不敢臣。王侯若能守，万物将自宾。天地相合，以降甘露，人莫之令而自均。始制有名。名亦既有，天将知止。知止不殆。譬道在天下，犹川谷与江海。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十三章"><a href="#第三十三章" class="headerlink" title="第三十三章"></a>第三十三章</h3><blockquote>
-<p>知人者智，自知者明。胜人有力，自胜者强。知足者富，强行有志。不失其所者久，死而不亡者寿。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十四章"><a href="#第三十四章" class="headerlink" title="第三十四章"></a>第三十四章</h3><blockquote>
-<p>大道汜，其可左右。万物恃之以生而不辞，成功不名有。爱养万物不为主，可名于大。是以圣人终不为大，故能成其大。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十五章"><a href="#第三十五章" class="headerlink" title="第三十五章"></a>第三十五章</h3><blockquote>
-<p>执大象，天下往。往而不害，安平太。乐与饵，过客止。道出言，淡无味，视不足见，听不足闻，用不可既。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十六章"><a href="#第三十六章" class="headerlink" title="第三十六章"></a>第三十六章</h3><blockquote>
-<p>将欲翕之，必故张之；将欲弱之，必故强之；将欲废之，必故兴之；将欲夺之，必故与之。是谓微明。柔胜刚，弱胜强。鱼不可脱于渊，国有利器，不可示人。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十七章"><a href="#第三十七章" class="headerlink" title="第三十七章"></a>第三十七章</h3><blockquote>
-<p>道常无为而无不为。侯王若能守，万物将自化。化而欲作，吾将镇之以无名之朴。无名之朴，亦将不欲。不欲以静，天下将自正。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十八章"><a href="#第三十八章" class="headerlink" title="第三十八章"></a>第三十八章</h3><blockquote>
-<p>上德不德，是以有德。下德不失德，是以无德。上德无为而无以为，下德无为而有以为。上仁为之而无以为，上义为之而有以为。上礼为之而莫之应，则攘臂而仍之。故失道而后德，失德而后仁，失仁而后义，失义而后礼。夫礼者，忠信之薄，而乱之首。前识者，道之华，而愚之始。是以大丈夫处其厚不处其薄，居其实不居其华。故去彼取此。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第三十九章"><a href="#第三十九章" class="headerlink" title="第三十九章"></a>第三十九章</h3><blockquote>
-<p>昔之得一者：天得一以清，地得一以宁，神得一以灵，谷得一以盈，万物得一以生，侯王得一以为天下正。天无以清，将恐裂；地无以宁，将恐废；神无以灵，将恐歇；谷无以盈，将恐竭；万物无以生，将恐灭；侯王无以贵高，将恐蹶。故贵以贱为本，高以下为基。是以侯王自谓孤、寡、不谷。此其以贱为本耶非?故致数车无车。不欲琭琭如玉，落落如石。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四十章"><a href="#第四十章" class="headerlink" title="第四十章"></a>第四十章</h3><blockquote>
-<p>反者道之动，弱者道之用。天下万物生于有，有生于无。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四十一章"><a href="#第四十一章" class="headerlink" title="第四十一章"></a>第四十一章</h3><blockquote>
-<p>上士闻道，勤而行之；中士闻道，若存若亡；下士闻道，大咲之。不咲不足以为道。故建言有之：明道若昧，进道若退，夷道若类，上德若谷，大白若辱，广德若不足，建德若偷，质真若渝，大方无隅，大器晚成，大音希声，大象无形。道隐无名。夫唯道，善贷且善。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四十二章"><a href="#第四十二章" class="headerlink" title="第四十二章"></a>第四十二章</h3><blockquote>
-<p>道生一，一生二，二生三，三生万物。万物负阴而抱阳，冲气以为和。人之所恶，唯孤、寡、不谷，而王公以为称。故物或损之而益，或益之而损。人之所教，我亦教之：强梁者不得其死，吾将以为教父。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四十三章"><a href="#第四十三章" class="headerlink" title="第四十三章"></a>第四十三章</h3><blockquote>
-<p>天下之至柔，驰骋天下之至坚。无有入于无闻。是以知无为有益。不言之教，无为之益，天下希及之。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四十四章"><a href="#第四十四章" class="headerlink" title="第四十四章"></a>第四十四章</h3><blockquote>
-<p>名与身熟亲?身与货熟多?得与亡熟病?是故甚爱必大费，多藏必厚亡。故知足不辱，知止不殆，可以长久。</p>
-</blockquote>
-<h3 id="第四十五章"><a href="#第四十五章" class="headerlink" title="第四十五章"></a>第四十五章</h3><blockquote>
-<p>大成若缺，其用不弊。大盈若冲，其用不穷。大直若屈，大巧若拙，大辩若讷。躁胜塞，静胜热，清静以为天下正。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四十六章"><a href="#第四十六章" class="headerlink" title="第四十六章"></a>第四十六章</h3><blockquote>
-<p>天下有道，却走马以粪；天下无道，戎马生于郊。罪莫大于可欲，祸莫大于不知足，咎莫大于欲得。故知足之足，常足。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四十七章"><a href="#第四十七章" class="headerlink" title="第四十七章"></a>第四十七章</h3><blockquote>
-<p>不出户，知天下；不窥牖，见天道。其出弥远，其知弥近。是以圣人不行而知，不见而名，不为而成。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四十八章"><a href="#第四十八章" class="headerlink" title="第四十八章"></a>第四十八章</h3><blockquote>
-<p>为学日益，为道日损，损之又损之，以至于无为。无为无不为。取天下常以无事，及其有事，不足以取天下。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第四十九章"><a href="#第四十九章" class="headerlink" title="第四十九章"></a>第四十九章</h3><blockquote>
-<p>圣人无心，以百姓心为心。善者吾善之，不善者吾亦善之，得善。信者吾信之，不信者吾亦信之，得信。圣人在天下，怵怵；为天下，浑其心。百姓皆注其耳目，圣人皆孩之。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五十章"><a href="#第五十章" class="headerlink" title="第五十章"></a>第五十章</h3><blockquote>
-<p>出生入死。生之徒十有三，死之徒十有三，人之生，动之死地，十有三。夫何故?以其生生之厚。盖闻善摄生者，路行不遇兕虎，入军不被甲兵。兕无所投其角，虎无所揩其爪，兵无所容其刃。夫何故?以其无死地。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五十一章"><a href="#第五十一章" class="headerlink" title="第五十一章"></a>第五十一章</h3><blockquote>
-<p>道生之，德畜之，物形之，势成之。是以万物莫不尊道而贵德。道之尊，德之贵，夫莫之命而常自然。故道生之，德畜之，长之育之，成之熟之，养之覆之。生而不有，为而不恃，长而不宰，是谓玄德。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五十二章"><a href="#第五十二章" class="headerlink" title="第五十二章"></a>第五十二章</h3><blockquote>
-<p>天下有始，以为天下母。既知其母，又知其子。既知其子，复守其母。没身不殆。塞其兑，闭其门。终身不勤。开其兑，济其事，终身不救。见小曰明，守柔曰强。用其光，复归其明，无遗身殃，是谓习常。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五十三章"><a href="#第五十三章" class="headerlink" title="第五十三章"></a>第五十三章</h3><blockquote>
-<p>使我介然有知，行于大道，唯施是畏。大道甚夷，而人好径。朝甚除，田甚芜，仓甚虚，服文彩，带利剑，厌饮食，财货有馀，是谓盗夸。非道也哉!<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五十四章"><a href="#第五十四章" class="headerlink" title="第五十四章"></a>第五十四章</h3><blockquote>
-<p>善建者不拔，善抱者不脱，子孙祭祀不辍。修之身，其德乃真；修之家，其德有馀；修之乡，其德乃长；修之于国，其德乃丰；修之于天下，其德乃普。故以身观身，以家观家，以乡观乡，以国观国，以天下观天下。吾何以知天下之然?以此。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五十五章"><a href="#第五十五章" class="headerlink" title="第五十五章"></a>第五十五章</h3><blockquote>
-<p>含德之厚，比于赤子。毒虫不螫，猛兽不据，玃鸟不搏。骨弱筋柔而握固。未知牝牡之合而脧作，精之至。终日号而不嗄，和之至。知和曰常，知常曰明，益生曰祥，心使气曰强。物壮则老，谓之不道，不道早已。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五十六章"><a href="#第五十六章" class="headerlink" title="第五十六章"></a>第五十六章</h3><blockquote>
-<p>知者不言，言者不知。塞其兑，闭其门，挫其锐，解其忿，和其光，同其尘，是谓玄同。故不可得而亲，不可得而疏；不可得而利，不可得而害；不可得而贵，亦不可得而贱。故为天下贵。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五十七章"><a href="#第五十七章" class="headerlink" title="第五十七章"></a>第五十七章</h3><blockquote>
-<p>以正治国，以奇用兵，以无事取天下。吾何以知其然?以此。天下多忌讳，而人弥贫；人多利器，国家滋昏；人多伎巧，奇物滋起；法物滋彰，盗贼多有。故圣人云：“我无为，人自化；我好静，人自正；我无事，人自富；我无欲，人自朴。”</p>
-</blockquote>
-<h3 id="第五十八章"><a href="#第五十八章" class="headerlink" title="第五十八章"></a>第五十八章</h3><blockquote>
-<p>其政闷闷，其人醇醇；其政察察，其人缺缺。祸，福之所倚；福，祸之所伏。熟知其极?其无正。政复为奇，善复为妖。人之迷，其日固久。是以圣人方而不割，廉而不害，直而不肆，光而不曜。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第五十九章"><a href="#第五十九章" class="headerlink" title="第五十九章"></a>第五十九章</h3><blockquote>
-<p>治人事天，莫若啬。夫唯啬，是谓早服。早服谓之重积德。重积德则无不克，无不克则莫知其极。莫知其极，可以有国。有国之母，可以长久。是谓深根、固蒂、长生、久视之道。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十章"><a href="#第六十章" class="headerlink" title="第六十章"></a>第六十章</h3><blockquote>
-<p>治大国若亨小鲜。以道莅天下，其鬼不神。非其鬼不神，其神不伤人。非其神不伤人，圣人亦不伤人。夫两不相伤，故得交归。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十一章"><a href="#第六十一章" class="headerlink" title="第六十一章"></a>第六十一章</h3><blockquote>
-<p>大国者下流，天下之交，天下之牝。牡常以静胜牝，以静为下。故大国以下小国，则取小国；小国以下大国，则取大国。故或下以取，或下如取。大国不过欲兼畜人，小国不过欲入事人。此两者各得其所欲，大者宜为下。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十二章"><a href="#第六十二章" class="headerlink" title="第六十二章"></a>第六十二章</h3><blockquote>
-<p>道者，万物之奥。善，人之宝；不善，人之所不保。美言可以市尊，行可以加人。人之不善，何弃之有?故立天子，置三公，虽有拱璧以先驷马，不如坐进此道。古之所以贵此道者何?不曰求以得，有罪以勉，故为天下贵。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十三章"><a href="#第六十三章" class="headerlink" title="第六十三章"></a>第六十三章</h3><blockquote>
-<p>为无为，事无事，味无味。大小多少，报怨以德。图难于易，为大于细。天下难事，必作于易；天下大事，必作于细。是以圣人终不为大，故能成其大。夫轻诺必寡信，多易必多难，是以圣人犹难之，故终无难。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十四章"><a href="#第六十四章" class="headerlink" title="第六十四章"></a>第六十四章</h3><blockquote>
-<p>其安易持，其未兆易谋，其脆易破，其微易散。为之于未有，治之于未乱。合抱之木，生于毫末；九层之台，起于累土；千里之行，始于足下。为者败之，执者失之。是以圣人无为，故无败；无执，故无失。民之从事，常于几成而败之。慎终如始，则无败事。是以圣人欲不欲，不贵难得之货；学不学，复众人之所过。以辅万物之自然而不敢为。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十五章"><a href="#第六十五章" class="headerlink" title="第六十五章"></a>第六十五章</h3><blockquote>
-<p>古之善为道者，非以明人，将以愚之。民之难治，以其多智。以智治国，国之贼；不以智治国，国之福。知此两者，亦揩式。常知揩式，是谓玄德。玄德深远，与物反，然后乃至大顺。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十六章"><a href="#第六十六章" class="headerlink" title="第六十六章"></a>第六十六章</h3><blockquote>
-<p>江海所以能为百谷王，以其善下之，故能为百谷王。是以圣人欲上人，必以言下之；欲先人，必以身后之。是以圣人处上而人不重，处前而人不害，是以天下乐推而不厌。以其不争，故天下莫与之争。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十七章"><a href="#第六十七章" class="headerlink" title="第六十七章"></a>第六十七章</h3><blockquote>
-<p>天下皆谓我大，不肖。夫唯大，故不肖。若肖，久矣其细!我有三宝，持而保之：一曰慈，二曰俭，三曰不敢为天下先。夫慈，故能勇；俭，故能广；不敢为天下先，故能成器长。今舍慈且勇，舍俭且广，舍后且先，死矣。夫慈，以战则胜，以守则固。天将救之，以慈卫之。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十八章"><a href="#第六十八章" class="headerlink" title="第六十八章"></a>第六十八章</h3><blockquote>
-<p>古之善为士者不武，善战者不怒，善胜敌者不争，善用仁者为下。是谓不争之德，是以用人之力，是谓配天古之极。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第六十九章"><a href="#第六十九章" class="headerlink" title="第六十九章"></a>第六十九章</h3><blockquote>
-<p>用兵有言：“吾不敢为主而为客，不敢进寸而退尺。”是谓行无行，攘无臂，仍无敌，执无兵。祸莫大于轻敌，轻敌几丧吾宝。故抗兵相加，则哀者胜。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十章"><a href="#第七十章" class="headerlink" title="第七十章"></a>第七十章</h3><blockquote>
-<p>吾言甚易知，甚易行。天下莫能知，莫能行。言有宗，事有君。夫唯无知，是以不我知。知我者希，则我者贵。是以圣人被褐怀玉。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十一章"><a href="#第七十一章" class="headerlink" title="第七十一章"></a>第七十一章</h3><blockquote>
-<p>知不知上，不知知，病。是以圣人不病。以其病病，是以不病。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十二章"><a href="#第七十二章" class="headerlink" title="第七十二章"></a>第七十二章</h3><blockquote>
-<p>民不畏威，大威至。无狭其所居，无厌其所生。夫唯不厌，是以不厌。是以圣人自知不自见，自爱不自贵。故去彼取此。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十三章"><a href="#第七十三章" class="headerlink" title="第七十三章"></a>第七十三章</h3><blockquote>
-<p>勇于敢则杀，勇于不敢则活，知此两者或利或害。天之所恶，孰知其故?天之道，不争而善胜，不言而善应，不召而自来，坦然而善谋。天网恢恢，疏而不漏。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十四章"><a href="#第七十四章" class="headerlink" title="第七十四章"></a>第七十四章</h3><blockquote>
-<p>民不畏死，奈何以死惧之?若使常畏死，而为奇者，吾执得而煞之，熟敢?常有司煞者煞。夫代司煞者，是谓代大匠斲，夫代大匠斲，希有不伤其手。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十五章"><a href="#第七十五章" class="headerlink" title="第七十五章"></a>第七十五章</h3><blockquote>
-<p>民之饥，以其上食税之多，是以饥。民之难治，以其上有为，是以难治。人之轻死，以其生生之厚，是以轻死。夫唯无以生为者，是贤于贵生。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十六章"><a href="#第七十六章" class="headerlink" title="第七十六章"></a>第七十六章</h3><blockquote>
-<p>人生之柔弱，其死坚强。万物草木生之柔脆，其死枯槁。故坚强者死之徒，柔弱者生之徒。是以兵强则不胜，木强则共。故坚强处下，柔弱处上。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十七章"><a href="#第七十七章" class="headerlink" title="第七十七章"></a>第七十七章</h3><blockquote>
-<p>天之道，其犹张弓!高者抑之，下者举之，有馀者损之，不足者与之。天之道，损有馀而补不足；人道则不然，损不足，奉有馀。熟能有馀以奉天下?其唯有道者。是以圣人为而不恃，功成不处，斯不见贤。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十八章"><a href="#第七十八章" class="headerlink" title="第七十八章"></a>第七十八章</h3><blockquote>
-<p>天下柔弱莫过于水，而攻坚；强莫之能先。其无以易之。故弱胜强，柔胜刚，天下莫能知，莫能行。故圣人云：“受国之垢，是谓社稷主；受国不祥，是谓天下王。”正言若反。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第七十九章"><a href="#第七十九章" class="headerlink" title="第七十九章"></a>第七十九章</h3><blockquote>
-<p>和大怨，必有馀怨，安可以为善?是以圣人执左契，不责于人。故有德司契，无德司彻。天道无亲，常与善人。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第八十章"><a href="#第八十章" class="headerlink" title="第八十章"></a>第八十章</h3><blockquote>
-<p>小国寡人，使有什佰之器而不用，使人重死而不远徙。虽有舟舆，无所乘之；虽有甲兵，无所陈之。使民复结绳而用之。甘其食，美其服，安其居，乐其俗，邻国相望，鸡狗之声相闻，民至老死，不相往来。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-<h3 id="第八十一章"><a href="#第八十一章" class="headerlink" title="第八十一章"></a>第八十一章</h3><blockquote>
-<p>信言不美，美言不信。善者不辩，辩者不善。知者不博，博者不知。圣人不积，既以为人己愈有，既以与人己愈多。天之道，利而不害。圣人之道，为而不争。<br><em><strong>批注：</strong></em></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>哲学</category>
-      </categories>
-      <tags>
-        <tag>老子</tag>
-        <tag>道家</tag>
       </tags>
   </entry>
 </search>

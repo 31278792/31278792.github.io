@@ -347,6 +347,893 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/03/24/Vim%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄粱一梦">
+      <meta itemprop="description" content="已识乾坤大，犹怜草木青">
+      <meta itemprop="image" content="/images/touxiang.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yangzw">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/03/24/Vim%E4%BD%BF%E7%94%A8/" itemprop="url">
+                  Vim使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2022-03-24 20:21:52" itemprop="dateCreated datePublished" datetime="2022-03-24T20:21:52+08:00">2022-03-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2022-03-29 20:57:11" itemprop="dateModified" datetime="2022-03-29T20:57:11+08:00">2022-03-29</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">12k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">11 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>vim四种模式分别为普通模式、命令模式、编辑模式、视图模式</p>
+<table>
+<thead>
+<tr>
+<th align="center">键位</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>j</strong></td>
+<td align="center">向下移动光标</td>
+</tr>
+<tr>
+<td align="center"><strong>k</strong></td>
+<td align="center">向上移动光标</td>
+</tr>
+<tr>
+<td align="center"><strong>h</strong></td>
+<td align="center">向左移动光标</td>
+</tr>
+<tr>
+<td align="center"><strong>l</strong></td>
+<td align="center">向右移动光标</td>
+</tr>
+<tr>
+<td align="center"><strong>0</strong></td>
+<td align="center">移动行首</td>
+</tr>
+<tr>
+<td align="center"><strong>^</strong></td>
+<td align="center">移动行首第一个非空白字符</td>
+</tr>
+<tr>
+<td align="center"><strong>$</strong></td>
+<td align="center">移动行尾</td>
+</tr>
+<tr>
+<td align="center"><strong>g_</strong></td>
+<td align="center">移动到行尾非空白字符</td>
+</tr>
+<tr>
+<td align="center"><strong>w/W</strong></td>
+<td align="center">正向移动到下一个单词词首</td>
+</tr>
+<tr>
+<td align="center"><strong>b/B</strong></td>
+<td align="center">反向移动到上一个单词词首</td>
+</tr>
+<tr>
+<td align="center"><strong>e/E</strong></td>
+<td align="center">正向移动到下一个单词词尾</td>
+</tr>
+<tr>
+<td align="center"><strong>ge</strong></td>
+<td align="center">反向移动到上一个单词词首</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+f(forward)</strong></td>
+<td align="center">向下翻页</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+b(back)</strong></td>
+<td align="center">向上翻页</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+d</strong></td>
+<td align="center">向下翻半页</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+u</strong></td>
+<td align="center">向上翻半页</td>
+</tr>
+<tr>
+<td align="center"><strong>zz</strong></td>
+<td align="center">把屏幕至于中间</td>
+</tr>
+<tr>
+<td align="center"><strong>H/M/L</strong></td>
+<td align="center">跳转到文本开头/中间/结尾</td>
+</tr>
+<tr>
+<td align="center"><strong>gg</strong></td>
+<td align="center">回到第一行行首</td>
+</tr>
+<tr>
+<td align="center"><strong>数字+gg/G</strong></td>
+<td align="center">移动到指定行行首</td>
+</tr>
+<tr>
+<td align="center"><strong>G</strong></td>
+<td align="center">移动到最后一行行首</td>
+</tr>
+<tr>
+<td align="center"><strong>g+ctrl+g</strong></td>
+<td align="center">光标所在行信息</td>
+</tr>
+<tr>
+<td align="center"><strong>j+ctrl+g</strong></td>
+<td align="center">获取文件名所在行数</td>
+</tr>
+<tr>
+<td align="center"><strong>&gt;&gt;/:&gt;</strong></td>
+<td align="center">右缩进</td>
+</tr>
+<tr>
+<td align="center"><strong>&lt;&lt;/:&lt;</strong></td>
+<td align="center">左缩进</td>
+</tr>
+<tr>
+<td align="center"><strong>m,n&gt;/:m&gt;(n-m+1)</strong></td>
+<td align="center">m到n行右缩进</td>
+</tr>
+<tr>
+<td align="center"><strong>&gt;+数字</strong></td>
+<td align="center">当前光标下几行进行缩进</td>
+</tr>
+<tr>
+<td align="center"><strong>:m&gt;n</strong></td>
+<td align="center">指定m位置下n行进行缩进</td>
+</tr>
+<tr>
+<td align="center"><strong>dd</strong></td>
+<td align="center">剪切整行</td>
+</tr>
+<tr>
+<td align="center"><strong>yy</strong></td>
+<td align="center">复制整行</td>
+</tr>
+<tr>
+<td align="center"><strong>p/P</strong></td>
+<td align="center">粘贴</td>
+</tr>
+<tr>
+<td align="center"><strong>u</strong></td>
+<td align="center">撤销</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+r</strong></td>
+<td align="center">重做/恢复之前操作</td>
+</tr>
+<tr>
+<td align="center"><strong>yw</strong></td>
+<td align="center">当前光标单个单词</td>
+</tr>
+<tr>
+<td align="center"><strong>y+数字+w</strong></td>
+<td align="center">复制正向多个单词</td>
+</tr>
+<tr>
+<td align="center"><strong>x/X</strong></td>
+<td align="center">剪切当前字符/剪切前一个字符</td>
+</tr>
+<tr>
+<td align="center"><strong>dw</strong></td>
+<td align="center">删除一个单词</td>
+</tr>
+<tr>
+<td align="center"><strong>dj</strong></td>
+<td align="center">删除当前行以及下一行</td>
+</tr>
+<tr>
+<td align="center"><strong>dk</strong></td>
+<td align="center">删除当前行以及上一行</td>
+</tr>
+<tr>
+<td align="center"><strong>dh</strong></td>
+<td align="center">删除前一个字符</td>
+</tr>
+<tr>
+<td align="center"><strong>dl</strong></td>
+<td align="center">删除当前字符</td>
+</tr>
+<tr>
+<td align="center"><strong>d$/D</strong></td>
+<td align="center">删除光标到行尾字符</td>
+</tr>
+<tr>
+<td align="center"><strong>d^</strong></td>
+<td align="center">删除光标当行首字符</td>
+</tr>
+<tr>
+<td align="center"><strong>数字+dd</strong></td>
+<td align="center">删除向下几行</td>
+</tr>
+<tr>
+<td align="center"><strong>m+d+w</strong></td>
+<td align="center">删除正向单词m次</td>
+</tr>
+<tr>
+<td align="center"><strong>d+n+w</strong></td>
+<td align="center">正向删除nw动作</td>
+</tr>
+<tr>
+<td align="center"><strong>m+d+n+w</strong></td>
+<td align="center">正向删除nw动作m次</td>
+</tr>
+<tr>
+<td align="center"><strong>数字+w</strong></td>
+<td align="center">正向移动几个单词</td>
+</tr>
+<tr>
+<td align="center"><strong>shift+i/A</strong></td>
+<td align="center">插入行首/行尾</td>
+</tr>
+<tr>
+<td align="center"><strong>i</strong></td>
+<td align="center">光标前插入</td>
+</tr>
+<tr>
+<td align="center"><strong>a</strong></td>
+<td align="center">光标后插入</td>
+</tr>
+<tr>
+<td align="center"><strong>o/O</strong></td>
+<td align="center">下一行/上一行插入</td>
+</tr>
+<tr>
+<td align="center"><strong>数字+o</strong></td>
+<td align="center">向下插入几行</td>
+</tr>
+<tr>
+<td align="center"><strong>~</strong></td>
+<td align="center">当个字符大小写转换</td>
+</tr>
+<tr>
+<td align="center"><strong>g~W</strong></td>
+<td align="center">单词大小写转换</td>
+</tr>
+<tr>
+<td align="center"><strong>g<del>$/g</del></strong></td>
+<td align="center">整行大小写转换</td>
+</tr>
+<tr>
+<td align="center"><strong>g+U/u+w</strong></td>
+<td align="center">单词转换成大/小写</td>
+</tr>
+<tr>
+<td align="center"><strong>g+U/u+n</strong></td>
+<td align="center">转换大/小写n行</td>
+</tr>
+<tr>
+<td align="center"><strong>.</strong></td>
+<td align="center">重复上一个操作</td>
+</tr>
+<tr>
+<td align="center"><strong>F/f{char}</strong></td>
+<td align="center">当前行反向/正向查找单个字符，<code>;</code>匹配下一个字符</td>
+</tr>
+<tr>
+<td align="center"><strong>t{char}</strong></td>
+<td align="center">查找到前一个字符，<code>;</code>匹配下一个字符</td>
+</tr>
+<tr>
+<td align="center"><strong>df{space}</strong></td>
+<td align="center">当前光标到一个单词词首的所有字符</td>
+</tr>
+<tr>
+<td align="center"><strong>/{char}</strong></td>
+<td align="center">全局搜索（n下一个，N上一个）</td>
+</tr>
+<tr>
+<td align="center"><strong>:s/原/替/g</strong></td>
+<td align="center">当前行所有目标替换</td>
+</tr>
+<tr>
+<td align="center"><strong>:%s/原/替/g</strong></td>
+<td align="center">%匹配所有范围</td>
+</tr>
+<tr>
+<td align="center"><strong>shift+r</strong></td>
+<td align="center">当前行进行替换</td>
+</tr>
+<tr>
+<td align="center"><strong>r</strong></td>
+<td align="center">对单个字符替换</td>
+</tr>
+<tr>
+<td align="center"><strong>cw</strong></td>
+<td align="center">修改单个单词</td>
+</tr>
+<tr>
+<td align="center"><strong>c$/C</strong></td>
+<td align="center">修改光标之后行内内容</td>
+</tr>
+<tr>
+<td align="center"><strong>c+数字+w</strong></td>
+<td align="center">修改多个单词</td>
+</tr>
+<tr>
+<td align="center"><strong>:files/buffers/ls</strong></td>
+<td align="center">查看缓冲区</td>
+</tr>
+<tr>
+<td align="center"><strong>:bp[previous]</strong></td>
+<td align="center">上一个缓冲区</td>
+</tr>
+<tr>
+<td align="center"><strong>:bn[next]</strong></td>
+<td align="center">下一个缓冲区</td>
+</tr>
+<tr>
+<td align="center"><strong>:bf[first]</strong></td>
+<td align="center">到第一个缓冲区</td>
+</tr>
+<tr>
+<td align="center"><strong>:bl[last]</strong></td>
+<td align="center">到最后一个缓冲区</td>
+</tr>
+<tr>
+<td align="center"><strong>:b Number/File_name</strong></td>
+<td align="center">指定缓冲区</td>
+</tr>
+<tr>
+<td align="center"><strong>:ball</strong></td>
+<td align="center">编辑所有缓冲区(:qall退出所有)</td>
+</tr>
+<tr>
+<td align="center"><strong>Ctrl+^/b#</strong></td>
+<td align="center">切换到前一个buffer(交换buffer)</td>
+</tr>
+<tr>
+<td align="center"><strong>badd</strong></td>
+<td align="center">打开新缓冲区</td>
+</tr>
+<tr>
+<td align="center"><strong>bd</strong></td>
+<td align="center">删除缓冲区</td>
+</tr>
+<tr>
+<td align="center"><strong>%bd</strong></td>
+<td align="center">删除所有缓冲区</td>
+</tr>
+<tr>
+<td align="center"><strong>:bufdo set number?</strong></td>
+<td align="center">查看所有缓冲区是否设置number</td>
+</tr>
+<tr>
+<td align="center"><strong>vim -O/on</strong></td>
+<td align="center">水平/垂直分屏，n:数字,o:Open</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w c/q</strong></td>
+<td align="center">关闭当前窗口/最后一个窗口时退出</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w s</strong></td>
+<td align="center">上下分割当前打开的文件</td>
+</tr>
+<tr>
+<td align="center"><strong>:sp filename</strong></td>
+<td align="center">上下分割，并打开一个新的文件</td>
+</tr>
+<tr>
+<td align="center"><strong>:vs filename</strong></td>
+<td align="center">左右分割，并打开一个新的文件</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w v</strong></td>
+<td align="center">左右分割当前打开的文件</td>
+</tr>
+<tr>
+<td align="center"><strong>:vsp filename</strong></td>
+<td align="center">左右分割，并打开一个新的文件</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w K</strong></td>
+<td align="center">光标移动上一个分屏</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w J</strong></td>
+<td align="center">光标移动下一个分屏</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w L</strong></td>
+<td align="center">光标移动右一个分屏</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w H</strong></td>
+<td align="center">光标移动左一个分屏</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w+</strong></td>
+<td align="center">增加当前光标所在屏高度</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w-</strong></td>
+<td align="center">减少当前光标所在屏高度</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w=</strong></td>
+<td align="center">让所有屏的高度一致</td>
+</tr>
+<tr>
+<td align="center"><strong>:tabnew</strong></td>
+<td align="center">新建标签页</td>
+</tr>
+<tr>
+<td align="center"><strong>:tabfind</strong></td>
+<td align="center">查找并在新标签页中打开文件</td>
+</tr>
+<tr>
+<td align="center"><strong>:tabs</strong></td>
+<td align="center">显示已打开标签页的列表</td>
+</tr>
+<tr>
+<td align="center"><strong>:tabclose</strong></td>
+<td align="center">关闭当前标签页</td>
+</tr>
+<tr>
+<td align="center"><strong>:tabonly</strong></td>
+<td align="center">仅保留当前标签页打开</td>
+</tr>
+<tr>
+<td align="center"><strong>:tabn/p/first/last</strong></td>
+<td align="center">移动到下/上/第一/最后一个标签页</td>
+</tr>
+<tr>
+<td align="center"><strong>gt/T</strong></td>
+<td align="center">移动到下/上一个标签</td>
+</tr>
+<tr>
+<td align="center"><strong>{i}gt</strong></td>
+<td align="center">移动到i位置的标签</td>
+</tr>
+<tr>
+<td align="center"><strong>:tabe</strong></td>
+<td align="center">编辑标签中的某个文件</td>
+</tr>
+<tr>
+<td align="center"><strong>:tabm 0/tabm</strong></td>
+<td align="center">移动当前tab到第一个/最后一个</td>
+</tr>
+<tr>
+<td align="center"><strong>:tabm{i}</strong></td>
+<td align="center">移动当前tab到i+1位置</td>
+</tr>
+<tr>
+<td align="center"><strong>qa</strong></td>
+<td align="center">开始录制宏存到寄存器a中</td>
+</tr>
+<tr>
+<td align="center"><strong>qA</strong></td>
+<td align="center">追加宏在a寄存器中追加</td>
+</tr>
+<tr>
+<td align="center"><strong>n@a</strong></td>
+<td align="center">执行n遍a寄存器中的操作</td>
+</tr>
+<tr>
+<td align="center"><strong>@@</strong></td>
+<td align="center">再执行一遍上一次操作</td>
+</tr>
+<tr>
+<td align="center"><strong>:n,mnormal @a</strong></td>
+<td align="center">n到m行执行寄存器a宏操作</td>
+</tr>
+<tr>
+<td align="center"><strong>:let @a=’</strong></td>
+<td align="center">编辑宏a寄存器</td>
+</tr>
+<tr>
+<td align="center"><strong>v</strong></td>
+<td align="center">激活面向字符的可视化模式</td>
+</tr>
+<tr>
+<td align="center"><strong>V/shift+v</strong></td>
+<td align="center">激活面向行的可视化模式</td>
+</tr>
+<tr>
+<td align="center"><strong>Ctrl+v</strong></td>
+<td align="center">激活面向列块的可视化模式</td>
+</tr>
+<tr>
+<td align="center"><strong>gv</strong></td>
+<td align="center">重选上次的高亮选区</td>
+</tr>
+<tr>
+<td align="center"><strong>o</strong></td>
+<td align="center">切换选取边界</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+h</strong></td>
+<td align="center">插入模式删除上一个字符</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+w</strong></td>
+<td align="center">插入模式删除上一个单词</td>
+</tr>
+<tr>
+<td align="center"><strong>ctrl+u</strong></td>
+<td align="center">插入模式删除当前行</td>
+</tr>
+<tr>
+<td align="center"><strong>gi</strong></td>
+<td align="center">快速移动到之前光标所在位置并进入插入模式</td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">****</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+	<div>
+		
+	</div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/03/18/Vue%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄粱一梦">
+      <meta itemprop="description" content="已识乾坤大，犹怜草木青">
+      <meta itemprop="image" content="/images/touxiang.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yangzw">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/03/18/Vue%E7%AC%94%E8%AE%B0/" itemprop="url">
+                  Vue笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2022-03-18 21:29:50" itemprop="dateCreated datePublished" datetime="2022-03-18T21:29:50+08:00">2022-03-18</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">0</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+	<div>
+		
+	</div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/03/06/Docker%E5%91%BD%E4%BB%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1431,7 +2318,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2021-09-27 21:19:54" itemprop="dateModified" datetime="2021-09-27T21:19:54+08:00">2021-09-27</time>
+                <time title="修改时间：2022-03-19 00:09:20" itemprop="dateModified" datetime="2022-03-19T00:09:20+08:00">2022-03-19</time>
               
             
           </span>
@@ -1998,423 +2885,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/17/JAXP/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="黄粱一梦">
-      <meta itemprop="description" content="已识乾坤大，犹怜草木青">
-      <meta itemprop="image" content="/images/touxiang.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yangzw">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/17/JAXP/" itemprop="url">
-                  JAXP
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-04-17 22:19:32" itemprop="dateCreated datePublished" datetime="2020-04-17T22:19:32+08:00">2020-04-17</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-05-17 17:40:14" itemprop="dateModified" datetime="2020-05-17T17:40:14+08:00">2020-05-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaWeb/" itemprop="url" rel="index"><span itemprop="name">JavaWeb</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">20k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">18 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="JAXP"><a href="#JAXP" class="headerlink" title="JAXP"></a>JAXP</h3><h4 id="xml的解析-将用到JAVA代码-重点内容"><a href="#xml的解析-将用到JAVA代码-重点内容" class="headerlink" title="xml的解析(将用到JAVA代码)重点内容"></a>xml的解析(<em>将用到JAVA代码</em>)<em><strong>重点内容</strong></em></h4><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>xml为标记下语言，JS使用dom解析标记型文档，根据html的层级结构，在内存中分配一个树型结构，把html中的标签、属性、对象都封装成对象，例如：document对象、element对象、属性对象、文本对象、Node节点对象</p>
-<p><strong>xml的解析方式有两种：dom和sax</strong></p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2020/04/17/JAXP/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-	<div>
-		
-	</div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/01/dynasties/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="黄粱一梦">
-      <meta itemprop="description" content="已识乾坤大，犹怜草木青">
-      <meta itemprop="image" content="/images/touxiang.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yangzw">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/01/dynasties/" itemprop="url">
-                  dynasties
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-04-01 14:23:15" itemprop="dateCreated datePublished" datetime="2020-04-01T14:23:15+08:00">2020-04-01</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-05-17 17:40:14" itemprop="dateModified" datetime="2020-05-17T17:40:14+08:00">2020-05-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E8%BD%AC%E8%BD%BD/" itemprop="url" rel="index"><span itemprop="name">转载</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">1.7k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">2 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a id="more"></a>
-<p><img src="http://img.xixik.net/cimg/083/xixik_c53006a681fc4200.jpeg" alt="尧舜禹→夏" title="尧舜禹→夏"><br><img src="http://img.xixik.net/cimg/083/xixik_87512603bf7f461e.jpeg" alt="商" title="商"><br><img src="http://img.xixik.net/cimg/083/xixik_a1523ca6228beae4.jpeg" alt="周" title="周"><br><img src="http://img.xixik.net/cimg/083/xixik_87c9e06af0d51132.jpeg" alt="秦" title="秦"><br><img src="http://img.xixik.net/cimg/083/xixik_01848d23bc3c0496.jpeg" alt="汉" title="汉"><br><img src="http://img.xixik.net/cimg/083/xixik_2a93308ddfd78f78.jpeg" alt="魏" title="魏"><br><img src="http://img.xixik.net/cimg/083/xixik_34ae3a4f7693d9ea.jpeg" alt="蜀" title="蜀"><br><img src="http://img.xixik.net/cimg/083/xixik_bafe42d5cde82df4.jpeg" alt="吴" title="吴"><br><img src="http://img.xixik.net/cimg/083/xixik_20b47e2887f23ecf.jpeg" alt="晋" title="晋"><br><img src="http://img.xixik.net/cimg/083/xixik_57f8d17ebfdb1a85.jpeg" alt="隋" title="隋"><br><img src="http://img.xixik.net/cimg/083/xixik_04c8ec9fff83c2f9.jpeg" alt="唐" title="唐"><br><img src="http://img.xixik.net/cimg/083/xixik_6bc06e9bb6ef708c.jpeg" alt="辽" title="辽"><br><img src="http://img.xixik.net/cimg/083/xixik_6e40141c5eb849ea.jpeg" alt="宋" title="宋"><br><img src="http://img.xixik.net/cimg/083/xixik_74a385004d03fc0a.jpeg" alt="西夏" title="西夏"><br><img src="http://img.xixik.net/cimg/083/xixik_d209b6d3983aaf85.jpeg" alt="金" title="金"><br><img src="http://img.xixik.net/cimg/083/xixik_1f2382bcdab86fe9.jpeg" alt="元" title="元"><br><img src="http://img.xixik.net/cimg/083/xixik_a160592906ace6ec.jpeg" alt="明" title="明"><br><img src="http://img.xixik.net/cimg/083/xixik_633a17f15265a0ef.jpeg" alt="清" title="清"><br><em><strong>注意：转载自嘻嘻网图片，切勿商用</strong></em></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-	<div>
-		
-	</div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">&gt;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">&gt;</a>
   </nav>
 
 
@@ -2461,7 +2936,7 @@
                 
                   <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2664,7 +3139,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">67k</span>
+    <span title="站点总字数">69k</span>
   
 
   
@@ -2673,7 +3148,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:01</span>
+    <span title="站点阅读时长">1:03</span>
   
 </div>
 
