@@ -65,6 +65,264 @@
       </tags>
   </entry>
   <entry>
+    <title>Docker命令</title>
+    <url>/2022/03/06/Docker%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h3 id="docker安装"><a href="#docker安装" class="headerlink" title="docker安装"></a>docker安装</h3><p>首先，简单说下docker容器安装步骤。<br><strong>第一步，我们需要移除旧版本的docker命令：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-selinux \</span><br><span class="line">                  docker-engine-selinux \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p><strong>第二步，安装所需依赖包：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum install -y yum-utils \</span><br><span class="line">  device-mapper-persistent-data \</span><br><span class="line">  lvm2</span><br></pre></td></tr></table></figure>
+
+<p><strong>第三步，由于访问国外网站网速限制，我们需要配置镜像源，这里我用的是阿里云镜像：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo</span><br></pre></td></tr></table></figure>
+
+<p><strong>第四步，配置缓存：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum makecache fast</span><br></pre></td></tr></table></figure>
+
+<p><strong>第五步，执行docker安装命令：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum install -y docker-ce（这里docker-ce指的是社区版）</span><br></pre></td></tr></table></figure>
+
+<p><strong>第六步，配置镜像加速器，我用的是 <a href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors" target="_blank" rel="noopener">阿里云镜像加速器</a>，登录自己阿里云账号获得自己专属镜像加速器地址：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">suco mkdir -p &#x2F;etc&#x2F;docker(若没有该目录，则执行这条命令进行创建，有则跳过)</span><br><span class="line">sudo tee &#x2F;etc&#x2F;docker&#x2F;daemon.json &lt;&lt;-&#39;EOF&#39;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [这里输入你的阿里云镜像加速器地址]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p><strong>第七步，加载daemon配置文件：</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+
+<p><strong>第八步，重启docker</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="docker命令"><a href="#docker命令" class="headerlink" title="docker命令"></a>docker命令</h3><p><code>docker version</code>查看docker版本，用来检验docker是否安装成功<br><code>docker info</code>查看docker的信息，可以用来查看docker镜像加速器是否配置成功<br><code>systemctl start docker</code>开启docker<br><code>systemctl restart docker</code>重启docker<br><code>systemctl enable docker</code>设置docker自启动  </p>
+<h4 id="docker镜像相关命令"><a href="#docker镜像相关命令" class="headerlink" title="docker镜像相关命令"></a>docker镜像相关命令</h4><p><code>docker images</code>或<code>docker images ls</code>查看当前存在的镜像<br><code>docker pull [镜像名]:[版本号]</code>获取镜像，不给版本号，默认最新latest<br><code>docker rmi [镜像ID]或[镜像名]</code>删除镜像，删除镜像时需确保该镜像没有创建容器<br><code>docker images -q</code>查看镜像ID<br><code>docker history [镜像名称]</code>查看一个镜像的制作历程  </p>
+<h4 id="docker容器相关命令"><a href="#docker容器相关命令" class="headerlink" title="docker容器相关命令"></a>docker容器相关命令</h4><p><code>docker ps</code>查看运行的容器<br><code>docker ps -a</code>查看所有的容器(包含运行和退出)<br><code>docker ps -a -q</code>查看所有容器的ID<br><code>docker run -i -t(-i -t用来作容器的交互) -d(后台运行容器) --rm(容器在启动后，执行完成命令或程序后自动销毁) --name(给容器自定义一个名字) -p(宿主机：内部端口)</code>运行容器<br>实例：<code>docker run --rm -d --name tomcat123 -p 8081:8080 tomcat</code><br><code>docker stop $(docker ps -a -q)</code>停掉所有容器<br><code>docker rm -f(强制)</code>删除容器<br><code>docker start</code>启动容器<br><code>docker restart</code>重启容器<br><code>docker exec</code>进入容器<br>实例：<code>docker exec -it tomcat-8080 bash</code><br><code>exit</code>退出容器<br><code>docker cp</code>实现宿主机与容器之间文件交换<br><code>docker logs -f(查看实时日志) -t(查看日志产生日期) --tail=5(查看日志最后5行)</code>查看指定容器日志  </p>
+<h4 id="docker数据卷"><a href="#docker数据卷" class="headerlink" title="docker数据卷"></a>docker数据卷</h4><p>数据卷可以在容器之间共享和重用，对数据卷的修改会立马生效，对数据卷的更新，不会影响镜像，数据卷具有持久化，即使容器被删除，也会一直存在，数据卷的两种创建方式<br><code>docker run -v(数据卷名称)</code><br><code>docker run -v(路径)</code><br>例：<code>docker run -d --name tomcat-8080 -p 8080:8080 -v /home/yzw/docker-volumn/:/usr/local/tomcat/webapps/volumn tomcat</code><br>`</p>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+        <tag>命令</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JAXP</title>
+    <url>/2020/04/17/JAXP/</url>
+    <content><![CDATA[<h3 id="JAXP"><a href="#JAXP" class="headerlink" title="JAXP"></a>JAXP</h3><h4 id="xml的解析-将用到JAVA代码-重点内容"><a href="#xml的解析-将用到JAVA代码-重点内容" class="headerlink" title="xml的解析(将用到JAVA代码)重点内容"></a>xml的解析(<em>将用到JAVA代码</em>)<em><strong>重点内容</strong></em></h4><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>xml为标记下语言，JS使用dom解析标记型文档，根据html的层级结构，在内存中分配一个树型结构，把html中的标签、属性、对象都封装成对象，例如：document对象、element对象、属性对象、文本对象、Node节点对象</p>
+<p><strong>xml的解析方式有两种：dom和sax</strong></p>
+<a id="more"></a>
+<p><img src="/images/xml_pic.png" alt="解析图" title="xml的解析"><br><em>上图是dom的解析过程，该方式好处是很方便实现数据的增删改操作，但是如果文件过大，容易造成内存溢出。至于sax解析采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回，不会造成内存溢出，查询操作方便，但不能实现增删改操作</em><br><strong>总结：</strong><br>   <strong>-dom方式解析：根据xml的层级结构在内存中分配一个树状结构，把xml标签，属性和文本都封装成对象</strong><br>   <strong>-使用dom弊端：如果文件过大，容易造成溢出</strong><br>   <strong>-sax方式解析：采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回</strong><br>   <strong>-使用sax弊端：不能实现增删改操作</strong></p>
+<h5 id="解析器"><a href="#解析器" class="headerlink" title="解析器"></a>解析器</h5><p><strong>不同的公司和组织提供了针对dom和sax方式的解析器，通过api方式提供，sun公司提供了针对dom和sax的解析器jaxp，dom4j组织提供的解析器就叫dom4j，同样还有jdom组织的解析器jdom</strong></p>
+<h5 id="JAXP的API"><a href="#JAXP的API" class="headerlink" title="JAXP的API"></a>JAXP的API</h5><p><strong>jaxp解析器在jdk的javax.xml.parsers包里面，包里四个类主要针对dom和sax解析使用，针对dom有DocumentBuilder（解析器类）和DocumentBuilderFactory（解析器工厂）两个类，而sax有SAXParser和SAXParserFactory</strong></p>
+<h4 id="jaxp使用"><a href="#jaxp使用" class="headerlink" title="jaxp使用"></a>jaxp使用</h4><p>xml文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void selectAll() throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;1.创建解析器工厂</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.根据工厂创建解析器</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.解析xml返回的document</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);&#x2F;&#x2F;括号内填写你xml文件所在位置</span><br><span class="line">&#x2F;&#x2F;4.得到所有元素</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;name&quot;);&#x2F;&#x2F;这里得到的是上面xml中name标签</span><br><span class="line">&#x2F;&#x2F;5.遍历集合</span><br><span class="line">	for(int i &#x3D; 0; i&lt;list.getLength();i++)&#123;</span><br><span class="line">		Node name &#x3D; list.item(i);&#x2F;&#x2F;得到每一个name元素</span><br><span class="line">		&#x2F;&#x2F;得到name元素里面的值</span><br><span class="line">		String s &#x3D; name1.getTextContent();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public void selectSin() throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.同上</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;name&quot;);</span><br><span class="line">&#x2F;&#x2F;5.得到第一个name元素</span><br><span class="line">	Node name1 &#x3D; list.item(0);</span><br><span class="line">&#x2F;&#x2F;6.得到name里面的值</span><br><span class="line">	String s &#x3D; name1.getTextContent();</span><br><span class="line">	System.out.println(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="增加操作"><a href="#增加操作" class="headerlink" title="增加操作"></a>增加操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void add() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.同上</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;p1&quot;);</span><br><span class="line">&#x2F;&#x2F;5.得到第一个p1</span><br><span class="line">	Node p1 &#x3D; list.item(0);</span><br><span class="line">&#x2F;&#x2F;6.创建标签</span><br><span class="line">	Element sex1 &#x3D; document.createElement(&quot;sex&quot;);</span><br><span class="line">&#x2F;&#x2F;7.创建文本</span><br><span class="line">	Text text1 &#x3D; document.createTextNode(&quot;男&quot;);</span><br><span class="line">&#x2F;&#x2F;8.把文本添加到sex1下面</span><br><span class="line">	sex1.appendChild(text1);</span><br><span class="line">&#x2F;&#x2F;9.把sex1添加到p1下面</span><br><span class="line">	p1.appendChild(sex1);</span><br><span class="line">&#x2F;&#x2F;10.回写xml</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="修改操作"><a href="#修改操作" class="headerlink" title="修改操作"></a>修改操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void fix() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.得到sex元素</span><br><span class="line">	Node sex1 &#x3D; document.getElementsByTagName(&quot;sex&quot;).item(0);</span><br><span class="line">&#x2F;&#x2F;5.修改sex的内容</span><br><span class="line">	sex1.setTextContent(&quot;man&quot;);</span><br><span class="line">&#x2F;&#x2F;6.回写</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void delete() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.得到sex元素</span><br><span class="line">	Node sex1 &#x3D; NodeList list&#x3D;document.getElementsByTagName(&quot;sex&quot;).item(0);</span><br><span class="line">&#x2F;&#x2F;5.得到它的父节点p1</span><br><span class="line">	Node p1 &#x3D; sex1.getParentNode();</span><br><span class="line">&#x2F;&#x2F;6.删除sex</span><br><span class="line">	p1.removeChild(sex1);</span><br><span class="line">&#x2F;&#x2F;7.回写	</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
+
+<h5 id="遍历节点-把所有元素名称打印出来"><a href="#遍历节点-把所有元素名称打印出来" class="headerlink" title="遍历节点(把所有元素名称打印出来)"></a>遍历节点(<em>把所有元素名称打印出来</em>)</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void listElement() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;5.调用递归方法</span><br><span class="line">	list1(document);</span><br><span class="line">&#125;</span><br><span class="line">4.编写一个递归方法实现遍历</span><br><span class="line">public static void list1(Node node)&#123;</span><br><span class="line">	if(node.getNodeType &#x3D;&#x3D; Node.ELEMENT_NODE)&#123;&#x2F;&#x2F;避免将标签内容中不必要的空格和tab打印出来</span><br><span class="line">		System.out.println(node.getNodeName());&#x2F;&#x2F;获取节点名称</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;得到一层子节点</span><br><span class="line">	NodeList list &#x3D; node.getChildNodes();</span><br><span class="line">	for(int i&#x3D;0;i&lt;list.getLength();i++)&#123;</span><br><span class="line">		Node temp &#x3D; list.item(i);</span><br><span class="line">		&#x2F;&#x2F;继续得到temp的子节点</span><br><span class="line">		list1.(temp);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="JAXP实现sax操作"><a href="#JAXP实现sax操作" class="headerlink" title="JAXP实现sax操作"></a>JAXP实现sax操作</h4><p><strong>由于sax不能执行增删改操作，所以以下是实现它的查询操作</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class MyDefault1 extends DefaultHandler&#123;&#x2F;&#x2F;以下三个方法自动执行</span><br><span class="line">	@Override</span><br><span class="line">	public void startElement(String uri,String localName,String qName,Attributes attributes)throws SAXException&#123;</span><br><span class="line">		super.startElement(uri,localName,qName,attributes);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void characters(char[] ch,int start,int length)throws SAXException&#123;</span><br><span class="line">		super.characters(ch,start,length);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void endElement(String uri,String localName,String qName)throws SAXException&#123;</span><br><span class="line">		super.endElement(uri,localName,qName);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MyDefault2 extends DefaultHandler&#123;&#x2F;&#x2F;获取所有name元素的值</span><br><span class="line">	boolean flag &#x3D; false;</span><br><span class="line">	@Override</span><br><span class="line">	public void startElement(String uri,String localName,String qName,Attributes attributes)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;判断qName是否是name元素</span><br><span class="line">		if(&quot;name&quot;.equals(qName))&#123;</span><br><span class="line">			flag &#x3D; true;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void characters(char[] ch,int start,int length)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;当flag值是true时表示解析到name元素</span><br><span class="line">		if(flag &#x3D;&#x3D; true)&#123;</span><br><span class="line">			System.out.println(new String(ch,start,length));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void endElement(String uri,String localName,String qName)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;将flag设置为false,表示name元素结束</span><br><span class="line">		if(&quot;name&quot;.equals(qName))&#123;</span><br><span class="line">			flag &#x3D; false;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void main (String[] args)&#123;</span><br><span class="line">&#x2F;&#x2F;1.创建解析器工厂</span><br><span class="line">	SAXParserFactory saxParserFactory &#x3D; SAXParserFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.创建解析器</span><br><span class="line">	SAXParser saxParser &#x3D; SAXParserFactory.newSAXParser();</span><br><span class="line">&#x2F;&#x2F;3.执行parse方法</span><br><span class="line">	saxParser.parse(&quot;src&#x2F;p1.xml&quot;,new MyDefault2());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+]]></content>
+      <categories>
+        <category>JavaWeb</category>
+      </categories>
+      <tags>
+        <tag>XML</tag>
+        <tag>标记语言</tag>
+        <tag>XML解析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HTML5序章</title>
+    <url>/2020/02/18/HTML5%E5%BA%8F%E7%AB%A0/</url>
+    <content><![CDATA[<p><strong>一天天宅着蛮枯燥的，HTML5地学习或许能打破这乏味的时光。以前,刚开始学习 HTML ，才明白前端界面是如何实现的，当然也少不了CSS、JavaScript。像我们这博客完全是通过这3样语言实现的静态网页，瞬间感觉前端是不是比后端的东西，更直观地看得出成果。你光使用后端语言是无法完成Web网页开发，当然，如果有后端语言与数据库实现的自然是动态网页。话不多说，言归正传，开始我们今天HTML5的学习！</strong></p>
+<h2 id="HTML5概述"><a href="#HTML5概述" class="headerlink" title="HTML5概述"></a>HTML5概述</h2><h3 id="HTML-HyperText-Markup-Language"><a href="#HTML-HyperText-Markup-Language" class="headerlink" title="HTML(HyperText Markup Language)"></a>HTML(HyperText Markup Language)</h3><p>  <strong>HTML全称翻译而来是一款超文本标记语言，经过多过版本的更新，最后到现在HTML5，其实目的就是升级优化添加新功能，目前主要优势表现在终端上，跨平台、跨分辨率、版本控制简单</strong><br>  <strong>HTML5 实际上指的是包括HTML、CSS和JS在内的一套技术组合，能够减少浏览器对于需要插件(这也是显著功能)的丰富性网络应用服务</strong></p>
+<a id="more"></a>
+
+<h3 id="标记语言与编程语言区别"><a href="#标记语言与编程语言区别" class="headerlink" title="标记语言与编程语言区别"></a>标记语言与编程语言区别</h3><p>  <em><strong>觉得这个有必要记录下，标记语言强调属性，没有逻辑结构；而编程语言有逻辑和行为能力</strong></em></p>
+<h3 id="HTML5的八大特性"><a href="#HTML5的八大特性" class="headerlink" title="HTML5的八大特性"></a>HTML5的八大特性</h3><p><strong>1)语义特性</strong><br><strong>2)离线存储特性</strong><br><strong>3)设备访问特性</strong><br><strong>4)通讯特性</strong><br><strong>5)多媒体特性</strong><br><strong>6)三维及图形特性</strong><br><strong>7)性能及基础特性</strong><br><strong>8)CSS3特性</strong></p>
+<h3 id="HTML5的优点"><a href="#HTML5的优点" class="headerlink" title="HTML5的优点"></a>HTML5的优点</h3><h4 id="标签丰富、功能强大"><a href="#标签丰富、功能强大" class="headerlink" title="标签丰富、功能强大"></a>标签丰富、功能强大</h4><p>通过HTML5可以轻松实现页面中的音频、视频、动画等效果。</p>
+<h4 id="支持移动互联网的Web应用需求"><a href="#支持移动互联网的Web应用需求" class="headerlink" title="支持移动互联网的Web应用需求"></a>支持移动互联网的Web应用需求</h4><p>HTML5开发应用，可以轻松运行于手机、平板电脑等移动设备。</p>
+<h4 id="适应当前Web应用发展潮流"><a href="#适应当前Web应用发展潮流" class="headerlink" title="适应当前Web应用发展潮流"></a>适应当前Web应用发展潮流</h4><p>HTML5应用界面友好，功能强大，是今后Web发展的主流方向。</p>
+<h4 id="解决了跨浏览器问题"><a href="#解决了跨浏览器问题" class="headerlink" title="解决了跨浏览器问题"></a>解决了跨浏览器问题</h4><p>HTML5之前各大浏览器的竞争，在各自浏览器增加各种各样的功能，且不具有统一的标准。用不同浏览器看到不同页面效果。在HTML5中，纳入了所有合理的扩展功能，具备良好的跨平台性能。针对不支持新标签的老式IE浏览器，只需简单地添加JavaScript代码就可以使用新的元素</p>
+<h4 id="新增了多个新特性"><a href="#新增了多个新特性" class="headerlink" title="新增了多个新特性"></a>新增了多个新特性</h4><h5 id="良好的语义特性"><a href="#良好的语义特性" class="headerlink" title="良好的语义特性"></a>良好的语义特性</h5><p>HTML5支持数据与微格式，增加的新元素赋予网页更好的意义和结构。增加了很多新的结构元素，从而使文档结构更加清晰明确，新增的结构元素包括section元素、article元素、nav元素以及aside元素等</p>
+<h5 id="强大的绘图功能"><a href="#强大的绘图功能" class="headerlink" title="强大的绘图功能"></a>强大的绘图功能</h5><p>既可以通过Canvas API动态地绘制各种效果精美的图形，也可以通过SVG绘制各种伸缩矢量图形</p>
+<h5 id="增强的音频视频播放和控制功能"><a href="#增强的音频视频播放和控制功能" class="headerlink" title="增强的音频视频播放和控制功能"></a>增强的音频视频播放和控制功能</h5><p>HTML5新增了audio和video元素，可以不依赖任何插件而播放音频和视频</p>
+<h5 id="HTML5的数据存储和数据处理的功能"><a href="#HTML5的数据存储和数据处理的功能" class="headerlink" title="HTML5的数据存储和数据处理的功能"></a>HTML5的数据存储和数据处理的功能</h5><p>(1)离线应用 (2)Web通信 (3)本地存储</p>
+<h5 id="获取地理位置信息"><a href="#获取地理位置信息" class="headerlink" title="获取地理位置信息"></a>获取地理位置信息</h5><p>HTML5新增了Geolocation API规范，可以通过浏览器获取用户的地理位置信息</p>
+<h5 id="提高页面相应的多线程"><a href="#提高页面相应的多线程" class="headerlink" title="提高页面相应的多线程"></a>提高页面相应的多线程</h5><p>HTML5新增Web Workers来实现多线程功能。通过Web Workers将耗时长的处理交给后台线程，降低Web服务的响应时间，有利于增强用户体验</p>
+<h5 id="文件-API"><a href="#文件-API" class="headerlink" title="文件 API"></a>文件 API</h5><p>FileReader API：简化用户访问本地/服务器端文件系统的相关处理<br>FileSystem API：给文件系统添加浏览器保护，使得文件系统数据可以永久本地保存</p>
+<h4 id="用户优先的原则"><a href="#用户优先的原则" class="headerlink" title="用户优先的原则"></a>用户优先的原则</h4><h5 id="安全机制的设计"><a href="#安全机制的设计" class="headerlink" title="安全机制的设计"></a>安全机制的设计</h5><h5 id="表现和内容分离"><a href="#表现和内容分离" class="headerlink" title="表现和内容分离"></a>表现和内容分离</h5><h4 id="化繁为简的优势"><a href="#化繁为简的优势" class="headerlink" title="化繁为简的优势"></a>化繁为简的优势</h4><p>新的简化的字符集声明、新的简化的DOCTYPE、简单而强大的HTML5 API及以浏览器原生能力替换复杂的JavaScript代码。为了避免造成误解，HTML5对每一个细节都有着非常明确的规范说明，不允许有任何的歧义和模糊出现</p>
+<h3 id="HTML5支持情况"><a href="#HTML5支持情况" class="headerlink" title="HTML5支持情况"></a>HTML5支持情况</h3><p>  就目前Chrome52(谷歌)与FireFox48(火狐)两个浏览器支持项数最多，当然这毕竟程序员受欢迎程度高的两个浏览器。</p>
+<h4 id="检测指定元素的DOM对象是否被浏览器支持"><a href="#检测指定元素的DOM对象是否被浏览器支持" class="headerlink" title="检测指定元素的DOM对象是否被浏览器支持"></a>检测指定元素的DOM对象是否被浏览器支持</h4><p>如：canvas、video、audio等</p>
+<h4 id="检测浏览器是否支持指定元素的对象的方法"><a href="#检测浏览器是否支持指定元素的对象的方法" class="headerlink" title="检测浏览器是否支持指定元素的对象的方法"></a>检测浏览器是否支持指定元素的对象的方法</h4><p>如：canvas.getContext (canvas这个元素对图像操作功能是真的强大，就这博客动态背景粒子效果也是通过它实现的)</p>
+<h4 id="检测全局对象是否拥有特定属性"><a href="#检测全局对象是否拥有特定属性" class="headerlink" title="检测全局对象是否拥有特定属性"></a>检测全局对象是否拥有特定属性</h4><p>如：navigator.geolocation()</p>
+<h4 id="使用HTML特性检测工具-Modernizr"><a href="#使用HTML特性检测工具-Modernizr" class="headerlink" title="使用HTML特性检测工具(Modernizr)"></a>使用HTML特性检测工具(Modernizr)</h4><h5 id="检测浏览器对HTML5元素的支持情况"><a href="#检测浏览器对HTML5元素的支持情况" class="headerlink" title="检测浏览器对HTML5元素的支持情况"></a>检测浏览器对HTML5元素的支持情况</h5><p><a href="http://caniuse.com/" target="_blank" rel="noopener">Can I use</a></p>
+<h5 id="检测浏览器对HTML5的支持情况"><a href="#检测浏览器对HTML5的支持情况" class="headerlink" title="检测浏览器对HTML5的支持情况"></a>检测浏览器对HTML5的支持情况</h5><p><a href="http://html5test.com/" target="_blank" rel="noopener">HTML5TEST</a></p>
+<h5 id="检查HTML5内容是否完全符合规范"><a href="#检查HTML5内容是否完全符合规范" class="headerlink" title="检查HTML5内容是否完全符合规范"></a>检查HTML5内容是否完全符合规范</h5><p><a href="http://validator.w3.org/" target="_blank" rel="noopener">The W3C Markup Validation Service</a></p>
+<h3 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h3><p>开发工具这就很多了，对于前端学习小白当然是用Dreamweaver甚好，当然WebStorm、VSCode、VS2019(微软的东西，值得一试)等开发工具也可以尝试</p>
+<h3 id="帮助文档"><a href="#帮助文档" class="headerlink" title="帮助文档"></a>帮助文档</h3><p><a href="http://www.w3school.com.cn/" target="_blank" rel="noopener">W3C</a><br><a href="http://developer.mozilla.org/" target="_blank" rel="noopener">Mozilla</a></p>
+<h2 id="HTML5的变化"><a href="#HTML5的变化" class="headerlink" title="HTML5的变化"></a>HTML5的变化</h2><h3 id="标记的改进"><a href="#标记的改进" class="headerlink" title="标记的改进"></a>标记的改进</h3><h4 id="DOCTYPE声明"><a href="#DOCTYPE声明" class="headerlink" title="DOCTYPE声明"></a>DOCTYPE声明</h4><p><code>&lt;!DOCTYPE html&gt;</code></p>
+<h4 id="指定字符编码"><a href="#指定字符编码" class="headerlink" title="指定字符编码"></a>指定字符编码</h4><p><code>&lt;meta charset=utf-8&gt;</code></p>
+<h4 id="标签不需要区分大小写"><a href="#标签不需要区分大小写" class="headerlink" title="标签不需要区分大小写"></a>标签不需要区分大小写</h4><h4 id="可以省略的标签"><a href="#可以省略的标签" class="headerlink" title="可以省略的标签"></a>可以省略的标签</h4><h5 id="不允许写结束标签"><a href="#不允许写结束标签" class="headerlink" title="不允许写结束标签"></a>不允许写结束标签</h5><p>area、base、br、col、hr、img、input、meta、link、param、embed、keygen、track、source等</p>
+<h5 id="可以省略的结束标签"><a href="#可以省略的结束标签" class="headerlink" title="可以省略的结束标签"></a>可以省略的结束标签</h5><p>dt、dd、li、p、rt、rp、option、optiongroup、colgroup、thread、tbody、tfoot、tr、td、th等</p>
+<h5 id="开始标签和结束标签均可省略"><a href="#开始标签和结束标签均可省略" class="headerlink" title="开始标签和结束标签均可省略"></a>开始标签和结束标签均可省略</h5><p>html、head、body、tbody、thead、colgroup等</p>
+<h4 id="Boolean属性设置"><a href="#Boolean属性设置" class="headerlink" title="Boolean属性设置"></a>Boolean属性设置</h4><p>checked、selected、multiple、readonly、和disable等</p>
+<h5 id="当只写属性而不指定属性值时，表示属性值为true"><a href="#当只写属性而不指定属性值时，表示属性值为true" class="headerlink" title="当只写属性而不指定属性值时，表示属性值为true"></a>当只写属性而不指定属性值时，表示属性值为true</h5><h5 id="如果想要将属性值设为false，可以不使用该属性"><a href="#如果想要将属性值设为false，可以不使用该属性" class="headerlink" title="如果想要将属性值设为false，可以不使用该属性"></a>如果想要将属性值设为false，可以不使用该属性</h5><h5 id="若属性值为true时，也可以将属性名设定为属性值，或空字符串"><a href="#若属性值为true时，也可以将属性名设定为属性值，或空字符串" class="headerlink" title="若属性值为true时，也可以将属性名设定为属性值，或空字符串"></a>若属性值为true时，也可以将属性名设定为属性值，或空字符串</h5><h4 id="属性引号"><a href="#属性引号" class="headerlink" title="属性引号"></a>属性引号</h4><p>  当属性不包含一些特殊字符(空字符串、&lt;、&gt;、=、单引号、双引号)，引号可以省略。示例：<meta charset="utf-8"></p>
+<h4 id="废弃的元素"><a href="#废弃的元素" class="headerlink" title="废弃的元素"></a>废弃的元素</h4><h5 id="使用CSS替换的元素"><a href="#使用CSS替换的元素" class="headerlink" title="使用CSS替换的元素"></a>使用CSS替换的元素</h5><p>basefont、big、center、font、strike、s、tt、u等</p>
+<h5 id="停用frame框架"><a href="#停用frame框架" class="headerlink" title="停用frame框架"></a>停用frame框架</h5><p>frame主要对页面进行分割，但由于frame不便于搜索引擎的抓取和优化，故不再支持</p>
+<h5 id="只有部分浏览器支持的元素"><a href="#只有部分浏览器支持的元素" class="headerlink" title="只有部分浏览器支持的元素"></a>只有部分浏览器支持的元素</h5><p>bgsound、marquee、applet等</p>
+<h4 id="新增的元素（功能都很强大）"><a href="#新增的元素（功能都很强大）" class="headerlink" title="新增的元素（功能都很强大）"></a>新增的元素（<em>功能都很强大</em>）</h4><h5 id="结构元素"><a href="#结构元素" class="headerlink" title="结构元素"></a>结构元素</h5><p>section、article、aside等</p>
+<h5 id="多媒体元素"><a href="#多媒体元素" class="headerlink" title="多媒体元素"></a>多媒体元素</h5><p>video、audio、embed等</p>
+<h5 id="表单标签"><a href="#表单标签" class="headerlink" title="表单标签"></a>表单标签</h5><p>input</p>
+<h5 id="扩展HTML功能的元素"><a href="#扩展HTML功能的元素" class="headerlink" title="扩展HTML功能的元素"></a>扩展HTML功能的元素</h5><p>canvas等</p>
+<h4 id="全局属性"><a href="#全局属性" class="headerlink" title="全局属性"></a>全局属性</h4><p>1)contenteditable属性<br>2)contextmenu属性<br>3)data-*属性<br>4)spellcheck属性<br>5)draggable属性<br>6)hidden属性</p>
+<h2 id="HTML5文档结构"><a href="#HTML5文档结构" class="headerlink" title="HTML5文档结构"></a>HTML5文档结构</h2><p><strong>HTML文档中元素：从开始标记到结束标记的所有代码</strong><br><strong>元素的内容：开始标记与结束标记之间的内容</strong><br><strong>元素属性：用来说明元素的特征，每个属性总是对应一个属性值，称为”属性/值”</strong></p>
+<h3 id="head标签"><a href="#head标签" class="headerlink" title="head标签"></a>head标签</h3><p>文档头部信息，标签内容包含字符编码设置、标题、关键字与网页描述等</p>
+<h3 id="body标签"><a href="#body标签" class="headerlink" title="body标签"></a>body标签</h3><p>网页主体信息（我们上网所见所听所感信息都来源于body里）<br>其中<code>&lt;header&gt;&lt;/header&gt;、&lt;main&gt;&lt;/main&gt;、&lt;footer&gt;&lt;/footer&gt;</code>等新增标签语义清晰，利于SEO，利于盲人阅读，无法用这些新增标签表达的结构还是用<div></p>
+<h4 id="lt-header-gt-lt-header-gt-标签"><a href="#lt-header-gt-lt-header-gt-标签" class="headerlink" title="&lt;header&gt;&lt;/header&gt;标签"></a><code>&lt;header&gt;&lt;/header&gt;</code>标签</h4><p>可以是整个页面或者页面区域的一个头部信息（标题）<br>可以包含：logo、标题、搜索、导航、通知、帐号等<br>至少包含一个标题(h1~h6)，还可以包含hgroup、nav等<br><em>注意：跟 <code>&lt;head&gt;&lt;/head&gt;</code> 标签的区别</em></p>
+<h4 id="lt-main-gt-lt-main-gt-标签"><a href="#lt-main-gt-lt-main-gt-标签" class="headerlink" title="&lt;main&gt;&lt;/main&gt;标签"></a><code>&lt;main&gt;&lt;/main&gt;</code>标签</h4><p>页面中的主体部分。不能包含公共导航、logo、版权信息等公共内容<br><em>注意：一个页面只能有一个main标签。<code>&lt;main&gt;</code>元素不能是以下元素的后代：<code>&lt;article&gt;、&lt;aside&gt;、&lt;footer&gt;、&lt;header&gt;或&lt;nav&gt;</code></em></p>
+<h4 id="lt-footer-gt-lt-footer-gt-标签"><a href="#lt-footer-gt-lt-footer-gt-标签" class="headerlink" title="&lt;footer&gt;&lt;/footer&gt;标签"></a><code>&lt;footer&gt;&lt;/footer&gt;</code>标签</h4><p>页面或页面某个板块的底部部分<br>通常包含文档的作者、版权信息、使用条款链接、联系信息等等<br><em>可以在一个文档中使用多个 <code>&lt;footer&gt;</code>元素</em></p>
+<h4 id="lt-nav-gt-lt-nav-gt-标签"><a href="#lt-nav-gt-lt-nav-gt-标签" class="headerlink" title="&lt;nav&gt;&lt;/nav&gt;标签"></a><code>&lt;nav&gt;&lt;/nav&gt;</code>标签</h4><p>导航(navigation)的简写<br>专门用来包裹导航的内容。包括顶部导航、底部导航、侧边栏导航、翻页导航等</p>
+<h4 id="lt-article-gt-lt-article-gt-标签"><a href="#lt-article-gt-lt-article-gt-标签" class="headerlink" title="&lt;article&gt;&lt;/article&gt;标签"></a><code>&lt;article&gt;&lt;/article&gt;</code>标签</h4><p>文档、页面或者是应用程序当中的独立完整可以被外部引用的内容<br>它可以是一篇文章、一篇帖子、一段评论或者是独立的插件形式出现<br><em><code>&lt;article&gt;&lt;article&gt;</code>里面也可以使用 <code>&lt;header&gt;、&lt;footer&gt;以及&lt;article&gt;</code>标签</em></p>
+<h4 id="lt-section-gt-lt-section-gt-标签"><a href="#lt-section-gt-lt-section-gt-标签" class="headerlink" title="&lt;section&gt;&lt;/section&gt;标签"></a><code>&lt;section&gt;&lt;/section&gt;</code>标签</h4><p>定义了文档的某个区域。比如章节、头部、底部或者文档的其他区域（即整体中的某部分）<br><em><code>&lt;section&gt;&lt;/section&gt;</code>里也可以有 <code>&lt;article&gt;&lt;/article&gt;</code>标签</em></p>
+<h4 id="lt-aside-gt-lt-aside-gt-标签"><a href="#lt-aside-gt-lt-aside-gt-标签" class="headerlink" title="&lt;aside&gt;&lt;/aside&gt;标签"></a><code>&lt;aside&gt;&lt;/aside&gt;</code>标签</h4><p>定义<code>&lt;article&gt;</code>标签外的内容。广告，侧边栏等</p>
+<h4 id="lt-hgroup-gt-lt-hgroup-gt-标题组"><a href="#lt-hgroup-gt-lt-hgroup-gt-标题组" class="headerlink" title="&lt;hgroup&gt;&lt;/hgroup&gt;标题组"></a><code>&lt;hgroup&gt;&lt;/hgroup&gt;</code>标题组</h4><p>对网页或区段(section)的标题进行组合。一个区域中包括了主标题和至少一个子标题的时候才用<br><em>注意：单独一个标题的时候，不用 <code>&lt;hgroup&gt;&lt;/hgroup&gt;</code></em></p>
+<h4 id="lt-time-gt-lt-time-gt-时间"><a href="#lt-time-gt-lt-time-gt-时间" class="headerlink" title="&lt;time&gt;&lt;/time&gt;时间"></a><code>&lt;time&gt;&lt;/time&gt;</code>时间</h4><p>主要是使页面语义描述更清晰，便于网络搜索引擎更好的理解网页页面<br>time可以为内容添加如发布时间，事件发生时间等信息。<br>拥有datetime和pubdate两个属性</p>
+<h4 id="lt-address-gt-lt-address-gt-联系信息"><a href="#lt-address-gt-lt-address-gt-联系信息" class="headerlink" title="&lt;address&gt;&lt;/address&gt;联系信息"></a><code>&lt;address&gt;&lt;/address&gt;</code>联系信息</h4><p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;address&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li&gt;网站：http:&#x2F;&#x2F;www.w3school.com.cn&#x2F;&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;GitHub:XXXXXXXX&lt;&#x2F;li&gt;</span><br><span class="line">	&lt;li&gt;E-mail:xxxxxxx@qq.com&lt;&#x2F;li&gt;</span><br><span class="line">  &lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;address&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="其他元素"><a href="#其他元素" class="headerlink" title="其他元素"></a>其他元素</h4><h5 id="bdi-双向隔离，将指定文本脱离父元素的文本方向"><a href="#bdi-双向隔离，将指定文本脱离父元素的文本方向" class="headerlink" title="bdi:双向隔离，将指定文本脱离父元素的文本方向"></a>bdi:双向隔离，将指定文本脱离父元素的文本方向</h5><h5 id="details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性"><a href="#details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性" class="headerlink" title="details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性"></a>details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性</h5><h5 id="figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分"><a href="#figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分" class="headerlink" title="figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分"></a>figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分</h5><h5 id="ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容"><a href="#ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容" class="headerlink" title="ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容"></a>ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容</h5><h5 id="progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量"><a href="#progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量" class="headerlink" title="progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量"></a>progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量</h5><h5 id="dialog：定义一个对话框，只有open属性"><a href="#dialog：定义一个对话框，只有open属性" class="headerlink" title="dialog：定义一个对话框，只有open属性"></a>dialog：定义一个对话框，只有open属性</h5><h5 id="mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行"><a href="#mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行" class="headerlink" title="mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行"></a>mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行</h5>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>标记语言</tag>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux常用命令</title>
+    <url>/2022/02/26/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h1 id="Linux常用命令"><a href="#Linux常用命令" class="headerlink" title="Linux常用命令"></a>Linux常用命令</h1><h2 id="文件处理命令"><a href="#文件处理命令" class="headerlink" title="文件处理命令"></a>文件处理命令</h2><h3 id="目录处理命令"><a href="#目录处理命令" class="headerlink" title="目录处理命令"></a>目录处理命令</h3><p><code>ls -a(显示所有文件，包括隐藏文件) -l(详细信息显示) -d(查看目录属性) -i(查看文件唯一标识ID) -lh</code></p>
+<p><code>ls -l</code>查询出来结果首项，如果：<br><code>-</code>打头表示文件<br><code>d</code>打头表示目录<br><code>l</code>打头表示软链接  </p>
+<blockquote>
+<p>-rw-r–r–<br>  u g o<br>  u所有者 g所属组 o其他人<br>  r读 w写 x执行</p>
+</blockquote>
+<p><code>mkdir -p(递归创建)</code><br><code>cd /tmp/bin(切换到指定目录) ..(回到上一级目录)</code><br><code>pwd(查看当前所在目录)</code><br><code>rmdir(删除空目录)</code><br><code>cp -rp -r(复制目录) -p(保留文件属性) 复制文件不需要加选项r</code><br><code>mv(剪切、改名)</code><br><code>rm -rf(文件或目录) -r(删除目录) -f(强制) -i(询问是否删除)</code></p>
+<a id="more"></a>
+<h3 id="文件处理命令-1"><a href="#文件处理命令-1" class="headerlink" title="文件处理命令"></a>文件处理命令</h3><p><code>touch(创建文件)</code><br><code>cat(显示文件内容) -n(显示行号)</code><br><code>tac(倒显文件内容)</code><br><code>more(分页显示文件内容，空格或f进行翻页，回车进行换行，q退出)</code><br><code>less(可以向上翻页) pgup向上翻页，用/可以搜索关键词，n查看下一个匹配关键词</code><br><code>head(显示文件前面10行内容) -n(指定显示行数)</code><br><code>tail(显示文件末尾10行内容) -n(指定显示行数) -f(动态实时显示)</code></p>
+<h3 id="链接命令"><a href="#链接命令" class="headerlink" title="链接命令"></a>链接命令</h3><p><code>ln(生成硬链接) -s(创建软链接)</code><br><strong>软链接相当于win系统下的快捷方式，软链接文件权限都是rwx</strong><br><strong>硬链接相当<code>cp-p+同步更新</code>，可以通过<code>ls-i</code>节点识别硬链接，硬链接不能跨分区，硬链接不能针对目录来设置</strong>  </p>
+<h2 id="权限管理命令"><a href="#权限管理命令" class="headerlink" title="权限管理命令"></a>权限管理命令</h2><p><strong>一个文件权限，只能是文件所有者或root管理员可以更改</strong></p>
+<h3 id="权限管理命令chmod"><a href="#权限管理命令chmod" class="headerlink" title="权限管理命令chmod"></a>权限管理命令chmod</h3><p><code>chmod(改变文件或目录权限 ) [{ugoa}{+-=}{rwx}][文件或目录][mode=42][文件或目录] -R(递归修改)</code>  </p>
+<p><strong>示例：</strong></p>
+<blockquote>
+<p><code>chmod u+x hello.list</code>给hello.list文件所有者增加x执行权限<br><code>chmod g=rwx yzw.java</code>给yzw.java文件所属组赋予rwx权限<br><code>chmod g=rwx,o-r yzw.java</code>修改多个权限可以用逗号分隔</p>
+</blockquote>
+<p><strong>权限的数字表示：r用4表示，w用2表示，x用1表示，来实现权限修改</strong></p>
+<blockquote>
+<p><code>rwxrw-r--</code>对应7 6 4<br><code>r-x-wx-w-</code>对应5 3 2<br><code>chmod 640 yzw.java</code>通过数字表示实现了yzw.java文件权限更改</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">代表字符</th>
+<th align="center">权限</th>
+<th align="center">对文件的含义</th>
+<th align="center">对<font color="red">目录</font>的含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>r</strong></td>
+<td align="center">读权限</td>
+<td align="center">可以查看文件内容</td>
+<td align="center">可以列出目录中的内容</td>
+</tr>
+<tr>
+<td align="center"><strong>w</strong></td>
+<td align="center">写权限</td>
+<td align="center">可以修改文件内容</td>
+<td align="center">可以在目录中创建、删除文件</td>
+</tr>
+<tr>
+<td align="center"><strong>x</strong></td>
+<td align="center">执行权限</td>
+<td align="center">可以执行文件</td>
+<td align="center">可以进入目录</td>
+</tr>
+</tbody></table>
+<h3 id="其他权限管理命令"><a href="#其他权限管理命令" class="headerlink" title="其他权限管理命令"></a>其他权限管理命令</h3><p><code>chown(改变文件或目录的所有者，只有管理员root可以操作) [用户][文件或目录]</code><br><code>chgrp(改变文件或目录的所属组) [用户组][文件或目录]</code><br><code>umask(显示、设置文件的缺省权限) -S(以rwx形式显示新建文件缺省权限)</code></p>
+<h2 id="文件搜索命令"><a href="#文件搜索命令" class="headerlink" title="文件搜索命令"></a>文件搜索命令</h2><h3 id="文件搜索命令find"><a href="#文件搜索命令find" class="headerlink" title="文件搜索命令find"></a>文件搜索命令find</h3><p><code>find(执行权限：所有用户) [搜索范围][匹配条件]</code><br><strong>示例：</strong></p>
+<blockquote>
+<p><code>find /etc -name init</code>(在etc目录下面搜索名字为init的文件或目录，注意：这里是精准查询)<br><code>find /etc -name *init*</code>(模糊查询，这里<code>*</code>表示任意字符)<br><code>find /etc -name init*</code>(找到init开头的文件或目录)<br><code>find /etc -name init???</code>(找到init后面三个字符的文件或目录，这里?表示单个字符)<br><code>find -iname(不区分大小写) init</code><br><code>find -size(根据文件大小查找) +204800</code>(+n表示大于，-n表示小于，n表示等于，这里204800换算：204800数据块=102400KB=100MB)<br><code>find /home -user yzw</code>(找所有者yzw在home目录的所有文件)<br><code>find /etc -cmin -5</code>(在etc目录下查找5分钟内被修改过属性的文件和目录，<code>-amin</code>表示访问时间access，<code>-cmin</code>表示文件属性，<code>-mmin</code>表示文件内容)<br><code>find -size +163840 -a -size -204800</code>(在etc下查找大于80MB小于100MB的文件，<code>-a</code>是and的意思)<br><code>find -size +163840 -o -size -204800</code>(<code>-o</code>是or的意思)<br><code>find /etc -name init* -a -type f</code>(查看etc目录下名以init开头的文件，<code>f</code>表示文件，<code>d</code>表示目录，<code>l</code>表示软链接)<br><code>find /etc -name yzw -exec ls -l {} \;(在etc目录下查找yzw文件并显示其详细信息)</code><br><code>find /home -user jack -ok rm {} \;</code>(<code>-ok</code>对结果多了询问)<br><code>find -inum 10086 -exec rm {} \;</code>(根据i节点查找到ID为10086文件进行删除)  </p>
+</blockquote>
+<h3 id="其他搜索命令"><a href="#其他搜索命令" class="headerlink" title="其他搜索命令"></a>其他搜索命令</h3><p><code>locate(在文件资料库里面查找) -i(不区分大小写)</code><br><code>updatedb</code>(更新文件资料库)<br><code>which</code>(搜索命令所在目录及别名信息)<br><code>whereis</code>(搜索命令所在目录及帮助文档路径)<br><code>grep(在文件内容中查找) -i(不区分大小写) -v(排查指定字符串)</code><br><code>grep -v ^# /etc/inittab</code>(排除以#开头的注释)</p>
+<h2 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h2><p><code>man</code>(获取帮助信息)<br><code>man 5 passwd</code>(查看配置文件帮助文档，1表示命令，5表示配置文件，默认查看命令帮助文档)<br><code>whatis</code>(查看命令简单信息)<br><code>apropos</code>(查看配置文件简单信息)<br><code>ls --help</code>(查看常见选项)<br><code>info</code>(同<code>man</code>差不多)<br><code>help</code>(查看内置命令帮助信息)</p>
+<h2 id="用户管理命令"><a href="#用户管理命令" class="headerlink" title="用户管理命令"></a>用户管理命令</h2><p><code>useradd</code>(添加新用户)<br><code>passwd</code>(新增或修改密码，用户只能更改自身密码，管理员root可以更改任何用户密码)<br><code>who</code>(查看登录用户信息,tty表示本地终端，pts表示远程终端)<br><code>w</code>(查看登录用户详细信息)</p>
+<h2 id="压缩解压命令"><a href="#压缩解压命令" class="headerlink" title="压缩解压命令"></a>压缩解压命令</h2><p><code>gzip</code>(压缩成.gz文件且不保留原文件，不能压缩目录)<br><code>gunzip或gzip -d</code>(解压.gz文件)<br><code>tar(打包目录) -zcvf [压缩后文件名][目录]</code>(压缩格式.tar.gz)  </p>
+<blockquote>
+<p><code>-c</code>打包<br><code>-v</code>显示详细信息<br><code>-f</code>指定文件名<br><code>-z</code>打包同时压缩  </p>
+</blockquote>
+<p><code>tar -zxvf</code>(解压)</p>
+<blockquote>
+<p><code>-x</code>解包<br><code>-v</code>显示信息<br><code>-f</code>指定解压文件<br><code>-z</code>解压缩  </p>
+</blockquote>
+<p><code>zip -r(压缩目录)[压缩后文件名][文件或目录]</code>(能保留原文件，压缩格式.zip)<br><code>unzip</code>(解压.zip文件)<br><code>bzip2 -k(保留原文件)</code>(gzip升级版可以保留原文件，压缩格式.bz2)<br><code>tar -cjf</code>(将z换成j可以生成.tar.bz2压缩格式)，例:<code>tar -cjf yzw.tar.bz2 yzw</code><br><code>bunzip2或bzip -d</code>(解压.bz2)<br><code>tar -xjf</code>(解压.tar.bz2)  </p>
+<h2 id="网络命令"><a href="#网络命令" class="headerlink" title="网络命令"></a>网络命令</h2><p><code>write</code>(给指定用户发信息，以Ctrl+D保存结束)<br><code>wall(write all，给所有用户发送信息)</code><br><code>ping -c(指定发送次数)</code>(测试网络连通性)<br><code>ifconfig</code>(查看和设置网卡信息)，例:<code>ifconfig eth0 192.168.8.8</code>(临时更改ip)<br><code>mail</code>(查看发送电子邮件)<br><code>last</code>(列出目前与过去登入系统的用户信息)<br><code>lastlog -u uid</code>(检查某特定用户上次登录时间，不加选项列出所有用户)<br><code>traceroute</code>(跟踪路由，即显示数据包到主机间的路径)，例：<code>traceroute www.baidu.com</code><br><code>netstat(显示网络相关信息) -t(查询TCP协议) -u(查询UDP协议) -l(查看监听端口) -r(查看路由网关) -n(显示ip地址和端口号)</code>  </p>
+<blockquote>
+<p>netstat -tlun 查看本机监听的端口<br>netstat -an 查看本机所有网络连接<br>netstat -rn 查看本机路由表  </p>
+</blockquote>
+<p><code>setup</code>(配置网络，redhat专有命令)<br><code>mount -t</code>(挂载命令，即分配盘符)例：<code>mount -t iso9660 /dev/sr0 /mnt/cdrom</code><br><code>umount</code>(挂载卸载命令)</p>
+<h2 id="关机重启命令"><a href="#关机重启命令" class="headerlink" title="关机重启命令"></a>关机重启命令</h2><p><code>shutdown -h now</code>(立刻关键)<br><code>shutdown -h 20:30</code>(20:30关机)<br><code>shutdown -r now</code>(立刻重启)<br><code>shutdown -r 20:30</code>(20:30重启)<br><code>shutdown -c</code>(取消前一个关机命令)<br><code>halt</code>(关机命令)<br><code>poweroff</code>(关机命令)<br><code>init 0</code>(关机命令)<br><code>reboot</code>(重启命令)<br><code>init 6</code>(重启命令)</p>
+<blockquote>
+<p><strong>系统运行级别：0代表关机 1代表单用户 2代表不完全多用户，不含NFS服务 3代表完全多用户 4代表未分配 5代表图形界面 6代表重启</strong></p>
+</blockquote>
+<p><code>runlevel</code>(查询当时运行级别)<br><code>logout</code>(退出登录)</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>命令</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RESTful</title>
+    <url>/2022/03/31/RESTful/</url>
+    <content><![CDATA[<a id="more"></a>
+<p><img src="/images/yzvv.png" alt="RESTful" title="RESTful风格wiki介绍"></p>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>RESTful风格</tag>
+        <tag>纯图片</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SQL</title>
     <url>/2020/02/12/SQL/</url>
     <content><![CDATA[<h2 id="SQL语言的概述"><a href="#SQL语言的概述" class="headerlink" title="SQL语言的概述"></a>SQL语言的概述</h2><h3 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h3><ul>
@@ -223,181 +481,6 @@
       </tags>
   </entry>
   <entry>
-    <title>JAXP</title>
-    <url>/2020/04/17/JAXP/</url>
-    <content><![CDATA[<h3 id="JAXP"><a href="#JAXP" class="headerlink" title="JAXP"></a>JAXP</h3><h4 id="xml的解析-将用到JAVA代码-重点内容"><a href="#xml的解析-将用到JAVA代码-重点内容" class="headerlink" title="xml的解析(将用到JAVA代码)重点内容"></a>xml的解析(<em>将用到JAVA代码</em>)<em><strong>重点内容</strong></em></h4><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>xml为标记下语言，JS使用dom解析标记型文档，根据html的层级结构，在内存中分配一个树型结构，把html中的标签、属性、对象都封装成对象，例如：document对象、element对象、属性对象、文本对象、Node节点对象</p>
-<p><strong>xml的解析方式有两种：dom和sax</strong></p>
-<a id="more"></a>
-<p><img src="/images/xml_pic.png" alt="解析图" title="xml的解析"><br><em>上图是dom的解析过程，该方式好处是很方便实现数据的增删改操作，但是如果文件过大，容易造成内存溢出。至于sax解析采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回，不会造成内存溢出，查询操作方便，但不能实现增删改操作</em><br><strong>总结：</strong><br>   <strong>-dom方式解析：根据xml的层级结构在内存中分配一个树状结构，把xml标签，属性和文本都封装成对象</strong><br>   <strong>-使用dom弊端：如果文件过大，容易造成溢出</strong><br>   <strong>-sax方式解析：采用事件驱动，边读边解析，从上至下一行一行解析，解析到某一对象，将对象名称返回</strong><br>   <strong>-使用sax弊端：不能实现增删改操作</strong></p>
-<h5 id="解析器"><a href="#解析器" class="headerlink" title="解析器"></a>解析器</h5><p><strong>不同的公司和组织提供了针对dom和sax方式的解析器，通过api方式提供，sun公司提供了针对dom和sax的解析器jaxp，dom4j组织提供的解析器就叫dom4j，同样还有jdom组织的解析器jdom</strong></p>
-<h5 id="JAXP的API"><a href="#JAXP的API" class="headerlink" title="JAXP的API"></a>JAXP的API</h5><p><strong>jaxp解析器在jdk的javax.xml.parsers包里面，包里四个类主要针对dom和sax解析使用，针对dom有DocumentBuilder（解析器类）和DocumentBuilderFactory（解析器工厂）两个类，而sax有SAXParser和SAXParserFactory</strong></p>
-<h4 id="jaxp使用"><a href="#jaxp使用" class="headerlink" title="jaxp使用"></a>jaxp使用</h4><p>xml文件内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void selectAll() throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;1.创建解析器工厂</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.根据工厂创建解析器</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.解析xml返回的document</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);&#x2F;&#x2F;括号内填写你xml文件所在位置</span><br><span class="line">&#x2F;&#x2F;4.得到所有元素</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;name&quot;);&#x2F;&#x2F;这里得到的是上面xml中name标签</span><br><span class="line">&#x2F;&#x2F;5.遍历集合</span><br><span class="line">	for(int i &#x3D; 0; i&lt;list.getLength();i++)&#123;</span><br><span class="line">		Node name &#x3D; list.item(i);&#x2F;&#x2F;得到每一个name元素</span><br><span class="line">		&#x2F;&#x2F;得到name元素里面的值</span><br><span class="line">		String s &#x3D; name1.getTextContent();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public void selectSin() throws Exception&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.同上</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;name&quot;);</span><br><span class="line">&#x2F;&#x2F;5.得到第一个name元素</span><br><span class="line">	Node name1 &#x3D; list.item(0);</span><br><span class="line">&#x2F;&#x2F;6.得到name里面的值</span><br><span class="line">	String s &#x3D; name1.getTextContent();</span><br><span class="line">	System.out.println(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="增加操作"><a href="#增加操作" class="headerlink" title="增加操作"></a>增加操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void add() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.同上</span><br><span class="line">	NodeList list&#x3D;document.getElementsByTagName(&quot;p1&quot;);</span><br><span class="line">&#x2F;&#x2F;5.得到第一个p1</span><br><span class="line">	Node p1 &#x3D; list.item(0);</span><br><span class="line">&#x2F;&#x2F;6.创建标签</span><br><span class="line">	Element sex1 &#x3D; document.createElement(&quot;sex&quot;);</span><br><span class="line">&#x2F;&#x2F;7.创建文本</span><br><span class="line">	Text text1 &#x3D; document.createTextNode(&quot;男&quot;);</span><br><span class="line">&#x2F;&#x2F;8.把文本添加到sex1下面</span><br><span class="line">	sex1.appendChild(text1);</span><br><span class="line">&#x2F;&#x2F;9.把sex1添加到p1下面</span><br><span class="line">	p1.appendChild(sex1);</span><br><span class="line">&#x2F;&#x2F;10.回写xml</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="修改操作"><a href="#修改操作" class="headerlink" title="修改操作"></a>修改操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void fix() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.得到sex元素</span><br><span class="line">	Node sex1 &#x3D; document.getElementsByTagName(&quot;sex&quot;).item(0);</span><br><span class="line">&#x2F;&#x2F;5.修改sex的内容</span><br><span class="line">	sex1.setTextContent(&quot;man&quot;);</span><br><span class="line">&#x2F;&#x2F;6.回写</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void delete() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;4.得到sex元素</span><br><span class="line">	Node sex1 &#x3D; NodeList list&#x3D;document.getElementsByTagName(&quot;sex&quot;).item(0);</span><br><span class="line">&#x2F;&#x2F;5.得到它的父节点p1</span><br><span class="line">	Node p1 &#x3D; sex1.getParentNode();</span><br><span class="line">&#x2F;&#x2F;6.删除sex</span><br><span class="line">	p1.removeChild(sex1);</span><br><span class="line">&#x2F;&#x2F;7.回写	</span><br><span class="line">	TransformerFactory transformerFactory &#x3D; TransformerFactory.newInstance();</span><br><span class="line">	Transformer transformer &#x3D; transformerFactory.newTransformer();</span><br><span class="line">	transformer.transform(new DOMSourse(document),new StreamResult(&quot;src&#x2F;person.xml&quot;));</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
-
-<h5 id="遍历节点-把所有元素名称打印出来"><a href="#遍历节点-把所有元素名称打印出来" class="headerlink" title="遍历节点(把所有元素名称打印出来)"></a>遍历节点(<em>把所有元素名称打印出来</em>)</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void listElement() throws Exception()&#123;</span><br><span class="line">&#x2F;&#x2F;1.同上</span><br><span class="line">	DocumentBuilderFactory builderFactory &#x3D; DocumentBuilderFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.同上	</span><br><span class="line">	DocumentBuilder builder &#x3D; builderFactory.newDocumentBuilder();</span><br><span class="line">&#x2F;&#x2F;3.同上	</span><br><span class="line">	Document document&#x3D;builder.parse(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">&#x2F;&#x2F;5.调用递归方法</span><br><span class="line">	list1(document);</span><br><span class="line">&#125;</span><br><span class="line">4.编写一个递归方法实现遍历</span><br><span class="line">public static void list1(Node node)&#123;</span><br><span class="line">	if(node.getNodeType &#x3D;&#x3D; Node.ELEMENT_NODE)&#123;&#x2F;&#x2F;避免将标签内容中不必要的空格和tab打印出来</span><br><span class="line">		System.out.println(node.getNodeName());&#x2F;&#x2F;获取节点名称</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;得到一层子节点</span><br><span class="line">	NodeList list &#x3D; node.getChildNodes();</span><br><span class="line">	for(int i&#x3D;0;i&lt;list.getLength();i++)&#123;</span><br><span class="line">		Node temp &#x3D; list.item(i);</span><br><span class="line">		&#x2F;&#x2F;继续得到temp的子节点</span><br><span class="line">		list1.(temp);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="JAXP实现sax操作"><a href="#JAXP实现sax操作" class="headerlink" title="JAXP实现sax操作"></a>JAXP实现sax操作</h4><p><strong>由于sax不能执行增删改操作，所以以下是实现它的查询操作</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class MyDefault1 extends DefaultHandler&#123;&#x2F;&#x2F;以下三个方法自动执行</span><br><span class="line">	@Override</span><br><span class="line">	public void startElement(String uri,String localName,String qName,Attributes attributes)throws SAXException&#123;</span><br><span class="line">		super.startElement(uri,localName,qName,attributes);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void characters(char[] ch,int start,int length)throws SAXException&#123;</span><br><span class="line">		super.characters(ch,start,length);</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void endElement(String uri,String localName,String qName)throws SAXException&#123;</span><br><span class="line">		super.endElement(uri,localName,qName);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MyDefault2 extends DefaultHandler&#123;&#x2F;&#x2F;获取所有name元素的值</span><br><span class="line">	boolean flag &#x3D; false;</span><br><span class="line">	@Override</span><br><span class="line">	public void startElement(String uri,String localName,String qName,Attributes attributes)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;判断qName是否是name元素</span><br><span class="line">		if(&quot;name&quot;.equals(qName))&#123;</span><br><span class="line">			flag &#x3D; true;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void characters(char[] ch,int start,int length)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;当flag值是true时表示解析到name元素</span><br><span class="line">		if(flag &#x3D;&#x3D; true)&#123;</span><br><span class="line">			System.out.println(new String(ch,start,length));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public void endElement(String uri,String localName,String qName)throws SAXException&#123;</span><br><span class="line">		&#x2F;&#x2F;将flag设置为false,表示name元素结束</span><br><span class="line">		if(&quot;name&quot;.equals(qName))&#123;</span><br><span class="line">			flag &#x3D; false;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void main (String[] args)&#123;</span><br><span class="line">&#x2F;&#x2F;1.创建解析器工厂</span><br><span class="line">	SAXParserFactory saxParserFactory &#x3D; SAXParserFactory.newInstance();</span><br><span class="line">&#x2F;&#x2F;2.创建解析器</span><br><span class="line">	SAXParser saxParser &#x3D; SAXParserFactory.newSAXParser();</span><br><span class="line">&#x2F;&#x2F;3.执行parse方法</span><br><span class="line">	saxParser.parse(&quot;src&#x2F;p1.xml&quot;,new MyDefault2());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-]]></content>
-      <categories>
-        <category>JavaWeb</category>
-      </categories>
-      <tags>
-        <tag>XML</tag>
-        <tag>标记语言</tag>
-        <tag>XML解析</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Docker命令</title>
-    <url>/2022/03/06/Docker%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<h3 id="docker安装"><a href="#docker安装" class="headerlink" title="docker安装"></a>docker安装</h3><p>首先，简单说下docker容器安装步骤。<br><strong>第一步，我们需要移除旧版本的docker命令：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-selinux \</span><br><span class="line">                  docker-engine-selinux \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-
-<p><strong>第二步，安装所需依赖包：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum install -y yum-utils \</span><br><span class="line">  device-mapper-persistent-data \</span><br><span class="line">  lvm2</span><br></pre></td></tr></table></figure>
-
-<p><strong>第三步，由于访问国外网站网速限制，我们需要配置镜像源，这里我用的是阿里云镜像：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo</span><br></pre></td></tr></table></figure>
-
-<p><strong>第四步，配置缓存：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum makecache fast</span><br></pre></td></tr></table></figure>
-
-<p><strong>第五步，执行docker安装命令：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum install -y docker-ce（这里docker-ce指的是社区版）</span><br></pre></td></tr></table></figure>
-
-<p><strong>第六步，配置镜像加速器，我用的是 <a href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors" target="_blank" rel="noopener">阿里云镜像加速器</a>，登录自己阿里云账号获得自己专属镜像加速器地址：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">suco mkdir -p &#x2F;etc&#x2F;docker(若没有该目录，则执行这条命令进行创建，有则跳过)</span><br><span class="line">sudo tee &#x2F;etc&#x2F;docker&#x2F;daemon.json &lt;&lt;-&#39;EOF&#39;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [这里输入你的阿里云镜像加速器地址]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-
-<p><strong>第七步，加载daemon配置文件：</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-
-<p><strong>第八步，重启docker</strong>  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
-
-<h3 id="docker命令"><a href="#docker命令" class="headerlink" title="docker命令"></a>docker命令</h3><p><code>docker version</code>查看docker版本，用来检验docker是否安装成功<br><code>docker info</code>查看docker的信息，可以用来查看docker镜像加速器是否配置成功<br><code>systemctl start docker</code>开启docker<br><code>systemctl restart docker</code>重启docker<br><code>systemctl enable docker</code>设置docker自启动  </p>
-<h4 id="docker镜像相关命令"><a href="#docker镜像相关命令" class="headerlink" title="docker镜像相关命令"></a>docker镜像相关命令</h4><p><code>docker images</code>或<code>docker images ls</code>查看当前存在的镜像<br><code>docker pull [镜像名]:[版本号]</code>获取镜像，不给版本号，默认最新latest<br><code>docker rmi [镜像ID]或[镜像名]</code>删除镜像，删除镜像时需确保该镜像没有创建容器<br><code>docker images -q</code>查看镜像ID<br><code>docker history [镜像名称]</code>查看一个镜像的制作历程  </p>
-<h4 id="docker容器相关命令"><a href="#docker容器相关命令" class="headerlink" title="docker容器相关命令"></a>docker容器相关命令</h4><p><code>docker ps</code>查看运行的容器<br><code>docker ps -a</code>查看所有的容器(包含运行和退出)<br><code>docker ps -a -q</code>查看所有容器的ID<br><code>docker run -i -t(-i -t用来作容器的交互) -d(后台运行容器) --rm(容器在启动后，执行完成命令或程序后自动销毁) --name(给容器自定义一个名字) -p(宿主机：内部端口)</code>运行容器<br>实例：<code>docker run --rm -d --name tomcat123 -p 8081:8080 tomcat</code><br><code>docker stop $(docker ps -a -q)</code>停掉所有容器<br><code>docker rm -f(强制)</code>删除容器<br><code>docker start</code>启动容器<br><code>docker restart</code>重启容器<br><code>docker exec</code>进入容器<br>实例：<code>docker exec -it tomcat-8080 bash</code><br><code>exit</code>退出容器<br><code>docker cp</code>实现宿主机与容器之间文件交换<br><code>docker logs -f(查看实时日志) -t(查看日志产生日期) --tail=5(查看日志最后5行)</code>查看指定容器日志  </p>
-<h4 id="docker数据卷"><a href="#docker数据卷" class="headerlink" title="docker数据卷"></a>docker数据卷</h4><p>数据卷可以在容器之间共享和重用，对数据卷的修改会立马生效，对数据卷的更新，不会影响镜像，数据卷具有持久化，即使容器被删除，也会一直存在，数据卷的两种创建方式<br><code>docker run -v(数据卷名称)</code><br><code>docker run -v(路径)</code><br>例：<code>docker run -d --name tomcat-8080 -p 8080:8080 -v /home/yzw/docker-volumn/:/usr/local/tomcat/webapps/volumn tomcat</code><br>`</p>
-]]></content>
-      <categories>
-        <category>Docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-        <tag>命令</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux常用命令</title>
-    <url>/2022/02/26/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<h1 id="Linux常用命令"><a href="#Linux常用命令" class="headerlink" title="Linux常用命令"></a>Linux常用命令</h1><h2 id="文件处理命令"><a href="#文件处理命令" class="headerlink" title="文件处理命令"></a>文件处理命令</h2><h3 id="目录处理命令"><a href="#目录处理命令" class="headerlink" title="目录处理命令"></a>目录处理命令</h3><p><code>ls -a(显示所有文件，包括隐藏文件) -l(详细信息显示) -d(查看目录属性) -i(查看文件唯一标识ID) -lh</code></p>
-<p><code>ls -l</code>查询出来结果首项，如果：<br><code>-</code>打头表示文件<br><code>d</code>打头表示目录<br><code>l</code>打头表示软链接  </p>
-<blockquote>
-<p>-rw-r–r–<br>  u g o<br>  u所有者 g所属组 o其他人<br>  r读 w写 x执行</p>
-</blockquote>
-<p><code>mkdir -p(递归创建)</code><br><code>cd /tmp/bin(切换到指定目录) ..(回到上一级目录)</code><br><code>pwd(查看当前所在目录)</code><br><code>rmdir(删除空目录)</code><br><code>cp -rp -r(复制目录) -p(保留文件属性) 复制文件不需要加选项r</code><br><code>mv(剪切、改名)</code><br><code>rm -rf(文件或目录) -r(删除目录) -f(强制) -i(询问是否删除)</code></p>
-<a id="more"></a>
-<h3 id="文件处理命令-1"><a href="#文件处理命令-1" class="headerlink" title="文件处理命令"></a>文件处理命令</h3><p><code>touch(创建文件)</code><br><code>cat(显示文件内容) -n(显示行号)</code><br><code>tac(倒显文件内容)</code><br><code>more(分页显示文件内容，空格或f进行翻页，回车进行换行，q退出)</code><br><code>less(可以向上翻页) pgup向上翻页，用/可以搜索关键词，n查看下一个匹配关键词</code><br><code>head(显示文件前面10行内容) -n(指定显示行数)</code><br><code>tail(显示文件末尾10行内容) -n(指定显示行数) -f(动态实时显示)</code></p>
-<h3 id="链接命令"><a href="#链接命令" class="headerlink" title="链接命令"></a>链接命令</h3><p><code>ln(生成硬链接) -s(创建软链接)</code><br><strong>软链接相当于win系统下的快捷方式，软链接文件权限都是rwx</strong><br><strong>硬链接相当<code>cp-p+同步更新</code>，可以通过<code>ls-i</code>节点识别硬链接，硬链接不能跨分区，硬链接不能针对目录来设置</strong>  </p>
-<h2 id="权限管理命令"><a href="#权限管理命令" class="headerlink" title="权限管理命令"></a>权限管理命令</h2><p><strong>一个文件权限，只能是文件所有者或root管理员可以更改</strong></p>
-<h3 id="权限管理命令chmod"><a href="#权限管理命令chmod" class="headerlink" title="权限管理命令chmod"></a>权限管理命令chmod</h3><p><code>chmod(改变文件或目录权限 ) [{ugoa}{+-=}{rwx}][文件或目录][mode=42][文件或目录] -R(递归修改)</code>  </p>
-<p><strong>示例：</strong></p>
-<blockquote>
-<p><code>chmod u+x hello.list</code>给hello.list文件所有者增加x执行权限<br><code>chmod g=rwx yzw.java</code>给yzw.java文件所属组赋予rwx权限<br><code>chmod g=rwx,o-r yzw.java</code>修改多个权限可以用逗号分隔</p>
-</blockquote>
-<p><strong>权限的数字表示：r用4表示，w用2表示，x用1表示，来实现权限修改</strong></p>
-<blockquote>
-<p><code>rwxrw-r--</code>对应7 6 4<br><code>r-x-wx-w-</code>对应5 3 2<br><code>chmod 640 yzw.java</code>通过数字表示实现了yzw.java文件权限更改</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">代表字符</th>
-<th align="center">权限</th>
-<th align="center">对文件的含义</th>
-<th align="center">对<font color="red">目录</font>的含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><strong>r</strong></td>
-<td align="center">读权限</td>
-<td align="center">可以查看文件内容</td>
-<td align="center">可以列出目录中的内容</td>
-</tr>
-<tr>
-<td align="center"><strong>w</strong></td>
-<td align="center">写权限</td>
-<td align="center">可以修改文件内容</td>
-<td align="center">可以在目录中创建、删除文件</td>
-</tr>
-<tr>
-<td align="center"><strong>x</strong></td>
-<td align="center">执行权限</td>
-<td align="center">可以执行文件</td>
-<td align="center">可以进入目录</td>
-</tr>
-</tbody></table>
-<h3 id="其他权限管理命令"><a href="#其他权限管理命令" class="headerlink" title="其他权限管理命令"></a>其他权限管理命令</h3><p><code>chown(改变文件或目录的所有者，只有管理员root可以操作) [用户][文件或目录]</code><br><code>chgrp(改变文件或目录的所属组) [用户组][文件或目录]</code><br><code>umask(显示、设置文件的缺省权限) -S(以rwx形式显示新建文件缺省权限)</code></p>
-<h2 id="文件搜索命令"><a href="#文件搜索命令" class="headerlink" title="文件搜索命令"></a>文件搜索命令</h2><h3 id="文件搜索命令find"><a href="#文件搜索命令find" class="headerlink" title="文件搜索命令find"></a>文件搜索命令find</h3><p><code>find(执行权限：所有用户) [搜索范围][匹配条件]</code><br><strong>示例：</strong></p>
-<blockquote>
-<p><code>find /etc -name init</code>(在etc目录下面搜索名字为init的文件或目录，注意：这里是精准查询)<br><code>find /etc -name *init*</code>(模糊查询，这里<code>*</code>表示任意字符)<br><code>find /etc -name init*</code>(找到init开头的文件或目录)<br><code>find /etc -name init???</code>(找到init后面三个字符的文件或目录，这里?表示单个字符)<br><code>find -iname(不区分大小写) init</code><br><code>find -size(根据文件大小查找) +204800</code>(+n表示大于，-n表示小于，n表示等于，这里204800换算：204800数据块=102400KB=100MB)<br><code>find /home -user yzw</code>(找所有者yzw在home目录的所有文件)<br><code>find /etc -cmin -5</code>(在etc目录下查找5分钟内被修改过属性的文件和目录，<code>-amin</code>表示访问时间access，<code>-cmin</code>表示文件属性，<code>-mmin</code>表示文件内容)<br><code>find -size +163840 -a -size -204800</code>(在etc下查找大于80MB小于100MB的文件，<code>-a</code>是and的意思)<br><code>find -size +163840 -o -size -204800</code>(<code>-o</code>是or的意思)<br><code>find /etc -name init* -a -type f</code>(查看etc目录下名以init开头的文件，<code>f</code>表示文件，<code>d</code>表示目录，<code>l</code>表示软链接)<br><code>find /etc -name yzw -exec ls -l {} \;(在etc目录下查找yzw文件并显示其详细信息)</code><br><code>find /home -user jack -ok rm {} \;</code>(<code>-ok</code>对结果多了询问)<br><code>find -inum 10086 -exec rm {} \;</code>(根据i节点查找到ID为10086文件进行删除)  </p>
-</blockquote>
-<h3 id="其他搜索命令"><a href="#其他搜索命令" class="headerlink" title="其他搜索命令"></a>其他搜索命令</h3><p><code>locate(在文件资料库里面查找) -i(不区分大小写)</code><br><code>updatedb</code>(更新文件资料库)<br><code>which</code>(搜索命令所在目录及别名信息)<br><code>whereis</code>(搜索命令所在目录及帮助文档路径)<br><code>grep(在文件内容中查找) -i(不区分大小写) -v(排查指定字符串)</code><br><code>grep -v ^# /etc/inittab</code>(排除以#开头的注释)</p>
-<h2 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h2><p><code>man</code>(获取帮助信息)<br><code>man 5 passwd</code>(查看配置文件帮助文档，1表示命令，5表示配置文件，默认查看命令帮助文档)<br><code>whatis</code>(查看命令简单信息)<br><code>apropos</code>(查看配置文件简单信息)<br><code>ls --help</code>(查看常见选项)<br><code>info</code>(同<code>man</code>差不多)<br><code>help</code>(查看内置命令帮助信息)</p>
-<h2 id="用户管理命令"><a href="#用户管理命令" class="headerlink" title="用户管理命令"></a>用户管理命令</h2><p><code>useradd</code>(添加新用户)<br><code>passwd</code>(新增或修改密码，用户只能更改自身密码，管理员root可以更改任何用户密码)<br><code>who</code>(查看登录用户信息,tty表示本地终端，pts表示远程终端)<br><code>w</code>(查看登录用户详细信息)</p>
-<h2 id="压缩解压命令"><a href="#压缩解压命令" class="headerlink" title="压缩解压命令"></a>压缩解压命令</h2><p><code>gzip</code>(压缩成.gz文件且不保留原文件，不能压缩目录)<br><code>gunzip或gzip -d</code>(解压.gz文件)<br><code>tar(打包目录) -zcvf [压缩后文件名][目录]</code>(压缩格式.tar.gz)  </p>
-<blockquote>
-<p><code>-c</code>打包<br><code>-v</code>显示详细信息<br><code>-f</code>指定文件名<br><code>-z</code>打包同时压缩  </p>
-</blockquote>
-<p><code>tar -zxvf</code>(解压)</p>
-<blockquote>
-<p><code>-x</code>解包<br><code>-v</code>显示信息<br><code>-f</code>指定解压文件<br><code>-z</code>解压缩  </p>
-</blockquote>
-<p><code>zip -r(压缩目录)[压缩后文件名][文件或目录]</code>(能保留原文件，压缩格式.zip)<br><code>unzip</code>(解压.zip文件)<br><code>bzip2 -k(保留原文件)</code>(gzip升级版可以保留原文件，压缩格式.bz2)<br><code>tar -cjf</code>(将z换成j可以生成.tar.bz2压缩格式)，例:<code>tar -cjf yzw.tar.bz2 yzw</code><br><code>bunzip2或bzip -d</code>(解压.bz2)<br><code>tar -xjf</code>(解压.tar.bz2)  </p>
-<h2 id="网络命令"><a href="#网络命令" class="headerlink" title="网络命令"></a>网络命令</h2><p><code>write</code>(给指定用户发信息，以Ctrl+D保存结束)<br><code>wall(write all，给所有用户发送信息)</code><br><code>ping -c(指定发送次数)</code>(测试网络连通性)<br><code>ifconfig</code>(查看和设置网卡信息)，例:<code>ifconfig eth0 192.168.8.8</code>(临时更改ip)<br><code>mail</code>(查看发送电子邮件)<br><code>last</code>(列出目前与过去登入系统的用户信息)<br><code>lastlog -u uid</code>(检查某特定用户上次登录时间，不加选项列出所有用户)<br><code>traceroute</code>(跟踪路由，即显示数据包到主机间的路径)，例：<code>traceroute www.baidu.com</code><br><code>netstat(显示网络相关信息) -t(查询TCP协议) -u(查询UDP协议) -l(查看监听端口) -r(查看路由网关) -n(显示ip地址和端口号)</code>  </p>
-<blockquote>
-<p>netstat -tlun 查看本机监听的端口<br>netstat -an 查看本机所有网络连接<br>netstat -rn 查看本机路由表  </p>
-</blockquote>
-<p><code>setup</code>(配置网络，redhat专有命令)<br><code>mount -t</code>(挂载命令，即分配盘符)例：<code>mount -t iso9660 /dev/sr0 /mnt/cdrom</code><br><code>umount</code>(挂载卸载命令)</p>
-<h2 id="关机重启命令"><a href="#关机重启命令" class="headerlink" title="关机重启命令"></a>关机重启命令</h2><p><code>shutdown -h now</code>(立刻关键)<br><code>shutdown -h 20:30</code>(20:30关机)<br><code>shutdown -r now</code>(立刻重启)<br><code>shutdown -r 20:30</code>(20:30重启)<br><code>shutdown -c</code>(取消前一个关机命令)<br><code>halt</code>(关机命令)<br><code>poweroff</code>(关机命令)<br><code>init 0</code>(关机命令)<br><code>reboot</code>(重启命令)<br><code>init 6</code>(重启命令)</p>
-<blockquote>
-<p><strong>系统运行级别：0代表关机 1代表单用户 2代表不完全多用户，不含NFS服务 3代表完全多用户 4代表未分配 5代表图形界面 6代表重启</strong></p>
-</blockquote>
-<p><code>runlevel</code>(查询当时运行级别)<br><code>logout</code>(退出登录)</p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>命令</tag>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SQL进阶</title>
     <url>/2020/02/20/SQL%E8%BF%9B%E9%98%B6/</url>
     <content><![CDATA[<h2 id="SQL进阶"><a href="#SQL进阶" class="headerlink" title="SQL进阶"></a>SQL进阶</h2><h3 id="SQL编码问题"><a href="#SQL编码问题" class="headerlink" title="SQL编码问题"></a>SQL编码问题</h3><p>使用<code>SHOW VARIABLES LIKE &#39;char%&#39;;</code>可以查看当前窗口sql相关编码,在dos窗口内使用<code>set 你想修改的选项=gbk;</code>，这种修改在窗口关闭后将失效，也就是一次性修改。每次修改或许会很繁琐，所以也可以找到my.ini文件在里面进行修改，重启数据库系统，使修改配置生效   </p>
@@ -447,211 +530,24 @@
       </tags>
   </entry>
   <entry>
-    <title>HTML5序章</title>
-    <url>/2020/02/18/HTML5%E5%BA%8F%E7%AB%A0/</url>
-    <content><![CDATA[<p><strong>一天天宅着蛮枯燥的，HTML5地学习或许能打破这乏味的时光。以前,刚开始学习 HTML ，才明白前端界面是如何实现的，当然也少不了CSS、JavaScript。像我们这博客完全是通过这3样语言实现的静态网页，瞬间感觉前端是不是比后端的东西，更直观地看得出成果。你光使用后端语言是无法完成Web网页开发，当然，如果有后端语言与数据库实现的自然是动态网页。话不多说，言归正传，开始我们今天HTML5的学习！</strong></p>
-<h2 id="HTML5概述"><a href="#HTML5概述" class="headerlink" title="HTML5概述"></a>HTML5概述</h2><h3 id="HTML-HyperText-Markup-Language"><a href="#HTML-HyperText-Markup-Language" class="headerlink" title="HTML(HyperText Markup Language)"></a>HTML(HyperText Markup Language)</h3><p>  <strong>HTML全称翻译而来是一款超文本标记语言，经过多过版本的更新，最后到现在HTML5，其实目的就是升级优化添加新功能，目前主要优势表现在终端上，跨平台、跨分辨率、版本控制简单</strong><br>  <strong>HTML5 实际上指的是包括HTML、CSS和JS在内的一套技术组合，能够减少浏览器对于需要插件(这也是显著功能)的丰富性网络应用服务</strong></p>
+    <title>SVN版本控制</title>
+    <url>/2020/03/18/SVN%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</url>
+    <content><![CDATA[<h2 id="SVN版本控制"><a href="#SVN版本控制" class="headerlink" title="SVN版本控制"></a>SVN版本控制</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><strong>SVN是subversion的缩写，是一个开放源代码的版本控制系统（CMS），通过采用分支管理系统的高效管理，简而言之就是用于多个人共同开发同一个项目，实现共享资源，实现最终集中式的管理，它是最初版本控制工具CVS的升级版</strong></p>
 <a id="more"></a>
 
-<h3 id="标记语言与编程语言区别"><a href="#标记语言与编程语言区别" class="headerlink" title="标记语言与编程语言区别"></a>标记语言与编程语言区别</h3><p>  <em><strong>觉得这个有必要记录下，标记语言强调属性，没有逻辑结构；而编程语言有逻辑和行为能力</strong></em></p>
-<h3 id="HTML5的八大特性"><a href="#HTML5的八大特性" class="headerlink" title="HTML5的八大特性"></a>HTML5的八大特性</h3><p><strong>1)语义特性</strong><br><strong>2)离线存储特性</strong><br><strong>3)设备访问特性</strong><br><strong>4)通讯特性</strong><br><strong>5)多媒体特性</strong><br><strong>6)三维及图形特性</strong><br><strong>7)性能及基础特性</strong><br><strong>8)CSS3特性</strong></p>
-<h3 id="HTML5的优点"><a href="#HTML5的优点" class="headerlink" title="HTML5的优点"></a>HTML5的优点</h3><h4 id="标签丰富、功能强大"><a href="#标签丰富、功能强大" class="headerlink" title="标签丰富、功能强大"></a>标签丰富、功能强大</h4><p>通过HTML5可以轻松实现页面中的音频、视频、动画等效果。</p>
-<h4 id="支持移动互联网的Web应用需求"><a href="#支持移动互联网的Web应用需求" class="headerlink" title="支持移动互联网的Web应用需求"></a>支持移动互联网的Web应用需求</h4><p>HTML5开发应用，可以轻松运行于手机、平板电脑等移动设备。</p>
-<h4 id="适应当前Web应用发展潮流"><a href="#适应当前Web应用发展潮流" class="headerlink" title="适应当前Web应用发展潮流"></a>适应当前Web应用发展潮流</h4><p>HTML5应用界面友好，功能强大，是今后Web发展的主流方向。</p>
-<h4 id="解决了跨浏览器问题"><a href="#解决了跨浏览器问题" class="headerlink" title="解决了跨浏览器问题"></a>解决了跨浏览器问题</h4><p>HTML5之前各大浏览器的竞争，在各自浏览器增加各种各样的功能，且不具有统一的标准。用不同浏览器看到不同页面效果。在HTML5中，纳入了所有合理的扩展功能，具备良好的跨平台性能。针对不支持新标签的老式IE浏览器，只需简单地添加JavaScript代码就可以使用新的元素</p>
-<h4 id="新增了多个新特性"><a href="#新增了多个新特性" class="headerlink" title="新增了多个新特性"></a>新增了多个新特性</h4><h5 id="良好的语义特性"><a href="#良好的语义特性" class="headerlink" title="良好的语义特性"></a>良好的语义特性</h5><p>HTML5支持数据与微格式，增加的新元素赋予网页更好的意义和结构。增加了很多新的结构元素，从而使文档结构更加清晰明确，新增的结构元素包括section元素、article元素、nav元素以及aside元素等</p>
-<h5 id="强大的绘图功能"><a href="#强大的绘图功能" class="headerlink" title="强大的绘图功能"></a>强大的绘图功能</h5><p>既可以通过Canvas API动态地绘制各种效果精美的图形，也可以通过SVG绘制各种伸缩矢量图形</p>
-<h5 id="增强的音频视频播放和控制功能"><a href="#增强的音频视频播放和控制功能" class="headerlink" title="增强的音频视频播放和控制功能"></a>增强的音频视频播放和控制功能</h5><p>HTML5新增了audio和video元素，可以不依赖任何插件而播放音频和视频</p>
-<h5 id="HTML5的数据存储和数据处理的功能"><a href="#HTML5的数据存储和数据处理的功能" class="headerlink" title="HTML5的数据存储和数据处理的功能"></a>HTML5的数据存储和数据处理的功能</h5><p>(1)离线应用 (2)Web通信 (3)本地存储</p>
-<h5 id="获取地理位置信息"><a href="#获取地理位置信息" class="headerlink" title="获取地理位置信息"></a>获取地理位置信息</h5><p>HTML5新增了Geolocation API规范，可以通过浏览器获取用户的地理位置信息</p>
-<h5 id="提高页面相应的多线程"><a href="#提高页面相应的多线程" class="headerlink" title="提高页面相应的多线程"></a>提高页面相应的多线程</h5><p>HTML5新增Web Workers来实现多线程功能。通过Web Workers将耗时长的处理交给后台线程，降低Web服务的响应时间，有利于增强用户体验</p>
-<h5 id="文件-API"><a href="#文件-API" class="headerlink" title="文件 API"></a>文件 API</h5><p>FileReader API：简化用户访问本地/服务器端文件系统的相关处理<br>FileSystem API：给文件系统添加浏览器保护，使得文件系统数据可以永久本地保存</p>
-<h4 id="用户优先的原则"><a href="#用户优先的原则" class="headerlink" title="用户优先的原则"></a>用户优先的原则</h4><h5 id="安全机制的设计"><a href="#安全机制的设计" class="headerlink" title="安全机制的设计"></a>安全机制的设计</h5><h5 id="表现和内容分离"><a href="#表现和内容分离" class="headerlink" title="表现和内容分离"></a>表现和内容分离</h5><h4 id="化繁为简的优势"><a href="#化繁为简的优势" class="headerlink" title="化繁为简的优势"></a>化繁为简的优势</h4><p>新的简化的字符集声明、新的简化的DOCTYPE、简单而强大的HTML5 API及以浏览器原生能力替换复杂的JavaScript代码。为了避免造成误解，HTML5对每一个细节都有着非常明确的规范说明，不允许有任何的歧义和模糊出现</p>
-<h3 id="HTML5支持情况"><a href="#HTML5支持情况" class="headerlink" title="HTML5支持情况"></a>HTML5支持情况</h3><p>  就目前Chrome52(谷歌)与FireFox48(火狐)两个浏览器支持项数最多，当然这毕竟程序员受欢迎程度高的两个浏览器。</p>
-<h4 id="检测指定元素的DOM对象是否被浏览器支持"><a href="#检测指定元素的DOM对象是否被浏览器支持" class="headerlink" title="检测指定元素的DOM对象是否被浏览器支持"></a>检测指定元素的DOM对象是否被浏览器支持</h4><p>如：canvas、video、audio等</p>
-<h4 id="检测浏览器是否支持指定元素的对象的方法"><a href="#检测浏览器是否支持指定元素的对象的方法" class="headerlink" title="检测浏览器是否支持指定元素的对象的方法"></a>检测浏览器是否支持指定元素的对象的方法</h4><p>如：canvas.getContext (canvas这个元素对图像操作功能是真的强大，就这博客动态背景粒子效果也是通过它实现的)</p>
-<h4 id="检测全局对象是否拥有特定属性"><a href="#检测全局对象是否拥有特定属性" class="headerlink" title="检测全局对象是否拥有特定属性"></a>检测全局对象是否拥有特定属性</h4><p>如：navigator.geolocation()</p>
-<h4 id="使用HTML特性检测工具-Modernizr"><a href="#使用HTML特性检测工具-Modernizr" class="headerlink" title="使用HTML特性检测工具(Modernizr)"></a>使用HTML特性检测工具(Modernizr)</h4><h5 id="检测浏览器对HTML5元素的支持情况"><a href="#检测浏览器对HTML5元素的支持情况" class="headerlink" title="检测浏览器对HTML5元素的支持情况"></a>检测浏览器对HTML5元素的支持情况</h5><p><a href="http://caniuse.com/" target="_blank" rel="noopener">Can I use</a></p>
-<h5 id="检测浏览器对HTML5的支持情况"><a href="#检测浏览器对HTML5的支持情况" class="headerlink" title="检测浏览器对HTML5的支持情况"></a>检测浏览器对HTML5的支持情况</h5><p><a href="http://html5test.com/" target="_blank" rel="noopener">HTML5TEST</a></p>
-<h5 id="检查HTML5内容是否完全符合规范"><a href="#检查HTML5内容是否完全符合规范" class="headerlink" title="检查HTML5内容是否完全符合规范"></a>检查HTML5内容是否完全符合规范</h5><p><a href="http://validator.w3.org/" target="_blank" rel="noopener">The W3C Markup Validation Service</a></p>
-<h3 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h3><p>开发工具这就很多了，对于前端学习小白当然是用Dreamweaver甚好，当然WebStorm、VSCode、VS2019(微软的东西，值得一试)等开发工具也可以尝试</p>
-<h3 id="帮助文档"><a href="#帮助文档" class="headerlink" title="帮助文档"></a>帮助文档</h3><p><a href="http://www.w3school.com.cn/" target="_blank" rel="noopener">W3C</a><br><a href="http://developer.mozilla.org/" target="_blank" rel="noopener">Mozilla</a></p>
-<h2 id="HTML5的变化"><a href="#HTML5的变化" class="headerlink" title="HTML5的变化"></a>HTML5的变化</h2><h3 id="标记的改进"><a href="#标记的改进" class="headerlink" title="标记的改进"></a>标记的改进</h3><h4 id="DOCTYPE声明"><a href="#DOCTYPE声明" class="headerlink" title="DOCTYPE声明"></a>DOCTYPE声明</h4><p><code>&lt;!DOCTYPE html&gt;</code></p>
-<h4 id="指定字符编码"><a href="#指定字符编码" class="headerlink" title="指定字符编码"></a>指定字符编码</h4><p><code>&lt;meta charset=utf-8&gt;</code></p>
-<h4 id="标签不需要区分大小写"><a href="#标签不需要区分大小写" class="headerlink" title="标签不需要区分大小写"></a>标签不需要区分大小写</h4><h4 id="可以省略的标签"><a href="#可以省略的标签" class="headerlink" title="可以省略的标签"></a>可以省略的标签</h4><h5 id="不允许写结束标签"><a href="#不允许写结束标签" class="headerlink" title="不允许写结束标签"></a>不允许写结束标签</h5><p>area、base、br、col、hr、img、input、meta、link、param、embed、keygen、track、source等</p>
-<h5 id="可以省略的结束标签"><a href="#可以省略的结束标签" class="headerlink" title="可以省略的结束标签"></a>可以省略的结束标签</h5><p>dt、dd、li、p、rt、rp、option、optiongroup、colgroup、thread、tbody、tfoot、tr、td、th等</p>
-<h5 id="开始标签和结束标签均可省略"><a href="#开始标签和结束标签均可省略" class="headerlink" title="开始标签和结束标签均可省略"></a>开始标签和结束标签均可省略</h5><p>html、head、body、tbody、thead、colgroup等</p>
-<h4 id="Boolean属性设置"><a href="#Boolean属性设置" class="headerlink" title="Boolean属性设置"></a>Boolean属性设置</h4><p>checked、selected、multiple、readonly、和disable等</p>
-<h5 id="当只写属性而不指定属性值时，表示属性值为true"><a href="#当只写属性而不指定属性值时，表示属性值为true" class="headerlink" title="当只写属性而不指定属性值时，表示属性值为true"></a>当只写属性而不指定属性值时，表示属性值为true</h5><h5 id="如果想要将属性值设为false，可以不使用该属性"><a href="#如果想要将属性值设为false，可以不使用该属性" class="headerlink" title="如果想要将属性值设为false，可以不使用该属性"></a>如果想要将属性值设为false，可以不使用该属性</h5><h5 id="若属性值为true时，也可以将属性名设定为属性值，或空字符串"><a href="#若属性值为true时，也可以将属性名设定为属性值，或空字符串" class="headerlink" title="若属性值为true时，也可以将属性名设定为属性值，或空字符串"></a>若属性值为true时，也可以将属性名设定为属性值，或空字符串</h5><h4 id="属性引号"><a href="#属性引号" class="headerlink" title="属性引号"></a>属性引号</h4><p>  当属性不包含一些特殊字符(空字符串、&lt;、&gt;、=、单引号、双引号)，引号可以省略。示例：<meta charset="utf-8"></p>
-<h4 id="废弃的元素"><a href="#废弃的元素" class="headerlink" title="废弃的元素"></a>废弃的元素</h4><h5 id="使用CSS替换的元素"><a href="#使用CSS替换的元素" class="headerlink" title="使用CSS替换的元素"></a>使用CSS替换的元素</h5><p>basefont、big、center、font、strike、s、tt、u等</p>
-<h5 id="停用frame框架"><a href="#停用frame框架" class="headerlink" title="停用frame框架"></a>停用frame框架</h5><p>frame主要对页面进行分割，但由于frame不便于搜索引擎的抓取和优化，故不再支持</p>
-<h5 id="只有部分浏览器支持的元素"><a href="#只有部分浏览器支持的元素" class="headerlink" title="只有部分浏览器支持的元素"></a>只有部分浏览器支持的元素</h5><p>bgsound、marquee、applet等</p>
-<h4 id="新增的元素（功能都很强大）"><a href="#新增的元素（功能都很强大）" class="headerlink" title="新增的元素（功能都很强大）"></a>新增的元素（<em>功能都很强大</em>）</h4><h5 id="结构元素"><a href="#结构元素" class="headerlink" title="结构元素"></a>结构元素</h5><p>section、article、aside等</p>
-<h5 id="多媒体元素"><a href="#多媒体元素" class="headerlink" title="多媒体元素"></a>多媒体元素</h5><p>video、audio、embed等</p>
-<h5 id="表单标签"><a href="#表单标签" class="headerlink" title="表单标签"></a>表单标签</h5><p>input</p>
-<h5 id="扩展HTML功能的元素"><a href="#扩展HTML功能的元素" class="headerlink" title="扩展HTML功能的元素"></a>扩展HTML功能的元素</h5><p>canvas等</p>
-<h4 id="全局属性"><a href="#全局属性" class="headerlink" title="全局属性"></a>全局属性</h4><p>1)contenteditable属性<br>2)contextmenu属性<br>3)data-*属性<br>4)spellcheck属性<br>5)draggable属性<br>6)hidden属性</p>
-<h2 id="HTML5文档结构"><a href="#HTML5文档结构" class="headerlink" title="HTML5文档结构"></a>HTML5文档结构</h2><p><strong>HTML文档中元素：从开始标记到结束标记的所有代码</strong><br><strong>元素的内容：开始标记与结束标记之间的内容</strong><br><strong>元素属性：用来说明元素的特征，每个属性总是对应一个属性值，称为”属性/值”</strong></p>
-<h3 id="head标签"><a href="#head标签" class="headerlink" title="head标签"></a>head标签</h3><p>文档头部信息，标签内容包含字符编码设置、标题、关键字与网页描述等</p>
-<h3 id="body标签"><a href="#body标签" class="headerlink" title="body标签"></a>body标签</h3><p>网页主体信息（我们上网所见所听所感信息都来源于body里）<br>其中<code>&lt;header&gt;&lt;/header&gt;、&lt;main&gt;&lt;/main&gt;、&lt;footer&gt;&lt;/footer&gt;</code>等新增标签语义清晰，利于SEO，利于盲人阅读，无法用这些新增标签表达的结构还是用<div></p>
-<h4 id="lt-header-gt-lt-header-gt-标签"><a href="#lt-header-gt-lt-header-gt-标签" class="headerlink" title="&lt;header&gt;&lt;/header&gt;标签"></a><code>&lt;header&gt;&lt;/header&gt;</code>标签</h4><p>可以是整个页面或者页面区域的一个头部信息（标题）<br>可以包含：logo、标题、搜索、导航、通知、帐号等<br>至少包含一个标题(h1~h6)，还可以包含hgroup、nav等<br><em>注意：跟 <code>&lt;head&gt;&lt;/head&gt;</code> 标签的区别</em></p>
-<h4 id="lt-main-gt-lt-main-gt-标签"><a href="#lt-main-gt-lt-main-gt-标签" class="headerlink" title="&lt;main&gt;&lt;/main&gt;标签"></a><code>&lt;main&gt;&lt;/main&gt;</code>标签</h4><p>页面中的主体部分。不能包含公共导航、logo、版权信息等公共内容<br><em>注意：一个页面只能有一个main标签。<code>&lt;main&gt;</code>元素不能是以下元素的后代：<code>&lt;article&gt;、&lt;aside&gt;、&lt;footer&gt;、&lt;header&gt;或&lt;nav&gt;</code></em></p>
-<h4 id="lt-footer-gt-lt-footer-gt-标签"><a href="#lt-footer-gt-lt-footer-gt-标签" class="headerlink" title="&lt;footer&gt;&lt;/footer&gt;标签"></a><code>&lt;footer&gt;&lt;/footer&gt;</code>标签</h4><p>页面或页面某个板块的底部部分<br>通常包含文档的作者、版权信息、使用条款链接、联系信息等等<br><em>可以在一个文档中使用多个 <code>&lt;footer&gt;</code>元素</em></p>
-<h4 id="lt-nav-gt-lt-nav-gt-标签"><a href="#lt-nav-gt-lt-nav-gt-标签" class="headerlink" title="&lt;nav&gt;&lt;/nav&gt;标签"></a><code>&lt;nav&gt;&lt;/nav&gt;</code>标签</h4><p>导航(navigation)的简写<br>专门用来包裹导航的内容。包括顶部导航、底部导航、侧边栏导航、翻页导航等</p>
-<h4 id="lt-article-gt-lt-article-gt-标签"><a href="#lt-article-gt-lt-article-gt-标签" class="headerlink" title="&lt;article&gt;&lt;/article&gt;标签"></a><code>&lt;article&gt;&lt;/article&gt;</code>标签</h4><p>文档、页面或者是应用程序当中的独立完整可以被外部引用的内容<br>它可以是一篇文章、一篇帖子、一段评论或者是独立的插件形式出现<br><em><code>&lt;article&gt;&lt;article&gt;</code>里面也可以使用 <code>&lt;header&gt;、&lt;footer&gt;以及&lt;article&gt;</code>标签</em></p>
-<h4 id="lt-section-gt-lt-section-gt-标签"><a href="#lt-section-gt-lt-section-gt-标签" class="headerlink" title="&lt;section&gt;&lt;/section&gt;标签"></a><code>&lt;section&gt;&lt;/section&gt;</code>标签</h4><p>定义了文档的某个区域。比如章节、头部、底部或者文档的其他区域（即整体中的某部分）<br><em><code>&lt;section&gt;&lt;/section&gt;</code>里也可以有 <code>&lt;article&gt;&lt;/article&gt;</code>标签</em></p>
-<h4 id="lt-aside-gt-lt-aside-gt-标签"><a href="#lt-aside-gt-lt-aside-gt-标签" class="headerlink" title="&lt;aside&gt;&lt;/aside&gt;标签"></a><code>&lt;aside&gt;&lt;/aside&gt;</code>标签</h4><p>定义<code>&lt;article&gt;</code>标签外的内容。广告，侧边栏等</p>
-<h4 id="lt-hgroup-gt-lt-hgroup-gt-标题组"><a href="#lt-hgroup-gt-lt-hgroup-gt-标题组" class="headerlink" title="&lt;hgroup&gt;&lt;/hgroup&gt;标题组"></a><code>&lt;hgroup&gt;&lt;/hgroup&gt;</code>标题组</h4><p>对网页或区段(section)的标题进行组合。一个区域中包括了主标题和至少一个子标题的时候才用<br><em>注意：单独一个标题的时候，不用 <code>&lt;hgroup&gt;&lt;/hgroup&gt;</code></em></p>
-<h4 id="lt-time-gt-lt-time-gt-时间"><a href="#lt-time-gt-lt-time-gt-时间" class="headerlink" title="&lt;time&gt;&lt;/time&gt;时间"></a><code>&lt;time&gt;&lt;/time&gt;</code>时间</h4><p>主要是使页面语义描述更清晰，便于网络搜索引擎更好的理解网页页面<br>time可以为内容添加如发布时间，事件发生时间等信息。<br>拥有datetime和pubdate两个属性</p>
-<h4 id="lt-address-gt-lt-address-gt-联系信息"><a href="#lt-address-gt-lt-address-gt-联系信息" class="headerlink" title="&lt;address&gt;&lt;/address&gt;联系信息"></a><code>&lt;address&gt;&lt;/address&gt;</code>联系信息</h4><p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;address&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li&gt;网站：http:&#x2F;&#x2F;www.w3school.com.cn&#x2F;&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;GitHub:XXXXXXXX&lt;&#x2F;li&gt;</span><br><span class="line">	&lt;li&gt;E-mail:xxxxxxx@qq.com&lt;&#x2F;li&gt;</span><br><span class="line">  &lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;address&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="其他元素"><a href="#其他元素" class="headerlink" title="其他元素"></a>其他元素</h4><h5 id="bdi-双向隔离，将指定文本脱离父元素的文本方向"><a href="#bdi-双向隔离，将指定文本脱离父元素的文本方向" class="headerlink" title="bdi:双向隔离，将指定文本脱离父元素的文本方向"></a>bdi:双向隔离，将指定文本脱离父元素的文本方向</h5><h5 id="details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性"><a href="#details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性" class="headerlink" title="details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性"></a>details和summary：描述文档某个部分的细节。summary作为detail的标题部分。只有一个open属性</h5><h5 id="figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分"><a href="#figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分" class="headerlink" title="figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分"></a>figure和figcapton：用于规定独立的流内容（图像、图片、照片、代码等），figcaption定义标题部分</h5><h5 id="ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容"><a href="#ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容" class="headerlink" title="ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容"></a>ruby、rp和rt：用于定义注释，如中文注音。它由解释文本和解释内容两部分构成。Rt未来提供解析内容</h5><h5 id="progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量"><a href="#progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量" class="headerlink" title="progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量"></a>progress和meter：progress用于表示任务的进度，而meter用来度量已知范围或分数值内的标量</h5><h5 id="dialog：定义一个对话框，只有open属性"><a href="#dialog：定义一个对话框，只有open属性" class="headerlink" title="dialog：定义一个对话框，只有open属性"></a>dialog：定义一个对话框，只有open属性</h5><h5 id="mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行"><a href="#mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行" class="headerlink" title="mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行"></a>mark和wbr：mark用于定义带有标记的文本。wbr用户规定在文本的何处适合添加换行符，br则是必须换行</h5>]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>标记语言</tag>
-        <tag>HTML</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>dom4j</title>
-    <url>/2020/04/21/dom4j/</url>
-    <content><![CDATA[<h3 id="dom4j"><a href="#dom4j" class="headerlink" title="dom4j"></a>dom4j</h3><p><strong>dom4j组织提供了针对xml解析的解析器dom4j,其是由jdom组织分裂出来后出现的,其优于jdom。dom4j不是javase的一部分</strong></p>
-<a id="more"></a>
-
-<h4 id="dom4j使用"><a href="#dom4j使用" class="headerlink" title="dom4j使用"></a>dom4j使用</h4><p><em>使用前需要在项目中导入dom4j的jar包</em><br>xml文件如下:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1 id1&#x3D;&quot;01&quot;&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j实现查询xml中元素操作"><a href="#dom4j实现查询xml中元素操作" class="headerlink" title="dom4j实现查询xml中元素操作"></a>dom4j实现查询xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查询所有name元素里的值</span><br><span class="line">	public static void selectName() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到p1</span><br><span class="line">		List&lt;Element&gt; list &#x3D; root.elements(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.遍历List</span><br><span class="line">		for(Element temp:list)&#123;</span><br><span class="line">			&#x2F;&#x2F;这里temp得到每一个p1元素</span><br><span class="line">			Element name1 &#x3D; temp.element(&quot;name&quot;);&#x2F;&#x2F;得到p1下面的name元素</span><br><span class="line">			&#x2F;&#x2F;得到name里面的值</span><br><span class="line">			String s &#x3D; name1.getText();</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;查询第一个name元素的值</span><br><span class="line">	public static void selectSin() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到p1下第一个name</span><br><span class="line">		Element name1 &#x3D; p1.element(&quot;name&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.得到name的值</span><br><span class="line">		String s1 &#x3D; name1.getText();</span><br><span class="line">		System.out.println(s1);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#x2F;&#x2F;查询第二个name元素的值	</span><br><span class="line">	public static void selectSecond() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到所有p1</span><br><span class="line">		List&lt;Element&gt; list &#x3D; root.elements(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到第二个p1</span><br><span class="line">		Element p2 &#x3D; list.get(1);</span><br><span class="line">		&#x2F;&#x2F;6.得到p1下面name</span><br><span class="line">		Element name2 &#x3D; p2.element(&quot;name&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.得到name的值</span><br><span class="line">		String s2 &#x3D; name2.getText();</span><br><span class="line">		System.out.println(s2);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j实现添加xml中元素操作"><a href="#dom4j实现添加xml中元素操作" class="headerlink" title="dom4j实现添加xml中元素操作"></a>dom4j实现添加xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;在第一个p1标签末尾添加一个sex标签</span><br><span class="line">	public static addSex() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.获取第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.p1下面添加sex元素</span><br><span class="line">		Element sex1 &#x3D; p1.addElement(&quot;sex&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.在sex里添加内容</span><br><span class="line">		sex1.setText(&quot;男&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="在特定位置实现元素添加"><a href="#在特定位置实现元素添加" class="headerlink" title="在特定位置实现元素添加"></a>在特定位置实现元素添加</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;在第一个p1标签中age标签前添加一个&lt;school&gt;cqgcxy.edu.cn&lt;&#x2F;school&gt;</span><br><span class="line">	public static void addAgeBefore() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();		</span><br><span class="line">		&#x2F;&#x2F;4.获取第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.获取p1下面的所有元素</span><br><span class="line">		List&lt;Element&gt; list &#x3D; p1.elements();</span><br><span class="line">		&#x2F;&#x2F;6.创建要添加元素</span><br><span class="line">		Element school &#x3D; DocumentHelper.createElement(&quot;school&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.给标签添加内容</span><br><span class="line">		school.setText(&quot;eqgcxy.edu.cn&quot;);</span><br><span class="line">		&#x2F;&#x2F;8.在特定位置添加元素</span><br><span class="line">		list.add(1,school);</span><br><span class="line">		&#x2F;&#x2F;9.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j实现修改xml中元素操作"><a href="#dom4j实现修改xml中元素操作" class="headerlink" title="dom4j实现修改xml中元素操作"></a>dom4j实现修改xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;修改第一个p1中age元素内容</span><br><span class="line">	public static void fixAge() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();	</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到age</span><br><span class="line">		Element age &#x3D; p1.element(&quot;age&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.修改age的值</span><br><span class="line">		age.setText(&quot;250&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j实现删除xml中元素操作"><a href="#dom4j实现删除xml中元素操作" class="headerlink" title="dom4j实现删除xml中元素操作"></a>dom4j实现删除xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;删除第一个p1下school节点</span><br><span class="line">	public static void deleteSchool() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;*使用工具类替换1、2步</span><br><span class="line">		Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);*&#x2F;</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();	</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到school</span><br><span class="line">		Element school &#x3D; p1.element(&quot;school&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.删除school(通过父节点实现删除)</span><br><span class="line">		p1.remove(school);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">		&#x2F;*使用工具类替换回写操作</span><br><span class="line">		Dom4jUtils.xmlWriter(PATH,document)*&#x2F;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j实现获取xml中元素属性值操作"><a href="#dom4j实现获取xml中元素属性值操作" class="headerlink" title="dom4j实现获取xml中元素属性值操作"></a>dom4j实现获取xml中元素属性值操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取第一个p1属性id1的值</span><br><span class="line">	public static void getValue() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.获取p1的属性id1值</span><br><span class="line">		String value &#x3D; p1.attributeValue(&quot;id1&quot;);</span><br><span class="line">		System.out.println(value);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="dom4j工具类"><a href="#dom4j工具类" class="headerlink" title="dom4j工具类"></a>dom4j工具类</h5><p><strong>由于什么的CRUD代码中存在大量重复使用的代码，因此我们可以建立一个工具类来封装这些重复代码，实现调用工具类，来减少代码冗余</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Dom4jUtils&#123;</span><br><span class="line">	public state final String PATH &#x3D; &quot;src&#x2F;person.xml&quot;;</span><br><span class="line">	&#x2F;&#x2F;返回document</span><br><span class="line">	public static Document getDocument(String path)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			&#x2F;&#x2F;1.创建解析器</span><br><span class="line">			SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">			&#x2F;&#x2F;2.得到document</span><br><span class="line">			Document document &#x3D; saxReader.read(path);</span><br><span class="line">			return document;</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		return null;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;回写xml</span><br><span class="line">	public static void xmlWriter(String path,Document document)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">			XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">			writer.write(document);</span><br><span class="line">			writer.close();</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="dom4j支持XPATH操作"><a href="#dom4j支持XPATH操作" class="headerlink" title="dom4j支持XPATH操作"></a>dom4j支持XPATH操作</h4><p><strong>可以直接获取某一个元素，不必按照一层一层解析的方式</strong></p>
-<h5 id="语法形式"><a href="#语法形式" class="headerlink" title="语法形式"></a>语法形式</h5><p>第一种形式：<code>/a/b/c</code>来表示a里面的b里面的c<br>第二种形式：<code>//A</code>表示选择所有A元素<br>第三种形式：<code>/AAA/CCC/DDD/*</code>表示/AAA/CCC/DDD/里面的所有元素<br>第四种形式：<code>/*/*/*/</code>DDD表示选择所有第四层所有DDD元素<br>第五种形式；<code>//*</code>所有元素<br>第六种形式：<code>/a/b[1]</code>选择a标签中第一个b标签，/a/b[last()]选择a标签中最后一个b标签<br>第七种形式：<code>//@id</code>表示选择所有id属性，//BBB[@id]表示选择所有含id属性的BBB元素<br>第八种形式；<code>//BBB[@id=&#39;b1&#39;]</code>选择含Id属性且值为b1的所有BBB标签,b1如果左右有空格将不会被选取*</p>
-<h5 id="如何在dom4j中使用XPATH"><a href="#如何在dom4j中使用XPATH" class="headerlink" title="如何在dom4j中使用XPATH"></a>如何在dom4j中使用XPATH</h5><p><strong>默认的情况下，dom4j不支持XPATH，如果想使用，需要引入XPATH的jar包，在文件中找到jaxen-1.1-beta-6.jar，将其复制进eclipse构建的项目中lib下，右击项目Build Path选择Add to Build Path</strong><br><strong>在dom4j中提供了两个方法支持XPATH,它们分别是：selectNodes(“XPATH表达式”)和selectSingleNode(“XPATH表达式”)，第一个方法获取多个节点，第二个则获取单一节点</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查询xml中所有name元素的值</span><br><span class="line">public static void getValue()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到所有name</span><br><span class="line">	List&lt;Node&gt; list&#x3D;document.selectNodes(&quot;&#x2F;&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.遍历集合</span><br><span class="line">	for(Node note:list)&#123;&#x2F;&#x2F;node是每一个name元素</span><br><span class="line">		&#x2F;&#x2F;获取name元素里面的值</span><br><span class="line">		String s &#x3D; node.getText();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取第一个p1下面name的值</span><br><span class="line">public static void getValue1()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到name元素</span><br><span class="line">	Node name1&#x3D;document.和selectSingleNode(&quot;&#x2F;&#x2F;p1[@id1&#x3D;&quot;01&quot;]&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.得到name里面内容</span><br><span class="line">	String s1 &#x3D; name1.getText();</span><br><span class="line">	System.out.println(s1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>JavaWeb</category>
-      </categories>
-      <tags>
-        <tag>XML</tag>
-        <tag>标记语言</tag>
-        <tag>XML解析</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>dynasties</title>
-    <url>/2020/04/01/dynasties/</url>
-    <content><![CDATA[<a id="more"></a>
-<p><img src="http://img.xixik.net/cimg/083/xixik_c53006a681fc4200.jpeg" alt="尧舜禹→夏" title="尧舜禹→夏"><br><img src="http://img.xixik.net/cimg/083/xixik_87512603bf7f461e.jpeg" alt="商" title="商"><br><img src="http://img.xixik.net/cimg/083/xixik_a1523ca6228beae4.jpeg" alt="周" title="周"><br><img src="http://img.xixik.net/cimg/083/xixik_87c9e06af0d51132.jpeg" alt="秦" title="秦"><br><img src="http://img.xixik.net/cimg/083/xixik_01848d23bc3c0496.jpeg" alt="汉" title="汉"><br><img src="http://img.xixik.net/cimg/083/xixik_2a93308ddfd78f78.jpeg" alt="魏" title="魏"><br><img src="http://img.xixik.net/cimg/083/xixik_34ae3a4f7693d9ea.jpeg" alt="蜀" title="蜀"><br><img src="http://img.xixik.net/cimg/083/xixik_bafe42d5cde82df4.jpeg" alt="吴" title="吴"><br><img src="http://img.xixik.net/cimg/083/xixik_20b47e2887f23ecf.jpeg" alt="晋" title="晋"><br><img src="http://img.xixik.net/cimg/083/xixik_57f8d17ebfdb1a85.jpeg" alt="隋" title="隋"><br><img src="http://img.xixik.net/cimg/083/xixik_04c8ec9fff83c2f9.jpeg" alt="唐" title="唐"><br><img src="http://img.xixik.net/cimg/083/xixik_6bc06e9bb6ef708c.jpeg" alt="辽" title="辽"><br><img src="http://img.xixik.net/cimg/083/xixik_6e40141c5eb849ea.jpeg" alt="宋" title="宋"><br><img src="http://img.xixik.net/cimg/083/xixik_74a385004d03fc0a.jpeg" alt="西夏" title="西夏"><br><img src="http://img.xixik.net/cimg/083/xixik_d209b6d3983aaf85.jpeg" alt="金" title="金"><br><img src="http://img.xixik.net/cimg/083/xixik_1f2382bcdab86fe9.jpeg" alt="元" title="元"><br><img src="http://img.xixik.net/cimg/083/xixik_a160592906ace6ec.jpeg" alt="明" title="明"><br><img src="http://img.xixik.net/cimg/083/xixik_633a17f15265a0ef.jpeg" alt="清" title="清"><br><em><strong>注意：转载自嘻嘻网图片，切勿商用</strong></em></p>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-      <tags>
-        <tag>历史</tag>
-        <tag>纯图片</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>git的使用</title>
-    <url>/2020/03/18/git%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h2 id="git的使用"><a href="#git的使用" class="headerlink" title="git的使用"></a>git的使用</h2><p><strong>可以说是一个很牛×的开发工具，是Linux之父开发出来的，据说只花了一周时间，打扰了。git是一个开源的分布式版本控制系统，当时开发目的是为了管理Linux内核开发，毕竟开源项目管理，懒人都会用聪明的方法方便自身偷懒，也体现林纳斯·托瓦兹觉得当时版本控制工具不能满足自身需求而得以git的问世。git的竞争力主要在于它拥有分布式，以及自己的暂存区，可支持离线操作</strong></p>
-<a id="more"></a>
-
-<h3 id="git的安装"><a href="#git的安装" class="headerlink" title="git的安装"></a>git的安装</h3><p><strong>点击<a href="http://git-scm.com/downloads" target="_blank" rel="noopener">git</a>安装地址进行安装即可，不必赘述。以及<a href="https://tortoisegit.org/download/" target="_blank" rel="noopener">TortoiseGit</a></strong></p>
-<h3 id="git的常用命令"><a href="#git的常用命令" class="headerlink" title="git的常用命令"></a>git的常用命令</h3><p><strong>git有很多基于Linux命令涉及，不过下载了TortoiseGit，或者Git自带的Git GUI，也可以不使用git命令，不过我习惯了觉得操作还是蛮方便的</strong><br>鼠标右击选择Git Bash进入命令操作界面，再第一次使用git的时候你需要先设置自己的用户名和邮箱地址，当然你可以设置局部配置和全局配置，局部配置则只针对一个指定仓库进行设置你的邮箱和用户名，我是直接全局配置，没必要那么麻烦。</p>
-<h4 id="全局配置命令"><a href="#全局配置命令" class="headerlink" title="全局配置命令"></a>全局配置命令</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git config --global user.name &quot;admin&quot;&#x2F;&#x2F;设置你的用户名，自己取，建议最好英文，中文我没试过</span><br><span class="line">$ git config --global user.email test@admin.com&#x2F;&#x2F;设置你的邮箱地址</span><br></pre></td></tr></table></figure>
-<p>如果是局部配置，只要去掉 <del>–global</del> 选项重新配置即可，新的设定保存在当前项目的 .git/config 文件里。</p>
-<h4 id="查看配置信息"><a href="#查看配置信息" class="headerlink" title="查看配置信息"></a>查看配置信息</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git config --list&#x2F;&#x2F;检查已有的配置信息所有信息</span><br><span class="line">$ git config user.name&#x2F;&#x2F;查看你的用户名</span><br><span class="line">$ git config user.email&#x2F;&#x2F;查看你的邮箱</span><br></pre></td></tr></table></figure>
-
-<h4 id="初始化仓库"><a href="#初始化仓库" class="headerlink" title="初始化仓库"></a>初始化仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git init&#x2F;&#x2F;当前文件被git接管了</span><br><span class="line">$ git init newrepo&#x2F;&#x2F;指定仓库为newrepo</span><br></pre></td></tr></table></figure>
-
-<h4 id="克隆仓库"><a href="#克隆仓库" class="headerlink" title="克隆仓库"></a>克隆仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git clone &lt;仓库所在地址&gt;</span><br><span class="line">$ git clone &lt;仓库所在地址&gt; &lt;克隆地址&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="将该文件添加到缓存"><a href="#将该文件添加到缓存" class="headerlink" title="将该文件添加到缓存"></a>将该文件添加到缓存</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add .&#x2F;&#x2F;添加当前所有为被版本控制的文件入暂存区</span><br><span class="line">$ git add text.txt&#x2F;&#x2F;添加指定文件到暂存区</span><br></pre></td></tr></table></figure>
-
-<h4 id="查看版本库文件项目状态"><a href="#查看版本库文件项目状态" class="headerlink" title="查看版本库文件项目状态"></a>查看版本库文件项目状态</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git status </span><br><span class="line">$ git diff&#x2F;&#x2F;查看执行 git status 的结果的详细信息</span><br></pre></td></tr></table></figure>
-
-<h4 id="将缓冲区内容提交至版本库"><a href="#将缓冲区内容提交至版本库" class="headerlink" title="将缓冲区内容提交至版本库"></a>将缓冲区内容提交至版本库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git commit -m &#39;第一次版本提交&#39;&#x2F;&#x2F;-m后是对你本次提交的描述</span><br></pre></td></tr></table></figure>
-
-<h4 id="推送到远程仓库"><a href="#推送到远程仓库" class="headerlink" title="推送到远程仓库"></a>推送到远程仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git push</span><br></pre></td></tr></table></figure>
-
-<h4 id="远程仓库拉取更新本地版本库"><a href="#远程仓库拉取更新本地版本库" class="headerlink" title="远程仓库拉取更新本地版本库"></a>远程仓库拉取更新本地版本库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
-
-<h4 id="日志的查看"><a href="#日志的查看" class="headerlink" title="日志的查看"></a>日志的查看</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git log</span><br></pre></td></tr></table></figure>
-<p><em>一般与回滚操作关联</em></p>
-<h4 id="新建分支与分支切换"><a href="#新建分支与分支切换" class="headerlink" title="新建分支与分支切换"></a>新建分支与分支切换</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git branch (分支名)&#x2F;&#x2F;创建一支分支</span><br><span class="line">$ git checkout -b (分支名)&#x2F;&#x2F;切换至指定分支</span><br><span class="line">$ git branch -d (branchname)&#x2F;&#x2F;删除分支</span><br></pre></td></tr></table></figure>
-<p><em>当然涉及到分支就会有合并分支，解决冲突的命令，这里不详细说明，我也是半灌水，建议自己看官方文档深入学习</em></p>
-<h4 id="git标签标注"><a href="#git标签标注" class="headerlink" title="git标签标注"></a>git标签标注</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git tag -a v1.0&#x2F;&#x2F;就是做记号，觉得这个版本很重要，标记一下，方便以后回退</span><br></pre></td></tr></table></figure>
-
-<h3 id="Git-远程仓库-Github"><a href="#Git-远程仓库-Github" class="headerlink" title="Git 远程仓库(Github)"></a>Git 远程仓库(Github)</h3><p><strong>就是使用git将你本地项目提交至github，方便今后的管理，两则建立连接的意思，没必要多说，网上很多参考，唯一要说的最好用SSH密钥连接</strong></p>
-<h3 id="git相关概要"><a href="#git相关概要" class="headerlink" title="git相关概要"></a>git相关概要</h3><p><strong>git基本包含工作区(本地项目)，暂存区，版本库，以及远程仓库，然后根据命令实现之间的互联互通，版本控制，项目管理。此处该有图，以后再说</strong></p>
-<h3 id="git服务器搭建"><a href="#git服务器搭建" class="headerlink" title="git服务器搭建"></a>git服务器搭建</h3><h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-devel</span><br><span class="line">$ yum install git</span><br></pre></td></tr></table></figure>
-
-<h4 id="创建一个git用户组和用户，用来运行git服务"><a href="#创建一个git用户组和用户，用来运行git服务" class="headerlink" title="创建一个git用户组和用户，用来运行git服务"></a>创建一个git用户组和用户，用来运行git服务</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ groupadd git</span><br><span class="line">$ adduser git -g git</span><br></pre></td></tr></table></figure>
-
-<h4 id="创建证书登录"><a href="#创建证书登录" class="headerlink" title="创建证书登录"></a>创建证书登录</h4><p>收集所有需要登录的用户的公钥，公钥位于id_rsa.pub文件中，把我们的公钥导入到/home/git/.ssh/authorized_keys文件里，一行一个。<br>如果没有该文件创建它：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd &#x2F;home&#x2F;git&#x2F;$ mkdir .ssh</span><br><span class="line">$ chmod 700 .ssh</span><br><span class="line">$ touch .ssh&#x2F;authorized_keys</span><br><span class="line">$ chmod 600 .ssh&#x2F;authorized_keys</span><br></pre></td></tr></table></figure>
-
-<h4 id="初始化仓库-1"><a href="#初始化仓库-1" class="headerlink" title="初始化仓库"></a>初始化仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd &#x2F;home</span><br><span class="line">$ mkdir gitrepo</span><br><span class="line">$ chown git:git gitrepo&#x2F;$ cd gitrepo</span><br><span class="line"></span><br><span class="line">$ git init --bare runoob.gitInitialized empty Git repository in &#x2F;home&#x2F;gitrepo&#x2F;runoob.git&#x2F;</span><br><span class="line"></span><br><span class="line">$ chown -R git:git runoob.git&#x2F;&#x2F;以上命令Git创建一个空仓库，服务器上的Git仓库通常都以.git结尾。然后，把仓库所属用户改为git</span><br></pre></td></tr></table></figure>
-
-<h4 id="克隆仓库-1"><a href="#克隆仓库-1" class="headerlink" title="克隆仓库"></a>克隆仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git clone git@192.168.45.4:&#x2F;home&#x2F;gitrepo&#x2F;runoob.gitCloning into &#39;runoob&#39;...warning: You appear to have cloned an empty repository.Checking connectivity... done.</span><br></pre></td></tr></table></figure>
-<p>192.168.45.4 为 Git 所在服务器 ip ，你需要将其修改为你自己的 Git 服务 ip。</p>
-<p>这样我们的 Git 服务器安装就完成了，接下来我们可以禁用 git 用户通过shell登录，可以通过编辑/etc/passwd文件完成。找到类似下面的一行：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git:x:503:503::&#x2F;home&#x2F;git:&#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
-
-<p>改为：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git:x:503:503::&#x2F;home&#x2F;git:&#x2F;sbin&#x2F;nologin</span><br></pre></td></tr></table></figure>
-
-
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p><strong>由于实际项目开发是多人进行开发，就会出现项目代码提交的冲突，这时候使用项目版本控制工具可以有效地解决冲突以及代码的管理</strong></p>
+<h3 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h3><p><strong>在SVN中所保存的代码只能被本地进行管理，这一局限性也导致Linux之父林纳斯·托瓦兹开发了其替代产品Git。而且SVN使用了客户端服务器模式，也是说如果使用SVN一定要搭建服务其，还要单独配置客户端，也就是说，SVN如果脱离了网络，那么将无法进行版本控制</strong></p>
+<h3 id="SVN服务器的搭建"><a href="#SVN服务器的搭建" class="headerlink" title="SVN服务器的搭建"></a>SVN服务器的搭建</h3><p><em>注意：如果想要用自己电脑搭建SVN服务器一定要关闭防火墙，有360的需要卸载，否则可能出现连接不上</em><br><strong>满足上述要求以后，下载SVN服务器端软件自行选择，有apache的<a href="http://subversion.apache.org/packages.html" target="_blank" rel="noopener">subversion</a>,还有<a href="https://www.visualsvn.com/" target="_blank" rel="noopener">VisualSVN</a>等，这里提到的前一个配置相对麻烦，而VisualSVN适合新手，傻瓜式安装，具体安装不详细说明，网上有很多安装步骤详细讲解</strong></p>
+<h3 id="SVN客户端的配置"><a href="#SVN客户端的配置" class="headerlink" title="SVN客户端的配置"></a>SVN客户端的配置</h3><p><strong>至于客户端，则是<a href="https://tortoisesvn.net/" target="_blank" rel="noopener">TortoiseSVN</a>,页面进去是最新版客户端SVN，想要老版本下面文章有进入链接，至于对自己英语水平不自信的，比如我，最好还是下一语言包，安装也很简单不再赘述</strong></p>
+<h3 id="项目的发布与检出"><a href="#项目的发布与检出" class="headerlink" title="项目的发布与检出"></a>项目的发布与检出</h3><p><strong>喜欢用命令的用命令，当然下载了TortoiseSVN用命令感觉多此一举，因为我们是服务器与客户端都在自己本机，首先应当是确定自己的服务端是否启动，这很关键，在就是搭建自己的版本库，因为都是可视化界面，什么创建项目，创建组，创建用户啊都很容易，然后就是自己客户端操作，实现项目检入与检出，这里提醒一下汉化后其实导出就是检出，但检入和检出与导入和导出是不同概念。检入字面意思理解就是让你本地项目交给服务端管理，接受版本控制。而导入则不然，相当于复制入服务端，但不受其控制，就是两者没内在联系。导出和检出同理</strong></p>
+<h3 id="解决冲突问题"><a href="#解决冲突问题" class="headerlink" title="解决冲突问题"></a>解决冲突问题</h3><p><strong>项目提交难免会发生冲突，SVN提供了很好解决方案，当你与另一人提交的同一文件发生冲突，会提醒你，然后你打开文件，会查看到你修改的与另一个人的代码同时存在，这时需要你自己判断两者都要保留，然后合并。还是删除其一的修改，这就是你自己的判断了。因为本人比较懒不想截图，所以全篇没有图片参考，字面意思自认为该讲的都讲了。当然SVN插件在eclipse、IntelliJ IDEA等工具的使用自行体会网上教程很多。</strong></p>
 ]]></content>
       <categories>
         <category>开发工具</category>
       </categories>
       <tags>
-        <tag>git</tag>
+        <tag>SVN</tag>
         <tag>版本控制</tag>
-        <tag>分布式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2019/04/01/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<a id="more"></a>
-
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-      <tags>
-        <tag>奥利给</tag>
       </tags>
   </entry>
   <entry>
@@ -1248,6 +1144,229 @@
       <tags>
         <tag>操作</tag>
         <tag>vim</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>XML入门</title>
+    <url>/2020/03/30/XML%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<h2 id="XML-Extensible-Markup-Language"><a href="#XML-Extensible-Markup-Language" class="headerlink" title="XML(Extensible Markup Language)"></a>XML(Extensible Markup Language)</h2><h3 id="XML是什么"><a href="#XML是什么" class="headerlink" title="XML是什么"></a>XML是什么</h3><p><strong>XML是W3C组织发布的技术，XML类似于HTML，大家知道HTML是一种超文本标记语言，其实XML也是一种标记语言，根据全称翻译它是可扩展标记语言。这里的可扩展是它的特性，HTML的标签是固定的，而XML可以自己定义标签，可以定义中文标签。</strong></p>
+<h3 id="XML版本"><a href="#XML版本" class="headerlink" title="XML版本"></a>XML版本</h3><p>目前有两个版本一个1.0，一个1.1，一般使用1.0，因为1.1无法向下兼容。</p>
+<h3 id="XML做什么"><a href="#XML做什么" class="headerlink" title="XML做什么"></a>XML做什么</h3><p><strong>HTML是用于显示数据，XML也可以显示数据，但它的主要功能并不是显示数据，设计它的初衷是为了存储数据，类似于一个小型数据库</strong></p>
+<h3 id="XML怎么用"><a href="#XML怎么用" class="headerlink" title="XML怎么用"></a>XML怎么用</h3><h4 id="1-不同系统之间传输数据，利于系统的维护"><a href="#1-不同系统之间传输数据，利于系统的维护" class="headerlink" title="1.不同系统之间传输数据，利于系统的维护"></a>1.不同系统之间传输数据，利于系统的维护</h4><a id="more"></a>
+
+<h4 id="2-用来表示生活中有关系的数据"><a href="#2-用来表示生活中有关系的数据" class="headerlink" title="2.用来表示生活中有关系的数据"></a>2.用来表示生活中有关系的数据</h4><p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;中国&gt;</span><br><span class="line">	&lt;帝都&gt;</span><br><span class="line">		&lt;朝阳区&gt;&lt;&#x2F;朝阳区&gt;</span><br><span class="line">		&lt;海淀区&gt;&lt;&#x2F;海淀区&gt;</span><br><span class="line">	&lt;&#x2F;帝都&gt;</span><br><span class="line">	&lt;四川&gt;</span><br><span class="line">		&lt;成都&gt;&lt;&#x2F;成都&gt;</span><br><span class="line">		&lt;绵阳&gt;&lt;&#x2F;绵阳&gt;</span><br><span class="line">	&lt;&#x2F;四川&gt;</span><br><span class="line">	&lt;湖北&gt;</span><br><span class="line">		&lt;武汉&gt;&lt;&#x2F;武汉&gt;</span><br><span class="line">		&lt;荆州&gt;&lt;&#x2F;荆州&gt;</span><br><span class="line">	&lt;&#x2F;湖北&gt;</span><br><span class="line">&lt;&#x2F;中国&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="3-经常用在配置文件中"><a href="#3-经常用在配置文件中" class="headerlink" title="3.经常用在配置文件中"></a>3.经常用在配置文件中</h4><p>比如：存储你的数据库用户名和密码，如果要修改数据库信息就不用该源代码，直接对配置文件进行修改，这样增加了可扩展性和可维护性</p>
+<h3 id="XML的语法"><a href="#XML的语法" class="headerlink" title="XML的语法"></a>XML的语法</h3><h4 id="xml的文档声明"><a href="#xml的文档声明" class="headerlink" title="xml的文档声明"></a>xml的文档声明</h4><p>1)创建一个后缀名为.xml文件<br>2)文件头部(第一行第一列)必须有文档声明<br><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;gbk&quot;?&gt;</code><br>3)属性：</p>
+<blockquote>
+<p>version:xml的版本 1.0/1.1<br>encoding:xml的编码 gbk、utf-8、iso8859-1<br>standalone:是否需要依赖其他文件 yes/no<br>4)中文乱码问题<br>保存文件编码格式与自身设置编码一致，可以解决乱码问题</p>
+</blockquote>
+<h4 id="定义元素（标签）"><a href="#定义元素（标签）" class="headerlink" title="定义元素（标签）"></a>定义元素（标签）</h4><h5 id="1-有开始必须要有结束-lt-aa-gt-lt-aa-gt-，如果标签之间没有内容可以只写-lt-aa-gt"><a href="#1-有开始必须要有结束-lt-aa-gt-lt-aa-gt-，如果标签之间没有内容可以只写-lt-aa-gt" class="headerlink" title="1)有开始必须要有结束&lt;aa&gt;&lt;/aa&gt;，如果标签之间没有内容可以只写&lt;/aa&gt;"></a>1)有开始必须要有结束<code>&lt;aa&gt;&lt;/aa&gt;</code>，如果标签之间没有内容可以只写<code>&lt;/aa&gt;</code></h5><h5 id="2-标签可以嵌套"><a href="#2-标签可以嵌套" class="headerlink" title="2)标签可以嵌套"></a>2)标签可以嵌套</h5><h5 id="3-一个xml中有且只有一个根标签"><a href="#3-一个xml中有且只有一个根标签" class="headerlink" title="3)一个xml中有且只有一个根标签"></a>3)一个xml中有且只有一个根标签</h5><p><strong>注意：xml中空格和换行都会被当成内容来解析，譬如两个代码表示内容是不同的</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;网址&gt;crazyyzw.top&lt;&#x2F;网址&gt;</span><br><span class="line"></span><br><span class="line">&lt;网址&gt;</span><br><span class="line">	crazyyzw.top</span><br><span class="line">&lt;&#x2F;网址&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="4-XML命名规则"><a href="#4-XML命名规则" class="headerlink" title="4)XML命名规则"></a>4)XML命名规则</h5><blockquote>
+<p>XML区分大小写<br>不能以数字和_开头<br>不能以XML自身开头，反例:<del><xmla></xmal></del><br>标签名字之间不能包含空格<br>标签名字之间不能包含冒号</p>
+</blockquote>
+<h4 id="定义属性"><a href="#定义属性" class="headerlink" title="定义属性"></a>定义属性</h4><blockquote>
+<p>一个标签可以有多个属性<br>属性不允许重复 反例：<del><dog name="wangwang" name='aoaoao'></dog></del><br>属性值可以用单引号，也可以用双引号<br>属性命名规范与标签一致</p>
+</blockquote>
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>写法：<code>&lt;!--这是一个注释--&gt;</code><br><strong>注释不能嵌套</strong></p>
+<h4 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h4><p>XML内容中用到的字符转义：</p>
+<blockquote>
+<p>小于号转义字符为<code>&amp;lt;</code><br>大于号转义字符为<code>&amp;gt;</code><br>‘&amp;’转义字符为<code>&amp;amp;</code><br>双引号转义字符为<code>&amp;quot;</code><br>单引号转义字符为<code>&amp;apos;</code></p>
+</blockquote>
+<h4 id="CDATA区"><a href="#CDATA区" class="headerlink" title="CDATA区"></a>CDATA区</h4><p>如果多个字符需要转义，只有放在CDATA区就不需要转义老<br>写法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;![CDATA[所加内容]]&gt;</span><br><span class="line">&lt;![CDATA[&lt;B&gt;if(a&lt;b &amp;&amp; a&gt;c &amp;&amp; c&gt;f)&#123;&#125;&lt;&#x2F;B&gt;]]&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="PI指令-处理指令"><a href="#PI指令-处理指令" class="headerlink" title="PI指令(处理指令)"></a>PI指令(处理指令)</h4><p>可以在xml中设置样式<br>引入方式：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml-stylesheet type&#x3D;&quot;text&#x2F;css&quot; href&#x3D;&quot;reset.css&quot;?&gt;&#x2F;&#x2F;对中文标签不起作用</span><br></pre></td></tr></table></figure>
+
+<h4 id="XML的约束"><a href="#XML的约束" class="headerlink" title="XML的约束"></a>XML的约束</h4><p>目的使标签内元素更加规范<br>xml常见两种约束技术：dtd约束和schema约束</p>
+<h3 id="DTD"><a href="#DTD" class="headerlink" title="DTD"></a>DTD</h3><h4 id="DTD文件创建"><a href="#DTD文件创建" class="headerlink" title="DTD文件创建"></a>DTD文件创建</h4><blockquote>
+<p>1.创建一个文件后缀名为.dtd<br>2.看xml文件中有几个元素，然后在dtd中写几个&lt;!ELEMENT&gt;<br>3.判断元素是简单元素还是复杂元素，(<em>简单元素就是元素没有嵌套子元素</em>)</p>
+<blockquote>
+<p>简单元素:<!ELEMENT 简单元素名称 (#PCDATA)><br>复杂元素：<!ELEMENT 复杂元素名称 (子元素名称1,...)>,<em>注意：它的孙子元素不包括在内</em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>4.在xml文件中引入dtd文件</p>
+<blockquote>
+<p>引入外部dtd文件： <code>&lt;!DOCTYPE 根元素名称 SYSTEM &quot;dtd文件的路径&quot;&gt;&lt;!--引入方式1--&gt;</code><br>使用内部dtd文件： <code>&lt;!DOCTYPE 根元素名称 [dtd文件内容]&gt;&lt;!--引入方式2--&gt;</code><br>使用网络上的dtd文件： <code>&lt;!DOCTYPE 根元素名称 PUBLIC &quot;DTD名称&quot; &quot;DTD文档的URL&quot;&gt;&lt;!--引入方式3--&gt;</code><br><strong>xml文件在浏览器中运行不受dtd约束，因为浏览器只会校验xml语法，不会通过dtd文件进行校验，我们需要专门工具实现校验xml的约束</strong></p>
+</blockquote>
+</blockquote>
+<h4 id="使用DTD定义元素"><a href="#使用DTD定义元素" class="headerlink" title="使用DTD定义元素"></a>使用DTD定义元素</h4><h5 id="简单元素语法"><a href="#简单元素语法" class="headerlink" title="简单元素语法"></a>简单元素语法</h5><p><code>&lt;!ELEMENT 元素名称 约束&gt;</code><br>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT name (#PCDATA)&gt;&#x2F;&#x2F;这里的(#PCDATA)是一种约束，约束name中内容为字符串类型，其他约束：EMPTY:元素为空（没有内容）,ANY：表示任意</span><br></pre></td></tr></table></figure>
+<h5 id="复杂元素语法"><a href="#复杂元素语法" class="headerlink" title="复杂元素语法"></a>复杂元素语法</h5><p><code>&lt;!ELEMENT 复杂元素名称 (子元素名称1,...)&gt;</code><br><em>表示子元素出现次数：</em><br>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT person (name+,age,sex)&gt;&#x2F;&#x2F;name后+表示person里可以嵌套一个或多个name元素</span><br><span class="line">&lt;!ELEMENT person (name,age?,sex)&gt;&#x2F;&#x2F;age后?表示person里可以嵌套0个或多个age元素</span><br><span class="line">&lt;!ELEMENT person (name+,age*,sex)&gt;&#x2F;&#x2F;age后*表示person里可以嵌套任意个数age且可以为0</span><br></pre></td></tr></table></figure>
+<p>复杂元素定义中()里逗号隔开，xml中需按()内顺序定义元素，如果将逗号换为|表示子元素只能有一个定义出来</p>
+<h4 id="使用dtd定义属性"><a href="#使用dtd定义属性" class="headerlink" title="使用dtd定义属性"></a>使用dtd定义属性</h4><h5 id="定义属性语法"><a href="#定义属性语法" class="headerlink" title="定义属性语法"></a>定义属性语法</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!ATTLIST 元素名称 </span><br><span class="line">属性名称 属性的类型 属性的约束</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="属性的类型"><a href="#属性的类型" class="headerlink" title="属性的类型"></a>属性的类型</h5><p><strong>CDATA:表示xml属性的取值为普通文本字符串</strong><br><strong>枚举(AA|BB|CC):xml属性值只能取其中一个</strong><br><strong>ID:xml属性的值只能有字母和_开头</strong></p>
+<h5 id="属性的约束"><a href="#属性的约束" class="headerlink" title="属性的约束"></a>属性的约束</h5><p><strong>#REQUIRED:属性必须存在</strong><br><strong>#MPLED:属性可有可无</strong><br><strong>#FIXED:表示一个固定的值，示例：</strong><code>#FIXED: &quot;ABC&quot;</code><br><strong>直接值：直接在属性的约束定义属性值，如果属性定义，默认使用直接值</strong></p>
+<h5 id="定义实体"><a href="#定义实体" class="headerlink" title="定义实体"></a>定义实体</h5><p><strong>DTD中定义，在xml中使用</strong><br>语法：<code>&lt;!ENTITY 实体名称 实体内容&gt;</code><br><strong>xml中引用：</strong><br><code>&amp;实体名称;</code><br><em>注意：最好在内部dtd中定义实体，在外部定义，有些浏览器下，内容可能获取不到</em></p>
+<h3 id="Schema"><a href="#Schema" class="headerlink" title="Schema"></a>Schema</h3><p><strong>schema符合xml语法，与dtd不同的是一个xml中允许有多个个schema(通过名称空间进行区分)，schema支持除字符串更多数据类型(包括用户自定义数据类型)，schema约束更加严格，比dtd复杂</strong></p>
+<h4 id="创建Schema文件"><a href="#创建Schema文件" class="headerlink" title="创建Schema文件"></a>创建Schema文件</h4><blockquote>
+<p>1.创建后缀名为.xsd的XML Schema文件（schema与xml一样必须有一个根节点，而它的根节点就是<code>&lt;schema&gt;&lt;/schema&gt;</code>）<br>2.设置schema的属性，xmlns属性表示当前文件是一个约束文件，targetNamespace属性提供引用该schema约束文件的自定义地址，<br>3.看xml文件中有几个元素，写几个<code>&lt;element&gt;&lt;/element&gt;</code><br>4.判断xml中元素是简单元素还是复杂元素</p>
+<blockquote>
+<p>简单元素：<code>&lt;element name=&quot;简单元素名&quot; type=&quot;数据类型&quot;&gt;&lt;/element&gt;</code><br>复杂元素：<code>&lt;element name=&quot;复杂元素名&quot;&gt;&lt;complexType&gt;子元素&lt;/complexType&gt;&lt;/element&gt;</code></p>
+</blockquote>
+</blockquote>
+<h4 id="引入Schema文件"><a href="#引入Schema文件" class="headerlink" title="引入Schema文件"></a>引入Schema文件</h4><p><strong>在xml文件的根节点中属性xmlns第一个内容同schema文件后追加<code>-instance</code>，第二个是targetNamespace中地址（由于xmlns重名，需要未其中一个设置别名，格式为<code>:别名</code>），最后配置targetNamespace中地址 schema的路径</strong><br>示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;person xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3c.org&#x2F;2001&#x2F;XMlSchema-instance&quot; xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.zidingyi.cn&#x2F;20200330 one.xsd&quot;&gt;</span><br><span class="line">	&lt;name&gt;二狗&lt;&#x2F;name&gt;</span><br><span class="line">	&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Schema使用"><a href="#Schema使用" class="headerlink" title="Schema使用"></a>Schema使用</h4><blockquote>
+<ol>
+<li><sequence></sequence>:表示元素出现顺序</li>
+<li><all></all>:表示元素只能出现一次</li>
+<li><choice></choice>:表示只能出现里面元素中任意一个</li>
+<li>maxOccurs=”unbounded”:表示元素出现的次数</li>
+<li><any></any>:表示任意元素</li>
+</ol>
+</blockquote>
+]]></content>
+      <categories>
+        <category>JavaWeb</category>
+      </categories>
+      <tags>
+        <tag>XML</tag>
+        <tag>标记语言</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>dynasties</title>
+    <url>/2020/04/01/dynasties/</url>
+    <content><![CDATA[<a id="more"></a>
+<p><img src="http://img.xixik.net/cimg/083/xixik_c53006a681fc4200.jpeg" alt="尧舜禹→夏" title="尧舜禹→夏"><br><img src="http://img.xixik.net/cimg/083/xixik_87512603bf7f461e.jpeg" alt="商" title="商"><br><img src="http://img.xixik.net/cimg/083/xixik_a1523ca6228beae4.jpeg" alt="周" title="周"><br><img src="http://img.xixik.net/cimg/083/xixik_87c9e06af0d51132.jpeg" alt="秦" title="秦"><br><img src="http://img.xixik.net/cimg/083/xixik_01848d23bc3c0496.jpeg" alt="汉" title="汉"><br><img src="http://img.xixik.net/cimg/083/xixik_2a93308ddfd78f78.jpeg" alt="魏" title="魏"><br><img src="http://img.xixik.net/cimg/083/xixik_34ae3a4f7693d9ea.jpeg" alt="蜀" title="蜀"><br><img src="http://img.xixik.net/cimg/083/xixik_bafe42d5cde82df4.jpeg" alt="吴" title="吴"><br><img src="http://img.xixik.net/cimg/083/xixik_20b47e2887f23ecf.jpeg" alt="晋" title="晋"><br><img src="http://img.xixik.net/cimg/083/xixik_57f8d17ebfdb1a85.jpeg" alt="隋" title="隋"><br><img src="http://img.xixik.net/cimg/083/xixik_04c8ec9fff83c2f9.jpeg" alt="唐" title="唐"><br><img src="http://img.xixik.net/cimg/083/xixik_6bc06e9bb6ef708c.jpeg" alt="辽" title="辽"><br><img src="http://img.xixik.net/cimg/083/xixik_6e40141c5eb849ea.jpeg" alt="宋" title="宋"><br><img src="http://img.xixik.net/cimg/083/xixik_74a385004d03fc0a.jpeg" alt="西夏" title="西夏"><br><img src="http://img.xixik.net/cimg/083/xixik_d209b6d3983aaf85.jpeg" alt="金" title="金"><br><img src="http://img.xixik.net/cimg/083/xixik_1f2382bcdab86fe9.jpeg" alt="元" title="元"><br><img src="http://img.xixik.net/cimg/083/xixik_a160592906ace6ec.jpeg" alt="明" title="明"><br><img src="http://img.xixik.net/cimg/083/xixik_633a17f15265a0ef.jpeg" alt="清" title="清"><br><em><strong>注意：转载自嘻嘻网图片，切勿商用</strong></em></p>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
+      <tags>
+        <tag>纯图片</tag>
+        <tag>历史</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2019/04/01/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<a id="more"></a>
+
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+      <tags>
+        <tag>奥利给</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git的使用</title>
+    <url>/2020/03/18/git%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="git的使用"><a href="#git的使用" class="headerlink" title="git的使用"></a>git的使用</h2><p><strong>可以说是一个很牛×的开发工具，是Linux之父开发出来的，据说只花了一周时间，打扰了。git是一个开源的分布式版本控制系统，当时开发目的是为了管理Linux内核开发，毕竟开源项目管理，懒人都会用聪明的方法方便自身偷懒，也体现林纳斯·托瓦兹觉得当时版本控制工具不能满足自身需求而得以git的问世。git的竞争力主要在于它拥有分布式，以及自己的暂存区，可支持离线操作</strong></p>
+<a id="more"></a>
+
+<h3 id="git的安装"><a href="#git的安装" class="headerlink" title="git的安装"></a>git的安装</h3><p><strong>点击<a href="http://git-scm.com/downloads" target="_blank" rel="noopener">git</a>安装地址进行安装即可，不必赘述。以及<a href="https://tortoisegit.org/download/" target="_blank" rel="noopener">TortoiseGit</a></strong></p>
+<h3 id="git的常用命令"><a href="#git的常用命令" class="headerlink" title="git的常用命令"></a>git的常用命令</h3><p><strong>git有很多基于Linux命令涉及，不过下载了TortoiseGit，或者Git自带的Git GUI，也可以不使用git命令，不过我习惯了觉得操作还是蛮方便的</strong><br>鼠标右击选择Git Bash进入命令操作界面，再第一次使用git的时候你需要先设置自己的用户名和邮箱地址，当然你可以设置局部配置和全局配置，局部配置则只针对一个指定仓库进行设置你的邮箱和用户名，我是直接全局配置，没必要那么麻烦。</p>
+<h4 id="全局配置命令"><a href="#全局配置命令" class="headerlink" title="全局配置命令"></a>全局配置命令</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git config --global user.name &quot;admin&quot;&#x2F;&#x2F;设置你的用户名，自己取，建议最好英文，中文我没试过</span><br><span class="line">$ git config --global user.email test@admin.com&#x2F;&#x2F;设置你的邮箱地址</span><br></pre></td></tr></table></figure>
+<p>如果是局部配置，只要去掉 <del>–global</del> 选项重新配置即可，新的设定保存在当前项目的 .git/config 文件里。</p>
+<h4 id="查看配置信息"><a href="#查看配置信息" class="headerlink" title="查看配置信息"></a>查看配置信息</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git config --list&#x2F;&#x2F;检查已有的配置信息所有信息</span><br><span class="line">$ git config user.name&#x2F;&#x2F;查看你的用户名</span><br><span class="line">$ git config user.email&#x2F;&#x2F;查看你的邮箱</span><br></pre></td></tr></table></figure>
+
+<h4 id="初始化仓库"><a href="#初始化仓库" class="headerlink" title="初始化仓库"></a>初始化仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git init&#x2F;&#x2F;当前文件被git接管了</span><br><span class="line">$ git init newrepo&#x2F;&#x2F;指定仓库为newrepo</span><br></pre></td></tr></table></figure>
+
+<h4 id="克隆仓库"><a href="#克隆仓库" class="headerlink" title="克隆仓库"></a>克隆仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git clone &lt;仓库所在地址&gt;</span><br><span class="line">$ git clone &lt;仓库所在地址&gt; &lt;克隆地址&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="将该文件添加到缓存"><a href="#将该文件添加到缓存" class="headerlink" title="将该文件添加到缓存"></a>将该文件添加到缓存</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add .&#x2F;&#x2F;添加当前所有为被版本控制的文件入暂存区</span><br><span class="line">$ git add text.txt&#x2F;&#x2F;添加指定文件到暂存区</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看版本库文件项目状态"><a href="#查看版本库文件项目状态" class="headerlink" title="查看版本库文件项目状态"></a>查看版本库文件项目状态</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git status </span><br><span class="line">$ git diff&#x2F;&#x2F;查看执行 git status 的结果的详细信息</span><br></pre></td></tr></table></figure>
+
+<h4 id="将缓冲区内容提交至版本库"><a href="#将缓冲区内容提交至版本库" class="headerlink" title="将缓冲区内容提交至版本库"></a>将缓冲区内容提交至版本库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git commit -m &#39;第一次版本提交&#39;&#x2F;&#x2F;-m后是对你本次提交的描述</span><br></pre></td></tr></table></figure>
+
+<h4 id="推送到远程仓库"><a href="#推送到远程仓库" class="headerlink" title="推送到远程仓库"></a>推送到远程仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git push</span><br></pre></td></tr></table></figure>
+
+<h4 id="远程仓库拉取更新本地版本库"><a href="#远程仓库拉取更新本地版本库" class="headerlink" title="远程仓库拉取更新本地版本库"></a>远程仓库拉取更新本地版本库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
+
+<h4 id="日志的查看"><a href="#日志的查看" class="headerlink" title="日志的查看"></a>日志的查看</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git log</span><br></pre></td></tr></table></figure>
+<p><em>一般与回滚操作关联</em></p>
+<h4 id="新建分支与分支切换"><a href="#新建分支与分支切换" class="headerlink" title="新建分支与分支切换"></a>新建分支与分支切换</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git branch (分支名)&#x2F;&#x2F;创建一支分支</span><br><span class="line">$ git checkout -b (分支名)&#x2F;&#x2F;切换至指定分支</span><br><span class="line">$ git branch -d (branchname)&#x2F;&#x2F;删除分支</span><br></pre></td></tr></table></figure>
+<p><em>当然涉及到分支就会有合并分支，解决冲突的命令，这里不详细说明，我也是半灌水，建议自己看官方文档深入学习</em></p>
+<h4 id="git标签标注"><a href="#git标签标注" class="headerlink" title="git标签标注"></a>git标签标注</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git tag -a v1.0&#x2F;&#x2F;就是做记号，觉得这个版本很重要，标记一下，方便以后回退</span><br></pre></td></tr></table></figure>
+
+<h3 id="Git-远程仓库-Github"><a href="#Git-远程仓库-Github" class="headerlink" title="Git 远程仓库(Github)"></a>Git 远程仓库(Github)</h3><p><strong>就是使用git将你本地项目提交至github，方便今后的管理，两则建立连接的意思，没必要多说，网上很多参考，唯一要说的最好用SSH密钥连接</strong></p>
+<h3 id="git相关概要"><a href="#git相关概要" class="headerlink" title="git相关概要"></a>git相关概要</h3><p><strong>git基本包含工作区(本地项目)，暂存区，版本库，以及远程仓库，然后根据命令实现之间的互联互通，版本控制，项目管理。此处该有图，以后再说</strong></p>
+<h3 id="git服务器搭建"><a href="#git服务器搭建" class="headerlink" title="git服务器搭建"></a>git服务器搭建</h3><h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-devel</span><br><span class="line">$ yum install git</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建一个git用户组和用户，用来运行git服务"><a href="#创建一个git用户组和用户，用来运行git服务" class="headerlink" title="创建一个git用户组和用户，用来运行git服务"></a>创建一个git用户组和用户，用来运行git服务</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ groupadd git</span><br><span class="line">$ adduser git -g git</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建证书登录"><a href="#创建证书登录" class="headerlink" title="创建证书登录"></a>创建证书登录</h4><p>收集所有需要登录的用户的公钥，公钥位于id_rsa.pub文件中，把我们的公钥导入到/home/git/.ssh/authorized_keys文件里，一行一个。<br>如果没有该文件创建它：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd &#x2F;home&#x2F;git&#x2F;$ mkdir .ssh</span><br><span class="line">$ chmod 700 .ssh</span><br><span class="line">$ touch .ssh&#x2F;authorized_keys</span><br><span class="line">$ chmod 600 .ssh&#x2F;authorized_keys</span><br></pre></td></tr></table></figure>
+
+<h4 id="初始化仓库-1"><a href="#初始化仓库-1" class="headerlink" title="初始化仓库"></a>初始化仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd &#x2F;home</span><br><span class="line">$ mkdir gitrepo</span><br><span class="line">$ chown git:git gitrepo&#x2F;$ cd gitrepo</span><br><span class="line"></span><br><span class="line">$ git init --bare runoob.gitInitialized empty Git repository in &#x2F;home&#x2F;gitrepo&#x2F;runoob.git&#x2F;</span><br><span class="line"></span><br><span class="line">$ chown -R git:git runoob.git&#x2F;&#x2F;以上命令Git创建一个空仓库，服务器上的Git仓库通常都以.git结尾。然后，把仓库所属用户改为git</span><br></pre></td></tr></table></figure>
+
+<h4 id="克隆仓库-1"><a href="#克隆仓库-1" class="headerlink" title="克隆仓库"></a>克隆仓库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git clone git@192.168.45.4:&#x2F;home&#x2F;gitrepo&#x2F;runoob.gitCloning into &#39;runoob&#39;...warning: You appear to have cloned an empty repository.Checking connectivity... done.</span><br></pre></td></tr></table></figure>
+<p>192.168.45.4 为 Git 所在服务器 ip ，你需要将其修改为你自己的 Git 服务 ip。</p>
+<p>这样我们的 Git 服务器安装就完成了，接下来我们可以禁用 git 用户通过shell登录，可以通过编辑/etc/passwd文件完成。找到类似下面的一行：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git:x:503:503::&#x2F;home&#x2F;git:&#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
+
+<p>改为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git:x:503:503::&#x2F;home&#x2F;git:&#x2F;sbin&#x2F;nologin</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>开发工具</category>
+      </categories>
+      <tags>
+        <tag>版本控制</tag>
+        <tag>git</tag>
+        <tag>分布式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>dom4j</title>
+    <url>/2020/04/21/dom4j/</url>
+    <content><![CDATA[<h3 id="dom4j"><a href="#dom4j" class="headerlink" title="dom4j"></a>dom4j</h3><p><strong>dom4j组织提供了针对xml解析的解析器dom4j,其是由jdom组织分裂出来后出现的,其优于jdom。dom4j不是javase的一部分</strong></p>
+<a id="more"></a>
+
+<h4 id="dom4j使用"><a href="#dom4j使用" class="headerlink" title="dom4j使用"></a>dom4j使用</h4><p><em>使用前需要在项目中导入dom4j的jar包</em><br>xml文件如下:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">	&lt;p1 id1&#x3D;&quot;01&quot;&gt;</span><br><span class="line">		&lt;name&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">	&lt;p1&gt;</span><br><span class="line">		&lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">		&lt;age&gt;45&lt;&#x2F;age&gt;</span><br><span class="line">	&lt;&#x2F;p1&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现查询xml中元素操作"><a href="#dom4j实现查询xml中元素操作" class="headerlink" title="dom4j实现查询xml中元素操作"></a>dom4j实现查询xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查询所有name元素里的值</span><br><span class="line">	public static void selectName() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到p1</span><br><span class="line">		List&lt;Element&gt; list &#x3D; root.elements(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.遍历List</span><br><span class="line">		for(Element temp:list)&#123;</span><br><span class="line">			&#x2F;&#x2F;这里temp得到每一个p1元素</span><br><span class="line">			Element name1 &#x3D; temp.element(&quot;name&quot;);&#x2F;&#x2F;得到p1下面的name元素</span><br><span class="line">			&#x2F;&#x2F;得到name里面的值</span><br><span class="line">			String s &#x3D; name1.getText();</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;查询第一个name元素的值</span><br><span class="line">	public static void selectSin() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到p1下第一个name</span><br><span class="line">		Element name1 &#x3D; p1.element(&quot;name&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.得到name的值</span><br><span class="line">		String s1 &#x3D; name1.getText();</span><br><span class="line">		System.out.println(s1);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#x2F;&#x2F;查询第二个name元素的值	</span><br><span class="line">	public static void selectSecond() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到所有p1</span><br><span class="line">		List&lt;Element&gt; list &#x3D; root.elements(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到第二个p1</span><br><span class="line">		Element p2 &#x3D; list.get(1);</span><br><span class="line">		&#x2F;&#x2F;6.得到p1下面name</span><br><span class="line">		Element name2 &#x3D; p2.element(&quot;name&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.得到name的值</span><br><span class="line">		String s2 &#x3D; name2.getText();</span><br><span class="line">		System.out.println(s2);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现添加xml中元素操作"><a href="#dom4j实现添加xml中元素操作" class="headerlink" title="dom4j实现添加xml中元素操作"></a>dom4j实现添加xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;在第一个p1标签末尾添加一个sex标签</span><br><span class="line">	public static addSex() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.获取第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.p1下面添加sex元素</span><br><span class="line">		Element sex1 &#x3D; p1.addElement(&quot;sex&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.在sex里添加内容</span><br><span class="line">		sex1.setText(&quot;男&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="在特定位置实现元素添加"><a href="#在特定位置实现元素添加" class="headerlink" title="在特定位置实现元素添加"></a>在特定位置实现元素添加</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;在第一个p1标签中age标签前添加一个&lt;school&gt;cqgcxy.edu.cn&lt;&#x2F;school&gt;</span><br><span class="line">	public static void addAgeBefore() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();		</span><br><span class="line">		&#x2F;&#x2F;4.获取第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.获取p1下面的所有元素</span><br><span class="line">		List&lt;Element&gt; list &#x3D; p1.elements();</span><br><span class="line">		&#x2F;&#x2F;6.创建要添加元素</span><br><span class="line">		Element school &#x3D; DocumentHelper.createElement(&quot;school&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.给标签添加内容</span><br><span class="line">		school.setText(&quot;eqgcxy.edu.cn&quot;);</span><br><span class="line">		&#x2F;&#x2F;8.在特定位置添加元素</span><br><span class="line">		list.add(1,school);</span><br><span class="line">		&#x2F;&#x2F;9.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现修改xml中元素操作"><a href="#dom4j实现修改xml中元素操作" class="headerlink" title="dom4j实现修改xml中元素操作"></a>dom4j实现修改xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;修改第一个p1中age元素内容</span><br><span class="line">	public static void fixAge() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();	</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到age</span><br><span class="line">		Element age &#x3D; p1.element(&quot;age&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.修改age的值</span><br><span class="line">		age.setText(&quot;250&quot;);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现删除xml中元素操作"><a href="#dom4j实现删除xml中元素操作" class="headerlink" title="dom4j实现删除xml中元素操作"></a>dom4j实现删除xml中元素操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;删除第一个p1下school节点</span><br><span class="line">	public static void deleteSchool() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;*使用工具类替换1、2步</span><br><span class="line">		Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);*&#x2F;</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();	</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.得到school</span><br><span class="line">		Element school &#x3D; p1.element(&quot;school&quot;);</span><br><span class="line">		&#x2F;&#x2F;6.删除school(通过父节点实现删除)</span><br><span class="line">		p1.remove(school);</span><br><span class="line">		&#x2F;&#x2F;7.回写xml</span><br><span class="line">		OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">		XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">		writer.write(document);</span><br><span class="line">		writer.close();</span><br><span class="line">		&#x2F;*使用工具类替换回写操作</span><br><span class="line">		Dom4jUtils.xmlWriter(PATH,document)*&#x2F;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j实现获取xml中元素属性值操作"><a href="#dom4j实现获取xml中元素属性值操作" class="headerlink" title="dom4j实现获取xml中元素属性值操作"></a>dom4j实现获取xml中元素属性值操作</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取第一个p1属性id1的值</span><br><span class="line">	public static void getValue() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;1.创建解析器</span><br><span class="line">		SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">		&#x2F;&#x2F;2.得到document</span><br><span class="line">		Document document &#x3D; saxReader.read(&quot;src&#x2F;person.xml&quot;);</span><br><span class="line">		&#x2F;&#x2F;3.得到根节点</span><br><span class="line">		Element root &#x3D; document.getRootElement();</span><br><span class="line">		&#x2F;&#x2F;4.得到第一个p1</span><br><span class="line">		Element p1 &#x3D; root.element(&quot;p1&quot;);</span><br><span class="line">		&#x2F;&#x2F;5.获取p1的属性id1值</span><br><span class="line">		String value &#x3D; p1.attributeValue(&quot;id1&quot;);</span><br><span class="line">		System.out.println(value);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="dom4j工具类"><a href="#dom4j工具类" class="headerlink" title="dom4j工具类"></a>dom4j工具类</h5><p><strong>由于什么的CRUD代码中存在大量重复使用的代码，因此我们可以建立一个工具类来封装这些重复代码，实现调用工具类，来减少代码冗余</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Dom4jUtils&#123;</span><br><span class="line">	public state final String PATH &#x3D; &quot;src&#x2F;person.xml&quot;;</span><br><span class="line">	&#x2F;&#x2F;返回document</span><br><span class="line">	public static Document getDocument(String path)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			&#x2F;&#x2F;1.创建解析器</span><br><span class="line">			SAXReader saxReader &#x3D; new SAXReader();</span><br><span class="line">			&#x2F;&#x2F;2.得到document</span><br><span class="line">			Document document &#x3D; saxReader.read(path);</span><br><span class="line">			return document;</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		return null;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;回写xml</span><br><span class="line">	public static void xmlWriter(String path,Document document)&#123;</span><br><span class="line">		try&#123;</span><br><span class="line">			OutputFormat format &#x3D; OutputFormat.createPrettyPrint();&#x2F;&#x2F;获取缩进格式</span><br><span class="line">			XMLWriter writer &#x3D; new XMLWriter(new FileOutputStream(&quot;src&#x2F;person.xml&quot;),format);</span><br><span class="line">			writer.write(document);</span><br><span class="line">			writer.close();</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="dom4j支持XPATH操作"><a href="#dom4j支持XPATH操作" class="headerlink" title="dom4j支持XPATH操作"></a>dom4j支持XPATH操作</h4><p><strong>可以直接获取某一个元素，不必按照一层一层解析的方式</strong></p>
+<h5 id="语法形式"><a href="#语法形式" class="headerlink" title="语法形式"></a>语法形式</h5><p>第一种形式：<code>/a/b/c</code>来表示a里面的b里面的c<br>第二种形式：<code>//A</code>表示选择所有A元素<br>第三种形式：<code>/AAA/CCC/DDD/*</code>表示/AAA/CCC/DDD/里面的所有元素<br>第四种形式：<code>/*/*/*/</code>DDD表示选择所有第四层所有DDD元素<br>第五种形式；<code>//*</code>所有元素<br>第六种形式：<code>/a/b[1]</code>选择a标签中第一个b标签，/a/b[last()]选择a标签中最后一个b标签<br>第七种形式：<code>//@id</code>表示选择所有id属性，//BBB[@id]表示选择所有含id属性的BBB元素<br>第八种形式；<code>//BBB[@id=&#39;b1&#39;]</code>选择含Id属性且值为b1的所有BBB标签,b1如果左右有空格将不会被选取*</p>
+<h5 id="如何在dom4j中使用XPATH"><a href="#如何在dom4j中使用XPATH" class="headerlink" title="如何在dom4j中使用XPATH"></a>如何在dom4j中使用XPATH</h5><p><strong>默认的情况下，dom4j不支持XPATH，如果想使用，需要引入XPATH的jar包，在文件中找到jaxen-1.1-beta-6.jar，将其复制进eclipse构建的项目中lib下，右击项目Build Path选择Add to Build Path</strong><br><strong>在dom4j中提供了两个方法支持XPATH,它们分别是：selectNodes(“XPATH表达式”)和selectSingleNode(“XPATH表达式”)，第一个方法获取多个节点，第二个则获取单一节点</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;查询xml中所有name元素的值</span><br><span class="line">public static void getValue()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到所有name</span><br><span class="line">	List&lt;Node&gt; list&#x3D;document.selectNodes(&quot;&#x2F;&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.遍历集合</span><br><span class="line">	for(Node note:list)&#123;&#x2F;&#x2F;node是每一个name元素</span><br><span class="line">		&#x2F;&#x2F;获取name元素里面的值</span><br><span class="line">		String s &#x3D; node.getText();</span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取第一个p1下面name的值</span><br><span class="line">public static void getValue1()throws Exception&#123;</span><br><span class="line">	&#x2F;&#x2F;1.得到document</span><br><span class="line">	Document document &#x3D; Dom4jUtils.getDocument(Dom4jUtils.PATH);</span><br><span class="line">	&#x2F;&#x2F;2.得到name元素</span><br><span class="line">	Node name1&#x3D;document.和selectSingleNode(&quot;&#x2F;&#x2F;p1[@id1&#x3D;&quot;01&quot;]&#x2F;name&quot;);</span><br><span class="line">	&#x2F;&#x2F;3.得到name里面内容</span><br><span class="line">	String s1 &#x3D; name1.getText();</span><br><span class="line">	System.out.println(s1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>JavaWeb</category>
+      </categories>
+      <tags>
+        <tag>XML</tag>
+        <tag>标记语言</tag>
+        <tag>XML解析</tag>
       </tags>
   </entry>
   <entry>
@@ -2045,155 +2164,6 @@
       </tags>
   </entry>
   <entry>
-    <title>电影推荐</title>
-    <url>/2021/05/09/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90/</url>
-    <content><![CDATA[<p><strong>作为一个阅片无数的过来人，七七八八的电影看过很多，好的不少，烂的也多。因此，想推荐一些我喜欢的电影。相比电视剧，我偏好电影，因为电影以较短时间，呈现给我们精彩的内容，节省时间同时，给我们带来不错的观影体验（仅限好电影）。电影有很多种类，喜剧、恐怖、惊悚、科幻、战争、历史等。也分地区，不同地区电影也有其不同特点。在此，我想把我看过的，自认为觉得不错的电影分享出来，当然有些好电影，我没看过的，就不会列出来。所有影片只列名字，不作影评，我觉得自己写不好或者写的很烂，反而影响推荐，我觉得不同电影，不同人有不同观感，我不能融入我的主观色彩。</strong></p>
-<p><strong>顺序无先后，想起哪部写哪部</strong></p>
-<h3 id="内地"><a href="#内地" class="headerlink" title="内地"></a>内地</h3><p><strong>《蓝风筝》、《活着》、《霸王别姬》、《茶馆》、《鬼子来了》、《阳光灿烂的日子》、《让子弹飞》、《盲山》、《盲井》、《过年》、《甲方乙方》、《大腕》、《疯狂的石头》、《疯狂的赛车》、《杀生》、《斗牛》、《Hello，树先生》、《落叶归根》、《人在囧途》、《我不是药神》、《夏洛特烦恼》、《无名之辈》、《三毛从军记》、《无人区》、《天下无贼》、《背靠背，脸对脸》、《黑炮事件》</strong></p>
-<h3 id="港片"><a href="#港片" class="headerlink" title="港片"></a>港片</h3><p><strong>《监狱风云》、《英雄本色》、《纵情四海》、《黑社会》、《黑社会2：以和为贵》、《黑狱断肠歌之砌生猪肉》、《至尊三十六计之偷天换日》、《火烧岛》、《跛豪》、《五亿探长雷洛传》、《黑金》、《门徒》、《无间道三部曲》、《金钱帝国》、《机动部队》、《警察故事》、《A计划》、《快餐车》、《奇迹》、《城市猎人》、《杀破狼》、《东邪西毒》、《东成西就》、《新龙门客栈1992》、《赌神》、《赌神2》、《棋王》、《无双》、《黄飞鸿》、《方世玉》、《太极张三丰》、《精武英雄》、《导火线》、《笑林小子2：新乌龙院》、《新少林五祖》、《山村老尸》、《三五成群》、《人肉叉烧包黄秋生版》、《打蛇》、《狗咬狗》、《垂帘听政》、《倩女幽魂三部曲》、《半斤八两》、《摩登保镖》、《鬼马双星》、《卖身契》、《鸡同鸭讲》、《抢钱夫妻》、《钱作怪》、《福星系列》、《审死官》、《九品芝麻官》、《喜剧之王》、《大话西游周星驰版》、《功夫》、《少林足球》、《食神》、《逃学威龙》、《国产凌凌漆》、《鹿鼎记》、《家有喜事》、《回魂夜》、《情圣》、《整蛊专家》、《百变星君》、《武状元苏乞儿》</strong></p>
-<h3 id="国外"><a href="#国外" class="headerlink" title="国外"></a>国外</h3><p><strong>《肖申克的救赎》、《猫鼠游戏》、《泰坦尼克号》、《盗梦空间》、《西西里的美丽传说》、《末代皇帝》、《何以为家》、《小偷家族》、《阿甘正传》、《看不见的客人》、《我是谁：没有绝对安全的系统》、《非常嫌疑犯》、《两杆大烟枪》、《偷拐抢骗》、《闪灵》、《恐怖游轮》、《楚门的世界》、《教父》、《这个杀手不太冷》、《辛德勒的名单》、《蝙蝠侠：黑暗骑士》、《小丑》、《复仇者联盟》、《银河护卫队》、《死侍》、《X战警》、《变形金刚》、《星球大战》、《终结者》、《碟中谍》、《黑客帝国》、《谍影重重》、《生化危机》、《古墓丽影》、《木乃伊》、《加勒比海盗》、《哈利波特》、《指环王》、《霍比特人》、《阿凡达》、《死神来了》、《速度与激情》、《死亡飞车》、《电锯惊魂》、《三傻大闹宝莱坞》、《摔跤吧，爸爸》、《寄生虫》、《恶魔的艺术2：邪降》、《风雨哈佛路》、《千与千寻》、《菊次郎的夏天》、《热血高校》、《突袭》、《突袭2：暴徒》、《摩登时代》、《城市之光》、《大独裁者》、《淘金记》、《马戏团》、《憨豆的黄金周》、《死寂》、《咒怨》、《孤儿怨》</strong></p>
-]]></content>
-      <categories>
-        <category>分享</category>
-      </categories>
-      <tags>
-        <tag>电影</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>XML入门</title>
-    <url>/2020/03/30/XML%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<h2 id="XML-Extensible-Markup-Language"><a href="#XML-Extensible-Markup-Language" class="headerlink" title="XML(Extensible Markup Language)"></a>XML(Extensible Markup Language)</h2><h3 id="XML是什么"><a href="#XML是什么" class="headerlink" title="XML是什么"></a>XML是什么</h3><p><strong>XML是W3C组织发布的技术，XML类似于HTML，大家知道HTML是一种超文本标记语言，其实XML也是一种标记语言，根据全称翻译它是可扩展标记语言。这里的可扩展是它的特性，HTML的标签是固定的，而XML可以自己定义标签，可以定义中文标签。</strong></p>
-<h3 id="XML版本"><a href="#XML版本" class="headerlink" title="XML版本"></a>XML版本</h3><p>目前有两个版本一个1.0，一个1.1，一般使用1.0，因为1.1无法向下兼容。</p>
-<h3 id="XML做什么"><a href="#XML做什么" class="headerlink" title="XML做什么"></a>XML做什么</h3><p><strong>HTML是用于显示数据，XML也可以显示数据，但它的主要功能并不是显示数据，设计它的初衷是为了存储数据，类似于一个小型数据库</strong></p>
-<h3 id="XML怎么用"><a href="#XML怎么用" class="headerlink" title="XML怎么用"></a>XML怎么用</h3><h4 id="1-不同系统之间传输数据，利于系统的维护"><a href="#1-不同系统之间传输数据，利于系统的维护" class="headerlink" title="1.不同系统之间传输数据，利于系统的维护"></a>1.不同系统之间传输数据，利于系统的维护</h4><a id="more"></a>
-
-<h4 id="2-用来表示生活中有关系的数据"><a href="#2-用来表示生活中有关系的数据" class="headerlink" title="2.用来表示生活中有关系的数据"></a>2.用来表示生活中有关系的数据</h4><p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;中国&gt;</span><br><span class="line">	&lt;帝都&gt;</span><br><span class="line">		&lt;朝阳区&gt;&lt;&#x2F;朝阳区&gt;</span><br><span class="line">		&lt;海淀区&gt;&lt;&#x2F;海淀区&gt;</span><br><span class="line">	&lt;&#x2F;帝都&gt;</span><br><span class="line">	&lt;四川&gt;</span><br><span class="line">		&lt;成都&gt;&lt;&#x2F;成都&gt;</span><br><span class="line">		&lt;绵阳&gt;&lt;&#x2F;绵阳&gt;</span><br><span class="line">	&lt;&#x2F;四川&gt;</span><br><span class="line">	&lt;湖北&gt;</span><br><span class="line">		&lt;武汉&gt;&lt;&#x2F;武汉&gt;</span><br><span class="line">		&lt;荆州&gt;&lt;&#x2F;荆州&gt;</span><br><span class="line">	&lt;&#x2F;湖北&gt;</span><br><span class="line">&lt;&#x2F;中国&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="3-经常用在配置文件中"><a href="#3-经常用在配置文件中" class="headerlink" title="3.经常用在配置文件中"></a>3.经常用在配置文件中</h4><p>比如：存储你的数据库用户名和密码，如果要修改数据库信息就不用该源代码，直接对配置文件进行修改，这样增加了可扩展性和可维护性</p>
-<h3 id="XML的语法"><a href="#XML的语法" class="headerlink" title="XML的语法"></a>XML的语法</h3><h4 id="xml的文档声明"><a href="#xml的文档声明" class="headerlink" title="xml的文档声明"></a>xml的文档声明</h4><p>1)创建一个后缀名为.xml文件<br>2)文件头部(第一行第一列)必须有文档声明<br><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;gbk&quot;?&gt;</code><br>3)属性：</p>
-<blockquote>
-<p>version:xml的版本 1.0/1.1<br>encoding:xml的编码 gbk、utf-8、iso8859-1<br>standalone:是否需要依赖其他文件 yes/no<br>4)中文乱码问题<br>保存文件编码格式与自身设置编码一致，可以解决乱码问题</p>
-</blockquote>
-<h4 id="定义元素（标签）"><a href="#定义元素（标签）" class="headerlink" title="定义元素（标签）"></a>定义元素（标签）</h4><h5 id="1-有开始必须要有结束-lt-aa-gt-lt-aa-gt-，如果标签之间没有内容可以只写-lt-aa-gt"><a href="#1-有开始必须要有结束-lt-aa-gt-lt-aa-gt-，如果标签之间没有内容可以只写-lt-aa-gt" class="headerlink" title="1)有开始必须要有结束&lt;aa&gt;&lt;/aa&gt;，如果标签之间没有内容可以只写&lt;/aa&gt;"></a>1)有开始必须要有结束<code>&lt;aa&gt;&lt;/aa&gt;</code>，如果标签之间没有内容可以只写<code>&lt;/aa&gt;</code></h5><h5 id="2-标签可以嵌套"><a href="#2-标签可以嵌套" class="headerlink" title="2)标签可以嵌套"></a>2)标签可以嵌套</h5><h5 id="3-一个xml中有且只有一个根标签"><a href="#3-一个xml中有且只有一个根标签" class="headerlink" title="3)一个xml中有且只有一个根标签"></a>3)一个xml中有且只有一个根标签</h5><p><strong>注意：xml中空格和换行都会被当成内容来解析，譬如两个代码表示内容是不同的</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;网址&gt;crazyyzw.top&lt;&#x2F;网址&gt;</span><br><span class="line"></span><br><span class="line">&lt;网址&gt;</span><br><span class="line">	crazyyzw.top</span><br><span class="line">&lt;&#x2F;网址&gt;</span><br></pre></td></tr></table></figure>
-<h5 id="4-XML命名规则"><a href="#4-XML命名规则" class="headerlink" title="4)XML命名规则"></a>4)XML命名规则</h5><blockquote>
-<p>XML区分大小写<br>不能以数字和_开头<br>不能以XML自身开头，反例:<del><xmla></xmal></del><br>标签名字之间不能包含空格<br>标签名字之间不能包含冒号</p>
-</blockquote>
-<h4 id="定义属性"><a href="#定义属性" class="headerlink" title="定义属性"></a>定义属性</h4><blockquote>
-<p>一个标签可以有多个属性<br>属性不允许重复 反例：<del><dog name="wangwang" name='aoaoao'></dog></del><br>属性值可以用单引号，也可以用双引号<br>属性命名规范与标签一致</p>
-</blockquote>
-<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>写法：<code>&lt;!--这是一个注释--&gt;</code><br><strong>注释不能嵌套</strong></p>
-<h4 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h4><p>XML内容中用到的字符转义：</p>
-<blockquote>
-<p>小于号转义字符为<code>&amp;lt;</code><br>大于号转义字符为<code>&amp;gt;</code><br>‘&amp;’转义字符为<code>&amp;amp;</code><br>双引号转义字符为<code>&amp;quot;</code><br>单引号转义字符为<code>&amp;apos;</code></p>
-</blockquote>
-<h4 id="CDATA区"><a href="#CDATA区" class="headerlink" title="CDATA区"></a>CDATA区</h4><p>如果多个字符需要转义，只有放在CDATA区就不需要转义老<br>写法：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;![CDATA[所加内容]]&gt;</span><br><span class="line">&lt;![CDATA[&lt;B&gt;if(a&lt;b &amp;&amp; a&gt;c &amp;&amp; c&gt;f)&#123;&#125;&lt;&#x2F;B&gt;]]&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="PI指令-处理指令"><a href="#PI指令-处理指令" class="headerlink" title="PI指令(处理指令)"></a>PI指令(处理指令)</h4><p>可以在xml中设置样式<br>引入方式：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml-stylesheet type&#x3D;&quot;text&#x2F;css&quot; href&#x3D;&quot;reset.css&quot;?&gt;&#x2F;&#x2F;对中文标签不起作用</span><br></pre></td></tr></table></figure>
-
-<h4 id="XML的约束"><a href="#XML的约束" class="headerlink" title="XML的约束"></a>XML的约束</h4><p>目的使标签内元素更加规范<br>xml常见两种约束技术：dtd约束和schema约束</p>
-<h3 id="DTD"><a href="#DTD" class="headerlink" title="DTD"></a>DTD</h3><h4 id="DTD文件创建"><a href="#DTD文件创建" class="headerlink" title="DTD文件创建"></a>DTD文件创建</h4><blockquote>
-<p>1.创建一个文件后缀名为.dtd<br>2.看xml文件中有几个元素，然后在dtd中写几个&lt;!ELEMENT&gt;<br>3.判断元素是简单元素还是复杂元素，(<em>简单元素就是元素没有嵌套子元素</em>)</p>
-<blockquote>
-<p>简单元素:<!ELEMENT 简单元素名称 (#PCDATA)><br>复杂元素：<!ELEMENT 复杂元素名称 (子元素名称1,...)>,<em>注意：它的孙子元素不包括在内</em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>4.在xml文件中引入dtd文件</p>
-<blockquote>
-<p>引入外部dtd文件： <code>&lt;!DOCTYPE 根元素名称 SYSTEM &quot;dtd文件的路径&quot;&gt;&lt;!--引入方式1--&gt;</code><br>使用内部dtd文件： <code>&lt;!DOCTYPE 根元素名称 [dtd文件内容]&gt;&lt;!--引入方式2--&gt;</code><br>使用网络上的dtd文件： <code>&lt;!DOCTYPE 根元素名称 PUBLIC &quot;DTD名称&quot; &quot;DTD文档的URL&quot;&gt;&lt;!--引入方式3--&gt;</code><br><strong>xml文件在浏览器中运行不受dtd约束，因为浏览器只会校验xml语法，不会通过dtd文件进行校验，我们需要专门工具实现校验xml的约束</strong></p>
-</blockquote>
-</blockquote>
-<h4 id="使用DTD定义元素"><a href="#使用DTD定义元素" class="headerlink" title="使用DTD定义元素"></a>使用DTD定义元素</h4><h5 id="简单元素语法"><a href="#简单元素语法" class="headerlink" title="简单元素语法"></a>简单元素语法</h5><p><code>&lt;!ELEMENT 元素名称 约束&gt;</code><br>示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT name (#PCDATA)&gt;&#x2F;&#x2F;这里的(#PCDATA)是一种约束，约束name中内容为字符串类型，其他约束：EMPTY:元素为空（没有内容）,ANY：表示任意</span><br></pre></td></tr></table></figure>
-<h5 id="复杂元素语法"><a href="#复杂元素语法" class="headerlink" title="复杂元素语法"></a>复杂元素语法</h5><p><code>&lt;!ELEMENT 复杂元素名称 (子元素名称1,...)&gt;</code><br><em>表示子元素出现次数：</em><br>示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!ELEMENT person (name+,age,sex)&gt;&#x2F;&#x2F;name后+表示person里可以嵌套一个或多个name元素</span><br><span class="line">&lt;!ELEMENT person (name,age?,sex)&gt;&#x2F;&#x2F;age后?表示person里可以嵌套0个或多个age元素</span><br><span class="line">&lt;!ELEMENT person (name+,age*,sex)&gt;&#x2F;&#x2F;age后*表示person里可以嵌套任意个数age且可以为0</span><br></pre></td></tr></table></figure>
-<p>复杂元素定义中()里逗号隔开，xml中需按()内顺序定义元素，如果将逗号换为|表示子元素只能有一个定义出来</p>
-<h4 id="使用dtd定义属性"><a href="#使用dtd定义属性" class="headerlink" title="使用dtd定义属性"></a>使用dtd定义属性</h4><h5 id="定义属性语法"><a href="#定义属性语法" class="headerlink" title="定义属性语法"></a>定义属性语法</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!ATTLIST 元素名称 </span><br><span class="line">属性名称 属性的类型 属性的约束</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-<h5 id="属性的类型"><a href="#属性的类型" class="headerlink" title="属性的类型"></a>属性的类型</h5><p><strong>CDATA:表示xml属性的取值为普通文本字符串</strong><br><strong>枚举(AA|BB|CC):xml属性值只能取其中一个</strong><br><strong>ID:xml属性的值只能有字母和_开头</strong></p>
-<h5 id="属性的约束"><a href="#属性的约束" class="headerlink" title="属性的约束"></a>属性的约束</h5><p><strong>#REQUIRED:属性必须存在</strong><br><strong>#MPLED:属性可有可无</strong><br><strong>#FIXED:表示一个固定的值，示例：</strong><code>#FIXED: &quot;ABC&quot;</code><br><strong>直接值：直接在属性的约束定义属性值，如果属性定义，默认使用直接值</strong></p>
-<h5 id="定义实体"><a href="#定义实体" class="headerlink" title="定义实体"></a>定义实体</h5><p><strong>DTD中定义，在xml中使用</strong><br>语法：<code>&lt;!ENTITY 实体名称 实体内容&gt;</code><br><strong>xml中引用：</strong><br><code>&amp;实体名称;</code><br><em>注意：最好在内部dtd中定义实体，在外部定义，有些浏览器下，内容可能获取不到</em></p>
-<h3 id="Schema"><a href="#Schema" class="headerlink" title="Schema"></a>Schema</h3><p><strong>schema符合xml语法，与dtd不同的是一个xml中允许有多个个schema(通过名称空间进行区分)，schema支持除字符串更多数据类型(包括用户自定义数据类型)，schema约束更加严格，比dtd复杂</strong></p>
-<h4 id="创建Schema文件"><a href="#创建Schema文件" class="headerlink" title="创建Schema文件"></a>创建Schema文件</h4><blockquote>
-<p>1.创建后缀名为.xsd的XML Schema文件（schema与xml一样必须有一个根节点，而它的根节点就是<code>&lt;schema&gt;&lt;/schema&gt;</code>）<br>2.设置schema的属性，xmlns属性表示当前文件是一个约束文件，targetNamespace属性提供引用该schema约束文件的自定义地址，<br>3.看xml文件中有几个元素，写几个<code>&lt;element&gt;&lt;/element&gt;</code><br>4.判断xml中元素是简单元素还是复杂元素</p>
-<blockquote>
-<p>简单元素：<code>&lt;element name=&quot;简单元素名&quot; type=&quot;数据类型&quot;&gt;&lt;/element&gt;</code><br>复杂元素：<code>&lt;element name=&quot;复杂元素名&quot;&gt;&lt;complexType&gt;子元素&lt;/complexType&gt;&lt;/element&gt;</code></p>
-</blockquote>
-</blockquote>
-<h4 id="引入Schema文件"><a href="#引入Schema文件" class="headerlink" title="引入Schema文件"></a>引入Schema文件</h4><p><strong>在xml文件的根节点中属性xmlns第一个内容同schema文件后追加<code>-instance</code>，第二个是targetNamespace中地址（由于xmlns重名，需要未其中一个设置别名，格式为<code>:别名</code>），最后配置targetNamespace中地址 schema的路径</strong><br>示例：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;person xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3c.org&#x2F;2001&#x2F;XMlSchema-instance&quot; xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.zidingyi.cn&#x2F;20200330 one.xsd&quot;&gt;</span><br><span class="line">	&lt;name&gt;二狗&lt;&#x2F;name&gt;</span><br><span class="line">	&lt;age&gt;14&lt;&#x2F;age&gt;</span><br><span class="line">&lt;&#x2F;person&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="Schema使用"><a href="#Schema使用" class="headerlink" title="Schema使用"></a>Schema使用</h4><blockquote>
-<ol>
-<li><sequence></sequence>:表示元素出现顺序</li>
-<li><all></all>:表示元素只能出现一次</li>
-<li><choice></choice>:表示只能出现里面元素中任意一个</li>
-<li>maxOccurs=”unbounded”:表示元素出现的次数</li>
-<li><any></any>:表示任意元素</li>
-</ol>
-</blockquote>
-]]></content>
-      <categories>
-        <category>JavaWeb</category>
-      </categories>
-      <tags>
-        <tag>XML</tag>
-        <tag>标记语言</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SVN版本控制</title>
-    <url>/2020/03/18/SVN%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</url>
-    <content><![CDATA[<h2 id="SVN版本控制"><a href="#SVN版本控制" class="headerlink" title="SVN版本控制"></a>SVN版本控制</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><strong>SVN是subversion的缩写，是一个开放源代码的版本控制系统（CMS），通过采用分支管理系统的高效管理，简而言之就是用于多个人共同开发同一个项目，实现共享资源，实现最终集中式的管理，它是最初版本控制工具CVS的升级版</strong></p>
-<a id="more"></a>
-
-<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p><strong>由于实际项目开发是多人进行开发，就会出现项目代码提交的冲突，这时候使用项目版本控制工具可以有效地解决冲突以及代码的管理</strong></p>
-<h3 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h3><p><strong>在SVN中所保存的代码只能被本地进行管理，这一局限性也导致Linux之父林纳斯·托瓦兹开发了其替代产品Git。而且SVN使用了客户端服务器模式，也是说如果使用SVN一定要搭建服务其，还要单独配置客户端，也就是说，SVN如果脱离了网络，那么将无法进行版本控制</strong></p>
-<h3 id="SVN服务器的搭建"><a href="#SVN服务器的搭建" class="headerlink" title="SVN服务器的搭建"></a>SVN服务器的搭建</h3><p><em>注意：如果想要用自己电脑搭建SVN服务器一定要关闭防火墙，有360的需要卸载，否则可能出现连接不上</em><br><strong>满足上述要求以后，下载SVN服务器端软件自行选择，有apache的<a href="http://subversion.apache.org/packages.html" target="_blank" rel="noopener">subversion</a>,还有<a href="https://www.visualsvn.com/" target="_blank" rel="noopener">VisualSVN</a>等，这里提到的前一个配置相对麻烦，而VisualSVN适合新手，傻瓜式安装，具体安装不详细说明，网上有很多安装步骤详细讲解</strong></p>
-<h3 id="SVN客户端的配置"><a href="#SVN客户端的配置" class="headerlink" title="SVN客户端的配置"></a>SVN客户端的配置</h3><p><strong>至于客户端，则是<a href="https://tortoisesvn.net/" target="_blank" rel="noopener">TortoiseSVN</a>,页面进去是最新版客户端SVN，想要老版本下面文章有进入链接，至于对自己英语水平不自信的，比如我，最好还是下一语言包，安装也很简单不再赘述</strong></p>
-<h3 id="项目的发布与检出"><a href="#项目的发布与检出" class="headerlink" title="项目的发布与检出"></a>项目的发布与检出</h3><p><strong>喜欢用命令的用命令，当然下载了TortoiseSVN用命令感觉多此一举，因为我们是服务器与客户端都在自己本机，首先应当是确定自己的服务端是否启动，这很关键，在就是搭建自己的版本库，因为都是可视化界面，什么创建项目，创建组，创建用户啊都很容易，然后就是自己客户端操作，实现项目检入与检出，这里提醒一下汉化后其实导出就是检出，但检入和检出与导入和导出是不同概念。检入字面意思理解就是让你本地项目交给服务端管理，接受版本控制。而导入则不然，相当于复制入服务端，但不受其控制，就是两者没内在联系。导出和检出同理</strong></p>
-<h3 id="解决冲突问题"><a href="#解决冲突问题" class="headerlink" title="解决冲突问题"></a>解决冲突问题</h3><p><strong>项目提交难免会发生冲突，SVN提供了很好解决方案，当你与另一人提交的同一文件发生冲突，会提醒你，然后你打开文件，会查看到你修改的与另一个人的代码同时存在，这时需要你自己判断两者都要保留，然后合并。还是删除其一的修改，这就是你自己的判断了。因为本人比较懒不想截图，所以全篇没有图片参考，字面意思自认为该讲的都讲了。当然SVN插件在eclipse、IntelliJ IDEA等工具的使用自行体会网上教程很多。</strong></p>
-]]></content>
-      <categories>
-        <category>开发工具</category>
-      </categories>
-      <tags>
-        <tag>版本控制</tag>
-        <tag>SVN</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>病毒浅谈</title>
-    <url>/2020/02/17/%E7%97%85%E6%AF%92%E6%B5%85%E8%B0%88/</url>
-    <content><![CDATA[<p><strong>病毒在生物上的危害就不多说，最近的COVID-19病毒就知道其可怕。本篇主要来谈谈计算机的病毒</strong></p>
-<h2 id="计算机病毒"><a href="#计算机病毒" class="headerlink" title="计算机病毒"></a>计算机病毒</h2><h3 id="什么是计算机病毒？"><a href="#什么是计算机病毒？" class="headerlink" title="什么是计算机病毒？"></a>什么是计算机病毒？</h3><p><strong>计算机病毒简单来讲，是一种人为制造，在计算机运行中对其信息或系统起破坏作用的程序</strong></p>
-<a id="more"></a>
-
-<h3 id="计算机病毒的特点是什么？"><a href="#计算机病毒的特点是什么？" class="headerlink" title="计算机病毒的特点是什么？"></a>计算机病毒的特点是什么？</h3><p><em><strong>破坏性、传染性、寄生性、潜伏性、隐蔽性</strong></em><br>不多解释，从字面意思，看就是类似于生物病毒</p>
-<h3 id="计算机中病毒的表现形式"><a href="#计算机中病毒的表现形式" class="headerlink" title="计算机中病毒的表现形式"></a>计算机中病毒的表现形式</h3><p><strong>计算机中病毒会出现哪些症状（表现）呢？</strong><br>1)程序运行速度明显变慢甚至死机<br>2)出现莫名其妙的信息，比如没有用网络资源而网卡指示灯一直闪烁；插入U盘后，无法正常退出；提示一些不相干的话，发出一段音乐，产生特定的图像，鼠标自个儿在动，自动链接到一些陌生的网站<br>3)外部设备工作异常<br>4)程序运行出现不合理的结果</p>
-<h3 id="病毒能破坏硬件吗？"><a href="#病毒能破坏硬件吗？" class="headerlink" title="病毒能破坏硬件吗？"></a>病毒能破坏硬件吗？</h3><p><strong>病毒本身就是程序，所以它不可能直接破坏硬件。但它可以通过破坏程序导致硬件不能正常工作</strong></p>
-<h3 id="病毒的传播介质"><a href="#病毒的传播介质" class="headerlink" title="病毒的传播介质"></a>病毒的传播介质</h3><p>1)U盘等可移动存储设备<br>2)随着网络的飞速发展，网络成为最主要的病毒传播途径</p>
-<p><strong>来个笑话</strong></p>
-<blockquote>
-<p>某天表妹和她的表哥在一起聊天，她们聊到了关于电脑的话题<br>表妹：表哥，去年我买了一台电脑。<br>表哥：怎么都没看你用过？<br>表妹：刚买就中病毒了<br>表哥：你没有叫人修理吗？<br>表妹得意地说：一年都不开机，病毒还不被饿死！</p>
-</blockquote>
-<p>  蛮好笑的，让我想起我小学时候，我的一同学作文，内容跟这笑话差不多，说的是每到夏天蚊子特别的多，蚊子盯地他很难受，于是他灵机一动，拿出了酒。他爸妈回来看着他拿着酒瓶，整个人迷迷糊糊的，就焦急地问他：你为什么喝酒啊？他说：”我把自己灌醉，这样蚊子吸我的血，就会跟着醉，他们醉倒了就不会盯我了”，把他爸妈都逗乐了。跟上面这笑话真是”英雄所见略同”啊</p>
-<h3 id="病毒的防治"><a href="#病毒的防治" class="headerlink" title="病毒的防治"></a>病毒的防治</h3><p><strong>每台计算机应安装杀毒软件及防火墙，并注意及时升级杀毒软件，以防止或及时发现计算机病毒的入侵一旦发现计算机系统染上病毒后，要立即使用杀毒软件进行清除。对于外来数据要严格检查，对重要数据记得做好备份</strong><br><em><strong>特别注意：</strong></em><br>观察任务栏上杀毒软件图标异常，杀毒软件检测没有病毒不一定真的没有病毒。如果怀疑有病毒，可以换个杀毒软件试试。磁盘格式化可以删除所有文件，包括病毒，这是一种玉石俱焚的方法</p>
-<p>下面给出一个防蠕虫配置</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ip access-list extended worm</span><br><span class="line">deny tcp any any eq 135</span><br><span class="line">deny tcp any any eq 137</span><br><span class="line">deny tcp any any eq 138</span><br><span class="line">deny tcp any any eq 139</span><br><span class="line">deny udp any any eq 135</span><br><span class="line">deny tcp any any eq 445</span><br><span class="line">deny udp any any eq 445</span><br><span class="line">permit ip any any </span><br><span class="line">interface GigabitEthernet 2&#x2F;1</span><br><span class="line">ip access-group worm in</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>网络安全</tag>
-        <tag>病毒</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>道德经原文</title>
     <url>/2020/03/28/%E9%81%93%E5%BE%B7%E7%BB%8F%E5%8E%9F%E6%96%87/</url>
     <content><![CDATA[<h3 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h3><blockquote>
@@ -2448,6 +2418,50 @@
       <tags>
         <tag>老子</tag>
         <tag>道家</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>病毒浅谈</title>
+    <url>/2020/02/17/%E7%97%85%E6%AF%92%E6%B5%85%E8%B0%88/</url>
+    <content><![CDATA[<p><strong>病毒在生物上的危害就不多说，最近的COVID-19病毒就知道其可怕。本篇主要来谈谈计算机的病毒</strong></p>
+<h2 id="计算机病毒"><a href="#计算机病毒" class="headerlink" title="计算机病毒"></a>计算机病毒</h2><h3 id="什么是计算机病毒？"><a href="#什么是计算机病毒？" class="headerlink" title="什么是计算机病毒？"></a>什么是计算机病毒？</h3><p><strong>计算机病毒简单来讲，是一种人为制造，在计算机运行中对其信息或系统起破坏作用的程序</strong></p>
+<a id="more"></a>
+
+<h3 id="计算机病毒的特点是什么？"><a href="#计算机病毒的特点是什么？" class="headerlink" title="计算机病毒的特点是什么？"></a>计算机病毒的特点是什么？</h3><p><em><strong>破坏性、传染性、寄生性、潜伏性、隐蔽性</strong></em><br>不多解释，从字面意思，看就是类似于生物病毒</p>
+<h3 id="计算机中病毒的表现形式"><a href="#计算机中病毒的表现形式" class="headerlink" title="计算机中病毒的表现形式"></a>计算机中病毒的表现形式</h3><p><strong>计算机中病毒会出现哪些症状（表现）呢？</strong><br>1)程序运行速度明显变慢甚至死机<br>2)出现莫名其妙的信息，比如没有用网络资源而网卡指示灯一直闪烁；插入U盘后，无法正常退出；提示一些不相干的话，发出一段音乐，产生特定的图像，鼠标自个儿在动，自动链接到一些陌生的网站<br>3)外部设备工作异常<br>4)程序运行出现不合理的结果</p>
+<h3 id="病毒能破坏硬件吗？"><a href="#病毒能破坏硬件吗？" class="headerlink" title="病毒能破坏硬件吗？"></a>病毒能破坏硬件吗？</h3><p><strong>病毒本身就是程序，所以它不可能直接破坏硬件。但它可以通过破坏程序导致硬件不能正常工作</strong></p>
+<h3 id="病毒的传播介质"><a href="#病毒的传播介质" class="headerlink" title="病毒的传播介质"></a>病毒的传播介质</h3><p>1)U盘等可移动存储设备<br>2)随着网络的飞速发展，网络成为最主要的病毒传播途径</p>
+<p><strong>来个笑话</strong></p>
+<blockquote>
+<p>某天表妹和她的表哥在一起聊天，她们聊到了关于电脑的话题<br>表妹：表哥，去年我买了一台电脑。<br>表哥：怎么都没看你用过？<br>表妹：刚买就中病毒了<br>表哥：你没有叫人修理吗？<br>表妹得意地说：一年都不开机，病毒还不被饿死！</p>
+</blockquote>
+<p>  蛮好笑的，让我想起我小学时候，我的一同学作文，内容跟这笑话差不多，说的是每到夏天蚊子特别的多，蚊子盯地他很难受，于是他灵机一动，拿出了酒。他爸妈回来看着他拿着酒瓶，整个人迷迷糊糊的，就焦急地问他：你为什么喝酒啊？他说：”我把自己灌醉，这样蚊子吸我的血，就会跟着醉，他们醉倒了就不会盯我了”，把他爸妈都逗乐了。跟上面这笑话真是”英雄所见略同”啊</p>
+<h3 id="病毒的防治"><a href="#病毒的防治" class="headerlink" title="病毒的防治"></a>病毒的防治</h3><p><strong>每台计算机应安装杀毒软件及防火墙，并注意及时升级杀毒软件，以防止或及时发现计算机病毒的入侵一旦发现计算机系统染上病毒后，要立即使用杀毒软件进行清除。对于外来数据要严格检查，对重要数据记得做好备份</strong><br><em><strong>特别注意：</strong></em><br>观察任务栏上杀毒软件图标异常，杀毒软件检测没有病毒不一定真的没有病毒。如果怀疑有病毒，可以换个杀毒软件试试。磁盘格式化可以删除所有文件，包括病毒，这是一种玉石俱焚的方法</p>
+<p>下面给出一个防蠕虫配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ip access-list extended worm</span><br><span class="line">deny tcp any any eq 135</span><br><span class="line">deny tcp any any eq 137</span><br><span class="line">deny tcp any any eq 138</span><br><span class="line">deny tcp any any eq 139</span><br><span class="line">deny udp any any eq 135</span><br><span class="line">deny tcp any any eq 445</span><br><span class="line">deny udp any any eq 445</span><br><span class="line">permit ip any any </span><br><span class="line">interface GigabitEthernet 2&#x2F;1</span><br><span class="line">ip access-group worm in</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>网络安全</tag>
+        <tag>病毒</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>电影推荐</title>
+    <url>/2021/05/09/%E7%94%B5%E5%BD%B1%E6%8E%A8%E8%8D%90/</url>
+    <content><![CDATA[<p><strong>作为一个阅片无数的过来人，七七八八的电影看过很多，好的不少，烂的也多。因此，想推荐一些我喜欢的电影。相比电视剧，我偏好电影，因为电影以较短时间，呈现给我们精彩的内容，节省时间同时，给我们带来不错的观影体验（仅限好电影）。电影有很多种类，喜剧、恐怖、惊悚、科幻、战争、历史等。也分地区，不同地区电影也有其不同特点。在此，我想把我看过的，自认为觉得不错的电影分享出来，当然有些好电影，我没看过的，就不会列出来。所有影片只列名字，不作影评，我觉得自己写不好或者写的很烂，反而影响推荐，我觉得不同电影，不同人有不同观感，我不能融入我的主观色彩。</strong></p>
+<p><strong>顺序无先后，想起哪部写哪部</strong></p>
+<h3 id="内地"><a href="#内地" class="headerlink" title="内地"></a>内地</h3><p><strong>《蓝风筝》、《活着》、《霸王别姬》、《茶馆》、《鬼子来了》、《阳光灿烂的日子》、《让子弹飞》、《盲山》、《盲井》、《过年》、《甲方乙方》、《大腕》、《疯狂的石头》、《疯狂的赛车》、《杀生》、《斗牛》、《Hello，树先生》、《落叶归根》、《人在囧途》、《我不是药神》、《夏洛特烦恼》、《无名之辈》、《三毛从军记》、《无人区》、《天下无贼》、《背靠背，脸对脸》、《黑炮事件》</strong></p>
+<h3 id="港片"><a href="#港片" class="headerlink" title="港片"></a>港片</h3><p><strong>《监狱风云》、《英雄本色》、《纵情四海》、《黑社会》、《黑社会2：以和为贵》、《黑狱断肠歌之砌生猪肉》、《至尊三十六计之偷天换日》、《火烧岛》、《跛豪》、《五亿探长雷洛传》、《黑金》、《门徒》、《无间道三部曲》、《金钱帝国》、《机动部队》、《警察故事》、《A计划》、《快餐车》、《奇迹》、《城市猎人》、《杀破狼》、《东邪西毒》、《东成西就》、《新龙门客栈1992》、《赌神》、《赌神2》、《棋王》、《无双》、《黄飞鸿》、《方世玉》、《太极张三丰》、《精武英雄》、《导火线》、《笑林小子2：新乌龙院》、《新少林五祖》、《山村老尸》、《三五成群》、《人肉叉烧包黄秋生版》、《打蛇》、《狗咬狗》、《垂帘听政》、《倩女幽魂三部曲》、《半斤八两》、《摩登保镖》、《鬼马双星》、《卖身契》、《鸡同鸭讲》、《抢钱夫妻》、《钱作怪》、《福星系列》、《审死官》、《九品芝麻官》、《喜剧之王》、《大话西游周星驰版》、《功夫》、《少林足球》、《食神》、《逃学威龙》、《国产凌凌漆》、《鹿鼎记》、《家有喜事》、《回魂夜》、《情圣》、《整蛊专家》、《百变星君》、《武状元苏乞儿》</strong></p>
+<h3 id="国外"><a href="#国外" class="headerlink" title="国外"></a>国外</h3><p><strong>《肖申克的救赎》、《猫鼠游戏》、《泰坦尼克号》、《盗梦空间》、《西西里的美丽传说》、《末代皇帝》、《何以为家》、《小偷家族》、《阿甘正传》、《看不见的客人》、《我是谁：没有绝对安全的系统》、《非常嫌疑犯》、《两杆大烟枪》、《偷拐抢骗》、《闪灵》、《恐怖游轮》、《楚门的世界》、《教父》、《这个杀手不太冷》、《辛德勒的名单》、《蝙蝠侠：黑暗骑士》、《小丑》、《复仇者联盟》、《银河护卫队》、《死侍》、《X战警》、《变形金刚》、《星球大战》、《终结者》、《碟中谍》、《黑客帝国》、《谍影重重》、《生化危机》、《古墓丽影》、《木乃伊》、《加勒比海盗》、《哈利波特》、《指环王》、《霍比特人》、《阿凡达》、《死神来了》、《速度与激情》、《死亡飞车》、《电锯惊魂》、《三傻大闹宝莱坞》、《摔跤吧，爸爸》、《寄生虫》、《恶魔的艺术2：邪降》、《风雨哈佛路》、《千与千寻》、《菊次郎的夏天》、《热血高校》、《突袭》、《突袭2：暴徒》、《摩登时代》、《城市之光》、《大独裁者》、《淘金记》、《马戏团》、《憨豆的黄金周》、《死寂》、《咒怨》、《孤儿怨》</strong></p>
+]]></content>
+      <categories>
+        <category>分享</category>
+      </categories>
+      <tags>
+        <tag>电影</tag>
       </tags>
   </entry>
 </search>
