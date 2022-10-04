@@ -105,7 +105,7 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://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@github.com/31278792/31278792.github.io.git
+  repo: https://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@github.com/31278792/31278792.github.io.git
   branch: master
 
 symbols_count_time:
