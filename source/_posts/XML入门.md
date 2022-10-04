@@ -7,7 +7,7 @@ tags:
 categories: JavaWeb
 password: 31278792
 ---
-## XML(eXtensible Markup Language)
+## XML(Extensible Markup Language)
 
 ### XML是什么
 **XML是W3C组织发布的技术，XML类似于HTML，大家知道HTML是一种超文本标记语言，其实XML也是一种标记语言，根据全称翻译它是可扩展标记语言。这里的可扩展是它的特性，HTML的标签是固定的，而XML可以自己定义标签，可以定义中文标签。**

@@ -180,9 +180,9 @@ SELECT * FROM ab2;//要求两张表结果集完全相同（即要查询的列类
 #### 连接查询
 
 ##### 连接查询之内连接
-方言：`SELECT * FROM 表1 别名1,表2 别名2 WHERE 别名1.xx=别名2.xx`
-标准：`SELECT * FROM 表1 别名1 INNER JOIN 表2 别名2 ON 别名1.xx=别名2.xx`
-自然：`SELECT * FROM 表1 别名1 NATURAL JOIN 表2 别名2`
+方言：`SELECT * FROM 表1 别名1,表2 别名2 WHERE 别名1.xx=别名2.xx`  
+标准：`SELECT * FROM 表1 别名1 INNER JOIN 表2 别名2 ON 别名1.xx=别名2.xx`  
+自然：`SELECT * FROM 表1 别名1 NATURAL JOIN 表2 别名2`  
 
 ##### 连接查询之外连接
 左外连接：外连接一主一次，左外部左表为主，主表所有记录无论满足条件与否，都打印出来，不满足字段内容为null
